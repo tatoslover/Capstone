@@ -133,11 +133,11 @@ style: formatting changes
 ## Implementation Phases
 
 ### Phase 1: Foundation
-- [] Set up project repositories and CI/CD
-- [] Configure PostgreSQL database on Railway
-- [] Create basic Express.js server with database connection
-- [] Set up Next.js frontend with Vercel deployment
-- [] Implement basic user CRUD operations
+- [ ] Set up project repositories and CI/CD
+- [ ] Configure PostgreSQL database on Railway
+- [ ] Create basic Express.js server with database connection
+- [ ] Set up Next.js frontend with Vercel deployment
+- [ ] Implement basic user CRUD operations
 
 ### Phase 2: Core Features
 - [ ] Implement favourites CRUD system
