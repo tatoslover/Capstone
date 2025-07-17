@@ -38,18 +38,19 @@ Frontend runs on `http://localhost:3000`
 
 ### Backend (Railway)
 1. Connect GitHub repo to Railway
-2. Railway will automatically use `railway.json` config
+2. In Railway dashboard, set:
+   - **Root Directory**: `backend`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
 3. Set environment variables if needed
 
 ### Frontend (Vercel)
 1. Connect GitHub repo to Vercel
-2. Vercel will automatically use `vercel.json` config
+2. In Vercel project settings, set:
+   - **Root Directory**: `frontend`
+   - **Build Command**: `npm run build`
+   - **Install Command**: `npm install`
 3. Set environment variable: `NEXT_PUBLIC_API_URL=https://your-backend-url.railway.app`
-
-### Config Files
-- `vercel.json` - Configures Vercel to deploy frontend folder
-- `railway.json` - Configures Railway to deploy backend folder
-- `Procfile` - Backup Railway configuration
 
 ## Current Status
 
