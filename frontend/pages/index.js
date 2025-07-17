@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import Layout from "../components/Layout/Layout";
 import UserSelector from "../components/User/UserSelector";
 import Loading from "../components/UI/Loading";
@@ -316,7 +317,7 @@ export default function Home() {
             <p style={{ marginBottom: "1.5rem", color: "#6c757d" }}>
               Find specific Magic cards and learn about their abilities
             </p>
-            <a
+            <Link
               href="/search"
               style={{
                 display: "inline-block",
@@ -332,7 +333,7 @@ export default function Home() {
               onMouseOut={(e) => (e.target.style.backgroundColor = "#28a745")}
             >
               Start Searching
-            </a>
+            </Link>
           </div>
 
           <div className="card text-center">
@@ -345,7 +346,7 @@ export default function Home() {
                 : `Create a profile to save your favorite cards`}
             </p>
             {currentUser ? (
-              <a
+              <Link
                 href="/favorites"
                 style={{
                   display: "inline-block",
@@ -363,7 +364,7 @@ export default function Home() {
                 onMouseOut={(e) => (e.target.style.backgroundColor = "#ffc107")}
               >
                 View Favorites
-              </a>
+              </Link>
             ) : (
               <button
                 onClick={() =>
