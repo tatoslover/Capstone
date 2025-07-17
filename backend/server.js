@@ -131,6 +131,116 @@ app.delete("/api/messages/:id", async (req, res) => {
   }
 });
 
+// User CRUD Operations
+
+// CREATE - Add a new user
+app.post("/api/users", async (req, res) => {
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ error: "Username is required" });
+  }
+
+  try {
+    const result = await pool.query(
+      "INSERT INTO users (username) VALUES ($1) RETURNING *",
+      [username],
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    if (error.code === "23505") {
+      // Unique constraint violation
+      return res.status(400).json({ error: "Username already exists" });
+    }
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// READ - Get all users
+app.get("/api/users", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT id, username, created_at FROM users ORDER BY created_at DESC",
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// READ - Get a specific user by ID
+app.get("/api/users/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    const result = await pool.query(
+      "SELECT id, username, created_at FROM users WHERE id = $1",
+      [id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// UPDATE - Update a user by ID
+app.put("/api/users/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ error: "Username is required" });
+  }
+
+  try {
+    const result = await pool.query(
+      "UPDATE users SET username = $1 WHERE id = $2 RETURNING id, username, created_at",
+      [username, id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    if (error.code === "23505") {
+      return res.status(400).json({ error: "Username already exists" });
+    }
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// DELETE - Delete a user by ID
+app.delete("/api/users/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    const result = await pool.query(
+      "DELETE FROM users WHERE id = $1 RETURNING id, username",
+      [id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ message: "User deleted", deleted: result.rows[0] });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
