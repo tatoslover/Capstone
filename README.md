@@ -38,11 +38,11 @@ Frontend runs on `http://localhost:3000`
 
 ### Backend (Railway)
 1. Connect GitHub repo to Railway
-2. In Railway dashboard, set:
-   - **Root Directory**: `backend`
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
-3. Set environment variables if needed
+2. Railway will auto-detect Node.js from root package.json
+3. The root package.json will automatically run backend commands
+4. Set environment variables if needed
+
+**Note**: The root package.json handles monorepo deployment by running backend commands
 
 ### Frontend (Vercel)
 1. Connect GitHub repo to Vercel
