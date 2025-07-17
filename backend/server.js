@@ -241,6 +241,94 @@ app.delete("/api/users/:id", async (req, res) => {
   }
 });
 
+// Scryfall API Integration
+
+// Search cards via Scryfall API
+app.get("/api/cards/search", async (req, res) => {
+  const { q } = req.query;
+
+  if (!q) {
+    return res.status(400).json({ error: "Search query (q) is required" });
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(q)}`,
+    );
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return res.json({ data: [], has_more: false, total_cards: 0 });
+      }
+      throw new Error(`Scryfall API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error searching cards:", error);
+    res.status(500).json({ error: "Failed to search cards" });
+  }
+});
+
+// Get random cards by ability type
+app.get("/api/cards/random", async (req, res) => {
+  const { ability } = req.query;
+
+  let query = "is:permanent";
+  if (ability) {
+    query += ` o:${ability}`;
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(query)}&order=random`,
+    );
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return res.json({ data: [], has_more: false, total_cards: 0 });
+      }
+      throw new Error(`Scryfall API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Return only first 10 random cards
+    const limitedData = {
+      ...data,
+      data: data.data ? data.data.slice(0, 10) : [],
+    };
+
+    res.json(limitedData);
+  } catch (error) {
+    console.error("Error getting random cards:", error);
+    res.status(500).json({ error: "Failed to get random cards" });
+  }
+});
+
+// Get specific card by Scryfall ID
+app.get("/api/cards/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const response = await fetch(`https://api.scryfall.com/cards/${id}`);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return res.status(404).json({ error: "Card not found" });
+      }
+      throw new Error(`Scryfall API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching card:", error);
+    res.status(500).json({ error: "Failed to fetch card" });
+  }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
