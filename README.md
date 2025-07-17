@@ -38,26 +38,34 @@ Frontend runs on `http://localhost:3000`
 
 ### Backend (Railway)
 1. Connect GitHub repo to Railway
-2. Railway will auto-detect Node.js from root package.json
-3. The root package.json will automatically run backend commands
-4. Set environment variables if needed
-
-**Note**: The root package.json handles monorepo deployment by running backend commands
+2. In Railway project settings, set:
+   - **Root Directory**: `backend`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+3. Set environment variables if needed
 
 ### Frontend (Vercel)
 1. Connect GitHub repo to Vercel
 2. In Vercel project settings, set:
    - **Root Directory**: `frontend`
-   - **Build Command**: `npm run build`
-   - **Install Command**: `npm install`
-3. Set environment variable: `NEXT_PUBLIC_API_URL=https://your-backend-url.railway.app`
+   - **Framework Preset**: Next.js (auto-detect)
+   - **Build Command**: `npm run build` (auto-detect)
+   - **Install Command**: `npm install` (auto-detect)
+3. Set environment variable: `NEXT_PUBLIC_API_URL=https://plansewalker-s-primer-production.up.railway.app`
+
+**Note**: Both platforms require manual configuration to use subfolders in monorepo setup.
+
+## Deployment URLs
+
+🚀 **Backend**: https://plansewalker-s-primer-production.up.railway.app
+🚀 **Frontend**: https://plansewalker-s-primer.vercel.app
 
 ## Current Status
 
 ✅ Basic Express.js backend with CRUD
-✅ Basic Next.js frontend
+✅ Basic Next.js frontend  
 ✅ API integration between frontend/backend
-✅ Ready for deployment
+✅ Successfully deployed on Railway & Vercel
 
 ## Next Steps
 
