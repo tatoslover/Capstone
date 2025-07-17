@@ -1,14 +1,22 @@
-import { useState } from 'react';
-import Head from 'next/head';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
 
 export default function Layout({ children, title = "Plansewalker's Primer" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const isActive = (path) => router.pathname === path;
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name="description" content="MTG Rulebook for Beginners - Quick reference for Magic: The Gathering abilities and keywords" />
+        <meta
+          name="description"
+          content="MTG Rulebook for Beginners - Quick reference for Magic: The Gathering abilities and keywords"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -18,24 +26,36 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
         <nav className="nav">
           <div className="container d-flex align-center justify-between">
             {/* Brand/Logo */}
-            <a href="/" className="nav-brand">
+            <Link href="/" className="nav-brand">
               ⚡ Plansewalker's Primer
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="nav-links d-none d-md-flex">
-              <a href="/" className="nav-link">
+              <Link
+                href="/"
+                className={`nav-link ${isActive("/") ? "active" : ""}`}
+              >
                 Home
-              </a>
-              <a href="/search" className="nav-link">
+              </Link>
+              <Link
+                href="/search"
+                className={`nav-link ${isActive("/search") ? "active" : ""}`}
+              >
                 Search Cards
-              </a>
-              <a href="/favorites" className="nav-link">
+              </Link>
+              <Link
+                href="/favorites"
+                className={`nav-link ${isActive("/favorites") ? "active" : ""}`}
+              >
                 My Favorites
-              </a>
-              <a href="/profile" className="nav-link">
+              </Link>
+              <Link
+                href="/profile"
+                className={`nav-link ${isActive("/profile") ? "active" : ""}`}
+              >
                 Profile
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -43,53 +63,62 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
               className="d-md-none btn-outline"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               style={{
-                padding: '0.5rem',
-                border: 'none',
-                background: 'transparent',
-                fontSize: '1.5rem'
+                padding: "0.5rem",
+                border: "none",
+                background: "transparent",
+                fontSize: "1.5rem",
               }}
             >
-              {isMenuOpen ? '✕' : '☰'}
+              {isMenuOpen ? "✕" : "☰"}
             </button>
           </div>
 
           {/* Mobile Navigation Menu */}
           {isMenuOpen && (
-            <div className="d-md-none" style={{
-              background: 'white',
-              borderTop: '1px solid #e9ecef',
-              padding: '1rem 0'
-            }}>
+            <div
+              className="d-md-none"
+              style={{
+                background: "white",
+                borderTop: "1px solid #e9ecef",
+                padding: "1rem 0",
+              }}
+            >
               <div className="container">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <a
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <Link
                     href="/"
-                    className="nav-link"
+                    className={`nav-link ${isActive("/") ? "active" : ""}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Home
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/search"
-                    className="nav-link"
+                    className={`nav-link ${isActive("/search") ? "active" : ""}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Search Cards
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/favorites"
-                    className="nav-link"
+                    className={`nav-link ${isActive("/favorites") ? "active" : ""}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     My Favorites
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/profile"
-                    className="nav-link"
+                    className={`nav-link ${isActive("/profile") ? "active" : ""}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Profile
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -97,30 +126,30 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
         </nav>
 
         {/* Main Content */}
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
 
         {/* Footer */}
-        <footer style={{
-          background: 'white',
-          borderTop: '1px solid #e9ecef',
-          padding: '2rem 0',
-          marginTop: '4rem',
-          textAlign: 'center',
-          color: '#6c757d'
-        }}>
+        <footer
+          style={{
+            background: "white",
+            borderTop: "1px solid #e9ecef",
+            padding: "2rem 0",
+            marginTop: "4rem",
+            textAlign: "center",
+            color: "#6c757d",
+          }}
+        >
           <div className="container">
-            <p style={{ marginBottom: '0.5rem' }}>
+            <p style={{ marginBottom: "0.5rem" }}>
               Made for Magic: The Gathering beginners
             </p>
-            <p style={{ fontSize: '0.875rem', margin: 0 }}>
-              Card data provided by{' '}
+            <p style={{ fontSize: "0.875rem", margin: 0 }}>
+              Card data provided by{" "}
               <a
                 href="https://scryfall.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: '#007bff' }}
+                style={{ color: "#007bff" }}
               >
                 Scryfall
               </a>
