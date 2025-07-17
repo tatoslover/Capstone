@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const { pool, initTables } = require("./db");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,16 +10,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// In-memory storage for simple CRUD (will replace with database later)
-let messages = [
-  { id: 1, text: "Hello World!", timestamp: new Date().toISOString() },
-  {
-    id: 2,
-    text: "Welcome to Plansewalker's Primer!",
-    timestamp: new Date().toISOString(),
-  },
-];
-let nextId = 3;
+// Initialize database tables on startup
+initTables();
 
 // Routes
 
@@ -39,42 +32,60 @@ app.get("/health", (req, res) => {
 // CRUD Operations for Messages
 
 // CREATE - Add a new message
-app.post("/api/messages", (req, res) => {
+app.post("/api/messages", async (req, res) => {
   const { text } = req.body;
 
   if (!text) {
     return res.status(400).json({ error: "Text is required" });
   }
 
-  const newMessage = {
-    id: nextId++,
-    text,
-    timestamp: new Date().toISOString(),
-  };
-
-  messages.push(newMessage);
-  res.status(201).json(newMessage);
+  try {
+    const result = await pool.query(
+      "INSERT INTO messages (text) VALUES ($1) RETURNING *",
+      [text],
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error creating message:", error);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 // READ - Get all messages
-app.get("/api/messages", (req, res) => {
-  res.json(messages);
+app.get("/api/messages", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM messages ORDER BY created_at DESC",
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 // READ - Get a specific message by ID
-app.get("/api/messages/:id", (req, res) => {
+app.get("/api/messages/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const message = messages.find((m) => m.id === id);
 
-  if (!message) {
-    return res.status(404).json({ error: "Message not found" });
+  try {
+    const result = await pool.query("SELECT * FROM messages WHERE id = $1", [
+      id,
+    ]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching message:", error);
+    res.status(500).json({ error: "Database error" });
   }
-
-  res.json(message);
 });
 
 // UPDATE - Update a message by ID
-app.put("/api/messages/:id", (req, res) => {
+app.put("/api/messages/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { text } = req.body;
 
@@ -82,32 +93,42 @@ app.put("/api/messages/:id", (req, res) => {
     return res.status(400).json({ error: "Text is required" });
   }
 
-  const messageIndex = messages.findIndex((m) => m.id === id);
+  try {
+    const result = await pool.query(
+      "UPDATE messages SET text = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *",
+      [text, id],
+    );
 
-  if (messageIndex === -1) {
-    return res.status(404).json({ error: "Message not found" });
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating message:", error);
+    res.status(500).json({ error: "Database error" });
   }
-
-  messages[messageIndex] = {
-    ...messages[messageIndex],
-    text,
-    timestamp: new Date().toISOString(),
-  };
-
-  res.json(messages[messageIndex]);
 });
 
 // DELETE - Delete a message by ID
-app.delete("/api/messages/:id", (req, res) => {
+app.delete("/api/messages/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const messageIndex = messages.findIndex((m) => m.id === id);
 
-  if (messageIndex === -1) {
-    return res.status(404).json({ error: "Message not found" });
+  try {
+    const result = await pool.query(
+      "DELETE FROM messages WHERE id = $1 RETURNING *",
+      [id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    res.json({ message: "Message deleted", deleted: result.rows[0] });
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    res.status(500).json({ error: "Database error" });
   }
-
-  const deletedMessage = messages.splice(messageIndex, 1)[0];
-  res.json({ message: "Message deleted", deleted: deletedMessage });
 });
 
 // Error handling middleware
