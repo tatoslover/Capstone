@@ -1489,20 +1489,30 @@ export default function Home() {
             }}
           >
             {Object.entries(deckBuilding.deckTypes).map(
-              ([typeKey, deckType]) => (
-                <button
-                  key={typeKey}
-                  onClick={() =>
-                    setSelectedDeckType(
-                      selectedDeckType === typeKey ? null : typeKey,
-                    )
-                  }
-                  className={`section-button ${selectedDeckType === typeKey ? "active" : ""}`}
-                >
-                  <span style={{ fontSize: "1.5rem" }}>🏗️</span>
-                  <span>{deckType.name}</span>
-                </button>
-              ),
+              ([typeKey, deckType]) => {
+                const emojiMap = {
+                  aggro: "⚡",
+                  control: "🛡️",
+                  midrange: "⚖️",
+                  combo: "🔗",
+                };
+                return (
+                  <button
+                    key={typeKey}
+                    onClick={() =>
+                      setSelectedDeckType(
+                        selectedDeckType === typeKey ? null : typeKey,
+                      )
+                    }
+                    className={`section-button ${selectedDeckType === typeKey ? "active" : ""}`}
+                  >
+                    <span style={{ fontSize: "1.5rem" }}>
+                      {emojiMap[typeKey]}
+                    </span>
+                    <span>{deckType.name}</span>
+                  </button>
+                );
+              },
             )}
           </div>
 
@@ -1580,20 +1590,31 @@ export default function Home() {
               margin: "0 auto 2rem auto",
             }}
           >
-            {Object.entries(combatBasics.combatSteps).map(([stepKey, step]) => (
-              <button
-                key={stepKey}
-                onClick={() =>
-                  setSelectedCombatStep(
-                    selectedCombatStep === stepKey ? null : stepKey,
-                  )
-                }
-                className={`section-button ${selectedCombatStep === stepKey ? "active" : ""}`}
-              >
-                <span style={{ fontSize: "1.5rem" }}>⚔️</span>
-                <span>{step.name}</span>
-              </button>
-            ))}
+            {Object.entries(combatBasics.combatSteps).map(([stepKey, step]) => {
+              const emojiMap = {
+                beginningOfCombat: "🌅",
+                declareAttackers: "🏃",
+                declareBlockers: "🛡️",
+                combatDamage: "💥",
+                endOfCombat: "🏁",
+              };
+              return (
+                <button
+                  key={stepKey}
+                  onClick={() =>
+                    setSelectedCombatStep(
+                      selectedCombatStep === stepKey ? null : stepKey,
+                    )
+                  }
+                  className={`section-button ${selectedCombatStep === stepKey ? "active" : ""}`}
+                >
+                  <span style={{ fontSize: "1.5rem" }}>
+                    {emojiMap[stepKey]}
+                  </span>
+                  <span>{step.name}</span>
+                </button>
+              );
+            })}
           </div>
 
           {selectedCombatStep && (
