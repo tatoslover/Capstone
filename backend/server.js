@@ -18,7 +18,7 @@ initTables();
 // Hello World endpoint
 app.get("/", (req, res) => {
   res.json({
-    message: "Hello World from Plansewalker's Primer Backend!",
+    message: "Hello World from Planeswalker's Primer Backend!",
     status: "Server is running",
     timestamp: new Date().toISOString(),
   });

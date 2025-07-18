@@ -222,7 +222,7 @@ export default function SearchPage() {
   };
 
   return (
-    <Layout title="Search Cards - Plansewalker's Primer">
+    <Layout title="Search Cards - Planeswalker's Primer">
       <div className="container" style={{ padding: "2rem 1rem" }}>
         {/* Page Header */}
         <div className="text-center mb-3">
@@ -239,7 +239,7 @@ export default function SearchPage() {
         </div>
 
         {/* User Status */}
-        {currentUser ? (
+        {currentUser && (
           <div
             style={{
               background: "#e3f2fd",
@@ -255,25 +255,6 @@ export default function SearchPage() {
               <span style={{ marginLeft: "0.5rem" }}>
                 Click ⭐ on any card to save it to your favorites.
               </span>
-            </p>
-          </div>
-        ) : (
-          <div
-            style={{
-              background: "#fff3cd",
-              padding: "1rem",
-              borderRadius: "0.5rem",
-              marginBottom: "2rem",
-              border: "1px solid #ffeaa7",
-              textAlign: "center",
-            }}
-          >
-            <p style={{ margin: 0, color: "#856404" }}>
-              <strong>Tip:</strong>
-              <a href="/" style={{ color: "#007bff", marginLeft: "0.25rem" }}>
-                Create a profile
-              </a>{" "}
-              to save your favorite cards!
             </p>
           </div>
         )}
@@ -445,93 +426,7 @@ export default function SearchPage() {
             </>
           )}
 
-          {/* Welcome Message for New Visitors */}
-          {!hasSearched && !loading && (
-            <div
-              style={{
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                color: "white",
-                padding: "3rem 2rem",
-                borderRadius: "1rem",
-                textAlign: "center",
-                marginTop: "2rem",
-              }}
-            >
-              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🃏</div>
-              <h2 style={{ marginBottom: "1rem", color: "white" }}>
-                Ready to Explore Magic Cards?
-              </h2>
-              <p
-                style={{
-                  fontSize: "1.1rem",
-                  marginBottom: "2rem",
-                  opacity: 0.9,
-                  maxWidth: "600px",
-                  margin: "0 auto 2rem auto",
-                }}
-              >
-                Search through thousands of Magic: The Gathering cards. Find
-                cards by name, learn about abilities, or discover new
-                strategies!
-              </p>
 
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                  gap: "1rem",
-                  maxWidth: "600px",
-                  margin: "0 auto",
-                }}
-              >
-                <button
-                  onClick={() => handleSearch("flying")}
-                  style={{
-                    background: "rgba(255,255,255,0.2)",
-                    border: "1px solid rgba(255,255,255,0.3)",
-                    color: "white",
-                    padding: "0.75rem",
-                    borderRadius: "0.5rem",
-                    cursor: "pointer",
-                    fontSize: "0.9rem",
-                    fontWeight: "500",
-                  }}
-                >
-                  ✈️ Cards with Flying
-                </button>
-                <button
-                  onClick={() => handleSearch("dragon")}
-                  style={{
-                    background: "rgba(255,255,255,0.2)",
-                    border: "1px solid rgba(255,255,255,0.3)",
-                    color: "white",
-                    padding: "0.75rem",
-                    borderRadius: "0.5rem",
-                    cursor: "pointer",
-                    fontSize: "0.9rem",
-                    fontWeight: "500",
-                  }}
-                >
-                  🐉 Find Dragons
-                </button>
-                <button
-                  onClick={() => handleSearch("lightning")}
-                  style={{
-                    background: "rgba(255,255,255,0.2)",
-                    border: "1px solid rgba(255,255,255,0.3)",
-                    color: "white",
-                    padding: "0.75rem",
-                    borderRadius: "0.5rem",
-                    cursor: "pointer",
-                    fontSize: "0.9rem",
-                    fontWeight: "500",
-                  }}
-                >
-                  ⚡ Lightning Spells
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </Layout>

@@ -176,7 +176,7 @@ export default function FavoritesPage() {
   // Redirect to home if no user
   if (!loading && !currentUser) {
     return (
-      <Layout title="Favorites - Plansewalker's Primer">
+      <Layout title="Favorites - Planeswalker's Primer">
         <div className="container" style={{ padding: '2rem 1rem' }}>
           <div style={{
             textAlign: 'center',
@@ -233,7 +233,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <Layout title="My Favorites - Plansewalker's Primer">
+    <Layout title="My Favorites - Planeswalker's Primer">
       <div className="container" style={{ padding: '2rem 1rem' }}>
         {/* Page Header */}
         <div className="text-center mb-3">
