@@ -3,7 +3,9 @@ import Link from "next/link";
 import Layout from "../components/Layout/Layout";
 import UserSelector from "../components/User/UserSelector";
 import Loading from "../components/UI/Loading";
-import { MechanicsList } from "../components/Mechanics";
+
+import { FilteredMechanicsList } from "../components/Mechanics";
+import { CardAnatomySection } from "../components/CardAnatomy";
 import gameOverview from "../data/gameOverview.json";
 import colors from "../data/colors.json";
 import cardTypes from "../data/cardTypes.json";
@@ -16,7 +18,7 @@ import cardAnatomy from "../data/cardAnatomy.json";
 export default function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [selectedMechanic, setSelectedMechanic] = useState(null);
-  const [completedSteps, setCompletedSteps] = useState([]);
+
   const [showQuickReference, setShowQuickReference] = useState(false);
   const [activeQuickRefSection, setActiveQuickRefSection] = useState(null);
 
@@ -49,30 +51,12 @@ export default function Home() {
 
   const [selectedPhase, setSelectedPhase] = useState(null);
   const [selectedGameMode, setSelectedGameMode] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedCardType, setSelectedCardType] = useState(null);
 
-  // Load completed learning steps from localStorage
-  useEffect(() => {
-    const savedSteps = localStorage.getItem("completedLearningSteps");
-    if (savedSteps) {
-      try {
-        setCompletedSteps(JSON.parse(savedSteps));
-      } catch (e) {
-        localStorage.removeItem("completedLearningSteps");
-      }
-    }
-  }, []);
-
-  const toggleLearningStep = (stepNumber) => {
-    const newCompletedSteps = completedSteps.includes(stepNumber)
-      ? completedSteps.filter((step) => step !== stepNumber)
-      : [...completedSteps, stepNumber];
-
-    setCompletedSteps(newCompletedSteps);
-    localStorage.setItem(
-      "completedLearningSteps",
-      JSON.stringify(newCompletedSteps),
-    );
-  };
+  const [selectedWinCondition, setSelectedWinCondition] = useState(null);
+  const [selectedDeckType, setSelectedDeckType] = useState(null);
+  const [selectedCombatStep, setSelectedCombatStep] = useState(null);
 
   const toggleQuickReference = () => {
     setShowQuickReference(!showQuickReference);
@@ -294,14 +278,6 @@ export default function Home() {
         </div>
       ),
     },
-  };
-
-  const handlePhaseClick = (phase) => {
-    setSelectedPhase(selectedPhase === phase ? null : phase);
-  };
-
-  const handleGameModeClick = (mode) => {
-    setSelectedGameMode(selectedGameMode === mode ? null : mode);
   };
 
   const gameModeInfo = {
@@ -631,13 +607,22 @@ export default function Home() {
               {gameOverview.introduction.tagline}
             </p>
             <p style={{ marginBottom: "1rem" }}>
-              {gameOverview.introduction.description}
+              {gameOverview.introduction.description.replace(
+                /\[\d+\](\[\d+\])*/g,
+                "",
+              )}
             </p>
             <p style={{ marginBottom: "1rem" }}>
-              {gameOverview.coreGameplay.overview}
+              {gameOverview.coreGameplay.overview.replace(
+                /\[\d+\](\[\d+\])*/g,
+                "",
+              )}
             </p>
             <p style={{ marginBottom: "1.5rem" }}>
-              {gameOverview.coreGameplay.gameFlow}
+              {gameOverview.coreGameplay.gameFlow.replace(
+                /\[\d+\](\[\d+\])*/g,
+                "",
+              )}
             </p>
 
             {/* Game Basics */}
@@ -684,197 +669,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Interactive Learning Path */}
-            <div
-              style={{
-                background: "#343a40",
-                padding: "1.5rem",
-                borderRadius: "0.5rem",
-                border: "1px solid #495057",
-              }}
-            >
-              <h3
-                style={{
-                  color: "#ffffff",
-                  marginBottom: "1rem",
-                  textAlign: "center",
-                }}
-              >
-                Your Interactive Learning Journey
-              </h3>
-              <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-                <span style={{ color: "#adb5bd", fontSize: "0.9rem" }}>
-                  Click to mark steps as complete • Progress:{" "}
-                  {completedSteps.length}/{gameOverview.learningPath.length}
-                </span>
-                <div
-                  style={{
-                    width: "100%",
-                    height: "8px",
-                    background: "#495057",
-                    borderRadius: "4px",
-                    marginTop: "0.5rem",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: `${(completedSteps.length / gameOverview.learningPath.length) * 100}%`,
-                      height: "100%",
-                      background: "linear-gradient(90deg, #28a745, #20c997)",
-                      borderRadius: "4px",
-                      transition: "width 0.3s ease",
-                    }}
-                  />
-                </div>
-              </div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                  gap: "1rem",
-                }}
-              >
-                {gameOverview.learningPath.map((step, index) => {
-                  const isCompleted = completedSteps.includes(step.step);
-                  return (
-                    <div
-                      key={index}
-                      onClick={() => toggleLearningStep(step.step)}
-                      style={{
-                        padding: "1rem",
-                        background: isCompleted ? "#28a745" : "#495057",
-                        borderRadius: "0.375rem",
-                        border: `2px solid ${isCompleted ? "#20c997" : "#6c757d"}`,
-                        cursor: "pointer",
-                        transition: "all 0.2s ease",
-                        transform: isCompleted ? "scale(1.02)" : "scale(1)",
-                      }}
-                      onMouseOver={(e) => {
-                        if (!isCompleted) {
-                          e.currentTarget.style.backgroundColor = "#6c757d";
-                          e.currentTarget.style.transform = "scale(1.02)";
-                        }
-                      }}
-                      onMouseOut={(e) => {
-                        if (!isCompleted) {
-                          e.currentTarget.style.backgroundColor = "#495057";
-                          e.currentTarget.style.transform = "scale(1)";
-                        }
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "0.5rem",
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                            background: isCompleted ? "#ffffff" : "#6c757d",
-                            borderRadius: "50%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            marginRight: "0.5rem",
-                            color: isCompleted ? "#28a745" : "#ffffff",
-                            fontWeight: "bold",
-                            fontSize: "0.9rem",
-                          }}
-                        >
-                          {isCompleted ? "✓" : step.step}
-                        </div>
-                        <h4
-                          style={{
-                            color: "#ffffff",
-                            margin: "0",
-                            fontSize: "0.9rem",
-                          }}
-                        >
-                          {step.title}
-                        </h4>
-                      </div>
-                      <p
-                        style={{
-                          fontSize: "0.8rem",
-                          margin: "0",
-                          color: isCompleted ? "#f8f9fa" : "#dee2e6",
-                          opacity: isCompleted ? 0.9 : 1,
-                        }}
-                      >
-                        {step.description}
-                      </p>
-                      {isCompleted && (
-                        <div
-                          style={{
-                            marginTop: "0.5rem",
-                            padding: "0.25rem 0.5rem",
-                            background: "#ffffff",
-                            borderRadius: "0.25rem",
-                            color: "#28a745",
-                            fontSize: "0.7rem",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                          }}
-                        >
-                          COMPLETED ✓
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "1.5rem",
-                  padding: "1rem",
-                  background:
-                    completedSteps.length === gameOverview.learningPath.length
-                      ? "#28a745"
-                      : "#495057",
-                  borderRadius: "0.5rem",
-                  border: `2px solid ${completedSteps.length === gameOverview.learningPath.length ? "#20c997" : "#6c757d"}`,
-                }}
-              >
-                {completedSteps.length === gameOverview.learningPath.length ? (
-                  <div>
-                    <h4 style={{ color: "#ffffff", margin: "0 0 0.5rem 0" }}>
-                      🎉 Congratulations! Learning Path Complete!
-                    </h4>
-                    <p
-                      style={{
-                        color: "#f8f9fa",
-                        margin: "0",
-                        fontSize: "0.9rem",
-                      }}
-                    >
-                      You've mastered the basics of Magic: The Gathering!
-                    </p>
-                  </div>
-                ) : (
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      margin: "0",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    Keep going! You're{" "}
-                    {Math.round(
-                      (completedSteps.length /
-                        gameOverview.learningPath.length) *
-                        100,
-                    )}
-                    % through your learning journey.
-                  </p>
-                )}
-              </div>
-            </div>
           </div>
         </div>
 
@@ -893,108 +687,71 @@ export default function Home() {
             Learn about Magic's colour pie and what each colour represents
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
+              gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "700px",
+              margin: "0 auto 2rem auto",
             }}
           >
             {Object.entries(colors).map(([colorKey, colorData]) => (
-              <div
+              <button
                 key={colorKey}
+                onClick={() =>
+                  setSelectedColor(selectedColor === colorKey ? null : colorKey)
+                }
+                className={`section-button ${selectedColor === colorKey ? "active" : ""}`}
+              >
+                <span style={{ fontSize: "1.5rem" }}>{colorData.emoji}</span>
+                <span>{colorData.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {selectedColor && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
                 style={{
-                  padding: "1.5rem",
-                  background: "#495057",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #6c757d",
+                  marginBottom: "1rem",
+                  color: "#ffffff",
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>
-                  {colorData.emoji}
-                </div>
-                <h4
-                  style={{
-                    color: "#ffffff",
-                    marginBottom: "1rem",
-                    fontSize: "1.2rem",
-                  }}
-                >
-                  {colorData.name}
-                </h4>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.9rem",
-                    marginBottom: "1rem",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  {colorData.description}
+                {colors[selectedColor].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {colors[selectedColor].description}
                 </p>
                 <div style={{ marginBottom: "1rem" }}>
-                  <h5
-                    style={{
-                      color: "#ffffff",
-                      fontSize: "0.9rem",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Philosophy:
-                  </h5>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.8rem",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    {colorData.philosophy}
-                  </p>
+                  <strong style={{ color: "#ffffff" }}>Philosophy: </strong>
+                  <em style={{ color: "#adb5bd" }}>
+                    {colors[selectedColor].philosophy}
+                  </em>
                 </div>
                 <div style={{ marginBottom: "1rem" }}>
-                  <h5
-                    style={{
-                      color: "#ffffff",
-                      fontSize: "0.9rem",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Strengths:
-                  </h5>
-                  <div style={{ fontSize: "0.8rem", color: "#dee2e6" }}>
-                    {colorData.strengths.slice(0, 3).map((strength, index) => (
-                      <span key={index}>
-                        {strength}
-                        {index < 2 ? " • " : ""}
-                      </span>
-                    ))}
-                  </div>
+                  <strong style={{ color: "#ffffff" }}>Strengths: </strong>
+                  {colors[selectedColor].strengths.join(", ")}
                 </div>
                 <div>
-                  <h5
-                    style={{
-                      color: "#ffffff",
-                      fontSize: "0.9rem",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Key Mechanics:
-                  </h5>
-                  <div style={{ fontSize: "0.8rem", color: "#dee2e6" }}>
-                    {colorData.mechanics.slice(0, 3).map((mechanic, index) => (
-                      <span key={index}>
-                        {mechanic}
-                        {index < 2 ? " • " : ""}
-                      </span>
-                    ))}
-                  </div>
+                  <strong style={{ color: "#ffffff" }}>Key Mechanics: </strong>
+                  {colors[selectedColor].mechanics.join(", ")}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Card Types */}
@@ -1012,90 +769,73 @@ export default function Home() {
             Understand the different types of cards in Magic
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
+              margin: "0 auto 2rem auto",
             }}
           >
             {Object.entries(cardTypes).map(([typeKey, typeData]) => (
-              <div
+              <button
                 key={typeKey}
+                onClick={() =>
+                  setSelectedCardType(
+                    selectedCardType === typeKey ? null : typeKey,
+                  )
+                }
+                className={`section-button ${selectedCardType === typeKey ? "active" : ""}`}
+              >
+                <span style={{ fontSize: "1.5rem" }}>{typeData.icon}</span>
+                <span>{typeData.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {selectedCardType && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
                 style={{
-                  padding: "1.25rem",
-                  background: "#495057",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #6c757d",
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <span style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}>
-                    {typeData.icon}
-                  </span>
-                  <h4 style={{ color: "#ffffff", margin: "0" }}>
-                    {typeData.name}
-                  </h4>
-                </div>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.9rem",
-                    marginBottom: "1rem",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  {typeData.description}
+                {cardTypes[selectedCardType].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {cardTypes[selectedCardType].description}
                 </p>
-                <div style={{ marginBottom: "0.75rem" }}>
-                  <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                    Timing:{" "}
-                  </strong>
-                  <span style={{ color: "#adb5bd", fontSize: "0.85rem" }}>
-                    {typeData.timing}
-                  </span>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>Timing: </strong>
+                  {cardTypes[selectedCardType].timing}
                 </div>
-                <div style={{ marginBottom: "0.75rem" }}>
-                  <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                    Usage:{" "}
-                  </strong>
-                  <span style={{ color: "#adb5bd", fontSize: "0.85rem" }}>
-                    {typeData.usage}
-                  </span>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>Usage: </strong>
+                  {cardTypes[selectedCardType].usage}
                 </div>
-                {typeData.examples && (
+                {cardTypes[selectedCardType].examples && (
                   <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Examples:
-                    </strong>
-                    <div
-                      style={{
-                        color: "#dee2e6",
-                        fontSize: "0.8rem",
-                        marginTop: "0.25rem",
-                      }}
-                    >
-                      {typeData.examples.slice(0, 2).map((example, index) => (
-                        <span key={index}>
-                          {example}
-                          {index < 1 && typeData.examples.length > 1
-                            ? " • "
-                            : ""}
-                        </span>
-                      ))}
-                    </div>
+                    <strong style={{ color: "#ffffff" }}>Examples: </strong>
+                    {cardTypes[selectedCardType].examples.join(", ")}
                   </div>
                 )}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Turn Phases */}
@@ -1113,173 +853,83 @@ export default function Home() {
             Learn the structure of a Magic turn
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
               gap: "0.5rem",
               maxWidth: "600px",
-              margin: "0 auto",
+              margin: "0 auto 2rem auto",
             }}
           >
             <button
-              onClick={() => handlePhaseClick("beginning")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedPhase === "beginning" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "beginning" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "beginning") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "beginning") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedPhase(
+                  selectedPhase === "beginning" ? null : "beginning",
+                )
+              }
+              className={`section-button ${selectedPhase === "beginning" ? "active" : ""}`}
             >
-              Beginning
+              <span style={{ fontSize: "1.5rem" }}>🌅</span>
+              <span>Beginning</span>
             </button>
             <button
-              onClick={() => handlePhaseClick("main1")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "main1" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "main1" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "main1") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "main1") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "main1" ? null : "main1")
+              }
+              className={`section-button ${selectedPhase === "main1" ? "active" : ""}`}
             >
-              Main 1
+              <span style={{ fontSize: "1.5rem" }}>🏗️</span>
+              <span>Main 1</span>
             </button>
             <button
-              onClick={() => handlePhaseClick("combat")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "combat" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "combat" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "combat") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "combat") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "combat" ? null : "combat")
+              }
+              className={`section-button ${selectedPhase === "combat" ? "active" : ""}`}
             >
-              Combat
+              <span style={{ fontSize: "1.5rem" }}>⚔️</span>
+              <span>Combat</span>
             </button>
             <button
-              onClick={() => handlePhaseClick("main2")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "main2" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "main2" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "main2") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "main2") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "main2" ? null : "main2")
+              }
+              className={`section-button ${selectedPhase === "main2" ? "active" : ""}`}
             >
-              Main 2
+              <span style={{ fontSize: "1.5rem" }}>🏛️</span>
+              <span>Main 2</span>
             </button>
             <button
-              onClick={() => handlePhaseClick("ending")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "ending" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "ending" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "ending") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "ending") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "ending" ? null : "ending")
+              }
+              className={`section-button ${selectedPhase === "ending" ? "active" : ""}`}
             >
-              Ending
+              <span style={{ fontSize: "1.5rem" }}>🌙</span>
+              <span>Ending</span>
             </button>
           </div>
 
           {selectedPhase && (
             <div
+              className="section-content"
               style={{
-                marginTop: "2rem",
                 padding: "1.5rem",
                 background: "#495057",
                 borderRadius: "0.5rem",
                 border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
               }}
             >
-              <h3 style={{ marginBottom: "1rem", color: "#ffffff" }}>
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
                 {phaseInfo[selectedPhase].title}
               </h3>
               <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
@@ -1287,131 +937,16 @@ export default function Home() {
               </div>
             </div>
           )}
-
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "1rem",
-              color: "#adb5bd",
-              fontSize: "0.9rem",
-            }}
-          >
-            Click a phase to learn more
-          </div>
         </div>
 
         {/* Card Anatomy */}
-        <div className="card" style={{ marginBottom: "2rem" }}>
-          <h2 style={{ marginBottom: "1.5rem", textAlign: "center" }}>
-            {cardAnatomy.overview.title}
-          </h2>
-          <p
-            style={{
-              textAlign: "center",
-              marginBottom: "1.5rem",
-              color: "#adb5bd",
-            }}
-          >
-            {cardAnatomy.overview.description}
-          </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
-            }}
-          >
-            {Object.entries(cardAnatomy.cardParts).map(
-              ([partKey, partData]) => (
-                <div
-                  key={partKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "1rem",
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {partData.name}
-                  </h4>
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      Location:{" "}
-                    </strong>
-                    <span style={{ color: "#adb5bd", fontSize: "0.9rem" }}>
-                      {partData.location}
-                    </span>
-                  </div>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {partData.description}
-                  </p>
-                  {partData.examples && (
-                    <div>
-                      <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                        Examples:
-                      </strong>
-                      <ul
-                        style={{
-                          margin: "0.5rem 0 0 1rem",
-                          padding: "0",
-                          color: "#dee2e6",
-                          fontSize: "0.8rem",
-                        }}
-                      >
-                        {partData.examples.slice(0, 2).map((example, index) => (
-                          <li key={index} style={{ marginBottom: "0.25rem" }}>
-                            {example}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {partData.readingTips && (
-                    <div>
-                      <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                        Tips:
-                      </strong>
-                      <p
-                        style={{
-                          margin: "0.5rem 0 0 0",
-                          color: "#adb5bd",
-                          fontSize: "0.8rem",
-                          fontStyle: "italic",
-                        }}
-                      >
-                        {partData.readingTips[0]}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ),
-            )}
-          </div>
-        </div>
+        <CardAnatomySection cardAnatomyData={cardAnatomy} />
 
         {/* Mechanics Guide */}
-        <div className="card">
-          <MechanicsList
-            onMechanicSelect={handleMechanicSelect}
-            selectedMechanic={selectedMechanic}
-          />
-        </div>
+        <FilteredMechanicsList
+          onMechanicSelect={handleMechanicSelect}
+          selectedMechanic={selectedMechanic}
+        />
 
         {/* Game Modes */}
         <div className="card" style={{ marginBottom: "2rem" }}>
@@ -1428,6 +963,7 @@ export default function Home() {
             Discover different ways to play Magic
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
@@ -1437,165 +973,72 @@ export default function Home() {
             }}
           >
             <button
-              onClick={() => handleGameModeClick("rotating")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "rotating" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "rotating" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "rotating") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "rotating") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "rotating" ? null : "rotating",
+                )
+              }
+              className={`section-button ${selectedGameMode === "rotating" ? "active" : ""}`}
             >
-              🔁 Rotating
+              <span style={{ fontSize: "1.5rem" }}>🔁</span>
+              <span>Rotating</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("eternal")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "eternal" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "eternal" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "eternal") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "eternal") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "eternal" ? null : "eternal",
+                )
+              }
+              className={`section-button ${selectedGameMode === "eternal" ? "active" : ""}`}
             >
-              ♾️ Eternal
+              <span style={{ fontSize: "1.5rem" }}>♾️</span>
+              <span>Eternal</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("limited")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "limited" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "limited" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "limited") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "limited") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "limited" ? null : "limited",
+                )
+              }
+              className={`section-button ${selectedGameMode === "limited" ? "active" : ""}`}
             >
-              🧪 Limited
+              <span style={{ fontSize: "1.5rem" }}>🧪</span>
+              <span>Limited</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("multiplayer")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "multiplayer" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "multiplayer" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "multiplayer") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "multiplayer") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "multiplayer" ? null : "multiplayer",
+                )
+              }
+              className={`section-button ${selectedGameMode === "multiplayer" ? "active" : ""}`}
             >
-              🎮 Casual & Multiplayer
+              <span style={{ fontSize: "1.5rem" }}>🎮</span>
+              <span>Casual & Multiplayer</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("custom")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "custom" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "custom" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "custom") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "custom") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "custom" ? null : "custom",
+                )
+              }
+              className={`section-button ${selectedGameMode === "custom" ? "active" : ""}`}
             >
-              🛠️ Custom & House
+              <span style={{ fontSize: "1.5rem" }}>🛠️</span>
+              <span>Custom & House</span>
             </button>
           </div>
 
           {selectedGameMode && (
             <div
+              className="section-content"
               style={{
-                marginTop: "1rem",
                 padding: "1.5rem",
                 background: "#495057",
                 borderRadius: "0.5rem",
                 border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
               }}
             >
               <h3 style={{ marginBottom: "1rem", color: "#ffffff" }}>
@@ -1606,17 +1049,6 @@ export default function Home() {
               </div>
             </div>
           )}
-
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "1rem",
-              color: "#adb5bd",
-              fontSize: "0.9rem",
-            }}
-          >
-            Click a category to learn more
-          </div>
         </div>
 
         {/* Win Conditions */}
@@ -1633,176 +1065,111 @@ export default function Home() {
           >
             Learn the different ways to win a game of Magic
           </p>
-
-          {/* Primary Win Conditions */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Primary Win Conditions
-          </h3>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
               margin: "0 auto 2rem auto",
             }}
           >
-            {Object.entries(winConditions.primaryWinConditions).map(
-              ([conditionKey, condition]) => (
-                <div
-                  key={conditionKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <span style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}>
-                      {condition.emoji}
-                    </span>
-                    <h4
-                      style={{
-                        color: "#ffffff",
-                        margin: "0",
-                        fontSize: "1.1rem",
-                      }}
-                    >
-                      {condition.name}
-                    </h4>
-                  </div>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {condition.description}
-                  </p>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.85rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.3",
-                    }}
-                  >
-                    {condition.explanation}
-                  </p>
-                  {condition.tips && (
-                    <div>
-                      <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                        Tips:
-                      </strong>
-                      <ul
-                        style={{
-                          margin: "0.5rem 0 0 1rem",
-                          padding: "0",
-                          color: "#dee2e6",
-                          fontSize: "0.8rem",
-                        }}
-                      >
-                        {condition.tips.slice(0, 2).map((tip, index) => (
-                          <li key={index} style={{ marginBottom: "0.25rem" }}>
-                            {tip}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ),
-            )}
+            {Object.entries({
+              ...winConditions.primaryWinConditions,
+              ...winConditions.alternativeWinConditions,
+            }).map(([conditionKey, condition]) => (
+              <button
+                key={conditionKey}
+                onClick={() =>
+                  setSelectedWinCondition(
+                    selectedWinCondition === conditionKey ? null : conditionKey,
+                  )
+                }
+                className={`section-button ${selectedWinCondition === conditionKey ? "active" : ""}`}
+              >
+                <span style={{ fontSize: "1.5rem" }}>{condition.emoji}</span>
+                <span>{condition.name}</span>
+              </button>
+            ))}
           </div>
 
-          {/* Alternative Win Conditions */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Alternative Win Conditions
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
-              margin: "0 auto",
-            }}
-          >
-            {Object.entries(winConditions.alternativeWinConditions).map(
-              ([conditionKey, condition]) => (
-                <div
-                  key={conditionKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#343a40",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #495057",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <span style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}>
-                      {condition.emoji}
-                    </span>
-                    <h4
-                      style={{
-                        color: "#ffffff",
-                        margin: "0",
-                        fontSize: "1.1rem",
-                      }}
-                    >
-                      {condition.name}
-                    </h4>
+          {selectedWinCondition && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
+                {
+                  (
+                    winConditions.primaryWinConditions[selectedWinCondition] ||
+                    winConditions.alternativeWinConditions[selectedWinCondition]
+                  ).name
+                }
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {
+                    (
+                      winConditions.primaryWinConditions[
+                        selectedWinCondition
+                      ] ||
+                      winConditions.alternativeWinConditions[
+                        selectedWinCondition
+                      ]
+                    ).description
+                  }
+                </p>
+                <p style={{ marginBottom: "1rem", color: "#adb5bd" }}>
+                  {
+                    (
+                      winConditions.primaryWinConditions[
+                        selectedWinCondition
+                      ] ||
+                      winConditions.alternativeWinConditions[
+                        selectedWinCondition
+                      ]
+                    ).explanation
+                  }
+                </p>
+                {(
+                  winConditions.primaryWinConditions[selectedWinCondition] ||
+                  winConditions.alternativeWinConditions[selectedWinCondition]
+                ).tips && (
+                  <div>
+                    <strong style={{ color: "#ffffff" }}>Tips: </strong>
+                    <ul style={{ margin: "0.5rem 0 0 1rem", padding: "0" }}>
+                      {(
+                        winConditions.primaryWinConditions[
+                          selectedWinCondition
+                        ] ||
+                        winConditions.alternativeWinConditions[
+                          selectedWinCondition
+                        ]
+                      ).tips.map((tip, index) => (
+                        <li key={index} style={{ marginBottom: "0.25rem" }}>
+                          {tip}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {condition.description}
-                  </p>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.85rem",
-                      lineHeight: "1.3",
-                    }}
-                  >
-                    {condition.explanation}
-                  </p>
-                </div>
-              ),
-            )}
-          </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Deck Building Fundamentals */}
@@ -1820,241 +1187,92 @@ export default function Home() {
             Essential rules and principles for constructing your deck
           </p>
 
-          {/* Fundamental Rules */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Fundamental Rules
-          </h3>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
               margin: "0 auto 2rem auto",
-            }}
-          >
-            {Object.entries(deckBuilding.fundamentalRules).map(
-              ([ruleKey, rule]) => (
-                <div
-                  key={ruleKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "0.75rem",
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {rule.title}
-                  </h4>
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      Rule:{" "}
-                    </strong>
-                    <span style={{ color: "#dee2e6", fontSize: "0.9rem" }}>
-                      {rule.rule}
-                    </span>
-                  </div>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.85rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {rule.explanation}
-                  </p>
-                  <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Reasoning:{" "}
-                    </strong>
-                    <span style={{ color: "#dee2e6", fontSize: "0.85rem" }}>
-                      {rule.reasoning}
-                    </span>
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-
-          {/* Deck Building Steps */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Building Your First Deck
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto 2rem auto",
-            }}
-          >
-            {deckBuilding.deckBuildingSteps.map((step, index) => (
-              <div
-                key={index}
-                style={{
-                  padding: "1.25rem",
-                  background: "#343a40",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #495057",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      background: "#6c757d",
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: "0.75rem",
-                      color: "#ffffff",
-                      fontWeight: "bold",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    {step.step}
-                  </div>
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      margin: "0",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    {step.title}
-                  </h4>
-                </div>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.85rem",
-                    margin: "0",
-                    lineHeight: "1.3",
-                  }}
-                >
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Deck Types Overview */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Common Deck Types
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
             }}
           >
             {Object.entries(deckBuilding.deckTypes).map(
-              ([typeKey, deckType]) => (
-                <div
-                  key={typeKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "0.75rem",
-                      fontSize: "1.1rem",
-                    }}
+              ([typeKey, deckType]) => {
+                const emojiMap = {
+                  aggro: "⚡",
+                  control: "🛡️",
+                  midrange: "⚖️",
+                  combo: "🔗",
+                };
+                return (
+                  <button
+                    key={typeKey}
+                    onClick={() =>
+                      setSelectedDeckType(
+                        selectedDeckType === typeKey ? null : typeKey,
+                      )
+                    }
+                    className={`section-button ${selectedDeckType === typeKey ? "active" : ""}`}
                   >
-                    {deckType.name}
-                  </h4>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {deckType.strategy}
-                  </p>
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Key Features:
-                    </strong>
-                    <ul
-                      style={{
-                        margin: "0.5rem 0 0 1rem",
-                        padding: "0",
-                        color: "#adb5bd",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      {deckType.characteristics
-                        .slice(0, 3)
-                        .map((characteristic, index) => (
-                          <li key={index} style={{ marginBottom: "0.25rem" }}>
-                            {characteristic}
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Tip:{" "}
-                    </strong>
-                    <span
-                      style={{
-                        color: "#dee2e6",
-                        fontSize: "0.8rem",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      {deckType.tips}
+                    <span style={{ fontSize: "1.5rem" }}>
+                      {emojiMap[typeKey]}
                     </span>
-                  </div>
-                </div>
-              ),
+                    <span>{deckType.name}</span>
+                  </button>
+                );
+              },
             )}
           </div>
+
+          {selectedDeckType && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
+                {deckBuilding.deckTypes[selectedDeckType].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {deckBuilding.deckTypes[selectedDeckType].description}
+                </p>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>
+                    Key Characteristics:
+                  </strong>
+                  <ul style={{ margin: "0.5rem 0 0 1rem", padding: "0" }}>
+                    {deckBuilding.deckTypes[
+                      selectedDeckType
+                    ].characteristics.map((characteristic, index) => (
+                      <li key={index} style={{ marginBottom: "0.25rem" }}>
+                        {characteristic}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <strong style={{ color: "#ffffff" }}>Tip: </strong>
+                  <em style={{ color: "#adb5bd" }}>
+                    {deckBuilding.deckTypes[selectedDeckType].tips}
+                  </em>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Combat Basics */}
@@ -2072,250 +1290,82 @@ export default function Home() {
             {combatBasics.combatOverview.description}
           </p>
           <div
-            style={{
-              maxWidth: "800px",
-              margin: "0 auto 2rem auto",
-              padding: "1.5rem",
-              background: "#343a40",
-              borderRadius: "0.5rem",
-              border: "1px solid #495057",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{ color: "#dee2e6", fontSize: "1rem", lineHeight: "1.5" }}
-            >
-              {combatBasics.combatOverview.importance}
-            </p>
-          </div>
-
-          {/* Combat Steps */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Combat Steps in Detail
-          </h3>
-          <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
               margin: "0 auto 2rem auto",
             }}
           >
-            {Object.entries(combatBasics.combatSteps).map(([stepKey, step]) => (
-              <div
-                key={stepKey}
+            {Object.entries(combatBasics.combatSteps).map(([stepKey, step]) => {
+              const emojiMap = {
+                beginningOfCombat: "🌅",
+                declareAttackers: "🏃",
+                declareBlockers: "🛡️",
+                combatDamage: "💥",
+                endOfCombat: "🏁",
+              };
+              return (
+                <button
+                  key={stepKey}
+                  onClick={() =>
+                    setSelectedCombatStep(
+                      selectedCombatStep === stepKey ? null : stepKey,
+                    )
+                  }
+                  className={`section-button ${selectedCombatStep === stepKey ? "active" : ""}`}
+                >
+                  <span style={{ fontSize: "1.5rem" }}>
+                    {emojiMap[stepKey]}
+                  </span>
+                  <span>{step.name}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedCombatStep && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
                 style={{
-                  padding: "1.5rem",
-                  background: "#495057",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #6c757d",
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      background: "#6c757d",
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: "0.75rem",
-                      color: "#ffffff",
-                      fontWeight: "bold",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    {step.order}
-                  </div>
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      margin: "0",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    {step.name}
-                  </h4>
-                </div>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.9rem",
-                    marginBottom: "1rem",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  {step.description}
+                {combatBasics.combatSteps[selectedCombatStep].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {combatBasics.combatSteps[selectedCombatStep].description}
                 </p>
-                {step.whatHappens && (
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      What Happens:
-                    </strong>
-                    <ul
-                      style={{
-                        margin: "0.5rem 0 0 1rem",
-                        padding: "0",
-                        color: "#adb5bd",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      {step.whatHappens.slice(0, 2).map((item, index) => (
-                        <li key={index} style={{ marginBottom: "0.25rem" }}>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {step.strategicNotes && (
-                  <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Strategy:
-                    </strong>
-                    <p
-                      style={{
-                        margin: "0.5rem 0 0 0",
-                        color: "#dee2e6",
-                        fontSize: "0.8rem",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      {step.strategicNotes[0]}
-                    </p>
-                  </div>
-                )}
+                <div>
+                  <strong style={{ color: "#ffffff" }}>What Happens: </strong>
+                  <ul style={{ margin: "0.5rem 0 0 1rem", padding: "0" }}>
+                    {combatBasics.combatSteps[
+                      selectedCombatStep
+                    ].whatHappens.map((point, index) => (
+                      <li key={index} style={{ marginBottom: "0.25rem" }}>
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            ))}
-          </div>
-
-          {/* Combat Keywords */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Important Combat Keywords
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
-              margin: "0 auto 2rem auto",
-            }}
-          >
-            {Object.entries(combatBasics.combatKeywords).map(
-              ([categoryKey, keywords]) => (
-                <div
-                  key={categoryKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#343a40",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #495057",
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "1rem",
-                      fontSize: "1rem",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {categoryKey
-                      .replace(/([A-Z])/g, " $1")
-                      .trim()
-                      .replace(" Keywords", "")}{" "}
-                    Keywords
-                  </h4>
-                  <div style={{ color: "#dee2e6", fontSize: "0.85rem" }}>
-                    {Object.entries(keywords)
-                      .slice(0, 4)
-                      .map(([keyword, description], index) => (
-                        <div key={index} style={{ marginBottom: "0.5rem" }}>
-                          <strong style={{ color: "#ffffff" }}>
-                            {keyword}:
-                          </strong>{" "}
-                          {description}
-                        </div>
-                      ))}
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-
-          {/* Combat Tips */}
-          <div
-            style={{
-              maxWidth: "800px",
-              margin: "0 auto",
-              padding: "1.5rem",
-              background: "#495057",
-              borderRadius: "0.5rem",
-              border: "1px solid #6c757d",
-            }}
-          >
-            <h4
-              style={{
-                color: "#ffffff",
-                marginBottom: "1rem",
-                textAlign: "center",
-              }}
-            >
-              Essential Combat Tips
-            </h4>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                gap: "1rem",
-              }}
-            >
-              {combatBasics.practicalTips.slice(0, 6).map((tip, index) => (
-                <div
-                  key={index}
-                  style={{
-                    padding: "1rem",
-                    background: "#343a40",
-                    borderRadius: "0.375rem",
-                    border: "1px solid #495057",
-                  }}
-                >
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.85rem",
-                      margin: "0",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {tip}
-                  </p>
-                </div>
-              ))}
             </div>
-          </div>
+          )}
         </div>
 
         {/* User Management Section */}
