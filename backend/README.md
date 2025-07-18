@@ -1,4 +1,4 @@
-# Plansewalker's Primer - Backend API
+# Planeswalker's Primer - Backend API
 
 A simple Express.js backend API for the MTG rulebook application.
 

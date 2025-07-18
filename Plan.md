@@ -1,4 +1,4 @@
-# Plansewalker's Primer - Capstone Project Plan
+# Planeswalker's Primer - Capstone Project Plan
 
 ## Project Overview
 

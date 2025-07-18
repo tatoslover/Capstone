@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ThemeSelector } from "../Theme";
 import { useTheme } from "../../contexts/ThemeContext";
 
-export default function Layout({ children, title = "Plansewalker's Primer" }) {
+export default function Layout({ children, title = "Planeswalker's Primer" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const { theme } = useTheme();
@@ -18,7 +18,7 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
         <title>{title}</title>
         <meta
           name="description"
-          content="MTG Rulebook for Beginners - Quick reference for Magic: The Gathering abilities and keywords"
+          content="MTG Rulebook for Beginners - Quick reference for Magic: The Gathering mechanics and keywords"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -30,7 +30,7 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
           <div className="container d-flex align-center justify-between">
             {/* Brand/Logo */}
             <Link href="/" className="nav-brand">
-              ⚡ Plansewalker's Primer
+              ⚡ Planeswalker's Primer
             </Link>
 
             {/* Desktop Navigation */}
@@ -52,6 +52,12 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                 className={`nav-link ${isActive("/favourites") ? "active" : ""}`}
               >
                 My Favourites
+              </Link>
+              <Link
+                href="/documentation"
+                className={`nav-link ${isActive("/documentation") ? "active" : ""}`}
+              >
+                Documentation
               </Link>
               <Link
                 href="/profile"
@@ -129,6 +135,13 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                     My Favourites
                   </Link>
                   <Link
+                    href="/documentation"
+                    className={`nav-link ${isActive("/documentation") ? "active" : ""}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Documentation
+                  </Link>
+                  <Link
                     href="/profile"
                     className={`nav-link ${isActive("/profile") ? "active" : ""}`}
                     onClick={() => setIsMenuOpen(false)}
@@ -189,7 +202,7 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                 <h4
                   style={{ color: "var(--theme-accent)", marginBottom: "1rem" }}
                 >
-                  Plansewalker's Primer
+                  Planeswalker's Primer
                 </h4>
                 <p
                   style={{
@@ -198,7 +211,7 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                     lineHeight: "1.5",
                   }}
                 >
-                  Your beginner-friendly guide to Magic: The Gathering abilities
+                  Your beginner-friendly guide to Magic: The Gathering mechanics
                   and keywords. Learn, explore, and save your favourite cards.
                 </p>
               </div>
@@ -242,6 +255,15 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                     }}
                   >
                     My Favourites
+                  </Link>
+                  <Link
+                    href="/documentation"
+                    style={{
+                      color: "var(--theme-textLight)",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Documentation
                   </Link>
                 </div>
               </div>
@@ -292,7 +314,7 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                   gap: "1rem",
                 }}
               >
-                <div>© 2024 Plansewalker's Primer - Academic Project</div>
+                <div>© 2024 Planeswalker's Primer - Academic Project</div>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "1rem" }}
                 >

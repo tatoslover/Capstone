@@ -1,4 +1,4 @@
-# Plansewalker's Primer
+# Planeswalker's Primer
 
 A simple MTG rulebook for beginners with favorites system.
 
