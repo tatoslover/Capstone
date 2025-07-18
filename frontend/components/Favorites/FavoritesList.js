@@ -69,13 +69,13 @@ export default function FavoritesList({
   }, [favorites, sortBy, filterBy, searchFilter]);
 
   if (loading && favorites.length === 0) {
-    return <Loading message="Loading your favorites..." size="large" />;
+    return <Loading message="Loading your favourites..." size="large" />;
   }
 
   if (error) {
     return (
-      <div className="error" style={{ textAlign: 'center', margin: '2rem 0' }}>
-        <h3 style={{ marginBottom: '0.5rem' }}>Failed to Load Favorites</h3>
+      <div className="error text-center mt-2 mb-2">
+        <h3 className="mb-2">Failed to Load Favourites</h3>
         <p>{error}</p>
       </div>
     );
@@ -83,86 +83,34 @@ export default function FavoritesList({
 
   return (
     <div>
-      {/* Header */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '2rem',
-        flexWrap: 'wrap',
-        gap: '1rem'
-      }}>
-        <div>
-          <h2 style={{ margin: 0, color: '#d4b106' }}>
-            My Favorite Cards
-          </h2>
-          <p style={{ margin: '0.25rem 0 0 0', color: '#6c757d' }}>
-            {favorites.length} {favorites.length === 1 ? 'card' : 'cards'} saved
-          </p>
-        </div>
-      </div>
-
-      {/* Filters and Search */}
+      {/* Search and Filters */}
       {favorites.length > 0 && (
-        <div style={{
-          background: '#f8f9fa',
-          padding: '1.5rem',
-          borderRadius: '0.75rem',
-          border: '1px solid #e9ecef',
-          marginBottom: '2rem'
-        }}>
+        <div className="card mb-3">
           {/* Search */}
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{
-              display: 'block',
-              marginBottom: '0.5rem',
-              fontWeight: '500',
-              color: '#495057'
-            }}>
-              🔍 Search Favorites
+          <div className="form-group">
+            <label className="form-label">
+              🔍 Search Favourites
             </label>
             <input
               type="text"
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
               placeholder="Search by card name, notes, or ability..."
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                border: '1px solid #ced4da',
-                borderRadius: '0.5rem',
-                fontSize: '0.9rem'
-              }}
+              className="search-input"
             />
           </div>
 
           {/* Filters */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '1rem'
-          }}>
+          <div className="filters-grid">
             {/* Sort By */}
-            <div>
-              <label style={{
-                display: 'block',
-                marginBottom: '0.5rem',
-                fontWeight: '500',
-                color: '#495057',
-                fontSize: '0.9rem'
-              }}>
+            <div className="form-group">
+              <label className="form-label">
                 📊 Sort By
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '0.5rem',
-                  border: '1px solid #ced4da',
-                  borderRadius: '0.25rem',
-                  fontSize: '0.875rem'
-                }}
+                className="filter-select"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
@@ -172,26 +120,14 @@ export default function FavoritesList({
             </div>
 
             {/* Filter By Type */}
-            <div>
-              <label style={{
-                display: 'block',
-                marginBottom: '0.5rem',
-                fontWeight: '500',
-                color: '#495057',
-                fontSize: '0.9rem'
-              }}>
+            <div className="form-group">
+              <label className="form-label">
                 🎯 Filter By Type
               </label>
               <select
                 value={filterBy}
                 onChange={(e) => setFilterBy(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '0.5rem',
-                  border: '1px solid #ced4da',
-                  borderRadius: '0.25rem',
-                  fontSize: '0.875rem'
-                }}
+                className="filter-select"
               >
                 <option value="all">All Cards ({favorites.length})</option>
                 {abilityTypes.map(type => {
@@ -213,22 +149,14 @@ export default function FavoritesList({
 
           {/* Clear Filters */}
           {(searchFilter || filterBy !== 'all' || sortBy !== 'newest') && (
-            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <div className="text-center mt-2">
               <button
                 onClick={() => {
                   setSearchFilter('');
                   setFilterBy('all');
                   setSortBy('newest');
                 }}
-                style={{
-                  background: '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.25rem',
-                  fontSize: '0.875rem',
-                  cursor: 'pointer'
-                }}
+                className="btn btn-secondary"
               >
                 Clear All Filters
               </button>
@@ -239,84 +167,46 @@ export default function FavoritesList({
 
       {/* Results Count */}
       {favorites.length > 0 && filteredAndSortedFavorites.length !== favorites.length && (
-        <div style={{
-          background: '#e3f2fd',
-          padding: '1rem',
-          borderRadius: '0.5rem',
-          marginBottom: '1.5rem',
-          border: '1px solid #bbdefb',
-          textAlign: 'center'
-        }}>
-          <p style={{ margin: 0, color: '#1565c0' }}>
-            Showing {filteredAndSortedFavorites.length} of {favorites.length} favorites
+        <div className="search-results-summary">
+          <p className="text-center">
+            Showing {filteredAndSortedFavorites.length} of {favorites.length} favourites
             {searchFilter && ` matching "${searchFilter}"`}
           </p>
         </div>
       )}
 
-      {/* Favorites List */}
+      {/* Favourites List */}
       {favorites.length === 0 ? (
-        <div style={{
-          textAlign: 'center',
-          padding: '4rem 2rem',
-          background: 'white',
-          borderRadius: '1rem',
-          border: '2px dashed #dee2e6'
-        }}>
-          <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>⭐</div>
-          <h3 style={{ color: '#495057', marginBottom: '1rem' }}>
-            No Favorites Yet
+        <div className="card text-center">
+          <div className="empty-state-icon">⭐</div>
+          <h3 className="card-title">
+            No Favourites Yet
           </h3>
-          <p style={{ color: '#6c757d', marginBottom: '2rem', fontSize: '1.1rem' }}>
+          <p className="mb-3">
             Start building your collection by searching for cards and clicking the ⭐ button!
           </p>
-          <a
-            href="/search"
-            style={{
-              display: 'inline-block',
-              background: '#007bff',
-              color: 'white',
-              padding: '1rem 2rem',
-              borderRadius: '0.5rem',
-              textDecoration: 'none',
-              fontWeight: '500',
-              fontSize: '1.1rem'
-            }}
-          >
+          <a href="/search" className="btn">
             🔍 Search for Cards
           </a>
         </div>
       ) : filteredAndSortedFavorites.length === 0 ? (
-        <div style={{
-          textAlign: 'center',
-          padding: '3rem 2rem',
-          background: '#fff3cd',
-          borderRadius: '0.75rem',
-          border: '1px solid #ffeaa7'
-        }}>
-          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
-          <h3 style={{ color: '#856404', marginBottom: '0.5rem' }}>
+        <div className="search-empty-state">
+          <div className="search-empty-icon">🔍</div>
+          <h3 className="search-empty-title">
             No matches found
           </h3>
-          <p style={{ color: '#856404', margin: 0 }}>
+          <p className="search-empty-subtitle">
             Try adjusting your search or filter settings.
           </p>
         </div>
       ) : (
         <div>
-          {/* Favorites Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
-            gap: '1.5rem'
-          }}>
+          {/* Favourites Grid */}
+          <div className="favourites-grid">
             {filteredAndSortedFavorites.map((favorite, index) => (
               <div
                 key={favorite.id}
-                style={{
-                  opacity: 0,
-                  animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`
-                }}
+                className="favourite-card-wrapper"
               >
                 <FavoriteCard
                   favorite={favorite}
@@ -331,19 +221,12 @@ export default function FavoritesList({
 
           {/* Summary */}
           {filteredAndSortedFavorites.length > 5 && (
-            <div style={{
-              textAlign: 'center',
-              marginTop: '3rem',
-              padding: '2rem',
-              background: '#f8f9fa',
-              borderRadius: '0.75rem',
-              border: '1px solid #e9ecef'
-            }}>
-              <h4 style={{ color: '#495057', marginBottom: '0.5rem' }}>
+            <div className="card text-center mt-3">
+              <h4 className="card-title">
                 📚 Collection Summary
               </h4>
-              <p style={{ color: '#6c757d', margin: 0 }}>
-                You have {favorites.length} cards in your favorites collection.
+              <p>
+                You have {favorites.length} cards in your favourites collection.
                 Keep exploring to find more cards that catch your interest!
               </p>
             </div>
@@ -353,31 +236,106 @@ export default function FavoritesList({
 
       {/* Loading Overlay */}
       {loading && favorites.length > 0 && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0,0,0,0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000
-        }}>
-          <div style={{
-            background: 'white',
-            padding: '2rem',
-            borderRadius: '0.75rem',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
-          }}>
-            <Loading message="Updating favorites..." />
+        <div className="loading-overlay">
+          <div className="loading-overlay-content">
+            <Loading message="Updating favourites..." />
           </div>
         </div>
       )}
 
-      {/* Animation Styles */}
       <style jsx>{`
+        .search-input {
+          width: 100%;
+        }
+
+        .filters-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1rem;
+          margin-top: 1rem;
+        }
+
+        .filter-select {
+          width: 100%;
+        }
+
+        .search-results-summary {
+          background: rgba(26, 26, 26, 0.95);
+          backdrop-filter: blur(2px);
+          padding: 1rem;
+          border-radius: 0.5rem;
+          border: 1px solid var(--theme-border);
+          margin-bottom: 1rem;
+          color: var(--theme-text);
+        }
+
+        .empty-state-icon {
+          font-size: 4rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .search-empty-state {
+          background: rgba(26, 26, 26, 0.95);
+          backdrop-filter: blur(2px);
+          text-align: center;
+          padding: 3rem 2rem;
+          border-radius: 0.75rem;
+          border: 1px solid var(--theme-border);
+        }
+
+        .search-empty-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+
+        .search-empty-title {
+          color: var(--theme-accent);
+          margin-bottom: 0.5rem;
+        }
+
+        .search-empty-subtitle {
+          color: var(--theme-textLight);
+          margin: 0;
+        }
+
+        .favourites-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .favourite-card-wrapper {
+          opacity: 0;
+          animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .favourite-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
+        .favourite-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
+        .favourite-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
+        .favourite-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
+        .favourite-card-wrapper:nth-child(5) { animation-delay: 0.5s; }
+
+        .loading-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+
+        .loading-overlay-content {
+          background: rgba(26, 26, 26, 0.95);
+          backdrop-filter: blur(2px);
+          padding: 2rem;
+          border-radius: 0.75rem;
+          border: 1px solid var(--theme-border);
+        }
+
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -389,11 +347,14 @@ export default function FavoritesList({
           }
         }
 
-        /* Mobile responsive */
         @media (max-width: 768px) {
-          .favorites-grid {
+          .favourites-grid {
             grid-template-columns: 1fr;
             gap: 1rem;
+          }
+
+          .filters-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

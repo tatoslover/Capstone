@@ -189,31 +189,22 @@ export default function FavoritesPage() {
       <div className="container page-content">
         {/* Page Header */}
         <div className="text-center mb-3">
-          <div
-            className="header-box"
-            style={{ maxWidth: "800px", margin: "0 auto" }}
-          >
+          <div className="header-box">
             <h1>My Favourite Cards</h1>
-            <p style={{ fontSize: "1.25rem" }}>
+            <p>
               {currentUser
                 ? `${currentUser.username}'s personal collection`
                 : "Your saved MTG cards"}
             </p>
+            {currentUser && (
+              <p className="card-count">
+                {favorites.length} {favorites.length === 1 ? 'card' : 'cards'} saved
+              </p>
+            )}
           </div>
         </div>
 
-        {/* User Welcome */}
-        {currentUser && (
-          <div className="card text-center mb-3">
-            <h3 className="card-title mb-1">
-              Welcome back, {currentUser.username}! ⭐
-            </h3>
-            <p className="mb-0">
-              Manage your favourite cards, add personal notes, and build your
-              reference collection.
-            </p>
-          </div>
-        )}
+
 
         {/* Loading State */}
         {loading && (
@@ -275,6 +266,20 @@ export default function FavoritesPage() {
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        .header-box {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .card-count {
+          font-size: 1.1rem;
+          color: var(--theme-textLight);
+          margin-top: 0.5rem;
+          margin-bottom: 0;
+        }
+      `}</style>
     </Layout>
   );
 }

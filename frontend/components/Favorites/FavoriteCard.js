@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import CardPreview from '../Card/CardPreview';
 
 export default function FavoriteCard({
   favorite,
@@ -8,6 +7,7 @@ export default function FavoriteCard({
   onDelete,
   onCardClick
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editNotes, setEditNotes] = useState(favorite.notes || '');
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ export default function FavoriteCard({
     if (!onDelete) return;
 
     const confirmDelete = window.confirm(
-      `Are you sure you want to remove "${favorite.card_name}" from your favorites?`
+      `Are you sure you want to remove "${favorite.card_name}" from your favourites?`
     );
 
     if (confirmDelete) {
@@ -48,261 +48,356 @@ export default function FavoriteCard({
         setLoading(true);
         await onDelete(favorite.id);
       } catch (error) {
-        console.error('Error deleting favorite:', error);
-        alert('Failed to remove favorite. Please try again.');
+        console.error('Error deleting favourite:', error);
+        alert('Failed to remove favourite. Please try again.');
         setLoading(false);
       }
     }
   };
 
-  // Mock card object for CardPreview (since we only have basic info in favorites)
-  const mockCard = {
-    id: favorite.scryfall_id,
-    name: favorite.card_name,
-    type_line: favorite.ability_type || 'Card',
-    // These would ideally be fetched from Scryfall if needed
-    image_uris: favorite.image_uris ? { small: favorite.image_uris.small } : null,
-    oracle_text: favorite.oracle_text || '',
-    mana_cost: favorite.mana_cost || '',
-    power: favorite.power,
-    toughness: favorite.toughness,
-    rarity: favorite.rarity || 'common'
+  const handleCardClick = () => {
+    setIsExpanded(!isExpanded);
   };
 
+  // Use Scryfall card image if available, otherwise show placeholder
+  const cardImageUrl = favorite.scryfall_id
+    ? `https://cards.scryfall.io/normal/front/${favorite.scryfall_id.charAt(0)}/${favorite.scryfall_id.charAt(1)}/${favorite.scryfall_id}.jpg`
+    : null;
+
   return (
-    <div style={{
-      background: 'white',
-      border: '2px solid #ffc107',
-      borderRadius: '0.75rem',
-      padding: '1.5rem',
-      marginBottom: '1.5rem',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-      position: 'relative'
-    }}>
-      {/* Favorite Indicator */}
-      <div style={{
-        position: 'absolute',
-        top: '1rem',
-        right: '1rem',
-        background: '#ffc107',
-        color: '#212529',
-        borderRadius: '50%',
-        width: '2.5rem',
-        height: '2.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '1.25rem',
-        fontWeight: 'bold'
-      }}>
-        ⭐
-      </div>
+    <div className="mtg-card-container favourite-card">
+      {/* Favourite Star Indicator */}
+      <div className="favourite-star">⭐</div>
 
-      {/* Card Preview */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <CardPreview
-          card={mockCard}
-          onClick={onCardClick}
-          currentUser={currentUser}
-          showFavoriteButton={false}
-        />
-      </div>
+      {/* Card Image - Main Focus */}
+      <div className="card-image-container" onClick={handleCardClick}>
+        {cardImageUrl ? (
+          <img
+            src={cardImageUrl}
+            alt={favorite.card_name}
+            className="card-image"
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'flex';
+            }}
+          />
+        ) : null}
 
-      {/* Favorite Metadata */}
-      <div style={{
-        background: '#f8f9fa',
-        padding: '1rem',
-        borderRadius: '0.5rem',
-        border: '1px solid #e9ecef',
-        marginBottom: '1rem'
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '0.5rem',
-          flexWrap: 'wrap',
-          gap: '0.5rem'
-        }}>
-          <div style={{ fontSize: '0.875rem', color: '#6c757d' }}>
-            <strong>Added:</strong> {new Date(favorite.created_at).toLocaleDateString()}
+        {/* Fallback/Placeholder */}
+        <div className="card-placeholder" style={{ display: cardImageUrl ? 'none' : 'flex' }}>
+          <div className="card-placeholder-content">
+            <h3 className="mtg-card-name">{favorite.card_name}</h3>
+            {favorite.ability_type && (
+              <p className="mtg-card-type">{favorite.ability_type}</p>
+            )}
+            <p className="click-hint">Click to view details</p>
           </div>
-          {favorite.ability_type && (
-            <div style={{
-              background: '#e3f2fd',
-              color: '#1565c0',
-              padding: '0.25rem 0.5rem',
-              borderRadius: '0.25rem',
-              fontSize: '0.75rem',
-              fontWeight: '600'
-            }}>
-              {favorite.ability_type}
-            </div>
-          )}
+        </div>
+
+        {/* Click Overlay */}
+        <div className="card-click-overlay">
+          <span className="click-hint">Click for details</span>
         </div>
       </div>
 
-      {/* Notes Section */}
-      <div style={{
-        background: '#fff3cd',
-        border: '1px solid #ffeaa7',
-        borderRadius: '0.5rem',
-        padding: '1rem'
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '0.75rem'
-        }}>
-          <h4 style={{
-            margin: 0,
-            fontSize: '1rem',
-            color: '#856404'
-          }}>
-            📝 My Notes
-          </h4>
-          {!isEditing && (
-            <button
-              onClick={() => setIsEditing(true)}
-              disabled={loading}
-              style={{
-                background: 'transparent',
-                border: '1px solid #856404',
-                color: '#856404',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '0.25rem',
-                fontSize: '0.75rem',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              ✏️ Edit
-            </button>
-          )}
-        </div>
-
-        {isEditing ? (
-          <div>
-            <textarea
-              value={editNotes}
-              onChange={(e) => setEditNotes(e.target.value)}
-              placeholder="Add your personal notes about this card..."
-              disabled={loading}
-              style={{
-                width: '100%',
-                minHeight: '100px',
-                padding: '0.75rem',
-                border: '1px solid #ddd',
-                borderRadius: '0.25rem',
-                fontSize: '0.9rem',
-                fontFamily: 'inherit',
-                resize: 'vertical',
-                marginBottom: '0.75rem'
-              }}
-            />
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button
-                onClick={handleSaveNotes}
-                disabled={loading}
-                style={{
-                  background: '#28a745',
-                  color: 'white',
-                  border: 'none',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.25rem',
-                  fontSize: '0.875rem',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                {loading ? 'Saving...' : 'Save Notes'}
-              </button>
-              <button
-                onClick={handleCancelEdit}
-                disabled={loading}
-                style={{
-                  background: '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.25rem',
-                  fontSize: '0.875rem',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div>
-            {favorite.notes ? (
-              <p style={{
-                margin: 0,
-                fontSize: '0.9rem',
-                lineHeight: '1.5',
-                color: '#856404',
-                fontStyle: favorite.notes ? 'normal' : 'italic'
-              }}>
-                {favorite.notes}
-              </p>
-            ) : (
-              <p style={{
-                margin: 0,
-                fontSize: '0.9rem',
-                color: '#856404',
-                fontStyle: 'italic',
-                opacity: 0.7
-              }}>
-                No notes added yet. Click "Edit" to add your thoughts about this card.
-              </p>
+      {/* Expanded Details */}
+      {isExpanded && (
+        <div className="card-details-expanded">
+          {/* Card Info */}
+          <div className="card-header">
+            <h3 className="card-title">{favorite.card_name}</h3>
+            {favorite.ability_type && (
+              <span className="ability-badge">{favorite.ability_type}</span>
             )}
           </div>
-        )}
-      </div>
 
-      {/* Actions */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: '1rem',
-        paddingTop: '1rem',
-        borderTop: '1px solid #e9ecef'
-      }}>
-        <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
-          Added to your favorites collection
+          {/* Metadata */}
+          <div className="card-metadata">
+            <p>Added: {new Date(favorite.created_at).toLocaleDateString()}</p>
+          </div>
+
+          {/* Notes Section */}
+          <div className="notes-section">
+            <div className="notes-header">
+              <h4>📝 My Notes</h4>
+              {!isEditing && (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  disabled={loading}
+                  className="btn-outline"
+                >
+                  ✏️ Edit
+                </button>
+              )}
+            </div>
+
+            {isEditing ? (
+              <div className="notes-editor">
+                <textarea
+                  value={editNotes}
+                  onChange={(e) => setEditNotes(e.target.value)}
+                  placeholder="Add your personal notes about this card..."
+                  disabled={loading}
+                  className="notes-textarea"
+                />
+                <div className="notes-actions">
+                  <button
+                    onClick={handleSaveNotes}
+                    disabled={loading}
+                    className="btn btn-success"
+                  >
+                    {loading ? 'Saving...' : 'Save Notes'}
+                  </button>
+                  <button
+                    onClick={handleCancelEdit}
+                    disabled={loading}
+                    className="btn btn-secondary"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="notes-display">
+                {favorite.notes ? (
+                  <p>{favorite.notes}</p>
+                ) : (
+                  <p className="notes-placeholder">
+                    No notes added yet. Click "Edit" to add your thoughts about this card.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Actions */}
+          <div className="card-actions">
+            <span className="action-hint">Added to your favourites collection</span>
+            <button
+              onClick={handleDelete}
+              disabled={loading}
+              className="btn btn-danger"
+            >
+              {loading ? 'Removing...' : '🗑️ Remove'}
+            </button>
+          </div>
         </div>
-        <button
-          onClick={handleDelete}
-          disabled={loading}
-          style={{
-            background: '#dc3545',
-            color: 'white',
-            border: 'none',
-            padding: '0.5rem 1rem',
-            borderRadius: '0.25rem',
-            fontSize: '0.875rem',
-            cursor: 'pointer',
-            fontWeight: '500',
-            opacity: loading ? 0.6 : 1
-          }}
-          onMouseOver={(e) => {
-            if (!loading) {
-              e.target.style.background = '#c82333';
-            }
-          }}
-          onMouseOut={(e) => {
-            if (!loading) {
-              e.target.style.background = '#dc3545';
-            }
-          }}
-        >
-          {loading ? 'Removing...' : '🗑️ Remove'}
-        </button>
-      </div>
+      )}
+
+      <style jsx>{`
+        .favourite-card {
+          position: relative;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: 2px solid var(--theme-highlight);
+        }
+
+        .favourite-card:hover {
+          box-shadow: 0 6px 12px rgba(var(--theme-accent-rgb), 0.2);
+          transform: translateY(-2px);
+        }
+
+        .favourite-star {
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+          background: var(--theme-warning);
+          color: var(--theme-cardBg);
+          border-radius: 50%;
+          width: 2rem;
+          height: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+          font-weight: bold;
+          z-index: 2;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image-container {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 5/7;
+          border-radius: 0.75rem;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .card-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .card-image:hover {
+          transform: scale(1.05);
+        }
+
+        .card-placeholder {
+          width: 100%;
+          height: 100%;
+          background: var(--theme-cardBg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px dashed var(--theme-border);
+          border-radius: 0.75rem;
+        }
+
+        .card-placeholder-content {
+          text-align: center;
+          padding: 1rem;
+        }
+
+        .card-click-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+          color: white;
+          padding: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .card-image-container:hover .card-click-overlay {
+          opacity: 1;
+        }
+
+        .click-hint {
+          font-size: 0.875rem;
+          font-weight: 500;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-details-expanded {
+          padding: 1rem;
+          animation: slideDown 0.3s ease-out;
+        }
+
+        .card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .ability-badge {
+          background: rgba(var(--theme-primary-rgb), 0.1);
+          color: var(--theme-primary);
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-size: 0.75rem;
+          font-weight: 600;
+          border: 1px solid var(--theme-primary);
+        }
+
+        .card-metadata {
+          margin-bottom: 1rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid var(--theme-border);
+        }
+
+        .card-metadata p {
+          font-size: 0.875rem;
+          color: var(--theme-textLight);
+          margin: 0;
+        }
+
+        .notes-section {
+          margin-bottom: 1rem;
+        }
+
+        .notes-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.75rem;
+        }
+
+        .notes-header h4 {
+          margin: 0;
+          font-size: 1rem;
+          color: var(--theme-accent);
+        }
+
+        .notes-textarea {
+          width: 100%;
+          min-height: 100px;
+          margin-bottom: 0.75rem;
+          resize: vertical;
+        }
+
+        .notes-actions {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+
+        .notes-display p {
+          margin: 0;
+          font-size: 0.9rem;
+          line-height: 1.5;
+        }
+
+        .notes-placeholder {
+          font-style: italic;
+          color: var(--theme-textLight);
+          opacity: 0.8;
+        }
+
+        .card-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 1rem;
+          border-top: 1px solid var(--theme-border);
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .action-hint {
+          font-size: 0.8rem;
+          color: var(--theme-textLight);
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .card-header,
+          .notes-header,
+          .card-actions {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+          }
+
+          .notes-actions {
+            width: 100%;
+          }
+
+          .notes-actions button {
+            flex: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }
