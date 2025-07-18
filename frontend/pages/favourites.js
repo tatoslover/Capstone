@@ -196,7 +196,7 @@ export default function FavoritesPage() {
                 ? `${currentUser.username}'s personal collection`
                 : "Your saved MTG cards"}
             </p>
-            {currentUser && (
+            {currentUser && !loading && (
               <p className="card-count">
                 {favorites.length} {favorites.length === 1 ? 'card' : 'cards'} saved
               </p>

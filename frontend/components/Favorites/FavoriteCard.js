@@ -59,10 +59,8 @@ export default function FavoriteCard({
     setIsExpanded(!isExpanded);
   };
 
-  // Use Scryfall card image if available, otherwise show placeholder
-  const cardImageUrl = favorite.scryfall_id
-    ? `https://cards.scryfall.io/normal/front/${favorite.scryfall_id.charAt(0)}/${favorite.scryfall_id.charAt(1)}/${favorite.scryfall_id}.jpg`
-    : null;
+  // Use real Scryfall image data if available
+  const cardImageUrl = favorite.image_uris?.normal || favorite.image_uris?.large || favorite.image_uris?.small || null;
 
   return (
     <div className="mtg-card-container favourite-card">

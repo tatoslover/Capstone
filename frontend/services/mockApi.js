@@ -8,71 +8,14 @@ let mockUsers = [
   { id: 3, username: "mtg_beginner", created_at: "2024-01-01T12:00:00Z" },
 ];
 
-let mockFavourites = [
-  {
-    id: 1,
-    user_id: 1,
-    card_name: "Lightning Bolt",
-    scryfall_id: "e3285e6b-3e79-4d7c-bf96-d920f973b122",
-    ability_type: "Instant",
-    notes: "The most iconic red spell - 3 damage for 1 mana",
-    created_at: "2024-01-01T10:30:00Z",
-  },
-  {
-    id: 2,
-    user_id: 1,
-    card_name: "Black Lotus",
-    scryfall_id: "310d6522-e329-40b5-bbe5-467d56a5feca",
-    ability_type: "Artifact",
-    notes: "The most powerful card ever printed",
-    created_at: "2024-01-01T10:45:00Z",
-  },
-  {
-    id: 3,
-    user_id: 1,
-    card_name: "Counterspell",
-    scryfall_id: "ce30f926-bc06-46ee-9f35-0cdf09a67043",
-    ability_type: "Instant",
-    notes: "Classic blue control spell",
-    created_at: "2024-01-01T11:00:00Z",
-  },
-  {
-    id: 4,
-    user_id: 1,
-    card_name: "Birds of Paradise",
-    scryfall_id: "472f0e6b-9b95-4c8f-9ce5-0b5f7ac3d1a2",
-    ability_type: "Creature - Bird",
-    notes: "Perfect mana fixing for any deck",
-    created_at: "2024-01-01T11:15:00Z",
-  },
-  {
-    id: 5,
-    user_id: 1,
-    card_name: "Wrath of God",
-    scryfall_id: "664e6656-36a3-4635-9f33-9f8901afd397",
-    ability_type: "Sorcery",
-    notes: "The original board wipe",
-    created_at: "2024-01-01T11:30:00Z",
-  },
-  {
-    id: 6,
-    user_id: 1,
-    card_name: "Dark Ritual",
-    scryfall_id: "e4dc7423-3b76-43f8-a3a9-bddc07dc1b5e",
-    ability_type: "Instant",
-    notes: "Fast mana acceleration in black",
-    created_at: "2024-01-01T11:45:00Z",
-  },
-  {
-    id: 7,
-    user_id: 2,
-    card_name: "Serra Angel",
-    scryfall_id: "b5d97e72-8c85-4f1e-9a55-8e4b6c54c9b1",
-    ability_type: "Creature - Angel",
-    notes: "Flying and vigilance make this a strong creature",
-    created_at: "2024-01-01T12:00:00Z",
-  },
+// Demo cards with real Scryfall IDs that we'll fetch
+const demoCardIds = [
+  "e3285e6b-3e79-4d7c-bf96-d920f973b122", // Lightning Bolt
+  "310d6522-e329-40b5-bbe5-467d56a5feca", // Black Lotus
+  "ce30f926-bc06-46ee-9f35-0cdf09a67043", // Counterspell
 ];
+
+let mockFavourites = [];
 
 let mockMessages = [
   {
@@ -87,100 +30,62 @@ let mockMessages = [
   },
 ];
 
-// Mock Scryfall data for card searches
-const mockScryfallCards = [
-  {
-    id: "e3285e6b-3e79-4d7c-bf96-d920f973b122",
-    name: "Lightning Bolt",
-    mana_cost: "{R}",
-    type_line: "Instant",
-    oracle_text: "Lightning Bolt deals 3 damage to any target.",
-    power: null,
-    toughness: null,
-    image_uris: {
-      normal:
-        "https://cards.scryfall.io/normal/front/e/3/e3285e6b-3e79-4d7c-bf96-d920f973b122.jpg",
-    },
-  },
-  {
-    id: "310d6522-e329-40b5-bbe5-467d56a5feca",
-    name: "Black Lotus",
-    mana_cost: "{0}",
-    type_line: "Artifact",
-    oracle_text: "{T}, Sacrifice Black Lotus: Add three mana of any one color.",
-    power: null,
-    toughness: null,
-    image_uris: {
-      normal:
-        "https://cards.scryfall.io/normal/front/3/1/310d6522-e329-40b5-bbe5-467d56a5feca.jpg",
-    },
-  },
-  {
-    id: "ce30f926-bc06-46ee-9f35-0cdf09a67043",
-    name: "Counterspell",
-    mana_cost: "{U}{U}",
-    type_line: "Instant",
-    oracle_text: "Counter target spell.",
-    power: null,
-    toughness: null,
-    image_uris: {
-      normal:
-        "https://cards.scryfall.io/normal/front/c/e/ce30f926-bc06-46ee-9f35-0cdf09a67043.jpg",
-    },
-  },
-  {
-    id: "472f0e6b-9b95-4c8f-9ce5-0b5f7ac3d1a2",
-    name: "Birds of Paradise",
-    mana_cost: "{G}",
-    type_line: "Creature — Bird",
-    oracle_text: "Flying\n{T}: Add one mana of any color.",
-    power: "0",
-    toughness: "1",
-    image_uris: {
-      normal:
-        "https://cards.scryfall.io/normal/front/4/7/472f0e6b-9b95-4c8f-9ce5-0b5f7ac3d1a2.jpg",
-    },
-  },
-  {
-    id: "664e6656-36a3-4635-9f33-9f8901afd397",
-    name: "Wrath of God",
-    mana_cost: "{2}{W}{W}",
-    type_line: "Sorcery",
-    oracle_text: "Destroy all creatures. They can't be regenerated.",
-    power: null,
-    toughness: null,
-    image_uris: {
-      normal:
-        "https://cards.scryfall.io/normal/front/6/6/664e6656-36a3-4635-9f33-9f8901afd397.jpg",
-    },
-  },
-  {
-    id: "e4dc7423-3b76-43f8-a3a9-bddc07dc1b5e",
-    name: "Dark Ritual",
-    mana_cost: "{B}",
-    type_line: "Instant",
-    oracle_text: "Add {B}{B}{B}.",
-    power: null,
-    toughness: null,
-    image_uris: {
-      normal:
-        "https://cards.scryfall.io/normal/front/e/4/e4dc7423-3b76-43f8-a3a9-bddc07dc1b5e.jpg",
-    },
-  },
-  {
-    id: "b5d97e72-8c85-4f1e-9a55-8e4b6c54c9b1",
-    name: "Serra Angel",
-    mana_cost: "{3}{W}{W}",
-    type_line: "Creature — Angel",
-    oracle_text: "Flying, vigilance",
-    power: "4",
-    toughness: "4",
-    image_uris: {
-      normal:
-        "https://cards.scryfall.io/normal/front/b/5/b5d97e72-8c85-4f1e-9a55-8e4b6c54c9b1.jpg",
-    },
-  },
-];
+// Mock Scryfall data - will be populated with real data from API
+let mockScryfallCards = [];
+
+// Function to populate mock cards with real Scryfall data
+async function populateMockCards() {
+  if (mockScryfallCards.length > 0) return; // Already populated
+
+  try {
+    for (const cardId of demoCardIds) {
+      try {
+        const response = await fetch(`https://api.scryfall.com/cards/${cardId}`);
+        if (response.ok) {
+          const cardData = await response.json();
+          mockScryfallCards.push(cardData);
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch card ${cardId} for search:`, error);
+      }
+    }
+  } catch (error) {
+    console.warn("Failed to populate mock search cards:", error);
+  }
+
+  // Add fallback cards if Scryfall fetch failed
+  if (mockScryfallCards.length === 0) {
+    mockScryfallCards = [
+      {
+        id: "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+        name: "Lightning Bolt",
+        mana_cost: "{R}",
+        type_line: "Instant",
+        oracle_text: "Lightning Bolt deals 3 damage to any target.",
+        power: null,
+        toughness: null,
+      },
+      {
+        id: "310d6522-e329-40b5-bbe5-467d56a5feca",
+        name: "Black Lotus",
+        mana_cost: "{0}",
+        type_line: "Artifact",
+        oracle_text: "{T}, Sacrifice Black Lotus: Add three mana of any one color.",
+        power: null,
+        toughness: null,
+      },
+      {
+        id: "ce30f926-bc06-46ee-9f35-0cdf09a67043",
+        name: "Counterspell",
+        mana_cost: "{U}{U}",
+        type_line: "Instant",
+        oracle_text: "Counter target spell.",
+        power: null,
+        toughness: null,
+      },
+    ];
+  }
+}
 
 // Helper functions
 function delay(ms = 200) {
@@ -301,6 +206,12 @@ export const mockApi = {
   favourites: {
     async getByUserId(userId) {
       await delay(200);
+
+      // If this is the demo user and no favourites exist, populate with real Scryfall data
+      if (parseInt(userId) === 1 && mockFavourites.length === 0) {
+        await populateDemoFavourites();
+      }
+
       return mockFavourites.filter((f) => f.user_id === parseInt(userId));
     },
 
@@ -374,6 +285,10 @@ export const mockApi = {
   cards: {
     async search(query) {
       await delay(300);
+
+      // Ensure mock cards are populated
+      await populateMockCards();
+
       const searchTerm = query.toLowerCase();
 
       const filteredCards = mockScryfallCards.filter(
@@ -392,6 +307,10 @@ export const mockApi = {
 
     async random(ability) {
       await delay(250);
+
+      // Ensure mock cards are populated
+      await populateMockCards();
+
       let filteredCards = [...mockScryfallCards];
 
       if (ability) {
@@ -414,6 +333,10 @@ export const mockApi = {
 
     async getById(id) {
       await delay(200);
+
+      // Ensure mock cards are populated
+      await populateMockCards();
+
       const card = mockScryfallCards.find((c) => c.id === id);
       if (!card) {
         throw new Error("Card not found");
@@ -458,6 +381,61 @@ export const mockData = {
 };
 
 // Reset function for testing
+// Function to populate demo favourites with real Scryfall data
+async function populateDemoFavourites() {
+  const demoNotes = [
+    "The most iconic red spell - 3 damage for 1 mana",
+    "The most powerful card ever printed",
+    "Classic blue control spell",
+  ];
+
+  try {
+    for (let i = 0; i < demoCardIds.length; i++) {
+      const cardId = demoCardIds[i];
+      try {
+        const response = await fetch(`https://api.scryfall.com/cards/${cardId}`);
+        if (response.ok) {
+          const cardData = await response.json();
+
+          mockFavourites.push({
+            id: i + 1,
+            user_id: 1,
+            card_name: cardData.name,
+            scryfall_id: cardData.id,
+            ability_type: cardData.type_line,
+            notes: demoNotes[i],
+            created_at: `2024-01-01T${10 + i}:30:00Z`,
+            // Store additional Scryfall data for richer display
+            image_uris: cardData.image_uris,
+            mana_cost: cardData.mana_cost,
+            oracle_text: cardData.oracle_text,
+            power: cardData.power,
+            toughness: cardData.toughness,
+            rarity: cardData.rarity,
+          });
+        }
+      } catch (error) {
+        console.warn(`Failed to fetch card ${cardId}:`, error);
+        // Fallback to basic data if Scryfall fetch fails
+        const fallbackNames = ["Lightning Bolt", "Black Lotus", "Counterspell"];
+        const fallbackTypes = ["Instant", "Artifact", "Instant"];
+
+        mockFavourites.push({
+          id: i + 1,
+          user_id: 1,
+          card_name: fallbackNames[i],
+          scryfall_id: cardId,
+          ability_type: fallbackTypes[i],
+          notes: demoNotes[i],
+          created_at: `2024-01-01T${10 + i}:30:00Z`,
+        });
+      }
+    }
+  } catch (error) {
+    console.warn("Failed to populate demo favourites:", error);
+  }
+}
+
 export function resetMockData() {
   mockUsers = [
     { id: 1, username: "Demo", created_at: "2024-01-01T10:00:00Z" },
@@ -465,26 +443,7 @@ export function resetMockData() {
     { id: 3, username: "mtg_beginner", created_at: "2024-01-01T12:00:00Z" },
   ];
 
-  mockFavourites = [
-    {
-      id: 1,
-      user_id: 1,
-      card_name: "Lightning Bolt",
-      scryfall_id: "e3285e6b-3e79-4d7c-bf96-d920f973b122",
-      ability_type: "Instant",
-      notes: "The most iconic red spell - 3 damage for 1 mana",
-      created_at: "2024-01-01T10:30:00Z",
-    },
-    {
-      id: 2,
-      user_id: 1,
-      card_name: "Black Lotus",
-      scryfall_id: "310d6522-e329-40b5-bbe5-467d56a5feca",
-      ability_type: "Artifact",
-      notes: "The most powerful card ever printed",
-      created_at: "2024-01-01T10:45:00Z",
-    },
-  ];
+  mockFavourites = [];
 
   mockMessages = [
     {
