@@ -219,18 +219,7 @@ export default function FavoritesList({
             ))}
           </div>
 
-          {/* Summary */}
-          {filteredAndSortedFavorites.length > 5 && (
-            <div className="card text-center mt-3">
-              <h4 className="card-title">
-                📚 Collection Summary
-              </h4>
-              <p>
-                You have {favorites.length} cards in your favourites collection.
-                Keep exploring to find more cards that catch your interest!
-              </p>
-            </div>
-          )}
+
         </div>
       )}
 
