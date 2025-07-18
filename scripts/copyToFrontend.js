@@ -17,6 +17,7 @@ const copyToFrontend = async () => {
       { name: 'gameOverview', icon: '🎮', description: 'game overview' },
       { name: 'colors', icon: '🎨', description: 'colors' },
       { name: 'cardTypes', icon: '🃏', description: 'card types' },
+      { name: 'turnPhases', icon: '🕒', description: 'turn phases' },
       { name: 'cardAnatomy', icon: '📋', description: 'card anatomy' },
       { name: 'winConditions', icon: '🏆', description: 'win conditions' },
       { name: 'deckBuilding', icon: '🏗️', description: 'deck building' },
@@ -103,6 +104,7 @@ export const totalMechanics = allMechanics.length;
     console.log('   import gameOverview from "../data/gameOverview.json";');
     console.log('   import colors from "../data/colors.json";');
     console.log('   import cardTypes from "../data/cardTypes.json";');
+    console.log('   import turnPhases from "../data/turnPhases.json";');
     console.log('   import cardAnatomy from "../data/cardAnatomy.json";');
     console.log('   import winConditions from "../data/winConditions.json";');
     console.log('   import deckBuilding from "../data/deckBuilding.json";');

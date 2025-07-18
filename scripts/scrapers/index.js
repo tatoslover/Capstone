@@ -2,6 +2,7 @@ const { scrapeColors } = require('./colors');
 const { scrapeCardTypes } = require('./cardTypes');
 const { scrapeMechanics } = require('./mechanics');
 const { scrapeGameOverview } = require('./gameOverview');
+const { scrapeTurnPhases } = require('./turnPhases');
 const { scrapeWinConditions } = require('./winConditions');
 const { scrapeDeckBuilding } = require('./deckBuilding');
 const { scrapeCombatBasics } = require('./combatBasics');
@@ -35,32 +36,38 @@ const runAllScrapers = async () => {
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    console.log('4️⃣  Starting Card Anatomy scraper...');
+    console.log('4️⃣  Starting Turn Phases scraper...');
+    results.turnPhases = await scrapeTurnPhases();
+    console.log('✅ Turn Phases complete\n');
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    console.log('5️⃣  Starting Card Anatomy scraper...');
     results.cardAnatomy = await scrapeCardAnatomy();
     console.log('✅ Card Anatomy complete\n');
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    console.log('5️⃣  Starting Win Conditions scraper...');
+    console.log('6️⃣  Starting Win Conditions scraper...');
     results.winConditions = await scrapeWinConditions();
     console.log('✅ Win Conditions complete\n');
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    console.log('6️⃣  Starting Deck Building scraper...');
+    console.log('7️⃣  Starting Deck Building scraper...');
     results.deckBuilding = await scrapeDeckBuilding();
     console.log('✅ Deck Building complete\n');
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    console.log('7️⃣  Starting Combat Basics scraper...');
+    console.log('8️⃣  Starting Combat Basics scraper...');
     results.combatBasics = await scrapeCombatBasics();
     console.log('✅ Combat Basics complete\n');
 
     // Small delay before mechanics (which makes many requests)
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('8️⃣  Starting Mechanics scraper...');
+    console.log('9️⃣  Starting Mechanics scraper...');
     results.mechanics = await scrapeMechanics();
     console.log('✅ Mechanics complete\n');
 
@@ -73,6 +80,7 @@ const runAllScrapers = async () => {
     console.log(`   🎮 Game Overview: Complete introduction guide`);
     console.log(`   🎨 Colors: ${Object.keys(results.colors).length}`);
     console.log(`   🃏 Card Types: ${Object.keys(results.cardTypes).length}`);
+    console.log(`   🕒 Turn Phases: ${Object.keys(results.turnPhases.phases).length} phases with detailed steps`);
     console.log(`   📋 Card Anatomy: ${Object.keys(results.cardAnatomy.cardParts).length} parts explained`);
     console.log(`   🏆 Win Conditions: ${Object.keys(results.winConditions.primaryWinConditions).length} primary + ${Object.keys(results.winConditions.alternativeWinConditions).length} alternative`);
     console.log(`   🏗️ Deck Building: Complete construction guide`);
@@ -83,6 +91,7 @@ const runAllScrapers = async () => {
     console.log(`   ${path.join(__dirname, '../data/gameOverview.json')}`);
     console.log(`   ${path.join(__dirname, '../data/colors.json')}`);
     console.log(`   ${path.join(__dirname, '../data/cardTypes.json')}`);
+    console.log(`   ${path.join(__dirname, '../data/turnPhases.json')}`);
     console.log(`   ${path.join(__dirname, '../data/cardAnatomy.json')}`);
     console.log(`   ${path.join(__dirname, '../data/winConditions.json')}`);
     console.log(`   ${path.join(__dirname, '../data/deckBuilding.json')}`);
@@ -136,6 +145,18 @@ const runCardTypesScraper = async () => {
     return results;
   } catch (error) {
     console.error('❌ Card Types scraping failed:', error.message);
+    throw error;
+  }
+};
+
+const runTurnPhasesScraper = async () => {
+  console.log('🕒 Running Turn Phases scraper only...');
+  try {
+    const results = await scrapeTurnPhases();
+    console.log('✅ Turn Phases scraping complete');
+    return results;
+  } catch (error) {
+    console.error('❌ Turn Phases scraping failed:', error.message);
     throw error;
   }
 };
@@ -215,6 +236,10 @@ if (require.main === module) {
     case 'card-types':
       runCardTypesScraper().catch(console.error);
       break;
+    case 'turn':
+    case 'turn-phases':
+      runTurnPhasesScraper().catch(console.error);
+      break;
     case 'anatomy':
     case 'card-anatomy':
       runCardAnatomyScraper().catch(console.error);
@@ -246,6 +271,7 @@ module.exports = {
   runGameOverviewScraper,
   runColorsScraper,
   runCardTypesScraper,
+  runTurnPhasesScraper,
   runCardAnatomyScraper,
   runWinConditionsScraper,
   runDeckBuildingScraper,

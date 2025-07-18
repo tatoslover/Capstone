@@ -25,6 +25,11 @@ Scrapes card type information including descriptions, rules, usage, and timing.
 
 **Output:** `data/cardTypes.json`
 
+### 🕒 Turn Phases Scraper (`scrapers/turnPhases.js`)
+Scrapes official MTG turn structure with detailed phase and step breakdowns.
+
+**Output:** `data/turnPhases.json`
+
 ### 📋 Card Anatomy Scraper (`scrapers/cardAnatomy.js`)
 Scrapes detailed information about card parts, layout, and reading tips.
 
@@ -69,6 +74,9 @@ npm run scrape:colors
 
 # Scrape card types only
 npm run scrape:card-types
+
+# Scrape turn phases only
+npm run scrape:turn-phases
 
 # Scrape card anatomy only
 npm run scrape:anatomy
@@ -157,6 +165,25 @@ The scrapers include built-in rate limiting to be respectful to the MTG Wiki:
     "examples": ["Combat creatures", ...],
     "icon": "👹"
   }
+}
+```
+
+### Turn Phases (`turnPhases.json`)
+```json
+{
+  "phases": {
+    "beginning": {
+      "name": "Beginning Phase",
+      "order": 1,
+      "description": "The start of your turn where you untap...",
+      "steps": {
+        "untap": { "name": "Untap Step", "rules": [...] },
+        "upkeep": { "name": "Upkeep Step", "commonTriggers": [...] },
+        "draw": { "name": "Draw Step", "strategicNotes": [...] }
+      }
+    }
+  },
+  "timingRules": { "priority": {...}, "spellSpeeds": {...} }
 }
 ```
 
@@ -254,6 +281,7 @@ After running the scrapers, the data is automatically copied to `frontend/data/`
 import gameOverview from "../data/gameOverview.json";
 import colors from "../data/colors.json";
 import cardTypes from "../data/cardTypes.json";
+import turnPhases from "../data/turnPhases.json";
 import cardAnatomy from "../data/cardAnatomy.json";
 import winConditions from "../data/winConditions.json";
 import deckBuilding from "../data/deckBuilding.json";
@@ -264,6 +292,7 @@ import { mechanicsDetails, getMechanicDetails } from "../data/mechanics.js";
 const introduction = gameOverview.introduction;
 const whiteColor = colors.white;
 const creatureType = cardTypes.creature;
+const beginningPhase = turnPhases.phases.beginning;
 const manaCostInfo = cardAnatomy.cardParts.manaCost;
 const lifeTotalWin = winConditions.primaryWinConditions.lifeTotal;
 const deckRules = deckBuilding.fundamentalRules;
@@ -286,10 +315,12 @@ Run individual scrapers to isolate issues:
 # Test specific scraper
 npm run scrape:overview
 npm run scrape:colors
+npm run scrape:turn-phases
 npm run scrape:win-conditions
 
 # Check output
 cat data/gameOverview.json | jq
+cat data/turnPhases.json | jq
 cat data/colors.json | jq
 ```
 
