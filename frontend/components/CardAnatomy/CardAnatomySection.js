@@ -292,17 +292,7 @@ const CardAnatomySection = ({ cardAnatomyData }) => {
 
       {/* Selected Part Details */}
       {selectedPart && (
-        <div
-          className="section-content"
-          style={{
-            padding: "1.5rem",
-            background: "#495057",
-            borderRadius: "0.5rem",
-            border: "1px solid #6c757d",
-            maxWidth: "800px",
-            margin: "0 auto",
-          }}
-        >
+        <div className="section-content">
           <h3
             style={{
               marginBottom: "1.5rem",

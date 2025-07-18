@@ -561,6 +561,18 @@ select:focus {
     border-color: #6c757d;
 }
 
+/* Section Content */
+.section-content {
+    padding: 1.5rem;
+    background: #495057;
+    border-radius: 0.5rem;
+    border: 1px solid var(--theme-accent);
+    max-width: 800px;
+    margin: 0 auto;
+    color: #dee2e6;
+    line-height: 1.6;
+}
+
 .section-button:active {
     transform: scale(0.98);
 }

@@ -1,0 +1,590 @@
+{
+  "lastUpdated": "2025-07-18T10:01:46.927Z",
+  "source": "MTG Wiki + Manual curation",
+  "categories": {
+    "rotating": {
+      "title": "🔁 Rotating",
+      "description": "These formats have card pools that change over time",
+      "formats": [
+        {
+          "name": "Standard",
+          "description": "Standard, formerly known as Type 2 or Type II, is a rotating constructed play format for Magic: The Gathering, that was created on January 10, 1995.[1][2] It is the most widely sanctioned constructed format at all levels of organized play.[3] Standard matches are best-of-3, so this format is called Traditional Standard on Magic: The Gathering Arena.",
+          "rules": "Standard decks must contain a minimum of sixty cards. There is no maximum deck size; however, one must be able to shuffle one's deck without assistance.",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": true,
+          "category": "rotating",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Standard",
+          "popularity": "very-high"
+        },
+        {
+          "name": "Pioneer",
+          "description": "Pioneer is a constructed format that allows expansion sets and core sets from Return to Ravnica forward, save for the Pioneer ban list.[1] It is legal for tabletop Magic: The Gathering, MTG Arena, and Magic Online.",
+          "rules": "All the regular rules for constructed formats apply. Decks must contain a minimum of sixty cards. There is no maximum deck size; however, you must be able to shuffle your deck with no assistance. Like other constructed formats, a sideboard of at most fifteen cards can be used. With the exception of basic lands and cards like Rat Colony, a player's combined deck and sideboard may not contain more than four of any individual card.",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "rotating",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Pioneer",
+          "popularity": "high"
+        },
+        {
+          "name": "Alchemy",
+          "description": "Alchemy is a digital-only rotating format and play mode for Magic: The Gathering Arena that was introduced in December 2021 as a fast and ever-evolving experience.[1][2] It intentionally diverges from the metagame of Standard and other formats to provide an alternative experience to play.[3]",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": true,
+          "category": "rotating",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Alchemy",
+          "popularity": "medium"
+        },
+        {
+          "name": "Historic",
+          "description": "Historic is a batching term introduced in Dominaria.[2] It is a way to collectively refer to artifacts, anything with the legendary supertype, and Sagas.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "rotating",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Historic",
+          "popularity": "medium"
+        }
+      ]
+    },
+    "eternal": {
+      "title": "♾️ Eternal",
+      "description": "These don't rotate and include all legal cards back to a certain point",
+      "formats": [
+        {
+          "name": "Modern",
+          "description": "Modern is a constructed format that allows expansion sets, core sets, and Modern Horizons; from Eighth Edition forward, save for the Modern ban list.[1] The modern format thus encompasses all cards that have been printed in a core or expansion set using the modern card frame (plus some others from Time Spiral).",
+          "rules": "Constructed decks must contain a minimum of sixty cards. There is no maximum deck size; however, you must be able to shuffle your deck with no assistance. Like other constructed formats, a sideboard of up to fifteen additional cards can be used.",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "eternal",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Modern",
+          "popularity": "high"
+        },
+        {
+          "name": "Legacy",
+          "description": "Legacy is an eternal format alongside Vintage. Since Vintage demands hard-to-acquire cards (e.g.: Black Lotus), Legacy became the most popular of the two for being less restrictive for new players to join.",
+          "rules": "Constructed decks must contain a minimum of sixty (60) cards and there is no maximum deck size - however, you must be able to shuffle your deck with no assistance. If a player wishes to use a sideboard, it must contain no more than fifteen (15) cards.",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "eternal",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Legacy",
+          "popularity": "medium"
+        },
+        {
+          "name": "Vintage",
+          "description": "Vintage, originally known as Type 1 or Type I, is an eternal format that allows for the use of almost all printed cards, save Acorn cards and/or having a non-Standard Magic back (other than Double-Faced Card/Meld Card), as well as certain cards banned for causing problems in sanctioned tournaments.[1]  Additionally, several cards are restricted to a maximum of one copy between a player's deck and sideboard due to their power. These include the Power Nine, which are not allowed in any other tournament format. The deck-building rules common to all Constructed formats apply in Vintage.",
+          "rules": "Constructed decks must contain a minimum of sixty cards. There is no maximum deck size; however, you must be able to shuffle your deck with no assistance. If a player wishes to use a sideboard, it must contain no more than fifteen cards.",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "eternal",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Vintage",
+          "popularity": "low"
+        },
+        {
+          "name": "Pauper",
+          "description": "Pauper developed as a Magic Online-specific format, but gained official tabletop support in June 2019.[1] The restriction to common cards found in Pauper format can easily be combined with other formats, such as Standard, Modern, or Block Constructed. Pauper Standard is also a Magic Online sanctioned format. Magic Arena also supports some of these hybrid formats, though Pauper as it is known elsewhere is not accessible, given the small Historic card pool.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "eternal",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Pauper",
+          "popularity": "medium"
+        }
+      ]
+    },
+    "limited": {
+      "title": "🧪 Limited",
+      "description": "Where you build a deck from unopened boosters",
+      "formats": [
+        {
+          "name": "Sealed",
+          "description": "Sealed Deck is a Limited format which is used in many events.[1][2][3] Participating players each receive the same amount of unopened products, typically six booster packs, then construct their decks from only those cards and basic lands.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "limited",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Sealed",
+          "popularity": "high"
+        },
+        {
+          "name": "Draft",
+          "description": "Draft or card drafting is the process where players pick cards from a limited subset, such as a common pool, to gain some immediate advantage or to assemble hands of cards that are used to meet objectives within the game. With the introduction of the designed-for-digital Spellbook mechanic in Alchemy: Innistrad, Draft became a keyword action, albeit limited to Magic: The Gathering Arena.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "limited",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Draft",
+          "popularity": "very-high"
+        },
+        {
+          "name": "Cube Draft",
+          "description": "Cube Draft is a casual Magic: The Gathering format where players create a cube, a large pool of cards selected to play a limited game.[1]",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "limited",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Cube_Draft",
+          "popularity": "medium"
+        },
+        {
+          "name": "Rochester Draft",
+          "description": "Rochester Draft is a limited Magic: The Gathering draft format where one booster is opened at a time instead of every player opening their own pack.[1][2] The fifteen cards are laid out on the table and players are given about twenty seconds to review their choices. After that, players take turns picking one card at a time to build their decks.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "limited",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Rochester_Draft",
+          "popularity": "very-low"
+        }
+      ]
+    },
+    "multiplayer": {
+      "title": "🎮 Casual & Multiplayer",
+      "description": "Formats designed for multiple players or casual play",
+      "formats": [
+        {
+          "name": "Commander",
+          "description": "A 100-card singleton multiplayer format with a legendary commander.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "multiplayer",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Commander",
+          "popularity": "very-high"
+        },
+        {
+          "name": "Brawl",
+          "description": "Brawl (named Standard Brawl in MTG Arena) is a Commander variant that uses only Standard-legal cards,[1] in addition to Arcane Signet and Command Tower.[2] It was designed and introduced by Wizards of the Coast staff Gerritt Turner,[3] and subsequently became a Magic Online and MTG Arena sanctioned format.",
+          "rules": "Since its ruleset is derived from Commander, the Comprehensive Rules consider Brawl to be an option of how to play Commander. However, several significant rules differences and the vast difference in the size of the card pool makes them quite different in practice.",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "multiplayer",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Brawl",
+          "popularity": "medium"
+        },
+        {
+          "name": "Oathbreaker",
+          "description": "Oathbreaker is a casual, multiplayer, singleton format. It is a variant of Commander, though its creators object to referring to it as such.[1][2] In March 2023, the format was officially recognized by Wizards of the Coast, though there were no dedicated products planned.[3]",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "multiplayer",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Oathbreaker",
+          "popularity": "low"
+        },
+        {
+          "name": "Planechase",
+          "description": "Planechase is a supplemental set for Magic: The Gathering multiplayer games. The set introduced the Planechase format and the associated oversized plane cards. The set was released on September 4, 2009, with release events held on September 4–6.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "multiplayer",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Planechase",
+          "popularity": "low"
+        },
+        {
+          "name": "Archenemy",
+          "description": "Archenemy is the first multiplayer-focused Magic set focused on the Archenemy format. It was released on June 18, 2010.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "multiplayer",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Archenemy",
+          "popularity": "low"
+        },
+        {
+          "name": "Two-Headed Giant",
+          "description": "Two-Headed Giant (also known as 2HG) is a DCI-sanctioned multiplayer format for Magic: the Gathering in which two teams of two players each all play together in a single game.[1][2][3][4]",
+          "rules": "Up until Dominaria the rule was that creatures would attack the team, rather than one of its players. From this update on, you simply attack players or planeswalkers, not the team.[5][6] This change brings Two-Headed Giant's combat in line with Archenemy, using the same shared team turns system of combat. The only difference is that the team's life total goes down rather than the individual's. It also prepared the way for Battlebond, the first-ever Two-Headed Giant focused Magic booster set.",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "multiplayer",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Two-Headed_Giant",
+          "popularity": "low"
+        },
+        {
+          "name": "Conspiracy",
+          "description": "Magic: The Gathering – Conspiracy is the first-ever multiplayer-focused Magic booster set. It was released on June 6, 2014. Conspiracy is designed to be drafted.[2][3][4][5]",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "multiplayer",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Conspiracy",
+          "popularity": "low"
+        }
+      ]
+    },
+    "custom": {
+      "title": "🛠️ Custom & House",
+      "description": "Often made by communities or friends",
+      "formats": [
+        {
+          "name": "Kitchen Table",
+          "description": "Casual play with friends using any cards you own. No restrictions, just fun! Perfect for learning and experimenting.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": false,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "custom",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Kitchen_Table",
+          "popularity": "very-high"
+        },
+        {
+          "name": "Preconstructed Battles",
+          "description": "Use pre-built decks against each other.",
+          "rules": "",
+          "cardPool": "",
+          "isDigitalOnly": false,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "custom",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Preconstructed_Battles",
+          "popularity": "medium"
+        },
+        {
+          "name": "Highlander",
+          "description": "Highlander is a casual constructed variant of Magic which allows only one copy of each card in the deck, with the exception of basic lands.[1] It may also be a format modifier, where any other constructed format is modified by restricting it to also be Highlander. The name Highlander is a reference to the movie of the same name, whose tagline was \"There can be only one\".[2]",
+          "rules": "Any card from Alpha up through the latest Magic set can be used (except for banned cards). Cards from the Portal sets, International Collector Editions, and World Championship Decks can be used provided you put all your cards in opaque sleeves and the International Collector Edition card edges are rounded.\nSpecial mulligan rules: In some variants, the first time a player takes a mulligan, they draw a new hand of as many cards as they had before. Subsequent hands decrease by one card as normal. In other variants, a mulligan of 7-6-6-5-5... is used (i.e. a second mulligan of each size except 7).",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "custom",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Highlander",
+          "popularity": "low"
+        },
+        {
+          "name": "Canadian Highlander",
+          "description": "Highlander is a casual constructed variant of Magic which allows only one copy of each card in the deck, with the exception of basic lands.[1] It may also be a format modifier, where any other constructed format is modified by restricting it to also be Highlander. The name Highlander is a reference to the movie of the same name, whose tagline was \"There can be only one\".[2]",
+          "rules": "Any card from Alpha up through the latest Magic set can be used (except for banned cards). Cards from the Portal sets, International Collector Editions, and World Championship Decks can be used provided you put all your cards in opaque sleeves and the International Collector Edition card edges are rounded.\nSpecial mulligan rules: In some variants, the first time a player takes a mulligan, they draw a new hand of as many cards as they had before. Subsequent hands decrease by one card as normal. In other variants, a mulligan of 7-6-6-5-5... is used (i.e. a second mulligan of each size except 7).",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "custom",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Canadian_Highlander",
+          "popularity": "low"
+        }
+      ]
+    }
+  },
+  "allFormats": [
+    {
+      "name": "Standard",
+      "description": "Standard, formerly known as Type 2 or Type II, is a rotating constructed play format for Magic: The Gathering, that was created on January 10, 1995.[1][2] It is the most widely sanctioned constructed format at all levels of organized play.[3] Standard matches are best-of-3, so this format is called Traditional Standard on Magic: The Gathering Arena.",
+      "rules": "Standard decks must contain a minimum of sixty cards. There is no maximum deck size; however, one must be able to shuffle one's deck without assistance.",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": true,
+      "category": "rotating",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Standard",
+      "popularity": "very-high"
+    },
+    {
+      "name": "Pioneer",
+      "description": "Pioneer is a constructed format that allows expansion sets and core sets from Return to Ravnica forward, save for the Pioneer ban list.[1] It is legal for tabletop Magic: The Gathering, MTG Arena, and Magic Online.",
+      "rules": "All the regular rules for constructed formats apply. Decks must contain a minimum of sixty cards. There is no maximum deck size; however, you must be able to shuffle your deck with no assistance. Like other constructed formats, a sideboard of at most fifteen cards can be used. With the exception of basic lands and cards like Rat Colony, a player's combined deck and sideboard may not contain more than four of any individual card.",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "rotating",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Pioneer",
+      "popularity": "high"
+    },
+    {
+      "name": "Alchemy",
+      "description": "Alchemy is a digital-only rotating format and play mode for Magic: The Gathering Arena that was introduced in December 2021 as a fast and ever-evolving experience.[1][2] It intentionally diverges from the metagame of Standard and other formats to provide an alternative experience to play.[3]",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": true,
+      "category": "rotating",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Alchemy",
+      "popularity": "medium"
+    },
+    {
+      "name": "Historic",
+      "description": "Historic is a batching term introduced in Dominaria.[2] It is a way to collectively refer to artifacts, anything with the legendary supertype, and Sagas.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "rotating",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Historic",
+      "popularity": "medium"
+    },
+    {
+      "name": "Modern",
+      "description": "Modern is a constructed format that allows expansion sets, core sets, and Modern Horizons; from Eighth Edition forward, save for the Modern ban list.[1] The modern format thus encompasses all cards that have been printed in a core or expansion set using the modern card frame (plus some others from Time Spiral).",
+      "rules": "Constructed decks must contain a minimum of sixty cards. There is no maximum deck size; however, you must be able to shuffle your deck with no assistance. Like other constructed formats, a sideboard of up to fifteen additional cards can be used.",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "eternal",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Modern",
+      "popularity": "high"
+    },
+    {
+      "name": "Legacy",
+      "description": "Legacy is an eternal format alongside Vintage. Since Vintage demands hard-to-acquire cards (e.g.: Black Lotus), Legacy became the most popular of the two for being less restrictive for new players to join.",
+      "rules": "Constructed decks must contain a minimum of sixty (60) cards and there is no maximum deck size - however, you must be able to shuffle your deck with no assistance. If a player wishes to use a sideboard, it must contain no more than fifteen (15) cards.",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "eternal",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Legacy",
+      "popularity": "medium"
+    },
+    {
+      "name": "Vintage",
+      "description": "Vintage, originally known as Type 1 or Type I, is an eternal format that allows for the use of almost all printed cards, save Acorn cards and/or having a non-Standard Magic back (other than Double-Faced Card/Meld Card), as well as certain cards banned for causing problems in sanctioned tournaments.[1]  Additionally, several cards are restricted to a maximum of one copy between a player's deck and sideboard due to their power. These include the Power Nine, which are not allowed in any other tournament format. The deck-building rules common to all Constructed formats apply in Vintage.",
+      "rules": "Constructed decks must contain a minimum of sixty cards. There is no maximum deck size; however, you must be able to shuffle your deck with no assistance. If a player wishes to use a sideboard, it must contain no more than fifteen cards.",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "eternal",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Vintage",
+      "popularity": "low"
+    },
+    {
+      "name": "Pauper",
+      "description": "Pauper developed as a Magic Online-specific format, but gained official tabletop support in June 2019.[1] The restriction to common cards found in Pauper format can easily be combined with other formats, such as Standard, Modern, or Block Constructed. Pauper Standard is also a Magic Online sanctioned format. Magic Arena also supports some of these hybrid formats, though Pauper as it is known elsewhere is not accessible, given the small Historic card pool.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "eternal",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Pauper",
+      "popularity": "medium"
+    },
+    {
+      "name": "Sealed",
+      "description": "Sealed Deck is a Limited format which is used in many events.[1][2][3] Participating players each receive the same amount of unopened products, typically six booster packs, then construct their decks from only those cards and basic lands.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "limited",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Sealed",
+      "popularity": "high"
+    },
+    {
+      "name": "Draft",
+      "description": "Draft or card drafting is the process where players pick cards from a limited subset, such as a common pool, to gain some immediate advantage or to assemble hands of cards that are used to meet objectives within the game. With the introduction of the designed-for-digital Spellbook mechanic in Alchemy: Innistrad, Draft became a keyword action, albeit limited to Magic: The Gathering Arena.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "limited",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Draft",
+      "popularity": "very-high"
+    },
+    {
+      "name": "Cube Draft",
+      "description": "Cube Draft is a casual Magic: The Gathering format where players create a cube, a large pool of cards selected to play a limited game.[1]",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "limited",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Cube_Draft",
+      "popularity": "medium"
+    },
+    {
+      "name": "Rochester Draft",
+      "description": "Rochester Draft is a limited Magic: The Gathering draft format where one booster is opened at a time instead of every player opening their own pack.[1][2] The fifteen cards are laid out on the table and players are given about twenty seconds to review their choices. After that, players take turns picking one card at a time to build their decks.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "limited",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Rochester_Draft",
+      "popularity": "very-low"
+    },
+    {
+      "name": "Commander",
+      "description": "A 100-card singleton multiplayer format with a legendary commander.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "multiplayer",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Commander",
+      "popularity": "very-high"
+    },
+    {
+      "name": "Brawl",
+      "description": "Brawl (named Standard Brawl in MTG Arena) is a Commander variant that uses only Standard-legal cards,[1] in addition to Arcane Signet and Command Tower.[2] It was designed and introduced by Wizards of the Coast staff Gerritt Turner,[3] and subsequently became a Magic Online and MTG Arena sanctioned format.",
+      "rules": "Since its ruleset is derived from Commander, the Comprehensive Rules consider Brawl to be an option of how to play Commander. However, several significant rules differences and the vast difference in the size of the card pool makes them quite different in practice.",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "multiplayer",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Brawl",
+      "popularity": "medium"
+    },
+    {
+      "name": "Oathbreaker",
+      "description": "Oathbreaker is a casual, multiplayer, singleton format. It is a variant of Commander, though its creators object to referring to it as such.[1][2] In March 2023, the format was officially recognized by Wizards of the Coast, though there were no dedicated products planned.[3]",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "multiplayer",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Oathbreaker",
+      "popularity": "low"
+    },
+    {
+      "name": "Planechase",
+      "description": "Planechase is a supplemental set for Magic: The Gathering multiplayer games. The set introduced the Planechase format and the associated oversized plane cards. The set was released on September 4, 2009, with release events held on September 4–6.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "multiplayer",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Planechase",
+      "popularity": "low"
+    },
+    {
+      "name": "Archenemy",
+      "description": "Archenemy is the first multiplayer-focused Magic set focused on the Archenemy format. It was released on June 18, 2010.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "multiplayer",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Archenemy",
+      "popularity": "low"
+    },
+    {
+      "name": "Two-Headed Giant",
+      "description": "Two-Headed Giant (also known as 2HG) is a DCI-sanctioned multiplayer format for Magic: the Gathering in which two teams of two players each all play together in a single game.[1][2][3][4]",
+      "rules": "Up until Dominaria the rule was that creatures would attack the team, rather than one of its players. From this update on, you simply attack players or planeswalkers, not the team.[5][6] This change brings Two-Headed Giant's combat in line with Archenemy, using the same shared team turns system of combat. The only difference is that the team's life total goes down rather than the individual's. It also prepared the way for Battlebond, the first-ever Two-Headed Giant focused Magic booster set.",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "multiplayer",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Two-Headed_Giant",
+      "popularity": "low"
+    },
+    {
+      "name": "Conspiracy",
+      "description": "Magic: The Gathering – Conspiracy is the first-ever multiplayer-focused Magic booster set. It was released on June 6, 2014. Conspiracy is designed to be drafted.[2][3][4][5]",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "multiplayer",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Conspiracy",
+      "popularity": "low"
+    },
+    {
+      "name": "Kitchen Table",
+      "description": "Casual play with friends using any cards you own. No restrictions, just fun! Perfect for learning and experimenting.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": false,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "custom",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Kitchen_Table",
+      "popularity": "very-high"
+    },
+    {
+      "name": "Preconstructed Battles",
+      "description": "Use pre-built decks against each other.",
+      "rules": "",
+      "cardPool": "",
+      "isDigitalOnly": false,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "custom",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Preconstructed_Battles",
+      "popularity": "medium"
+    },
+    {
+      "name": "Highlander",
+      "description": "Highlander is a casual constructed variant of Magic which allows only one copy of each card in the deck, with the exception of basic lands.[1] It may also be a format modifier, where any other constructed format is modified by restricting it to also be Highlander. The name Highlander is a reference to the movie of the same name, whose tagline was \"There can be only one\".[2]",
+      "rules": "Any card from Alpha up through the latest Magic set can be used (except for banned cards). Cards from the Portal sets, International Collector Editions, and World Championship Decks can be used provided you put all your cards in opaque sleeves and the International Collector Edition card edges are rounded.\nSpecial mulligan rules: In some variants, the first time a player takes a mulligan, they draw a new hand of as many cards as they had before. Subsequent hands decrease by one card as normal. In other variants, a mulligan of 7-6-6-5-5... is used (i.e. a second mulligan of each size except 7).",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "custom",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Highlander",
+      "popularity": "low"
+    },
+    {
+      "name": "Canadian Highlander",
+      "description": "Highlander is a casual constructed variant of Magic which allows only one copy of each card in the deck, with the exception of basic lands.[1] It may also be a format modifier, where any other constructed format is modified by restricting it to also be Highlander. The name Highlander is a reference to the movie of the same name, whose tagline was \"There can be only one\".[2]",
+      "rules": "Any card from Alpha up through the latest Magic set can be used (except for banned cards). Cards from the Portal sets, International Collector Editions, and World Championship Decks can be used provided you put all your cards in opaque sleeves and the International Collector Edition card edges are rounded.\nSpecial mulligan rules: In some variants, the first time a player takes a mulligan, they draw a new hand of as many cards as they had before. Subsequent hands decrease by one card as normal. In other variants, a mulligan of 7-6-6-5-5... is used (i.e. a second mulligan of each size except 7).",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "custom",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Canadian_Highlander",
+      "popularity": "low"
+    }
+  ]
+}
