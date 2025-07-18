@@ -1,0 +1,92 @@
+{
+  "land": {
+    "name": "Land",
+    "description": "Lands provide the mana needed to cast other spells. They represent locations and sources of magical energy.",
+    "rules": "Lands don't use the stack and can't be responded to. You can play one land per turn during your main phase.",
+    "usage": "Essential for every deck. Provides mana to cast spells.",
+    "timing": "Main phase only (once per turn)",
+    "examples": [
+      "Basic lands",
+      "Dual lands",
+      "Utility lands"
+    ],
+    "icon": "🏔️"
+  },
+  "creature": {
+    "name": "Creature",
+    "description": "Creatures represent beings who fight for you. They can attack opponents and block incoming attacks.",
+    "rules": "Creatures enter with summoning sickness. They have power and toughness values.",
+    "usage": "Your primary way to deal damage and defend yourself.",
+    "timing": "Main phase only (sorcery speed)",
+    "examples": [
+      "Combat creatures",
+      "Utility creatures",
+      "Legendary creatures"
+    ],
+    "icon": "👹"
+  },
+  "instant": {
+    "name": "Instant",
+    "description": "Instants resolve immediately and can be cast at almost any time for maximum flexibility.",
+    "rules": "Can be cast at instant speed - during any player's turn or in response to other spells.",
+    "usage": "Perfect for reactive plays and combat tricks.",
+    "timing": "Instant speed (almost anytime)",
+    "examples": [
+      "Counterspells",
+      "Combat tricks",
+      "Removal spells"
+    ],
+    "icon": "⚡"
+  },
+  "sorcery": {
+    "name": "Sorcery",
+    "description": "Sorceries resolve immediately but can only be cast during your main phase when nothing else is happening.",
+    "rules": "Can only be cast during your main phase when the stack is empty.",
+    "usage": "Often more powerful than instants due to timing restrictions.",
+    "timing": "Main phase only (sorcery speed)",
+    "examples": [
+      "Board wipes",
+      "Large effects",
+      "Tutors"
+    ],
+    "icon": "🔮"
+  },
+  "artifact": {
+    "name": "Artifact",
+    "description": "Artifacts represent magical items and constructs. Most are colourless and fit into any deck.",
+    "rules": "Most artifacts are colourless permanents with various abilities.",
+    "usage": "Versatile permanents that provide ongoing effects or utility.",
+    "timing": "Main phase only (sorcery speed)",
+    "examples": [
+      "Equipment",
+      "Mana rocks",
+      "Utility artifacts"
+    ],
+    "icon": "⚙️"
+  },
+  "enchantment": {
+    "name": "Enchantment",
+    "description": "Enchantments represent ongoing magical effects that persist until removed.",
+    "rules": "Permanent spells that provide continuous effects.",
+    "usage": "Provide ongoing benefits or alter game rules.",
+    "timing": "Main phase only (sorcery speed)",
+    "examples": [
+      "Auras",
+      "Global enchantments",
+      "Ongoing effects"
+    ],
+    "icon": "✨"
+  },
+  "planeswalker": {
+    "name": "Planeswalker",
+    "description": "Planeswalkers represent powerful allies with loyalty counters and multiple abilities.",
+    "rules": "Enter with starting loyalty. Use loyalty abilities at sorcery speed. Can be attacked.",
+    "usage": "Powerful allies that provide repeatable effects.",
+    "timing": "Main phase only (sorcery speed)",
+    "examples": [
+      "Loyalty abilities",
+      "Ultimate abilities"
+    ],
+    "icon": "👑"
+  }
+}
