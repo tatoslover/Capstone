@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
-import { allMechanics } from "../../data/mechanics";
+import { allMechanics, mechanicsDetails } from "../../data/mechanics";
 
 export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredMechanics, setFilteredMechanics] = useState(allMechanics);
+  const [filteredMechanics, setFilteredMechanics] = useState(
+    allMechanics.sort(),
+  );
 
   // Filter mechanics based on search
   useEffect(() => {
     if (searchQuery.trim()) {
-      const filtered = allMechanics.filter((mechanic) =>
-        mechanic.toLowerCase().includes(searchQuery.toLowerCase()),
-      );
+      const filtered = allMechanics
+        .filter((mechanic) =>
+          mechanic.toLowerCase().includes(searchQuery.toLowerCase()),
+        )
+        .sort();
       setFilteredMechanics(filtered);
     } else {
-      setFilteredMechanics(allMechanics);
+      setFilteredMechanics(allMechanics.sort());
     }
   }, [searchQuery]);
 
@@ -26,6 +30,12 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
     }
   };
 
+  // Remove citation markers like [1], [2][3], etc. from descriptions
+  const removeCitations = (text) => {
+    if (!text) return text;
+    return text.replace(/\[\d+\](\[\d+\])*/g, "");
+  };
+
   const clearSearch = () => {
     setSearchQuery("");
   };
@@ -34,7 +44,7 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
     <div className="mechanics-search">
       {/* Header */}
       <div className="card-header" style={{ marginBottom: "1.5rem" }}>
-        <h2 className="card-title">MTG Mechanics Guide</h2>
+        <h2 className="card-title">Mechanics Guide</h2>
         <p className="card-subtitle">
           Search and explore {allMechanics.length} Magic: The Gathering
           mechanics
@@ -47,9 +57,6 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "1.5rem",
-          "@media (max-width: 768px)": {
-            gridTemplateColumns: "1fr",
-          },
         }}
       >
         {/* Left Side: Search */}
@@ -121,10 +128,100 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
               >
                 {selectedMechanic.name}
               </h4>
-              <p style={{ margin: 0, lineHeight: "1.5" }}>
-                <strong style={{ color: "#ffc107" }}>TBC</strong> - Description
-                and rules for {selectedMechanic.name} will be added here.
-              </p>
+              {(() => {
+                const mechanicKey = selectedMechanic.name.toLowerCase();
+                const mechanicData = mechanicsDetails[mechanicKey];
+
+                if (mechanicData) {
+                  return (
+                    <div>
+                      <p style={{ margin: "0 0 1rem 0", lineHeight: "1.5" }}>
+                        {removeCitations(mechanicData.description)}
+                      </p>
+                      {mechanicData.category && (
+                        <div style={{ marginBottom: "1rem" }}>
+                          <span
+                            style={{
+                              padding: "0.25rem 0.5rem",
+                              background: mechanicData.isEvergreen
+                                ? "#28a745"
+                                : "#6f42c1",
+                              borderRadius: "0.25rem",
+                              fontSize: "0.8rem",
+                              fontWeight: "bold",
+                              color: "#ffffff",
+                            }}
+                          >
+                            {mechanicData.isEvergreen
+                              ? "Evergreen"
+                              : mechanicData.category}
+                          </span>
+                          {mechanicData.isBeginnerFriendly && (
+                            <span
+                              style={{
+                                marginLeft: "0.5rem",
+                                padding: "0.25rem 0.5rem",
+                                background: "#17a2b8",
+                                borderRadius: "0.25rem",
+                                fontSize: "0.8rem",
+                                fontWeight: "bold",
+                                color: "#ffffff",
+                              }}
+                            >
+                              Beginner Friendly
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      {mechanicData.rules &&
+                        mechanicData.rules.trim() !== "" && (
+                          <div style={{ marginBottom: "1rem" }}>
+                            <h5
+                              style={{
+                                color: "#ffc107",
+                                margin: "0 0 0.5rem 0",
+                              }}
+                            >
+                              Rules:
+                            </h5>
+                            <p
+                              style={{
+                                margin: "0",
+                                fontSize: "0.9rem",
+                                color: "#adb5bd",
+                              }}
+                            >
+                              {removeCitations(mechanicData.rules)}
+                            </p>
+                          </div>
+                        )}
+                      {mechanicData.wikiUrl && (
+                        <a
+                          href={mechanicData.wikiUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            color: "#007bff",
+                            textDecoration: "none",
+                            fontSize: "0.9rem",
+                          }}
+                        >
+                          📖 Learn more on MTG Wiki →
+                        </a>
+                      )}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <p
+                      style={{ margin: 0, lineHeight: "1.5", color: "#6c757d" }}
+                    >
+                      Description for {selectedMechanic.name} is not available
+                      yet.
+                    </p>
+                  );
+                }
+              })()}
             </div>
           )}
         </div>
