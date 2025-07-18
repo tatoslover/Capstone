@@ -12,40 +12,30 @@ const copyToFrontend = async () => {
     // Ensure frontend data directory exists
     await fs.ensureDir(frontendDataDir);
 
-    // Copy colors data
-    console.log('🎨 Copying colors data...');
-    const colorsSource = path.join(scriptsDataDir, 'colors.json');
-    const colorsTarget = path.join(frontendDataDir, 'colors.json');
+    // Define all data files to copy
+    const dataFiles = [
+      { name: 'gameOverview', icon: '🎮', description: 'game overview' },
+      { name: 'colors', icon: '🎨', description: 'colors' },
+      { name: 'cardTypes', icon: '🃏', description: 'card types' },
+      { name: 'cardAnatomy', icon: '📋', description: 'card anatomy' },
+      { name: 'winConditions', icon: '🏆', description: 'win conditions' },
+      { name: 'deckBuilding', icon: '🏗️', description: 'deck building' },
+      { name: 'combatBasics', icon: '⚔️', description: 'combat basics' },
+      { name: 'mechanics', icon: '⚡', description: 'mechanics' }
+    ];
 
-    if (await fs.pathExists(colorsSource)) {
-      await fs.copy(colorsSource, colorsTarget);
-      console.log(`   ✅ ${colorsTarget}`);
-    } else {
-      console.log('   ⚠️  colors.json not found - run scraper first');
-    }
+    // Copy all data files
+    for (const file of dataFiles) {
+      console.log(`${file.icon} Copying ${file.description} data...`);
+      const sourceFile = path.join(scriptsDataDir, `${file.name}.json`);
+      const targetFile = path.join(frontendDataDir, `${file.name}.json`);
 
-    // Copy card types data
-    console.log('🃏 Copying card types data...');
-    const cardTypesSource = path.join(scriptsDataDir, 'cardTypes.json');
-    const cardTypesTarget = path.join(frontendDataDir, 'cardTypes.json');
-
-    if (await fs.pathExists(cardTypesSource)) {
-      await fs.copy(cardTypesSource, cardTypesTarget);
-      console.log(`   ✅ ${cardTypesTarget}`);
-    } else {
-      console.log('   ⚠️  cardTypes.json not found - run scraper first');
-    }
-
-    // Copy mechanics data
-    console.log('⚡ Copying mechanics data...');
-    const mechanicsSource = path.join(scriptsDataDir, 'mechanics.json');
-    const mechanicsTarget = path.join(frontendDataDir, 'mechanics.json');
-
-    if (await fs.pathExists(mechanicsSource)) {
-      await fs.copy(mechanicsSource, mechanicsTarget);
-      console.log(`   ✅ ${mechanicsTarget}`);
-    } else {
-      console.log('   ⚠️  mechanics.json not found - run scraper first');
+      if (await fs.pathExists(sourceFile)) {
+        await fs.copy(sourceFile, targetFile);
+        console.log(`   ✅ ${targetFile}`);
+      } else {
+        console.log(`   ⚠️  ${file.name}.json not found - run scraper first`);
+      }
     }
 
     // Generate updated mechanics.js with new data
@@ -110,8 +100,13 @@ export const totalMechanics = allMechanics.length;
     console.log('   2. Replace "TBC" placeholders with real data');
     console.log('   3. Update your components to use the new data structure');
     console.log('\n📖 Example usage:');
+    console.log('   import gameOverview from "../data/gameOverview.json";');
     console.log('   import colors from "../data/colors.json";');
     console.log('   import cardTypes from "../data/cardTypes.json";');
+    console.log('   import cardAnatomy from "../data/cardAnatomy.json";');
+    console.log('   import winConditions from "../data/winConditions.json";');
+    console.log('   import deckBuilding from "../data/deckBuilding.json";');
+    console.log('   import combatBasics from "../data/combatBasics.json";');
     console.log('   import { mechanicsDetails } from "../data/mechanics.js";');
 
   } catch (error) {
