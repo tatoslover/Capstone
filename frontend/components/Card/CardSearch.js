@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from "../UI/Button";
 import { beginnerFriendly } from "../../data/mechanics";
+import { useTheme } from "../../contexts/ThemeContext";
 
 export default function CardSearch({
   onSearch,
@@ -16,14 +17,15 @@ export default function CardSearch({
     cmc: "",
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const { theme } = useTheme();
 
   // Common MTG colors
   const colors = [
-    { symbol: "W", name: "White", color: "#FFFBD5" },
-    { symbol: "U", name: "Blue", color: "#0E68AB" },
-    { symbol: "B", name: "Black", color: "#150B00" },
-    { symbol: "R", name: "Red", color: "#D3202A" },
-    { symbol: "G", name: "Green", color: "#00733E" },
+    { symbol: "W", name: "White", color: "#FFFBD5", textColor: "#000000" },
+    { symbol: "U", name: "Blue", color: "#0E68AB", textColor: "#FFFFFF" },
+    { symbol: "B", name: "Black", color: "#9370DB", textColor: "#FFFFFF" },
+    { symbol: "R", name: "Red", color: "#D3202A", textColor: "#FFFFFF" },
+    { symbol: "G", name: "Green", color: "#00733E", textColor: "#FFFFFF" },
   ];
 
   // Common card types
@@ -153,8 +155,13 @@ export default function CardSearch({
   return (
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">Search Magic Cards</h3>
-        <p className="card-subtitle">
+        <h3 className="card-title" style={{ color: "var(--theme-text)" }}>
+          Search Magic Cards
+        </h3>
+        <p
+          className="card-subtitle"
+          style={{ color: "var(--theme-textLight)" }}
+        >
           Find cards by name, ability, or use filters to explore
         </p>
       </div>
@@ -163,20 +170,82 @@ export default function CardSearch({
       <form onSubmit={handleSubmit} style={{ marginBottom: "1.5rem" }}>
         <div className="form-group">
           <div style={{ display: "flex", gap: "0.5rem" }}>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for cards (e.g., 'Lightning Bolt', 'flying', 'dragon')..."
-              style={{ flex: 1 }}
-              disabled={loading}
-            />
+            <div style={{ position: "relative", flex: 1 }}>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for cards (e.g., 'Lightning Bolt', 'flying', 'dragon')..."
+                style={{
+                  width: "100%",
+                  backgroundColor: "var(--theme-cardBg)",
+                  color: "var(--theme-text)",
+                  border: "1px solid var(--theme-border)",
+                  borderRadius: "0.375rem",
+                  padding: "0.75rem 2.5rem 0.75rem 0.75rem",
+                  fontSize: "1rem",
+                }}
+                disabled={loading}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  style={{
+                    position: "absolute",
+                    right: "0.75rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "none",
+                    border: "none",
+                    color: "var(--theme-textLight)",
+                    cursor: "pointer",
+                    fontSize: "1.25rem",
+                    padding: "0.25rem",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    transition: "all 0.2s ease",
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = "var(--theme-border)";
+                    e.target.style.color = "var(--theme-text)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = "transparent";
+                    e.target.style.color = "var(--theme-textLight)";
+                  }}
+                  disabled={loading}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
             <Button
               type="submit"
               loading={loading}
               disabled={!searchQuery.trim() && !hasActiveFilters()}
+              style={{ color: "#000000" }}
             >
               Search
+            </Button>
+            <Button
+              type="button"
+              onClick={() => {
+                setSearchQuery("Random Card");
+                onSearch("*");
+              }}
+              loading={loading}
+              style={{
+                color: "#000000",
+                backgroundColor: "var(--theme-highlight)",
+                border: "1px solid var(--theme-highlight)",
+              }}
+            >
+              🎲 Random
             </Button>
           </div>
         </div>
@@ -188,7 +257,7 @@ export default function CardSearch({
           style={{
             fontSize: "1rem",
             marginBottom: "0.75rem",
-            color: "#495057",
+            color: "var(--theme-text)",
           }}
         >
           Quick Searches
@@ -213,13 +282,13 @@ export default function CardSearch({
                 fontSize: "0.875rem",
                 background:
                   searchQuery.toLowerCase() === ability.toLowerCase()
-                    ? "#007bff"
-                    : "white",
+                    ? "var(--theme-accent)"
+                    : "var(--theme-cardBg)",
                 color:
                   searchQuery.toLowerCase() === ability.toLowerCase()
-                    ? "white"
-                    : "#007bff",
-                border: "1px solid #007bff",
+                    ? "#000000"
+                    : "var(--theme-accent)",
+                border: "1px solid var(--theme-accent)",
                 borderRadius: "0.25rem",
                 cursor: "pointer",
                 transition: "all 0.2s ease",
@@ -243,8 +312,8 @@ export default function CardSearch({
           {hasActiveFilters() && (
             <span
               style={{
-                background: "#dc3545",
-                color: "white",
+                background: "var(--theme-highlight)",
+                color: "#000000",
                 borderRadius: "50%",
                 width: "1.25rem",
                 height: "1.25rem",
@@ -269,10 +338,10 @@ export default function CardSearch({
       {showAdvanced && (
         <div
           style={{
-            background: "#f8f9fa",
+            background: "var(--theme-secondary)",
             padding: "1.5rem",
             borderRadius: "0.5rem",
-            border: "1px solid #e9ecef",
+            border: "1px solid var(--theme-border)",
           }}
         >
           {/* Colors */}
@@ -281,7 +350,8 @@ export default function CardSearch({
               style={{
                 fontSize: "0.9rem",
                 marginBottom: "0.75rem",
-                color: "#495057",
+                color: "var(--theme-text)",
+                fontWeight: "600",
               }}
             >
               Colors
@@ -297,16 +367,15 @@ export default function CardSearch({
                     fontSize: "0.875rem",
                     background: filters.colors.includes(color.symbol)
                       ? color.color
-                      : "white",
+                      : "var(--theme-cardBg)",
                     color: filters.colors.includes(color.symbol)
-                      ? color.symbol === "W" || color.symbol === "G"
-                        ? "#000"
-                        : "#fff"
-                      : "#495057",
+                      ? color.textColor
+                      : "var(--theme-text)",
                     border: `2px solid ${color.color}`,
                     borderRadius: "0.25rem",
                     cursor: "pointer",
                     fontWeight: "600",
+                    transition: "all 0.2s ease",
                   }}
                 >
                   {color.symbol} {color.name}
@@ -321,7 +390,8 @@ export default function CardSearch({
               style={{
                 fontSize: "0.9rem",
                 marginBottom: "0.75rem",
-                color: "#495057",
+                color: "var(--theme-text)",
+                fontWeight: "600",
               }}
             >
               Card Types
@@ -336,12 +406,13 @@ export default function CardSearch({
                     padding: "0.5rem 0.75rem",
                     fontSize: "0.875rem",
                     background: filters.types.includes(type)
-                      ? "#28a745"
-                      : "white",
-                    color: filters.types.includes(type) ? "white" : "#28a745",
-                    border: "1px solid #28a745",
+                      ? "#00733E"
+                      : "var(--theme-cardBg)",
+                    color: filters.types.includes(type) ? "#FFFFFF" : "#00733E",
+                    border: "1px solid #00733E",
                     borderRadius: "0.25rem",
                     cursor: "pointer",
+                    transition: "all 0.2s ease",
                   }}
                 >
                   {type}
@@ -356,7 +427,8 @@ export default function CardSearch({
               style={{
                 fontSize: "0.9rem",
                 marginBottom: "0.75rem",
-                color: "#495057",
+                color: "var(--theme-text)",
+                fontWeight: "600",
               }}
             >
               Abilities
@@ -371,14 +443,15 @@ export default function CardSearch({
                     padding: "0.5rem 0.75rem",
                     fontSize: "0.875rem",
                     background: filters.abilities.includes(ability)
-                      ? "#ffc107"
-                      : "white",
+                      ? "#FFD700"
+                      : "var(--theme-cardBg)",
                     color: filters.abilities.includes(ability)
-                      ? "#000"
-                      : "#ffc107",
-                    border: "1px solid #ffc107",
+                      ? "#000000"
+                      : "#FFD700",
+                    border: "1px solid #FFD700",
                     borderRadius: "0.25rem",
                     cursor: "pointer",
+                    transition: "all 0.2s ease",
                   }}
                 >
                   {ability}
@@ -393,7 +466,8 @@ export default function CardSearch({
               style={{
                 fontSize: "0.9rem",
                 marginBottom: "0.75rem",
-                color: "#495057",
+                color: "var(--theme-text)",
+                fontWeight: "600",
               }}
             >
               Rarity
@@ -407,11 +481,15 @@ export default function CardSearch({
                   style={{
                     padding: "0.5rem 0.75rem",
                     fontSize: "0.875rem",
-                    background: filters.rarity === rarity ? "#6f42c1" : "white",
-                    color: filters.rarity === rarity ? "white" : "#6f42c1",
-                    border: "1px solid #6f42c1",
+                    background:
+                      filters.rarity === rarity
+                        ? "#9370DB"
+                        : "var(--theme-cardBg)",
+                    color: filters.rarity === rarity ? "#FFFFFF" : "#9370DB",
+                    border: "1px solid #9370DB",
                     borderRadius: "0.25rem",
                     cursor: "pointer",
+                    transition: "all 0.2s ease",
                   }}
                 >
                   {rarity}
@@ -426,7 +504,8 @@ export default function CardSearch({
               style={{
                 fontSize: "0.9rem",
                 marginBottom: "0.75rem",
-                color: "#495057",
+                color: "var(--theme-text)",
+                fontWeight: "600",
               }}
             >
               Mana Cost
@@ -444,15 +523,16 @@ export default function CardSearch({
                     fontSize: "0.875rem",
                     background:
                       filters.cmc === (cmc === "8+" ? ">=8" : cmc.toString())
-                        ? "#17a2b8"
-                        : "white",
+                        ? "#0E68AB"
+                        : "var(--theme-cardBg)",
                     color:
                       filters.cmc === (cmc === "8+" ? ">=8" : cmc.toString())
-                        ? "white"
-                        : "#17a2b8",
-                    border: "1px solid #17a2b8",
+                        ? "#FFFFFF"
+                        : "#0E68AB",
+                    border: "1px solid #0E68AB",
                     borderRadius: "0.25rem",
                     cursor: "pointer",
+                    transition: "all 0.2s ease",
                   }}
                 >
                   {cmc}
@@ -476,8 +556,6 @@ export default function CardSearch({
           )}
         </div>
       )}
-
-
     </div>
   );
 }

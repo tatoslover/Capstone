@@ -31,7 +31,13 @@
       "Flying creatures",
       "Instant-speed interaction"
     ],
-    "mechanics": ["Flying", "Flash", "Hexproof", "Scry", "Counter"],
+    "mechanics": [
+      "Flying",
+      "Flash",
+      "Hexproof",
+      "Scry",
+      "Counter"
+    ],
     "emoji": "🔵",
     "symbol": "U"
   },
@@ -39,8 +45,20 @@
     "name": "Black",
     "description": "Black represents power, ambition, and self-interest. It values individual achievement and is willing to pay any price for power.",
     "philosophy": "Black believes that power is the only thing that matters and that everyone should look out for themselves first.",
-    "strengths": ["Removal", "Discard", "Life drain", "Recursion", "Tutoring"],
-    "mechanics": ["Deathtouch", "Menace", "Lifelink", "Fear", "Regenerate"],
+    "strengths": [
+      "Removal",
+      "Discard",
+      "Life drain",
+      "Recursion",
+      "Tutoring"
+    ],
+    "mechanics": [
+      "Deathtouch",
+      "Menace",
+      "Lifelink",
+      "Fear",
+      "Regenerate"
+    ],
     "emoji": "⚫",
     "symbol": "B"
   },
@@ -76,29 +94,14 @@
       "Life gain",
       "Creature buffs"
     ],
-    "mechanics": ["Trample", "Reach", "Vigilance", "Hexproof", "Regenerate"],
+    "mechanics": [
+      "Trample",
+      "Reach",
+      "Vigilance",
+      "Hexproof",
+      "Regenerate"
+    ],
     "emoji": "🟢",
     "symbol": "G"
-  },
-  "colourless": {
-    "name": "Colourless",
-    "description": "Colourless represents the absence of any particular magical philosophy. These spells and permanents are neutral and can fit into any deck.",
-    "philosophy": "Colourless magic doesn't align with any particular philosophy, making it universal but often requiring specific colourless mana or having more restrictive costs.",
-    "strengths": [
-      "Universal - fits any deck",
-      "Artifact synergies",
-      "Utility effects",
-      "Unique mechanics",
-      "Eldrazi and void themes"
-    ],
-    "mechanics": [
-      "Generic abilities",
-      "Artifact synergies",
-      "Devoid",
-      "Annihilator",
-      "Ingest"
-    ],
-    "emoji": "🔘",
-    "symbol": "C"
   }
 }

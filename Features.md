@@ -24,16 +24,32 @@ A comprehensive Magic: The Gathering learning platform for beginners.
 ✅ Deck Building Data
 ✅ Combat Basics Data
 ✅ Card Anatomy Data
-✅ Integrate Mechanics descriptions
+✅ Enhanced Mechanics Data (273 mechanics with detailed descriptions)
+✅ Game Modes Data (23 formats across 5 categories)
+
+## Completed Features
+
+✅ **Game Modes Data Integration** - Comprehensive scraped data for 23 MTG formats with categories, descriptions, rules, and metadata
+✅ **Enhanced Mechanics Scraper** - 273 mechanics with simple descriptions, rules text, complexity ratings, and categorisation
 
 ## Todo
 
-🔲 **Scrape & integrate Game Modes Data** - Replace hardcoded format information with comprehensive scraped data
-🔲 **Scrape mechanics to get simple descriptions for all mechanics** - Replace hardcoded format information with comprehensive scraped data
+🔲 **Card search integration** with enhanced mechanics data
+🔲 **Format legality checking** for cards and mechanics
+🔲 **Revise Mechanics guide** for cards and mechanics
+
 
 ## Tech Stack
 
 - **Frontend:** Next.js, React
-- **Data:** Scraped JSON from MTG Wiki + Scryfall API
+- **Data:** Comprehensive scraped JSON from MTG Wiki + Scryfall API
 - **Styling:** CSS-in-JS with dark theme
-- **Features:** Interactive components, localStorage persistence
+- **Features:** Interactive components, localStorage persistence, dynamic data integration
+
+## Latest Enhancements
+
+✅ **Enhanced Game Modes Component** - Interactive format browser with comprehensive information
+✅ **Advanced Mechanics Details** - Rich mechanic information with multiple description levels
+✅ **Automated Data Pipeline** - Scripts for updating all content from authoritative sources
+✅ **273 Mechanics Coverage** - Complete mechanic database with detailed information
+✅ **23 Game Formats** - All major MTG formats with accurate categorisation

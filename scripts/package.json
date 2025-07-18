@@ -14,8 +14,9 @@
     "scrape:deck-building": "node scrapers/deckBuilding.js",
     "scrape:combat": "node scrapers/combatBasics.js",
     "scrape:mechanics": "node scrapers/mechanics.js",
+    "scrape:game-modes": "node scrapers/gameModes.js",
     "scrape:fundamentals": "npm run scrape:overview && npm run scrape:colors && npm run scrape:card-types && npm run scrape:turn-phases && npm run scrape:anatomy && npm run scrape:win-conditions && npm run scrape:deck-building && npm run scrape:combat",
-    "scrape:all": "npm run scrape:fundamentals && npm run scrape:mechanics",
+    "scrape:all": "npm run scrape:fundamentals && npm run scrape:mechanics && npm run scrape:game-modes",
     "copy": "node copyToFrontend.js",
     "build": "npm run scrape:all && npm run copy"
   },

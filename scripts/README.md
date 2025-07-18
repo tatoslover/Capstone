@@ -5,7 +5,7 @@ This directory contains scripts to scrape comprehensive Magic: The Gathering dat
 ## Overview
 
 The scrapers collect data from:
-- **MTG Wiki (mtg.fandom.com)** - For colors, card types, and detailed mechanic descriptions
+- **MTG Wiki (mtg.fandom.com)** - For game formats, mechanics descriptions, and detailed rules content
 - **Scryfall API** - For comprehensive mechanics lists and fresh data
 
 ## Scripts
@@ -50,12 +50,22 @@ Scrapes combat system mechanics, steps, and strategic considerations.
 
 **Output:** `data/combatBasics.json`
 
-### ⚡ Mechanics Scraper (`scrapers/mechanics.js`)
-- Fetches all mechanics from Scryfall API
-- Scrapes detailed descriptions for priority/beginner mechanics
-- Provides links for advanced mechanics
+### ⚡ Enhanced Mechanics Scraper (`scrapers/mechanics.js`)
+- Fetches comprehensive mechanics list from Scryfall API (keyword abilities + ability words)
+- Scrapes detailed descriptions for 50+ priority mechanics from MTG Wiki
+- Provides simple descriptions, rules text, reminder text, and complexity ratings
+- Categorises mechanics by type (evergreen, beginner-friendly, etc.)
+- Includes first appearance information and example cards
 
 **Output:** `data/mechanics.json`
+
+### 🎮 Game Modes Scraper (`scrapers/gameModes.js`)
+- Scrapes comprehensive format information from MTG Wiki
+- Covers rotating, eternal, limited, multiplayer, and custom formats
+- Includes detailed descriptions, rules, and popularity ratings
+- Organises formats into logical categories for easy browsing
+
+**Output:** `data/gameModes.json`
 
 ## Usage
 
@@ -92,6 +102,9 @@ npm run scrape:combat
 
 # Scrape mechanics only
 npm run scrape:mechanics
+
+# Scrape game modes only
+npm run scrape:game-modes
 ```
 
 ### Run Multiple Scrapers
@@ -246,29 +259,73 @@ The scrapers include built-in rate limiting to be respectful to the MTG Wiki:
 }
 ```
 
-### Mechanics (`mechanics.json`)
+### Enhanced Mechanics (`mechanics.json`)
 ```json
 {
-  "totalMechanics": 273,
-  "lastUpdated": "2024-01-15T10:30:00.000Z",
-  "source": "Scryfall API + MTG Wiki",
+  "lastUpdated": "2025-07-18T09:58:44.616Z",
+  "source": "Scryfall API + MTG Wiki + Manual curation",
+  "stats": {
+    "totalCount": 273,
+    "keywordAbilitiesCount": 210,
+    "abilityWordsCount": 63,
+    "evergreenCount": 16,
+    "beginnerFriendlyCount": 11
+  },
   "mechanics": {
     "flying": {
       "name": "Flying",
-      "description": "A creature with flying can only be blocked...",
-      "rules": "...",
-      "category": "evergreen",
+      "description": "Flying is an evergreen evasion ability...",
+      "simpleDescription": "Can only be blocked by creatures with flying or reach.",
+      "rulesText": "...",
+      "reminderText": "...",
+      "category": "evasion",
+      "type": "keyword_ability",
       "isEvergreen": true,
       "isBeginnerFriendly": true,
-      "wikiUrl": "https://mtg.fandom.com/wiki/Flying"
+      "complexity": "simple",
+      "firstAppeared": "Alpha",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Flying",
+      "exampleCards": [...]
     }
   },
   "categories": {
     "evergreen": [...],
     "beginnerFriendly": [...],
-    "priority": [...]
+    "keywordAbilities": [...],
+    "abilityWords": [...],
+    "byComplexity": {
+      "simple": [...],
+      "medium": [...],
+      "complex": [...]
+    }
+  }
+}
+```
+
+### Game Modes (`gameModes.json`)
+```json
+{
+  "lastUpdated": "2025-07-18T09:50:36.957Z",
+  "source": "MTG Wiki + Manual curation",
+  "categories": {
+    "rotating": {
+      "title": "🔁 Rotating",
+      "description": "These formats have card pools that change over time",
+      "formats": [
+        {
+          "name": "Standard",
+          "description": "Standard is a rotating constructed play format...",
+          "rules": "Standard decks must contain a minimum of sixty cards...",
+          "isDigitalOnly": false,
+          "isCompetitive": true,
+          "isRotating": true,
+          "popularity": "very-high",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Standard"
+        }
+      ]
+    }
   },
-  "allMechanicsList": [...]
+  "allFormats": [...]
 }
 ```
 
@@ -287,6 +344,7 @@ import winConditions from "../data/winConditions.json";
 import deckBuilding from "../data/deckBuilding.json";
 import combatBasics from "../data/combatBasics.json";
 import { mechanicsDetails, getMechanicDetails } from "../data/mechanics.js";
+import gameModes from "../data/gameModes.json";
 
 // Use in components
 const introduction = gameOverview.introduction;
@@ -298,6 +356,7 @@ const lifeTotalWin = winConditions.primaryWinConditions.lifeTotal;
 const deckRules = deckBuilding.fundamentalRules;
 const combatSteps = combatBasics.combatSteps;
 const flyingMechanic = getMechanicDetails("Flying");
+const standardFormat = gameModes.categories.rotating.formats.find(f => f.name === "Standard");
 ```
 
 ## Troubleshooting

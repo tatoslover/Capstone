@@ -383,9 +383,6 @@ select:focus {
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--theme-border);
     padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
     transition:
         background-color 0.3s ease,
         border-color 0.3s ease;
@@ -421,11 +418,6 @@ select:focus {
     background-color: var(--theme-secondary);
     color: var(--theme-accent);
     text-decoration: none;
-}
-
-.nav-link.active {
-    background-color: var(--theme-highlight);
-    color: var(--theme-cardBg);
 }
 
 /* Search */
@@ -567,6 +559,18 @@ select:focus {
 .section-button.active {
     background-color: #495057;
     border-color: #6c757d;
+}
+
+/* Section Content */
+.section-content {
+    padding: 1.5rem;
+    background: #495057;
+    border-radius: 0.5rem;
+    border: 1px solid var(--theme-accent);
+    max-width: 800px;
+    margin: 0 auto;
+    color: #dee2e6;
+    line-height: 1.6;
 }
 
 .section-button:active {

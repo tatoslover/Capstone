@@ -6,6 +6,7 @@ import Loading from "../components/UI/Loading";
 
 import { FilteredMechanicsList } from "../components/Mechanics";
 import { CardAnatomySection } from "../components/CardAnatomy";
+import { GameModesList } from "../components/GameModes";
 import gameOverview from "../data/gameOverview.json";
 import colors from "../data/colors.json";
 import cardTypes from "../data/cardTypes.json";
@@ -18,9 +19,6 @@ import cardAnatomy from "../data/cardAnatomy.json";
 export default function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [selectedMechanic, setSelectedMechanic] = useState(null);
-
-  const [showQuickReference, setShowQuickReference] = useState(false);
-  const [activeQuickRefSection, setActiveQuickRefSection] = useState(null);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
@@ -50,74 +48,12 @@ export default function Home() {
   };
 
   const [selectedPhase, setSelectedPhase] = useState(null);
-  const [selectedGameMode, setSelectedGameMode] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedCardType, setSelectedCardType] = useState(null);
 
   const [selectedWinCondition, setSelectedWinCondition] = useState(null);
   const [selectedDeckType, setSelectedDeckType] = useState(null);
   const [selectedCombatStep, setSelectedCombatStep] = useState(null);
-
-  const toggleQuickReference = () => {
-    setShowQuickReference(!showQuickReference);
-    if (showQuickReference) {
-      setActiveQuickRefSection(null);
-    }
-  };
-
-  const quickReferenceData = {
-    manaSymbols: {
-      title: "Mana Symbols",
-      icon: "⚡",
-      content: [
-        "W = White mana",
-        "U = Blue mana",
-        "B = Black mana",
-        "R = Red mana",
-        "G = Green mana",
-        "C = Colourless mana",
-        "X = Variable amount",
-        "Numbers = Generic mana",
-      ],
-    },
-    phases: {
-      title: "Turn Phases",
-      icon: "🕒",
-      content: [
-        "1. Beginning Phase",
-        "2. First Main Phase",
-        "3. Combat Phase",
-        "4. Second Main Phase",
-        "5. Ending Phase",
-      ],
-    },
-    zones: {
-      title: "Game Zones",
-      icon: "📍",
-      content: [
-        "Library = Your deck",
-        "Hand = Cards you can play",
-        "Battlefield = Permanents in play",
-        "Graveyard = Used/destroyed cards",
-        "Exile = Removed from game",
-        "Stack = Spells waiting to resolve",
-      ],
-    },
-    keywords: {
-      title: "Common Keywords",
-      icon: "🔑",
-      content: [
-        "Flying = Only blocked by flying/reach",
-        "Trample = Excess damage to player",
-        "Haste = Can attack immediately",
-        "Vigilance = Doesn't tap to attack",
-        "Deathtouch = Any damage is lethal",
-        "Lifelink = Damage gains life",
-        "First Strike = Deals damage first",
-        "Flash = Cast at instant speed",
-      ],
-    },
-  };
 
   const phaseInfo = {
     beginning: {
@@ -280,294 +216,9 @@ export default function Home() {
     },
   };
 
-  const gameModeInfo = {
-    rotating: {
-      title: "🔁 Rotating",
-      content: (
-        <div>
-          <p style={{ marginBottom: "1rem" }}>
-            These formats have card pools that change over time:
-          </p>
-          <ul>
-            <li>
-              <strong>Standard</strong> - The most popular competitive format
-              using cards from the most recent sets. Rotates regularly to keep
-              the format fresh.
-            </li>
-            <li>
-              <strong>Pioneer</strong> - Cards from Return to Ravnica (2012)
-              onward. Less powerful than Modern but more accessible.
-            </li>
-            <li>
-              <strong>Alchemy</strong> - A Standard-based digital-only format on
-              MTG Arena with rebalanced cards and exclusive digital mechanics.
-            </li>
-            <li>
-              <strong>Historic</strong> - Another Arena-only format with a
-              growing, curated card pool (eternal).
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    eternal: {
-      title: "♾️ Eternal",
-      content: (
-        <div>
-          <p style={{ marginBottom: "1rem" }}>
-            These don't rotate and include all legal cards back to a certain
-            point:
-          </p>
-          <ul>
-            <li>
-              <strong>Modern</strong> - Cards from 2003 onwards. Higher power
-              level with diverse strategies and archetypes.
-            </li>
-            <li>
-              <strong>Legacy</strong> - Includes almost all cards, but with a
-              ban list. More powerful and expensive.
-            </li>
-            <li>
-              <strong>Vintage</strong> - Includes every card ever printed, with
-              a restricted list instead of bans.
-            </li>
-            <li>
-              <strong>Pauper</strong> - Only commons allowed. Can be
-              surprisingly powerful and budget-friendly.
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    limited: {
-      title: "🧪 Limited",
-      content: (
-        <div>
-          <p style={{ marginBottom: "1rem" }}>
-            Where you build a deck from unopened boosters:
-          </p>
-          <ul>
-            <li>
-              <strong>Sealed</strong> - Build a deck from 6 booster packs.
-              Everyone starts on equal footing, making it ideal for tournaments
-              and events.
-            </li>
-            <li>
-              <strong>Draft</strong> - Open card packs, pick cards, and build
-              your deck on the spot. Great for learning new cards and testing
-              your skills.
-            </li>
-            <li>
-              <strong>Cube Draft</strong> - Drafting a curated set of cards (a
-              "cube") instead of regular boosters.
-            </li>
-            <li>
-              <strong>Rochester Draft</strong> - A more niche draft format where
-              packs are opened face up.
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    multiplayer: {
-      title: "🎮 Casual & Multiplayer",
-      content: (
-        <div>
-          <ul>
-            <li>
-              <strong>Commander (EDH)</strong> - 100-card singleton format with
-              a legendary creature as your commander. Perfect for casual
-              multiplayer games.
-            </li>
-            <li>
-              <strong>Brawl</strong> - Like Commander but 60 cards and
-              Standard-legal (for 1v1 or multiplayer).
-            </li>
-            <li>
-              <strong>Oathbreaker</strong> - Like Commander but with a
-              Planeswalker and a Signature Spell (60-card decks).
-            </li>
-            <li>
-              <strong>Planechase</strong> - Adds oversized plane cards with
-              global effects, used with Commander or multiplayer.
-            </li>
-            <li>
-              <strong>Archenemy</strong> - One player is the villain with scheme
-              cards vs. a team of players.
-            </li>
-            <li>
-              <strong>Two-Headed Giant</strong> - 2v2 team format, often used in
-              Limited events.
-            </li>
-            <li>
-              <strong>Conspiracy</strong> - Draft format with special cards that
-              affect the draft itself.
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-    custom: {
-      title: "🛠️ Custom & House",
-      content: (
-        <div>
-          <p style={{ marginBottom: "1rem" }}>
-            Often made by communities or friends:
-          </p>
-          <ul>
-            <li>
-              <strong>Kitchen Table</strong> - Casual play with friends using
-              any cards you own. No restrictions, just fun! Perfect for learning
-              and experimenting.
-            </li>
-            <li>
-              <strong>Preconstructed Battles</strong> - Use pre-built decks
-              against each other.
-            </li>
-            <li>
-              <strong>Highlander</strong> - One-of-a-kind deck format like
-              Commander but without a commander.
-            </li>
-            <li>
-              <strong>Canadian Highlander</strong> - A competitive singleton
-              format with a points system.
-            </li>
-          </ul>
-        </div>
-      ),
-    },
-  };
-
   return (
     <Layout title="Planeswalker's Primer - MTG Rulebook for Beginners">
       <div className="container" style={{ padding: "2rem 1rem" }}>
-        {/* Quick Reference Toggle Button */}
-        <div
-          style={{
-            position: "fixed",
-            top: "20px",
-            right: "20px",
-            zIndex: 1000,
-          }}
-        >
-          <button
-            onClick={toggleQuickReference}
-            style={{
-              padding: "0.75rem 1rem",
-              background: "#495057",
-              border: "2px solid #6c757d",
-              borderRadius: "0.5rem",
-              color: "#ffffff",
-              fontSize: "0.9rem",
-              fontWeight: "500",
-              cursor: "pointer",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
-              transition: "all 0.2s ease",
-            }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = "#6c757d";
-              e.target.style.transform = "translateY(-1px)";
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = "#495057";
-              e.target.style.transform = "translateY(0)";
-            }}
-          >
-            📖 Quick Reference
-          </button>
-        </div>
-
-        {/* Quick Reference Panel */}
-        {showQuickReference && (
-          <div
-            style={{
-              position: "fixed",
-              top: "80px",
-              right: "20px",
-              width: "320px",
-              maxHeight: "70vh",
-              overflowY: "auto",
-              background: "#343a40",
-              border: "2px solid #495057",
-              borderRadius: "0.5rem",
-              zIndex: 999,
-              boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
-            }}
-          >
-            <div style={{ padding: "1rem", borderBottom: "1px solid #495057" }}>
-              <h3 style={{ color: "#ffffff", margin: "0", fontSize: "1.1rem" }}>
-                Quick Reference
-              </h3>
-            </div>
-            <div style={{ padding: "0.5rem" }}>
-              {Object.entries(quickReferenceData).map(([key, section]) => (
-                <div key={key} style={{ marginBottom: "0.5rem" }}>
-                  <button
-                    onClick={() =>
-                      setActiveQuickRefSection(
-                        activeQuickRefSection === key ? null : key,
-                      )
-                    }
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      background:
-                        activeQuickRefSection === key ? "#495057" : "#212529",
-                      border: "1px solid #495057",
-                      borderRadius: "0.375rem",
-                      color: "#ffffff",
-                      fontSize: "0.9rem",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <span>
-                      {section.icon} {section.title}
-                    </span>
-                    <span
-                      style={{
-                        transform:
-                          activeQuickRefSection === key
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)",
-                        transition: "transform 0.2s",
-                      }}
-                    >
-                      ▼
-                    </span>
-                  </button>
-                  {activeQuickRefSection === key && (
-                    <div
-                      style={{
-                        padding: "0.75rem",
-                        background: "#495057",
-                        borderRadius: "0.375rem",
-                        marginTop: "0.5rem",
-                      }}
-                    >
-                      {section.content.map((item, index) => (
-                        <div
-                          key={index}
-                          style={{
-                            color: "#dee2e6",
-                            fontSize: "0.8rem",
-                            marginBottom: "0.25rem",
-                            paddingLeft: "0.5rem",
-                          }}
-                        >
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
         {/* Hero Section */}
         <div className="text-center mb-3">
           <div
@@ -626,19 +277,11 @@ export default function Home() {
             </p>
 
             {/* Game Basics */}
-            <div
-              style={{
-                background: "#343a40",
-                padding: "1.5rem",
-                borderRadius: "0.5rem",
-                marginBottom: "1.5rem",
-                border: "1px solid #495057",
-              }}
-            >
+            <div className="section-content" style={{ marginBottom: "1.5rem" }}>
               <h3
                 style={{
                   color: "#ffffff",
-                  marginBottom: "1rem",
+                  marginBottom: "1.5rem",
                   textAlign: "center",
                 }}
               >
@@ -647,25 +290,109 @@ export default function Home() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                  gap: "1rem",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gap: "1.5rem",
                 }}
               >
-                <div>
-                  <strong style={{ color: "#ffffff" }}>Players:</strong>{" "}
-                  {gameOverview.basics.players}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "1rem",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    borderRadius: "0.5rem",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
+                    👥
+                  </div>
+                  <strong
+                    style={{
+                      color: "#ffffff",
+                      display: "block",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Players
+                  </strong>
+                  <span style={{ color: "#dee2e6" }}>
+                    {gameOverview.basics.players}
+                  </span>
                 </div>
-                <div>
-                  <strong style={{ color: "#ffffff" }}>Game Length:</strong>{" "}
-                  {gameOverview.basics.gameLength}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "1rem",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    borderRadius: "0.5rem",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
+                    ⏱️
+                  </div>
+                  <strong
+                    style={{
+                      color: "#ffffff",
+                      display: "block",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Game Length
+                  </strong>
+                  <span style={{ color: "#dee2e6" }}>
+                    {gameOverview.basics.gameLength}
+                  </span>
                 </div>
-                <div>
-                  <strong style={{ color: "#ffffff" }}>Age Range:</strong>{" "}
-                  {gameOverview.basics.ageRange}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "1rem",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    borderRadius: "0.5rem",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
+                    🎓
+                  </div>
+                  <strong
+                    style={{
+                      color: "#ffffff",
+                      display: "block",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Age Range
+                  </strong>
+                  <span style={{ color: "#dee2e6" }}>
+                    {gameOverview.basics.ageRange}
+                  </span>
                 </div>
-                <div>
-                  <strong style={{ color: "#ffffff" }}>Skills:</strong>{" "}
-                  {gameOverview.basics.skillTypes}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "1rem",
+                    background: "rgba(255, 255, 255, 0.05)",
+                    borderRadius: "0.5rem",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
+                    🧠
+                  </div>
+                  <strong
+                    style={{
+                      color: "#ffffff",
+                      display: "block",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Skills
+                  </strong>
+                  <span style={{ color: "#dee2e6" }}>
+                    {gameOverview.basics.skillTypes}
+                  </span>
                 </div>
               </div>
             </div>
@@ -711,17 +438,7 @@ export default function Home() {
           </div>
 
           {selectedColor && (
-            <div
-              className="section-content"
-              style={{
-                padding: "1.5rem",
-                background: "#495057",
-                borderRadius: "0.5rem",
-                border: "1px solid #6c757d",
-                maxWidth: "800px",
-                margin: "0 auto",
-              }}
-            >
+            <div className="section-content">
               <h3
                 style={{
                   marginBottom: "1rem",
@@ -795,17 +512,7 @@ export default function Home() {
           </div>
 
           {selectedCardType && (
-            <div
-              className="section-content"
-              style={{
-                padding: "1.5rem",
-                background: "#495057",
-                borderRadius: "0.5rem",
-                border: "1px solid #6c757d",
-                maxWidth: "800px",
-                margin: "0 auto",
-              }}
-            >
+            <div className="section-content">
               <h3
                 style={{
                   marginBottom: "1rem",
@@ -912,17 +619,7 @@ export default function Home() {
           </div>
 
           {selectedPhase && (
-            <div
-              className="section-content"
-              style={{
-                padding: "1.5rem",
-                background: "#495057",
-                borderRadius: "0.5rem",
-                border: "1px solid #6c757d",
-                maxWidth: "800px",
-                margin: "0 auto",
-              }}
-            >
+            <div className="section-content">
               <h3
                 style={{
                   marginBottom: "1rem",
@@ -962,93 +659,7 @@ export default function Home() {
           >
             Discover different ways to play Magic
           </p>
-          <div
-            className="section-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-              gap: "0.5rem",
-              maxWidth: "800px",
-              margin: "0 auto 2rem auto",
-            }}
-          >
-            <button
-              onClick={() =>
-                setSelectedGameMode(
-                  selectedGameMode === "rotating" ? null : "rotating",
-                )
-              }
-              className={`section-button ${selectedGameMode === "rotating" ? "active" : ""}`}
-            >
-              <span style={{ fontSize: "1.5rem" }}>🔁</span>
-              <span>Rotating</span>
-            </button>
-            <button
-              onClick={() =>
-                setSelectedGameMode(
-                  selectedGameMode === "eternal" ? null : "eternal",
-                )
-              }
-              className={`section-button ${selectedGameMode === "eternal" ? "active" : ""}`}
-            >
-              <span style={{ fontSize: "1.5rem" }}>♾️</span>
-              <span>Eternal</span>
-            </button>
-            <button
-              onClick={() =>
-                setSelectedGameMode(
-                  selectedGameMode === "limited" ? null : "limited",
-                )
-              }
-              className={`section-button ${selectedGameMode === "limited" ? "active" : ""}`}
-            >
-              <span style={{ fontSize: "1.5rem" }}>🧪</span>
-              <span>Limited</span>
-            </button>
-            <button
-              onClick={() =>
-                setSelectedGameMode(
-                  selectedGameMode === "multiplayer" ? null : "multiplayer",
-                )
-              }
-              className={`section-button ${selectedGameMode === "multiplayer" ? "active" : ""}`}
-            >
-              <span style={{ fontSize: "1.5rem" }}>🎮</span>
-              <span>Casual & Multiplayer</span>
-            </button>
-            <button
-              onClick={() =>
-                setSelectedGameMode(
-                  selectedGameMode === "custom" ? null : "custom",
-                )
-              }
-              className={`section-button ${selectedGameMode === "custom" ? "active" : ""}`}
-            >
-              <span style={{ fontSize: "1.5rem" }}>🛠️</span>
-              <span>Custom & House</span>
-            </button>
-          </div>
-
-          {selectedGameMode && (
-            <div
-              className="section-content"
-              style={{
-                padding: "1.5rem",
-                background: "#495057",
-                borderRadius: "0.5rem",
-                border: "1px solid #6c757d",
-                maxWidth: "800px",
-                margin: "0 auto",
-              }}
-            >
-              <h3 style={{ marginBottom: "1rem", color: "#ffffff" }}>
-                {gameModeInfo[selectedGameMode].title}
-              </h3>
-              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
-                {gameModeInfo[selectedGameMode].content}
-              </div>
-            </div>
-          )}
+          <GameModesList />
         </div>
 
         {/* Win Conditions */}
@@ -1095,17 +706,7 @@ export default function Home() {
           </div>
 
           {selectedWinCondition && (
-            <div
-              className="section-content"
-              style={{
-                padding: "1.5rem",
-                background: "#495057",
-                borderRadius: "0.5rem",
-                border: "1px solid #6c757d",
-                maxWidth: "800px",
-                margin: "0 auto",
-              }}
-            >
+            <div className="section-content">
               <h3
                 style={{
                   marginBottom: "1rem",
@@ -1226,17 +827,7 @@ export default function Home() {
           </div>
 
           {selectedDeckType && (
-            <div
-              className="section-content"
-              style={{
-                padding: "1.5rem",
-                background: "#495057",
-                borderRadius: "0.5rem",
-                border: "1px solid #6c757d",
-                maxWidth: "800px",
-                margin: "0 auto",
-              }}
-            >
+            <div className="section-content">
               <h3
                 style={{
                   marginBottom: "1rem",
@@ -1327,17 +918,7 @@ export default function Home() {
           </div>
 
           {selectedCombatStep && (
-            <div
-              className="section-content"
-              style={{
-                padding: "1.5rem",
-                background: "#495057",
-                borderRadius: "0.5rem",
-                border: "1px solid #6c757d",
-                maxWidth: "800px",
-                margin: "0 auto",
-              }}
-            >
+            <div className="section-content">
               <h3
                 style={{
                   marginBottom: "1rem",
