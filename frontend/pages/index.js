@@ -303,14 +303,6 @@ export default function Home() {
     },
   };
 
-  const handlePhaseClick = (phase) => {
-    setSelectedPhase(selectedPhase === phase ? null : phase);
-  };
-
-  const handleGameModeClick = (mode) => {
-    setSelectedGameMode(selectedGameMode === mode ? null : mode);
-  };
-
   const gameModeInfo = {
     rotating: {
       title: "🔁 Rotating",
@@ -912,7 +904,9 @@ export default function Home() {
             {Object.entries(colors).map(([colorKey, colorData]) => (
               <button
                 key={colorKey}
-                onClick={() => setSelectedColor(colorKey)}
+                onClick={() =>
+                  setSelectedColor(selectedColor === colorKey ? null : colorKey)
+                }
                 className={`section-button ${selectedColor === colorKey ? "active" : ""}`}
               >
                 <span style={{ fontSize: "1.5rem" }}>{colorData.emoji}</span>
@@ -992,7 +986,11 @@ export default function Home() {
             {Object.entries(cardTypes).map(([typeKey, typeData]) => (
               <button
                 key={typeKey}
-                onClick={() => setSelectedCardType(typeKey)}
+                onClick={() =>
+                  setSelectedCardType(
+                    selectedCardType === typeKey ? null : typeKey,
+                  )
+                }
                 className={`section-button ${selectedCardType === typeKey ? "active" : ""}`}
               >
                 <span style={{ fontSize: "1.5rem" }}>{typeData.icon}</span>
@@ -1069,7 +1067,11 @@ export default function Home() {
             }}
           >
             <button
-              onClick={() => handlePhaseClick("beginning")}
+              onClick={() =>
+                setSelectedPhase(
+                  selectedPhase === "beginning" ? null : "beginning",
+                )
+              }
               style={{
                 padding: "0.75rem 0.5rem",
                 background:
@@ -1099,7 +1101,9 @@ export default function Home() {
               Beginning
             </button>
             <button
-              onClick={() => handlePhaseClick("main1")}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "main1" ? null : "main1")
+              }
               style={{
                 padding: "0.75rem 0.5rem",
                 background: selectedPhase === "main1" ? "#495057" : "#343a40",
@@ -1128,7 +1132,9 @@ export default function Home() {
               Main 1
             </button>
             <button
-              onClick={() => handlePhaseClick("combat")}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "combat" ? null : "combat")
+              }
               style={{
                 padding: "0.75rem 0.5rem",
                 background: selectedPhase === "combat" ? "#495057" : "#343a40",
@@ -1157,7 +1163,9 @@ export default function Home() {
               Combat
             </button>
             <button
-              onClick={() => handlePhaseClick("main2")}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "main2" ? null : "main2")
+              }
               style={{
                 padding: "0.75rem 0.5rem",
                 background: selectedPhase === "main2" ? "#495057" : "#343a40",
@@ -1186,7 +1194,9 @@ export default function Home() {
               Main 2
             </button>
             <button
-              onClick={() => handlePhaseClick("ending")}
+              onClick={() =>
+                setSelectedPhase(selectedPhase === "ending" ? null : "ending")
+              }
               style={{
                 padding: "0.75rem 0.5rem",
                 background: selectedPhase === "ending" ? "#495057" : "#343a40",
@@ -1264,7 +1274,11 @@ export default function Home() {
               ([partKey, partData]) => (
                 <button
                   key={partKey}
-                  onClick={() => setSelectedCardPart(partKey)}
+                  onClick={() =>
+                    setSelectedCardPart(
+                      selectedCardPart === partKey ? null : partKey,
+                    )
+                  }
                   className={`section-button ${selectedCardPart === partKey ? "active" : ""}`}
                 >
                   {partData.name}
@@ -1352,35 +1366,55 @@ export default function Home() {
             }}
           >
             <button
-              onClick={() => handleGameModeClick("rotating")}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "rotating" ? null : "rotating",
+                )
+              }
               className={`section-button ${selectedGameMode === "rotating" ? "active" : ""}`}
             >
               <span style={{ fontSize: "1.5rem" }}>🔁</span>
               <span>Rotating</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("eternal")}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "eternal" ? null : "eternal",
+                )
+              }
               className={`section-button ${selectedGameMode === "eternal" ? "active" : ""}`}
             >
               <span style={{ fontSize: "1.5rem" }}>♾️</span>
               <span>Eternal</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("limited")}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "limited" ? null : "limited",
+                )
+              }
               className={`section-button ${selectedGameMode === "limited" ? "active" : ""}`}
             >
               <span style={{ fontSize: "1.5rem" }}>🧪</span>
               <span>Limited</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("multiplayer")}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "multiplayer" ? null : "multiplayer",
+                )
+              }
               className={`section-button ${selectedGameMode === "multiplayer" ? "active" : ""}`}
             >
               <span style={{ fontSize: "1.5rem" }}>🎮</span>
               <span>Casual & Multiplayer</span>
             </button>
             <button
-              onClick={() => handleGameModeClick("custom")}
+              onClick={() =>
+                setSelectedGameMode(
+                  selectedGameMode === "custom" ? null : "custom",
+                )
+              }
               className={`section-button ${selectedGameMode === "custom" ? "active" : ""}`}
             >
               <span style={{ fontSize: "1.5rem" }}>🛠️</span>
@@ -1440,7 +1474,11 @@ export default function Home() {
             }).map(([conditionKey, condition]) => (
               <button
                 key={conditionKey}
-                onClick={() => setSelectedWinCondition(conditionKey)}
+                onClick={() =>
+                  setSelectedWinCondition(
+                    selectedWinCondition === conditionKey ? null : conditionKey,
+                  )
+                }
                 className={`section-button ${selectedWinCondition === conditionKey ? "active" : ""}`}
               >
                 <span style={{ fontSize: "1.5rem" }}>{condition.emoji}</span>
@@ -1556,7 +1594,11 @@ export default function Home() {
               ([typeKey, deckType]) => (
                 <button
                   key={typeKey}
-                  onClick={() => setSelectedDeckType(typeKey)}
+                  onClick={() =>
+                    setSelectedDeckType(
+                      selectedDeckType === typeKey ? null : typeKey,
+                    )
+                  }
                   className={`section-button ${selectedDeckType === typeKey ? "active" : ""}`}
                 >
                   <span style={{ fontSize: "1.2rem" }}>🃏</span>
@@ -1643,7 +1685,11 @@ export default function Home() {
             {Object.entries(combatBasics.combatSteps).map(([stepKey, step]) => (
               <button
                 key={stepKey}
-                onClick={() => setSelectedCombatStep(stepKey)}
+                onClick={() =>
+                  setSelectedCombatStep(
+                    selectedCombatStep === stepKey ? null : stepKey,
+                  )
+                }
                 className={`section-button ${selectedCombatStep === stepKey ? "active" : ""}`}
               >
                 <span style={{ fontSize: "1.2rem" }}>⚔️</span>
