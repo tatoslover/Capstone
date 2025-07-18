@@ -140,16 +140,16 @@ style: formatting changes
 - [x] Implement basic user CRUD operations
 
 ### Phase 2: Core Features
-- [ ] Implement favourites CRUD system
-- [ ] Create user interface for managing favourites
-- [ ] Add basic search functionality
-- [ ] Implement responsive design
+- [x] Implement favourites CRUD system
+- [x] Create user interface for managing favourites
+- [x] Add basic search functionality
+- [x] Implement responsive design
 
 ### Phase 3: External Integration
-- [ ] Integrate Scryfall API for card data
-- [ ] Add random card examples for each ability type
-- [ ] Implement card search with filters
-- [ ] Add error handling and loading states
+- [x] Integrate Scryfall API for card data
+- [x] Add random card examples for each ability type
+- [x] Implement card search with filters
+- [x] Add error handling and loading states
 
 ### Phase 4: Polish & Testing
 - [ ] Comprehensive testing suite

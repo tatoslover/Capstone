@@ -226,19 +226,16 @@ export default function SearchPage() {
       <div className="container" style={{ padding: "2rem 1rem" }}>
         {/* Page Header */}
         <div className="text-center mb-3">
-          <h1 style={{ color: "#d4b106", marginBottom: "0.5rem" }}>
-            Search Magic Cards
-          </h1>
-          <p
-            style={{
-              fontSize: "1.1rem",
-              color: "#6c757d",
-              marginBottom: "2rem",
-            }}
+          <div
+            className="header-box"
+            style={{ maxWidth: "800px", margin: "0 auto" }}
           >
-            Find cards by name, ability, or creature type. Use filters to narrow
-            your search.
-          </p>
+            <h1>Search Magic Cards</h1>
+            <p style={{ fontSize: "1.1rem" }}>
+              Find cards by name, ability, or creature type. Use filters to
+              narrow your search.
+            </p>
+          </div>
         </div>
 
         {/* User Status */}

@@ -123,20 +123,17 @@ export default function Home() {
       <div className="container" style={{ padding: "2rem 1rem" }}>
         {/* Hero Section */}
         <div className="text-center mb-3">
-          <h1 style={{ color: "#d4b106", marginBottom: "1rem" }}>
-            Welcome to Plansewalker's Primer
-          </h1>
-          <p
-            style={{
-              fontSize: "1.25rem",
-              color: "#6c757d",
-              maxWidth: "600px",
-              margin: "0 auto 2rem auto",
-            }}
+          <div
+            className="header-box"
+            style={{ maxWidth: "800px", margin: "0 auto" }}
           >
-            Your beginner-friendly guide to Magic: The Gathering abilities and
-            keywords. Learn the basics, explore cards, and save your favorites!
-          </p>
+            <h1>Welcome to Plansewalker's Primer</h1>
+            <p style={{ fontSize: "1.25rem" }}>
+              Your beginner-friendly guide to Magic: The Gathering abilities and
+              keywords. Learn the basics, explore cards, and save your
+              favorites!
+            </p>
+          </div>
         </div>
 
         {/* User Management Section */}
@@ -385,51 +382,6 @@ export default function Home() {
                 Create Profile First
               </button>
             )}
-          </div>
-        </div>
-
-        {/* Beginner Tips */}
-        <div
-          className="card"
-          style={{ marginTop: "2rem", background: "#f8f9fa" }}
-        >
-          <h3 style={{ color: "#495057", marginBottom: "1rem" }}>
-            💡 Tips for New Players
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1.5rem",
-            }}
-          >
-            <div>
-              <h4 style={{ color: "#007bff", marginBottom: "0.5rem" }}>
-                Start with Keywords
-              </h4>
-              <p style={{ color: "#6c757d", margin: 0 }}>
-                Focus on learning the basic keyword abilities above. They appear
-                on many cards and form the foundation of MTG strategy.
-              </p>
-            </div>
-            <div>
-              <h4 style={{ color: "#007bff", marginBottom: "0.5rem" }}>
-                Save Your Favorites
-              </h4>
-              <p style={{ color: "#6c757d", margin: 0 }}>
-                Create a profile to save cards you find interesting or
-                confusing. This helps you build your own reference library.
-              </p>
-            </div>
-            <div>
-              <h4 style={{ color: "#007bff", marginBottom: "0.5rem" }}>
-                Practice Reading Cards
-              </h4>
-              <p style={{ color: "#6c757d", margin: 0 }}>
-                Use the search feature to look up cards you encounter in games.
-                Understanding card text is key to improvement.
-              </p>
-            </div>
           </div>
         </div>
       </div>

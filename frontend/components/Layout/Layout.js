@@ -2,10 +2,13 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
+import { ThemeSelector } from "../Theme";
+import { useTheme } from "../../contexts/ThemeContext";
 
 export default function Layout({ children, title = "Plansewalker's Primer" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
+  const { theme } = useTheme();
 
   const isActive = (path) => router.pathname === path;
 
@@ -45,10 +48,10 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                 Search Cards
               </Link>
               <Link
-                href="/favorites"
-                className={`nav-link ${isActive("/favorites") ? "active" : ""}`}
+                href="/favourites"
+                className={`nav-link ${isActive("/favourites") ? "active" : ""}`}
               >
-                My Favorites
+                My Favourites
               </Link>
               <Link
                 href="/profile"
@@ -56,17 +59,30 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
               >
                 Profile
               </Link>
+
+              {/* Theme Selector in Navigation */}
+              <div
+                style={{
+                  marginLeft: "1rem",
+                  paddingLeft: "1rem",
+                  borderLeft: "1px solid var(--theme-border)",
+                }}
+              >
+                <ThemeSelector compact={true} showLabel={false} />
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="d-md-none btn-outline"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="d-md-none"
               style={{
-                padding: "0.5rem",
-                border: "none",
                 background: "transparent",
-                fontSize: "1.5rem",
+                border: "1px solid var(--theme-border)",
+                padding: "0.5rem",
+                borderRadius: "0.25rem",
+                color: "var(--theme-text)",
+                fontSize: "1.25rem",
               }}
             >
               {isMenuOpen ? "✕" : "☰"}
@@ -76,10 +92,10 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
           {/* Mobile Navigation Menu */}
           {isMenuOpen && (
             <div
-              className="d-md-none"
               style={{
-                background: "white",
-                borderTop: "1px solid #e9ecef",
+                background: "rgba(26, 26, 26, 0.95)",
+                backdropFilter: "blur(8px)",
+                borderTop: "1px solid var(--theme-border)",
                 padding: "1rem 0",
               }}
             >
@@ -106,11 +122,11 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                     Search Cards
                   </Link>
                   <Link
-                    href="/favorites"
-                    className={`nav-link ${isActive("/favorites") ? "active" : ""}`}
+                    href="/favourites"
+                    className={`nav-link ${isActive("/favourites") ? "active" : ""}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    My Favorites
+                    My Favourites
                   </Link>
                   <Link
                     href="/profile"
@@ -119,6 +135,27 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
                   >
                     Profile
                   </Link>
+
+                  {/* Theme Selector for Mobile */}
+                  <div
+                    style={{
+                      marginTop: "1rem",
+                      paddingTop: "1rem",
+                      borderTop: "1px solid var(--theme-border)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "0.875rem",
+                        fontWeight: "600",
+                        marginBottom: "0.75rem",
+                        color: "var(--theme-accent)",
+                      }}
+                    >
+                      Choose Theme:
+                    </div>
+                    <ThemeSelector compact={true} showLabel={false} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,29 +168,149 @@ export default function Layout({ children, title = "Plansewalker's Primer" }) {
         {/* Footer */}
         <footer
           style={{
-            background: "white",
-            borderTop: "1px solid #e9ecef",
+            background: "rgba(26, 26, 26, 0.95)",
+            backdropFilter: "blur(8px)",
+            borderTop: "1px solid var(--theme-border)",
             padding: "2rem 0",
             marginTop: "4rem",
             textAlign: "center",
-            color: "#6c757d",
           }}
         >
           <div className="container">
-            <p style={{ marginBottom: "0.5rem" }}>
-              Made for Magic: The Gathering beginners
-            </p>
-            <p style={{ fontSize: "0.875rem", margin: 0 }}>
-              Card data provided by{" "}
-              <a
-                href="https://scryfall.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "#007bff" }}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                gap: "2rem",
+                marginBottom: "2rem",
+              }}
+            >
+              <div>
+                <h4
+                  style={{ color: "var(--theme-accent)", marginBottom: "1rem" }}
+                >
+                  Plansewalker's Primer
+                </h4>
+                <p
+                  style={{
+                    color: "var(--theme-textLight)",
+                    fontSize: "0.9rem",
+                    lineHeight: "1.5",
+                  }}
+                >
+                  Your beginner-friendly guide to Magic: The Gathering abilities
+                  and keywords. Learn, explore, and save your favourite cards.
+                </p>
+              </div>
+
+              <div>
+                <h5
+                  style={{ color: "var(--theme-accent)", marginBottom: "1rem" }}
+                >
+                  Quick Links
+                </h5>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <Link
+                    href="/"
+                    style={{
+                      color: "var(--theme-textLight)",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="/search"
+                    style={{
+                      color: "var(--theme-textLight)",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Search Cards
+                  </Link>
+                  <Link
+                    href="/favourites"
+                    style={{
+                      color: "var(--theme-textLight)",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    My Favourites
+                  </Link>
+                </div>
+              </div>
+
+              <div>
+                <h5
+                  style={{ color: "var(--theme-accent)", marginBottom: "1rem" }}
+                >
+                  Legal Notice
+                </h5>
+                <p
+                  style={{
+                    color: "var(--theme-textLight)",
+                    fontSize: "0.8rem",
+                    lineHeight: "1.4",
+                  }}
+                >
+                  This is an independent academic project. Magic: The Gathering
+                  is a trademark of Wizards of the Coast. Card data and basic
+                  land art provided by{" "}
+                  <a
+                    href="https://scryfall.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--theme-highlight)" }}
+                  >
+                    Scryfall
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+
+            <div
+              style={{
+                borderTop: "1px solid var(--theme-border)",
+                paddingTop: "1rem",
+                color: "var(--theme-textLight)",
+                fontSize: "0.875rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: "1rem",
+                }}
               >
-                Scryfall
-              </a>
-            </p>
+                <div>© 2024 Plansewalker's Primer - Academic Project</div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+                >
+                  <span style={{ fontSize: "0.8rem" }}>Theme:</span>
+                  <span
+                    style={{
+                      color: "var(--theme-accent)",
+                      fontWeight: "500",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.25rem",
+                    }}
+                  >
+                    {theme.symbol} {theme.name}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </footer>
       </div>
