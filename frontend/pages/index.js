@@ -1058,12 +1058,13 @@ export default function Home() {
             Learn the structure of a Magic turn
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
               gap: "0.5rem",
               maxWidth: "600px",
-              margin: "0 auto",
+              margin: "0 auto 2rem auto",
             }}
           >
             <button
@@ -1072,171 +1073,68 @@ export default function Home() {
                   selectedPhase === "beginning" ? null : "beginning",
                 )
               }
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedPhase === "beginning" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "beginning" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "beginning") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "beginning") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedPhase === "beginning" ? "active" : ""}`}
             >
-              Beginning
+              <span style={{ fontSize: "1.5rem" }}>🌅</span>
+              <span>Beginning</span>
             </button>
             <button
               onClick={() =>
                 setSelectedPhase(selectedPhase === "main1" ? null : "main1")
               }
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "main1" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "main1" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "main1") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "main1") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedPhase === "main1" ? "active" : ""}`}
             >
-              Main 1
+              <span style={{ fontSize: "1.5rem" }}>🏗️</span>
+              <span>Main 1</span>
             </button>
             <button
               onClick={() =>
                 setSelectedPhase(selectedPhase === "combat" ? null : "combat")
               }
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "combat" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "combat" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "combat") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "combat") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedPhase === "combat" ? "active" : ""}`}
             >
-              Combat
+              <span style={{ fontSize: "1.5rem" }}>⚔️</span>
+              <span>Combat</span>
             </button>
             <button
               onClick={() =>
                 setSelectedPhase(selectedPhase === "main2" ? null : "main2")
               }
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "main2" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "main2" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "main2") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "main2") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedPhase === "main2" ? "active" : ""}`}
             >
-              Main 2
+              <span style={{ fontSize: "1.5rem" }}>🏛️</span>
+              <span>Main 2</span>
             </button>
             <button
               onClick={() =>
                 setSelectedPhase(selectedPhase === "ending" ? null : "ending")
               }
-              style={{
-                padding: "0.75rem 0.5rem",
-                background: selectedPhase === "ending" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedPhase === "ending" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedPhase !== "ending") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedPhase !== "ending") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedPhase === "ending" ? "active" : ""}`}
             >
-              Ending
+              <span style={{ fontSize: "1.5rem" }}>🌙</span>
+              <span>Ending</span>
             </button>
           </div>
 
           {selectedPhase && (
             <div
+              className="section-content"
               style={{
-                marginTop: "2rem",
                 padding: "1.5rem",
                 background: "#495057",
                 borderRadius: "0.5rem",
                 border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
               }}
             >
-              <h3 style={{ marginBottom: "1rem", color: "#ffffff" }}>
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
                 {phaseInfo[selectedPhase].title}
               </h3>
               <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
@@ -1601,7 +1499,7 @@ export default function Home() {
                   }
                   className={`section-button ${selectedDeckType === typeKey ? "active" : ""}`}
                 >
-                  <span style={{ fontSize: "1.2rem" }}>🃏</span>
+                  <span style={{ fontSize: "1.5rem" }}>🏗️</span>
                   <span>{deckType.name}</span>
                 </button>
               ),
@@ -1692,7 +1590,7 @@ export default function Home() {
                 }
                 className={`section-button ${selectedCombatStep === stepKey ? "active" : ""}`}
               >
-                <span style={{ fontSize: "1.2rem" }}>⚔️</span>
+                <span style={{ fontSize: "1.5rem" }}>⚔️</span>
                 <span>{step.name}</span>
               </button>
             ))}
