@@ -3,9 +3,11 @@ import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
 import { CardSearch, CardList } from "../components/Card";
 import Loading from "../components/UI/Loading";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function SearchPage() {
   const router = useRouter();
+  const { theme } = useTheme();
   const [currentUser, setCurrentUser] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,16 +50,26 @@ export default function SearchPage() {
       setError("");
       setHasSearched(true);
 
-      // Update URL without causing a page reload
-      if (router.query.q !== query) {
-        router.replace(`/search?q=${encodeURIComponent(query)}`, undefined, {
-          shallow: true,
-        });
+      let endpoint;
+      let displayQuery;
+
+      // Handle random card request
+      if (query === "*") {
+        endpoint = `${API_URL}/api/cards/random`;
+        displayQuery = "Random Card";
+      } else {
+        endpoint = `${API_URL}/api/cards/search?q=${encodeURIComponent(query)}`;
+        displayQuery = query;
+
+        // Update URL without causing a page reload for regular searches
+        if (router.query.q !== query) {
+          router.replace(`/search?q=${encodeURIComponent(query)}`, undefined, {
+            shallow: true,
+          });
+        }
       }
 
-      const response = await fetch(
-        `${API_URL}/api/cards/search?q=${encodeURIComponent(query)}`,
-      );
+      const response = await fetch(endpoint);
 
       if (!response.ok) {
         if (response.status === 404) {
@@ -70,13 +82,21 @@ export default function SearchPage() {
 
       const data = await response.json();
 
-      // Handle Scryfall API response format
-      const cards = data.data || [];
-      const total = data.total_cards || cards.length;
+      // Handle different response formats
+      let cards, total;
+      if (query === "*") {
+        // Random card returns a single card object
+        cards = [data];
+        total = 1;
+      } else {
+        // Regular search returns Scryfall API response format
+        cards = data.data || [];
+        total = data.total_cards || cards.length;
+      }
 
       setSearchResults(cards);
       setTotalResults(total);
-      setCurrentQuery(query);
+      setCurrentQuery(displayQuery);
 
       // Scroll to results on mobile
       if (cards.length > 0 && window.innerWidth <= 768) {
@@ -230,8 +250,8 @@ export default function SearchPage() {
             className="header-box"
             style={{ maxWidth: "800px", margin: "0 auto" }}
           >
-            <h1>Search Magic Cards</h1>
-            <p style={{ fontSize: "1.1rem" }}>
+            <h1 style={{ color: "var(--theme-text)" }}>Search Magic Cards</h1>
+            <p style={{ fontSize: "1.1rem", color: "var(--theme-textLight)" }}>
               Find cards by name, ability, or creature type. Use filters to
               narrow your search.
             </p>
@@ -242,18 +262,20 @@ export default function SearchPage() {
         {currentUser && (
           <div
             style={{
-              background: "#e3f2fd",
+              background: "var(--theme-secondary)",
               padding: "1rem",
               borderRadius: "0.5rem",
               marginBottom: "2rem",
-              border: "1px solid #bbdefb",
+              border: "1px solid var(--theme-border)",
               textAlign: "center",
             }}
           >
-            <p style={{ margin: 0, color: "#1565c0" }}>
+            <p style={{ margin: 0, color: "var(--theme-accent)" }}>
               <strong>Welcome back, {currentUser.username}!</strong>
-              <span style={{ marginLeft: "0.5rem" }}>
-                Click ⭐ on any card to save it to your favorites.
+              <span
+                style={{ marginLeft: "0.5rem", color: "var(--theme-text)" }}
+              >
+                Click ⭐ on any card to save it to your favourites.
               </span>
             </p>
           </div>
@@ -277,8 +299,12 @@ export default function SearchPage() {
               className="error"
               style={{ textAlign: "center", margin: "2rem 0" }}
             >
-              <h3 style={{ marginBottom: "0.5rem" }}>Search Error</h3>
-              <p>{error}</p>
+              <h3
+                style={{ marginBottom: "0.5rem", color: "var(--theme-text)" }}
+              >
+                Search Error
+              </h3>
+              <p style={{ color: "var(--theme-textLight)" }}>{error}</p>
               <button
                 onClick={() => {
                   setError("");
@@ -287,11 +313,12 @@ export default function SearchPage() {
                 style={{
                   marginTop: "1rem",
                   padding: "0.5rem 1rem",
-                  background: "#007bff",
-                  color: "white",
+                  background: "var(--theme-accent)",
+                  color: "#000000",
                   border: "none",
                   borderRadius: "0.25rem",
                   cursor: "pointer",
+                  fontWeight: "600",
                 }}
               >
                 Try Again
@@ -305,11 +332,11 @@ export default function SearchPage() {
               {searchResults.length > 0 && (
                 <div
                   style={{
-                    background: "#f8f9fa",
+                    background: "var(--theme-secondary)",
                     padding: "1rem",
                     borderRadius: "0.5rem",
                     marginBottom: "1.5rem",
-                    border: "1px solid #e9ecef",
+                    border: "1px solid var(--theme-border)",
                   }}
                 >
                   <div
@@ -325,15 +352,16 @@ export default function SearchPage() {
                       <h3
                         style={{
                           margin: 0,
-                          color: "#495057",
+                          color: "var(--theme-text)",
                           fontSize: "1.25rem",
+                          fontWeight: "600",
                         }}
                       >
                         Found {searchResults.length} cards
                         {totalResults > searchResults.length && (
                           <span
                             style={{
-                              color: "#6c757d",
+                              color: "var(--theme-textLight)",
                               fontSize: "0.9rem",
                               marginLeft: "0.5rem",
                             }}
@@ -346,7 +374,7 @@ export default function SearchPage() {
                       <p
                         style={{
                           margin: "0.25rem 0 0 0",
-                          color: "#6c757d",
+                          color: "var(--theme-textLight)",
                           fontSize: "0.9rem",
                         }}
                       >
@@ -360,8 +388,16 @@ export default function SearchPage() {
                         setCurrentQuery("");
                         router.replace("/search", undefined, { shallow: true });
                       }}
-                      className="btn-outline"
-                      style={{ fontSize: "0.875rem", padding: "0.5rem 1rem" }}
+                      style={{
+                        fontSize: "0.875rem",
+                        padding: "0.5rem 1rem",
+                        background: "var(--theme-accent)",
+                        color: "#000000",
+                        border: "1px solid var(--theme-accent)",
+                        borderRadius: "0.25rem",
+                        cursor: "pointer",
+                        fontWeight: "600",
+                      }}
                     >
                       New Search
                     </button>
@@ -384,10 +420,10 @@ export default function SearchPage() {
               {searchResults.length === 0 && !loading && (
                 <div
                   style={{
-                    background: "#e8f4f8",
+                    background: "var(--theme-secondary)",
                     padding: "2rem",
                     borderRadius: "0.5rem",
-                    border: "1px solid #b8e6ff",
+                    border: "1px solid var(--theme-border)",
                     textAlign: "center",
                     marginTop: "2rem",
                   }}
@@ -395,11 +431,24 @@ export default function SearchPage() {
                   <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
                     🔍
                   </div>
-                  <h3 style={{ color: "#0c5460", marginBottom: "1rem" }}>
+                  <h3
+                    style={{
+                      color: "var(--theme-accent)",
+                      marginBottom: "1rem",
+                      fontWeight: "600",
+                    }}
+                  >
                     No cards found for "{currentQuery}"
                   </h3>
-                  <div style={{ color: "#155160", lineHeight: "1.5" }}>
-                    <p style={{ marginBottom: "1rem" }}>
+                  <div
+                    style={{ color: "var(--theme-text)", lineHeight: "1.5" }}
+                  >
+                    <p
+                      style={{
+                        marginBottom: "1rem",
+                        color: "var(--theme-textLight)",
+                      }}
+                    >
                       Try these search tips:
                     </p>
                     <ul
@@ -408,6 +457,7 @@ export default function SearchPage() {
                         maxWidth: "400px",
                         margin: "0 auto",
                         paddingLeft: "1.5rem",
+                        color: "var(--theme-text)",
                       }}
                     >
                       <li>Check spelling of card names</li>
@@ -417,7 +467,7 @@ export default function SearchPage() {
                       <li>
                         Search for creature types like "dragon" or "angel"
                       </li>
-                      <li>Use the filters above to browse by color or type</li>
+                      <li>Use the filters above to browse by colour or type</li>
                       <li>Try more general terms like "red" or "artifact"</li>
                     </ul>
                   </div>
@@ -425,8 +475,6 @@ export default function SearchPage() {
               )}
             </>
           )}
-
-
         </div>
       </div>
     </Layout>
