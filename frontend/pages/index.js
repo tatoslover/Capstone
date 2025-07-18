@@ -1724,15 +1724,15 @@ export default function Home() {
                   {combatBasics.combatSteps[selectedCombatStep].description}
                 </p>
                 <div>
-                  <strong style={{ color: "#ffffff" }}>Key Points: </strong>
+                  <strong style={{ color: "#ffffff" }}>What Happens: </strong>
                   <ul style={{ margin: "0.5rem 0 0 1rem", padding: "0" }}>
-                    {combatBasics.combatSteps[selectedCombatStep].keyPoints.map(
-                      (point, index) => (
-                        <li key={index} style={{ marginBottom: "0.25rem" }}>
-                          {point}
-                        </li>
-                      ),
-                    )}
+                    {combatBasics.combatSteps[
+                      selectedCombatStep
+                    ].whatHappens.map((point, index) => (
+                      <li key={index} style={{ marginBottom: "0.25rem" }}>
+                        {point}
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
