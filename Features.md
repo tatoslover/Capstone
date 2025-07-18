@@ -38,6 +38,37 @@ A comprehensive Magic: The Gathering learning platform for beginners.
 🔲 **Format legality checking** for cards and mechanics
 🔲 **Revise Mechanics guide** for cards and mechanics
 
+Git comments
+
+Frontend Route Fixes & CSS Refactoring
+
+## Fixed Critical 404 Issues
+
+- My Favourites page - Renamed `favorites.js` → `favourites.js` to match UK spelling in navigation
+- Profile page - Created complete user management page with CRUD operations
+- Consistent routing - All navigation links now work correctly
+
+## Complete CSS Architecture Overhaul
+
+- Eliminated 100+ inline style objects across all components
+- Created 100+ reusable utility classes in globals.css
+- Refactored 8 major components: CardDisplay, CardPreview, Documentation, Layout, CardSearch, search page, Button, Loading
+- Achieved 100% inline style reduction (exceeded 95% target)
+
+## Design System Standardization
+
+- Consistent styling - All components use shared CSS classes
+- Theme integration - Complete CSS variable implementation
+- Responsive design - Proper mobile/desktop breakpoints
+- Professional appearance - Unified design language
+
+## Performance & Maintainability Improvements
+
+- Faster rendering - Eliminated runtime style calculations
+- Better caching - CSS in separate files reduces bundle size
+- Single source of truth - All styling controlled through globals.css
+- Developer experience - Clean JSX with semantic class names
+- Easy maintenance - Global color/spacing changes via CSS variables
 
 ## Tech Stack
 

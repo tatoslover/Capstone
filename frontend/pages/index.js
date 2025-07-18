@@ -218,7 +218,7 @@ export default function Home() {
 
   return (
     <Layout title="Planeswalker's Primer - MTG Rulebook for Beginners">
-      <div className="container" style={{ padding: "2rem 1rem" }}>
+      <div className="container page-content">
         {/* Hero Section */}
         <div className="text-center mb-3">
           <div
