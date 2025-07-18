@@ -95,191 +95,54 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
         <nav className="nav">
           <div className="container">
             {/* Mobile-first centred layout */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "1rem",
-                padding: "1rem 0",
-              }}
-            >
+            <div className="nav-container">
               {/* Brand/Logo - Always visible and centred */}
-              <Link
-                href="/"
-                className="nav-brand"
-                style={{
-                  textAlign: "center",
-                  fontSize: "3rem",
-                  fontWeight: "600",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                  textDecoration: "none",
-                }}
-              >
+              <Link href="/" className="nav-brand nav-brand-layout">
                 <ManaSymbols size={60} />
                 Planeswalker's Primer
               </Link>
 
               {/* Navigation Links - Mobile (Centred) */}
-              <div
-                className="d-md-none"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "1rem",
-                  width: "100%",
-                }}
-              >
-                <Link
-                  href="/"
-                  className={`nav-link ${isActive("/") ? "active" : ""}`}
-                  style={{
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    textDecoration: "none",
-                  }}
-                >
+              <div className="d-md-none nav-mobile">
+                <Link href="/" className="nav-link nav-link-mobile">
                   <WizardIcon size={64} />
                   <span
-                    style={{
-                      color: isActive("/")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/") ? "600" : "400",
-                      backgroundColor: isActive("/")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.5rem 1rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text ${isActive("/") ? "active" : ""}`}
                   >
                     Home
                   </span>
                 </Link>
-                <Link
-                  href="/search"
-                  className={`nav-link ${isActive("/search") ? "active" : ""}`}
-                  style={{
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    textDecoration: "none",
-                  }}
-                >
+                <Link href="/search" className="nav-link nav-link-mobile">
                   <WizardStaff size={64} />
                   <span
-                    style={{
-                      color: isActive("/search")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/search") ? "600" : "400",
-                      backgroundColor: isActive("/search")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.5rem 1rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text ${isActive("/search") ? "active" : ""}`}
                   >
                     Search Cards
                   </span>
                 </Link>
-                <Link
-                  href="/favourites"
-                  className={`nav-link ${isActive("/favourites") ? "active" : ""}`}
-                  style={{
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    textDecoration: "none",
-                  }}
-                >
+                <Link href="/favourites" className="nav-link nav-link-mobile">
                   <WizardSilhouette size={64} />
                   <span
-                    style={{
-                      color: isActive("/favourites")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/favourites") ? "600" : "400",
-                      backgroundColor: isActive("/favourites")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.5rem 1rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text ${isActive("/favourites") ? "active" : ""}`}
                   >
                     My Favourites
                   </span>
                 </Link>
                 <Link
                   href="/documentation"
-                  className={`nav-link ${isActive("/documentation") ? "active" : ""}`}
-                  style={{
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    textDecoration: "none",
-                  }}
+                  className="nav-link nav-link-mobile"
                 >
                   <WizardSwirl size={64} />
                   <span
-                    style={{
-                      color: isActive("/documentation")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/documentation") ? "600" : "400",
-                      backgroundColor: isActive("/documentation")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.5rem 1rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text ${isActive("/documentation") ? "active" : ""}`}
                   >
                     Documentation
                   </span>
                 </Link>
-                <Link
-                  href="/profile"
-                  className={`nav-link ${isActive("/profile") ? "active" : ""}`}
-                  style={{
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    textDecoration: "none",
-                  }}
-                >
+                <Link href="/profile" className="nav-link nav-link-mobile">
                   <MinimalWizard size={64} />
                   <span
-                    style={{
-                      color: isActive("/profile")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/profile") ? "600" : "400",
-                      backgroundColor: isActive("/profile")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.5rem 1rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text ${isActive("/profile") ? "active" : ""}`}
                   >
                     Profile
                   </span>
@@ -287,160 +150,46 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
               </div>
 
               {/* Desktop Navigation - Horizontal */}
-              <div
-                className="d-none d-md-flex"
-                style={{
-                  gap: "2rem",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Link
-                  href="/"
-                  className={`nav-link ${isActive("/") ? "active" : ""}`}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    textDecoration: "none",
-                  }}
-                >
+              <div className="d-none d-md-flex nav-desktop">
+                <Link href="/" className="nav-link nav-link-desktop">
                   <WizardIcon size={56} />
                   <span
-                    style={{
-                      fontSize: "0.85rem",
-                      color: isActive("/")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/") ? "600" : "400",
-                      backgroundColor: isActive("/")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text-desktop ${isActive("/") ? "active" : ""}`}
                   >
                     Home
                   </span>
                 </Link>
-                <Link
-                  href="/search"
-                  className={`nav-link ${isActive("/search") ? "active" : ""}`}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    textDecoration: "none",
-                  }}
-                >
+                <Link href="/search" className="nav-link nav-link-desktop">
                   <WizardStaff size={56} />
                   <span
-                    style={{
-                      fontSize: "0.85rem",
-                      color: isActive("/search")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/search") ? "600" : "400",
-                      backgroundColor: isActive("/search")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text-desktop ${isActive("/search") ? "active" : ""}`}
                   >
                     Search Cards
                   </span>
                 </Link>
-                <Link
-                  href="/favourites"
-                  className={`nav-link ${isActive("/favourites") ? "active" : ""}`}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    textDecoration: "none",
-                  }}
-                >
+                <Link href="/favourites" className="nav-link nav-link-desktop">
                   <WizardSilhouette size={56} />
                   <span
-                    style={{
-                      fontSize: "0.85rem",
-                      color: isActive("/favourites")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/favourites") ? "600" : "400",
-                      backgroundColor: isActive("/favourites")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text-desktop ${isActive("/favourites") ? "active" : ""}`}
                   >
                     My Favourites
                   </span>
                 </Link>
                 <Link
                   href="/documentation"
-                  className={`nav-link ${isActive("/documentation") ? "active" : ""}`}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    textDecoration: "none",
-                  }}
+                  className="nav-link nav-link-desktop"
                 >
                   <WizardSwirl size={56} />
                   <span
-                    style={{
-                      fontSize: "0.85rem",
-                      color: isActive("/documentation")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/documentation") ? "600" : "400",
-                      backgroundColor: isActive("/documentation")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text-desktop ${isActive("/documentation") ? "active" : ""}`}
                   >
                     Documentation
                   </span>
                 </Link>
-                <Link
-                  href="/profile"
-                  className={`nav-link ${isActive("/profile") ? "active" : ""}`}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    textDecoration: "none",
-                  }}
-                >
+                <Link href="/profile" className="nav-link nav-link-desktop">
                   <MinimalWizard size={56} />
                   <span
-                    style={{
-                      fontSize: "0.85rem",
-                      color: isActive("/profile")
-                        ? "#000000"
-                        : "var(--theme-text, #2d3748)",
-                      fontWeight: isActive("/profile") ? "600" : "400",
-                      backgroundColor: isActive("/profile")
-                        ? "var(--theme-accent, #805ad5)"
-                        : "transparent",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "1rem",
-                      transition: "all 0.3s ease",
-                    }}
+                    className={`nav-link-text-desktop ${isActive("/profile") ? "active" : ""}`}
                   >
                     Profile
                   </span>
@@ -448,55 +197,17 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
               </div>
 
               {/* Theme Selector and Quick Reference - Always at bottom and centred */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "1rem",
-                  paddingTop: "1rem",
-                  width: "100%",
-                }}
-              >
+              <div className="nav-bottom-section">
                 {/* Theme Selector */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "0.875rem",
-                      fontWeight: "600",
-                      color: "var(--theme-accent)",
-                      textAlign: "center",
-                    }}
-                  >
-                    Choose Theme:
-                  </div>
+                <div className="theme-selector-section">
+                  <div className="theme-selector-label">Choose Theme:</div>
                   <ThemeSelector compact={true} showLabel={false} />
                 </div>
 
                 {/* Quick Reference Button */}
                 <button
                   onClick={toggleQuickReference}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    backgroundColor: "var(--theme-accent, #805ad5)",
-                    border: "none",
-                    borderRadius: "1rem",
-                    color: "#000000",
-                    fontSize: "0.875rem",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                  }}
+                  className="quick-reference-btn"
                 >
                   📖 Quick Reference
                 </button>
@@ -507,93 +218,29 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
 
         {/* Quick Reference Panel */}
         {showQuickReference && (
-          <div
-            style={{
-              position: "fixed",
-              top: "20px",
-              right: "20px",
-              width: "320px",
-              maxHeight: "80vh",
-              backgroundColor: "rgba(26, 26, 26, 0.95)",
-              backdropFilter: "blur(8px)",
-              border: "1px solid var(--theme-border)",
-              borderRadius: "0.5rem",
-              zIndex: 1000,
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                background: "var(--theme-accent, #805ad5)",
-                padding: "1rem",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <h3
-                style={{
-                  color: "#000000",
-                  margin: "0",
-                  fontSize: "1.1rem",
-                  fontWeight: "600",
-                }}
-              >
-                Quick Reference
-              </h3>
+          <div className="quick-reference-panel">
+            <div className="quick-reference-header">
+              <h3 className="quick-reference-title">Quick Reference</h3>
               <button
                 onClick={toggleQuickReference}
-                style={{
-                  background: "rgba(0,0,0,0.2)",
-                  border: "none",
-                  borderRadius: "50%",
-                  width: "24px",
-                  height: "24px",
-                  color: "#000000",
-                  cursor: "pointer",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                }}
+                className="quick-reference-close"
               >
                 ✕
               </button>
             </div>
-            <div
-              style={{
-                padding: "1rem",
-                maxHeight: "calc(80vh - 60px)",
-                overflowY: "auto",
-              }}
-            >
+            <div className="quick-reference-content">
               {Object.entries(quickReferenceData).map(([key, section]) => (
-                <div key={key} style={{ marginBottom: "1rem" }}>
-                  <h4
-                    style={{
-                      color: "var(--theme-accent, #805ad5)",
-                      margin: "0 0 0.5rem 0",
-                      fontSize: "1rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                    }}
-                  >
+                <div key={key} className="quick-reference-section">
+                  <h4 className="quick-reference-section-title">
                     <span>{section.icon}</span>
                     {section.title}
                   </h4>
-                  <ul
-                    style={{
-                      listStyle: "none",
-                      padding: "0",
-                      margin: "0",
-                    }}
-                  >
+                  <ul className="quick-reference-list">
                     {section.content.map((item, index) => (
                       <li
                         key={index}
+                        className={`quick-reference-item ${index < section.content.length - 1 ? "" : ""}`}
                         style={{
-                          color: "var(--theme-textLight, #dee2e6)",
-                          fontSize: "0.85rem",
-                          padding: "0.25rem 0",
                           borderBottom:
                             index < section.content.length - 1
                               ? "1px solid rgba(255,255,255,0.1)"
@@ -614,108 +261,38 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
         <main>{children}</main>
 
         {/* Footer */}
-        <footer
-          style={{
-            background: "rgba(26, 26, 26, 0.95)",
-            backdropFilter: "blur(8px)",
-            borderTop: "1px solid var(--theme-border)",
-            padding: "2rem 0",
-            marginTop: "4rem",
-            textAlign: "center",
-          }}
-        >
+        <footer className="footer-layout">
           <div className="container">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                gap: "2rem",
-                marginBottom: "2rem",
-              }}
-            >
+            <div className="footer-grid">
               <div>
-                <h4
-                  style={{ color: "var(--theme-accent)", marginBottom: "1rem" }}
-                >
-                  Planeswalker's Primer
-                </h4>
-                <p
-                  style={{
-                    color: "var(--theme-textLight)",
-                    fontSize: "0.9rem",
-                    lineHeight: "1.5",
-                  }}
-                >
+                <h4 className="footer-section-title">Planeswalker's Primer</h4>
+                <p className="footer-description">
                   Your beginner-friendly guide to Magic: The Gathering mechanics
                   and keywords. Learn, explore, and save your favourite cards.
                 </p>
               </div>
 
               <div>
-                <h5
-                  style={{ color: "var(--theme-accent)", marginBottom: "1rem" }}
-                >
-                  Quick Links
-                </h5>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <Link
-                    href="/"
-                    style={{
-                      color: "var(--theme-textLight)",
-                      fontSize: "0.9rem",
-                    }}
-                  >
+                <h5 className="footer-section-title">Quick Links</h5>
+                <div className="footer-links">
+                  <Link href="/" className="footer-link">
                     Home
                   </Link>
-                  <Link
-                    href="/search"
-                    style={{
-                      color: "var(--theme-textLight)",
-                      fontSize: "0.9rem",
-                    }}
-                  >
+                  <Link href="/search" className="footer-link">
                     Search Cards
                   </Link>
-                  <Link
-                    href="/favourites"
-                    style={{
-                      color: "var(--theme-textLight)",
-                      fontSize: "0.9rem",
-                    }}
-                  >
+                  <Link href="/favourites" className="footer-link">
                     My Favourites
                   </Link>
-                  <Link
-                    href="/documentation"
-                    style={{
-                      color: "var(--theme-textLight)",
-                      fontSize: "0.9rem",
-                    }}
-                  >
+                  <Link href="/documentation" className="footer-link">
                     Documentation
                   </Link>
                 </div>
               </div>
 
               <div>
-                <h5
-                  style={{ color: "var(--theme-accent)", marginBottom: "1rem" }}
-                >
-                  Legal Notice
-                </h5>
-                <p
-                  style={{
-                    color: "var(--theme-textLight)",
-                    fontSize: "0.8rem",
-                    lineHeight: "1.4",
-                  }}
-                >
+                <h5 className="footer-section-title">Legal Notice</h5>
+                <p className="footer-legal">
                   This is an independent academic project. Magic: The Gathering
                   is a trademark of Wizards of the Coast. Card data and basic
                   land art provided by{" "}
@@ -723,7 +300,6 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
                     href="https://scryfall.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: "var(--theme-highlight)" }}
                   >
                     Scryfall
                   </a>
@@ -734,30 +310,6 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
           </div>
         </footer>
       </div>
-
-      {/* CSS for responsive display utilities */}
-      <style jsx>{`
-        .d-none {
-          display: none;
-        }
-
-        .d-none {
-          display: none;
-        }
-
-        .d-md-flex {
-          display: none;
-        }
-
-        @media (min-width: 768px) {
-          .d-md-flex {
-            display: flex !important;
-          }
-          .d-md-none {
-            display: none !important;
-          }
-        }
-      `}</style>
     </>
   );
 }

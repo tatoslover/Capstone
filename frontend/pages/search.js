@@ -195,38 +195,9 @@ export default function SearchPage() {
 
   // Helper function to show notifications
   const showNotification = (message, type = "success") => {
-    const colors = {
-      success: "#28a745",
-      error: "#dc3545",
-      info: "#17a2b8",
-    };
-
     const notification = document.createElement("div");
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: ${colors[type]};
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 1000;
-      font-weight: 500;
-      max-width: 300px;
-      animation: slideIn 0.3s ease-out;
-    `;
+    notification.className = `notification notification-${type}`;
     notification.textContent = message;
-
-    // Add CSS animation
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-    `;
-    document.head.appendChild(style);
 
     document.body.appendChild(notification);
 
@@ -235,7 +206,6 @@ export default function SearchPage() {
         notification.style.animation = "slideIn 0.3s ease-out reverse";
         setTimeout(() => {
           document.body.removeChild(notification);
-          document.head.removeChild(style);
         }, 300);
       }
     }, 3000);
@@ -243,15 +213,12 @@ export default function SearchPage() {
 
   return (
     <Layout title="Search Cards - Planeswalker's Primer">
-      <div className="container" style={{ padding: "2rem 1rem" }}>
+      <div className="container page-content">
         {/* Page Header */}
         <div className="text-center mb-3">
-          <div
-            className="header-box"
-            style={{ maxWidth: "800px", margin: "0 auto" }}
-          >
-            <h1 style={{ color: "var(--theme-text)" }}>Search Magic Cards</h1>
-            <p style={{ fontSize: "1.1rem", color: "var(--theme-textLight)" }}>
+          <div className="header-box search-page-header">
+            <h1 className="search-page-title">Search Magic Cards</h1>
+            <p className="search-page-subtitle">
               Find cards by name, ability, or creature type. Use filters to
               narrow your search.
             </p>
@@ -260,21 +227,10 @@ export default function SearchPage() {
 
         {/* User Status */}
         {currentUser && (
-          <div
-            style={{
-              background: "var(--theme-secondary)",
-              padding: "1rem",
-              borderRadius: "0.5rem",
-              marginBottom: "2rem",
-              border: "1px solid var(--theme-border)",
-              textAlign: "center",
-            }}
-          >
-            <p style={{ margin: 0, color: "var(--theme-accent)" }}>
+          <div className="user-status-panel">
+            <p className="user-status-welcome">
               <strong>Welcome back, {currentUser.username}!</strong>
-              <span
-                style={{ marginLeft: "0.5rem", color: "var(--theme-text)" }}
-              >
+              <span className="user-status-text">
                 Click ⭐ on any card to save it to your favourites.
               </span>
             </p>
@@ -295,31 +251,15 @@ export default function SearchPage() {
           )}
 
           {error && (
-            <div
-              className="error"
-              style={{ textAlign: "center", margin: "2rem 0" }}
-            >
-              <h3
-                style={{ marginBottom: "0.5rem", color: "var(--theme-text)" }}
-              >
-                Search Error
-              </h3>
-              <p style={{ color: "var(--theme-textLight)" }}>{error}</p>
+            <div className="error search-error-section">
+              <h3 className="search-error-title">Search Error</h3>
+              <p className="search-error-message">{error}</p>
               <button
                 onClick={() => {
                   setError("");
                   setHasSearched(false);
                 }}
-                style={{
-                  marginTop: "1rem",
-                  padding: "0.5rem 1rem",
-                  background: "var(--theme-accent)",
-                  color: "#000000",
-                  border: "none",
-                  borderRadius: "0.25rem",
-                  cursor: "pointer",
-                  fontWeight: "600",
-                }}
+                className="search-error-retry"
               >
                 Try Again
               </button>
@@ -330,54 +270,19 @@ export default function SearchPage() {
             <>
               {/* Results Summary */}
               {searchResults.length > 0 && (
-                <div
-                  style={{
-                    background: "var(--theme-secondary)",
-                    padding: "1rem",
-                    borderRadius: "0.5rem",
-                    marginBottom: "1.5rem",
-                    border: "1px solid var(--theme-border)",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      flexWrap: "wrap",
-                      gap: "0.5rem",
-                    }}
-                  >
+                <div className="search-results-summary">
+                  <div className="search-results-header">
                     <div>
-                      <h3
-                        style={{
-                          margin: 0,
-                          color: "var(--theme-text)",
-                          fontSize: "1.25rem",
-                          fontWeight: "600",
-                        }}
-                      >
+                      <h3 className="search-results-title">
                         Found {searchResults.length} cards
                         {totalResults > searchResults.length && (
-                          <span
-                            style={{
-                              color: "var(--theme-textLight)",
-                              fontSize: "0.9rem",
-                              marginLeft: "0.5rem",
-                            }}
-                          >
+                          <span className="search-results-total">
                             (showing first {searchResults.length} of{" "}
                             {totalResults} total)
                           </span>
                         )}
                       </h3>
-                      <p
-                        style={{
-                          margin: "0.25rem 0 0 0",
-                          color: "var(--theme-textLight)",
-                          fontSize: "0.9rem",
-                        }}
-                      >
+                      <p className="search-results-query">
                         Search: "{currentQuery}"
                       </p>
                     </div>
@@ -388,16 +293,7 @@ export default function SearchPage() {
                         setCurrentQuery("");
                         router.replace("/search", undefined, { shallow: true });
                       }}
-                      style={{
-                        fontSize: "0.875rem",
-                        padding: "0.5rem 1rem",
-                        background: "var(--theme-accent)",
-                        color: "#000000",
-                        border: "1px solid var(--theme-accent)",
-                        borderRadius: "0.25rem",
-                        cursor: "pointer",
-                        fontWeight: "600",
-                      }}
+                      className="search-new-btn"
                     >
                       New Search
                     </button>
@@ -418,48 +314,16 @@ export default function SearchPage() {
 
               {/* Search Tips for Empty Results */}
               {searchResults.length === 0 && !loading && (
-                <div
-                  style={{
-                    background: "var(--theme-secondary)",
-                    padding: "2rem",
-                    borderRadius: "0.5rem",
-                    border: "1px solid var(--theme-border)",
-                    textAlign: "center",
-                    marginTop: "2rem",
-                  }}
-                >
-                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
-                    🔍
-                  </div>
-                  <h3
-                    style={{
-                      color: "var(--theme-accent)",
-                      marginBottom: "1rem",
-                      fontWeight: "600",
-                    }}
-                  >
+                <div className="search-empty-state">
+                  <div className="search-empty-icon">🔍</div>
+                  <h3 className="search-empty-title">
                     No cards found for "{currentQuery}"
                   </h3>
-                  <div
-                    style={{ color: "var(--theme-text)", lineHeight: "1.5" }}
-                  >
-                    <p
-                      style={{
-                        marginBottom: "1rem",
-                        color: "var(--theme-textLight)",
-                      }}
-                    >
+                  <div className="search-empty-content">
+                    <p className="search-empty-subtitle">
                       Try these search tips:
                     </p>
-                    <ul
-                      style={{
-                        textAlign: "left",
-                        maxWidth: "400px",
-                        margin: "0 auto",
-                        paddingLeft: "1.5rem",
-                        color: "var(--theme-text)",
-                      }}
-                    >
+                    <ul className="search-tips-list">
                       <li>Check spelling of card names</li>
                       <li>
                         Try searching for abilities like "flying" or "trample"

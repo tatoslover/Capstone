@@ -38,7 +38,6 @@ A comprehensive Magic: The Gathering learning platform for beginners.
 🔲 **Format legality checking** for cards and mechanics
 🔲 **Revise Mechanics guide** for cards and mechanics
 
-
 ## Tech Stack
 
 - **Frontend:** Next.js, React

@@ -155,69 +155,30 @@ export default function CardSearch({
   return (
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title" style={{ color: "var(--theme-text)" }}>
-          Search Magic Cards
-        </h3>
-        <p
-          className="card-subtitle"
-          style={{ color: "var(--theme-textLight)" }}
-        >
+        <h3 className="card-title search-page-title">Search Magic Cards</h3>
+        <p className="card-subtitle search-page-subtitle">
           Find cards by name, ability, or use filters to explore
         </p>
       </div>
 
       {/* Main Search */}
-      <form onSubmit={handleSubmit} style={{ marginBottom: "1.5rem" }}>
+      <form onSubmit={handleSubmit} className="search-form">
         <div className="form-group">
-          <div style={{ display: "flex", gap: "0.5rem" }}>
-            <div style={{ position: "relative", flex: 1 }}>
+          <div className="search-controls">
+            <div className="search-input-container">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for cards (e.g., 'Lightning Bolt', 'flying', 'dragon')..."
-                style={{
-                  width: "100%",
-                  backgroundColor: "var(--theme-cardBg)",
-                  color: "var(--theme-text)",
-                  border: "1px solid var(--theme-border)",
-                  borderRadius: "0.375rem",
-                  padding: "0.75rem 2.5rem 0.75rem 0.75rem",
-                  fontSize: "1rem",
-                }}
+                className="search-input-field"
                 disabled={loading}
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  style={{
-                    position: "absolute",
-                    right: "0.75rem",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    background: "none",
-                    border: "none",
-                    color: "var(--theme-textLight)",
-                    cursor: "pointer",
-                    fontSize: "1.25rem",
-                    padding: "0.25rem",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "1.5rem",
-                    height: "1.5rem",
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = "var(--theme-border)";
-                    e.target.style.color = "var(--theme-text)";
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.backgroundColor = "transparent";
-                    e.target.style.color = "var(--theme-textLight)";
-                  }}
+                  className="search-clear-btn"
                   disabled={loading}
                 >
                   ✕
@@ -228,7 +189,7 @@ export default function CardSearch({
               type="submit"
               loading={loading}
               disabled={!searchQuery.trim() && !hasActiveFilters()}
-              style={{ color: "#000000" }}
+              className="btn-primary"
             >
               Search
             </Button>
@@ -239,10 +200,10 @@ export default function CardSearch({
                 onSearch("*");
               }}
               loading={loading}
+              className="btn-primary"
               style={{
-                color: "#000000",
                 backgroundColor: "var(--theme-highlight)",
-                border: "1px solid var(--theme-highlight)",
+                borderColor: "var(--theme-highlight)",
               }}
             >
               🎲 Random
@@ -252,23 +213,9 @@ export default function CardSearch({
       </form>
 
       {/* Quick Searches */}
-      <div style={{ marginBottom: "1.5rem" }}>
-        <h4
-          style={{
-            fontSize: "1rem",
-            marginBottom: "0.75rem",
-            color: "var(--theme-text)",
-          }}
-        >
-          Quick Searches
-        </h4>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "0.5rem",
-          }}
-        >
+      <div className="quick-search-section">
+        <h4 className="quick-search-title">Quick Searches</h4>
+        <div className="quick-search-buttons">
           {commonAbilities.map((ability) => (
             <button
               key={ability}
@@ -277,22 +224,11 @@ export default function CardSearch({
                 onSearch(`o:${ability.toLowerCase()}`);
               }}
               disabled={loading}
-              style={{
-                padding: "0.5rem 0.75rem",
-                fontSize: "0.875rem",
-                background:
-                  searchQuery.toLowerCase() === ability.toLowerCase()
-                    ? "var(--theme-accent)"
-                    : "var(--theme-cardBg)",
-                color:
-                  searchQuery.toLowerCase() === ability.toLowerCase()
-                    ? "#000000"
-                    : "var(--theme-accent)",
-                border: "1px solid var(--theme-accent)",
-                borderRadius: "0.25rem",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
+              className={`quick-search-btn ${
+                searchQuery.toLowerCase() === ability.toLowerCase()
+                  ? "active"
+                  : ""
+              }`}
             >
               {ability}
             </button>
@@ -301,7 +237,7 @@ export default function CardSearch({
       </div>
 
       {/* Advanced Filters Toggle */}
-      <div style={{ marginBottom: "1rem" }}>
+      <div className="advanced-filters-toggle">
         <button
           onClick={() => setShowAdvanced(!showAdvanced)}
           className="btn-outline"
@@ -310,20 +246,7 @@ export default function CardSearch({
         >
           {showAdvanced ? "▲" : "▼"} Advanced Filters
           {hasActiveFilters() && (
-            <span
-              style={{
-                background: "var(--theme-highlight)",
-                color: "#000000",
-                borderRadius: "50%",
-                width: "1.25rem",
-                height: "1.25rem",
-                fontSize: "0.75rem",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginLeft: "0.5rem",
-              }}
-            >
+            <span className="advanced-filters-badge">
               {filters.colors.length +
                 filters.types.length +
                 filters.abilities.length +
@@ -336,46 +259,26 @@ export default function CardSearch({
 
       {/* Advanced Filters */}
       {showAdvanced && (
-        <div
-          style={{
-            background: "var(--theme-secondary)",
-            padding: "1.5rem",
-            borderRadius: "0.5rem",
-            border: "1px solid var(--theme-border)",
-          }}
-        >
+        <div className="advanced-filters-panel">
           {/* Colors */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <h5
-              style={{
-                fontSize: "0.9rem",
-                marginBottom: "0.75rem",
-                color: "var(--theme-text)",
-                fontWeight: "600",
-              }}
-            >
-              Colors
-            </h5>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="filter-section">
+            <h5 className="filter-title">Colors</h5>
+            <div className="filter-buttons">
               {colors.map((color) => (
                 <button
                   key={color.symbol}
                   onClick={() => toggleFilter("colors", color.symbol)}
                   disabled={loading}
+                  className="filter-btn filter-btn-color"
                   style={{
-                    padding: "0.5rem 0.75rem",
-                    fontSize: "0.875rem",
                     background: filters.colors.includes(color.symbol)
                       ? color.color
                       : "var(--theme-cardBg)",
                     color: filters.colors.includes(color.symbol)
                       ? color.textColor
                       : "var(--theme-text)",
-                    border: `2px solid ${color.color}`,
-                    borderRadius: "0.25rem",
-                    cursor: "pointer",
-                    fontWeight: "600",
-                    transition: "all 0.2s ease",
+                    borderColor: color.color,
+                    borderWidth: "2px",
                   }}
                 >
                   {color.symbol} {color.name}
@@ -385,35 +288,17 @@ export default function CardSearch({
           </div>
 
           {/* Card Types */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <h5
-              style={{
-                fontSize: "0.9rem",
-                marginBottom: "0.75rem",
-                color: "var(--theme-text)",
-                fontWeight: "600",
-              }}
-            >
-              Card Types
-            </h5>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="filter-section">
+            <h5 className="filter-title">Card Types</h5>
+            <div className="filter-buttons">
               {cardTypes.map((type) => (
                 <button
                   key={type}
                   onClick={() => toggleFilter("types", type)}
                   disabled={loading}
-                  style={{
-                    padding: "0.5rem 0.75rem",
-                    fontSize: "0.875rem",
-                    background: filters.types.includes(type)
-                      ? "#00733E"
-                      : "var(--theme-cardBg)",
-                    color: filters.types.includes(type) ? "#FFFFFF" : "#00733E",
-                    border: "1px solid #00733E",
-                    borderRadius: "0.25rem",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
+                  className={`filter-btn filter-btn-type ${
+                    filters.types.includes(type) ? "active" : ""
+                  }`}
                 >
                   {type}
                 </button>
@@ -422,37 +307,17 @@ export default function CardSearch({
           </div>
 
           {/* Abilities */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <h5
-              style={{
-                fontSize: "0.9rem",
-                marginBottom: "0.75rem",
-                color: "var(--theme-text)",
-                fontWeight: "600",
-              }}
-            >
-              Abilities
-            </h5>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="filter-section">
+            <h5 className="filter-title">Abilities</h5>
+            <div className="filter-buttons">
               {commonAbilities.map((ability) => (
                 <button
                   key={ability}
                   onClick={() => toggleFilter("abilities", ability)}
                   disabled={loading}
-                  style={{
-                    padding: "0.5rem 0.75rem",
-                    fontSize: "0.875rem",
-                    background: filters.abilities.includes(ability)
-                      ? "#FFD700"
-                      : "var(--theme-cardBg)",
-                    color: filters.abilities.includes(ability)
-                      ? "#000000"
-                      : "#FFD700",
-                    border: "1px solid #FFD700",
-                    borderRadius: "0.25rem",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
+                  className={`filter-btn filter-btn-ability ${
+                    filters.abilities.includes(ability) ? "active" : ""
+                  }`}
                 >
                   {ability}
                 </button>
@@ -461,36 +326,17 @@ export default function CardSearch({
           </div>
 
           {/* Rarity */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <h5
-              style={{
-                fontSize: "0.9rem",
-                marginBottom: "0.75rem",
-                color: "var(--theme-text)",
-                fontWeight: "600",
-              }}
-            >
-              Rarity
-            </h5>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="filter-section">
+            <h5 className="filter-title">Rarity</h5>
+            <div className="filter-buttons">
               {rarities.map((rarity) => (
                 <button
                   key={rarity}
                   onClick={() => toggleFilter("rarity", rarity)}
                   disabled={loading}
-                  style={{
-                    padding: "0.5rem 0.75rem",
-                    fontSize: "0.875rem",
-                    background:
-                      filters.rarity === rarity
-                        ? "#9370DB"
-                        : "var(--theme-cardBg)",
-                    color: filters.rarity === rarity ? "#FFFFFF" : "#9370DB",
-                    border: "1px solid #9370DB",
-                    borderRadius: "0.25rem",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
+                  className={`filter-btn filter-btn-rarity ${
+                    filters.rarity === rarity ? "active" : ""
+                  }`}
                 >
                   {rarity}
                 </button>
@@ -499,18 +345,9 @@ export default function CardSearch({
           </div>
 
           {/* Converted Mana Cost */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <h5
-              style={{
-                fontSize: "0.9rem",
-                marginBottom: "0.75rem",
-                color: "var(--theme-text)",
-                fontWeight: "600",
-              }}
-            >
-              Mana Cost
-            </h5>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <div className="filter-section">
+            <h5 className="filter-title">Mana Cost</h5>
+            <div className="filter-buttons">
               {[0, 1, 2, 3, 4, 5, 6, 7, "8+"].map((cmc) => (
                 <button
                   key={cmc}
@@ -518,22 +355,11 @@ export default function CardSearch({
                     toggleFilter("cmc", cmc === "8+" ? ">=8" : cmc.toString())
                   }
                   disabled={loading}
-                  style={{
-                    padding: "0.5rem 0.75rem",
-                    fontSize: "0.875rem",
-                    background:
-                      filters.cmc === (cmc === "8+" ? ">=8" : cmc.toString())
-                        ? "#0E68AB"
-                        : "var(--theme-cardBg)",
-                    color:
-                      filters.cmc === (cmc === "8+" ? ">=8" : cmc.toString())
-                        ? "#FFFFFF"
-                        : "#0E68AB",
-                    border: "1px solid #0E68AB",
-                    borderRadius: "0.25rem",
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                  }}
+                  className={`filter-btn filter-btn-cmc ${
+                    filters.cmc === (cmc === "8+" ? ">=8" : cmc.toString())
+                      ? "active"
+                      : ""
+                  }`}
                 >
                   {cmc}
                 </button>
@@ -543,7 +369,7 @@ export default function CardSearch({
 
           {/* Clear Filters */}
           {hasActiveFilters() && (
-            <div style={{ textAlign: "center" }}>
+            <div className="filter-clear-section">
               <button
                 onClick={clearFilters}
                 className="btn-secondary"

@@ -23,24 +23,19 @@ export default function Button({
     }
   };
 
-  const getSizeStyle = () => {
+  const getSizeClass = () => {
     switch (size) {
       case "small":
-        return { padding: "0.5rem 1rem", fontSize: "0.875rem" };
+        return "btn-size-small";
       case "large":
-        return { padding: "1rem 2rem", fontSize: "1.125rem" };
+        return "btn-size-large";
       default:
-        return {};
+        return "";
     }
   };
 
-  const buttonStyle = {
-    ...getSizeStyle(),
-    ...style,
-    ...(loading && { cursor: "not-allowed", opacity: 0.7 })
-  };
-
-  const buttonClass = `${getVariantClass()} ${className}`.trim();
+  const buttonClass =
+    `${getVariantClass()} ${getSizeClass()} ${loading ? "btn-loading" : ""} ${className}`.trim();
 
   return (
     <button
@@ -48,22 +43,10 @@ export default function Button({
       onClick={onClick}
       disabled={disabled || loading}
       className={buttonClass}
-      style={buttonStyle}
+      style={style}
       {...props}
     >
-      {loading && (
-        <div
-          style={{
-            width: "1rem",
-            height: "1rem",
-            border: "2px solid transparent",
-            borderTop: "2px solid currentColor",
-            borderRadius: "50%",
-            animation: "spin 1s linear infinite",
-            marginRight: "0.5rem"
-          }}
-        />
-      )}
+      {loading && <div className="btn-loading-spinner" />}
       {children}
     </button>
   );
