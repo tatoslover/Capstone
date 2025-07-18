@@ -1,0 +1,35 @@
+{
+  "name": "plansewalker-primer-scripts",
+  "version": "1.0.0",
+  "description": "Data scraping scripts for Planeswalker's Primer MTG data",
+  "main": "index.js",
+  "scripts": {
+    "scrape": "node scrapers/index.js",
+    "scrape:overview": "node scrapers/gameOverview.js",
+    "scrape:colors": "node scrapers/colors.js",
+    "scrape:card-types": "node scrapers/cardTypes.js",
+    "scrape:turn-phases": "node scrapers/turnPhases.js",
+    "scrape:anatomy": "node scrapers/cardAnatomy.js",
+    "scrape:win-conditions": "node scrapers/winConditions.js",
+    "scrape:deck-building": "node scrapers/deckBuilding.js",
+    "scrape:combat": "node scrapers/combatBasics.js",
+    "scrape:mechanics": "node scrapers/mechanics.js",
+    "scrape:fundamentals": "npm run scrape:overview && npm run scrape:colors && npm run scrape:card-types && npm run scrape:turn-phases && npm run scrape:anatomy && npm run scrape:win-conditions && npm run scrape:deck-building && npm run scrape:combat",
+    "scrape:all": "npm run scrape:fundamentals && npm run scrape:mechanics",
+    "copy": "node copyToFrontend.js",
+    "build": "npm run scrape:all && npm run copy"
+  },
+  "keywords": [
+    "mtg",
+    "magic-the-gathering",
+    "scraping",
+    "data"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "fs-extra": "^11.1.1"
+  }
+}
