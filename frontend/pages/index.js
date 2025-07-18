@@ -1342,6 +1342,7 @@ export default function Home() {
             Discover different ways to play Magic
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
@@ -1352,164 +1353,51 @@ export default function Home() {
           >
             <button
               onClick={() => handleGameModeClick("rotating")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "rotating" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "rotating" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "rotating") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "rotating") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedGameMode === "rotating" ? "active" : ""}`}
             >
-              🔁 Rotating
+              <span style={{ fontSize: "1.5rem" }}>🔁</span>
+              <span>Rotating</span>
             </button>
             <button
               onClick={() => handleGameModeClick("eternal")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "eternal" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "eternal" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "eternal") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "eternal") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedGameMode === "eternal" ? "active" : ""}`}
             >
-              ♾️ Eternal
+              <span style={{ fontSize: "1.5rem" }}>♾️</span>
+              <span>Eternal</span>
             </button>
             <button
               onClick={() => handleGameModeClick("limited")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "limited" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "limited" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "limited") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "limited") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedGameMode === "limited" ? "active" : ""}`}
             >
-              🧪 Limited
+              <span style={{ fontSize: "1.5rem" }}>🧪</span>
+              <span>Limited</span>
             </button>
             <button
               onClick={() => handleGameModeClick("multiplayer")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "multiplayer" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "multiplayer" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "multiplayer") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "multiplayer") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedGameMode === "multiplayer" ? "active" : ""}`}
             >
-              🎮 Casual & Multiplayer
+              <span style={{ fontSize: "1.5rem" }}>🎮</span>
+              <span>Casual & Multiplayer</span>
             </button>
             <button
               onClick={() => handleGameModeClick("custom")}
-              style={{
-                padding: "0.75rem 0.5rem",
-                background:
-                  selectedGameMode === "custom" ? "#495057" : "#343a40",
-                border: `2px solid ${selectedGameMode === "custom" ? "#6c757d" : "#495057"}`,
-                borderRadius: "0.5rem",
-                fontSize: "0.9rem",
-                fontWeight: "500",
-                cursor: "pointer",
-                textAlign: "center",
-                transition: "all 0.2s ease",
-                color: "#ffffff",
-              }}
-              onMouseOver={(e) => {
-                if (selectedGameMode !== "custom") {
-                  e.target.style.backgroundColor = "#495057";
-                  e.target.style.borderColor = "#6c757d";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (selectedGameMode !== "custom") {
-                  e.target.style.backgroundColor = "#343a40";
-                  e.target.style.borderColor = "#495057";
-                }
-              }}
+              className={`section-button ${selectedGameMode === "custom" ? "active" : ""}`}
             >
-              🛠️ Custom & House
+              <span style={{ fontSize: "1.5rem" }}>🛠️</span>
+              <span>Custom & House</span>
             </button>
           </div>
 
           {selectedGameMode && (
             <div
+              className="section-content"
               style={{
-                marginTop: "1rem",
                 padding: "1.5rem",
                 background: "#495057",
                 borderRadius: "0.5rem",
                 border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
               }}
             >
               <h3 style={{ marginBottom: "1rem", color: "#ffffff" }}>
