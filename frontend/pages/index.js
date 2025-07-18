@@ -3,6 +3,7 @@ import Link from "next/link";
 import Layout from "../components/Layout/Layout";
 import UserSelector from "../components/User/UserSelector";
 import Loading from "../components/UI/Loading";
+
 import { MechanicsList } from "../components/Mechanics";
 import gameOverview from "../data/gameOverview.json";
 import colors from "../data/colors.json";
@@ -49,6 +50,12 @@ export default function Home() {
 
   const [selectedPhase, setSelectedPhase] = useState(null);
   const [selectedGameMode, setSelectedGameMode] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedCardType, setSelectedCardType] = useState(null);
+  const [selectedCardPart, setSelectedCardPart] = useState(null);
+  const [selectedWinCondition, setSelectedWinCondition] = useState(null);
+  const [selectedDeckType, setSelectedDeckType] = useState(null);
+  const [selectedCombatStep, setSelectedCombatStep] = useState(null);
 
   // Load completed learning steps from localStorage
   useEffect(() => {
@@ -893,108 +900,69 @@ export default function Home() {
             Learn about Magic's colour pie and what each colour represents
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
+              gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "700px",
+              margin: "0 auto 2rem auto",
             }}
           >
             {Object.entries(colors).map(([colorKey, colorData]) => (
-              <div
+              <button
                 key={colorKey}
+                onClick={() => setSelectedColor(colorKey)}
+                className={`section-button ${selectedColor === colorKey ? "active" : ""}`}
+              >
+                <span style={{ fontSize: "1.5rem" }}>{colorData.emoji}</span>
+                <span>{colorData.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {selectedColor && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
                 style={{
-                  padding: "1.5rem",
-                  background: "#495057",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #6c757d",
+                  marginBottom: "1rem",
+                  color: "#ffffff",
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>
-                  {colorData.emoji}
-                </div>
-                <h4
-                  style={{
-                    color: "#ffffff",
-                    marginBottom: "1rem",
-                    fontSize: "1.2rem",
-                  }}
-                >
-                  {colorData.name}
-                </h4>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.9rem",
-                    marginBottom: "1rem",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  {colorData.description}
+                {colors[selectedColor].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {colors[selectedColor].description}
                 </p>
                 <div style={{ marginBottom: "1rem" }}>
-                  <h5
-                    style={{
-                      color: "#ffffff",
-                      fontSize: "0.9rem",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Philosophy:
-                  </h5>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.8rem",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    {colorData.philosophy}
-                  </p>
+                  <strong style={{ color: "#ffffff" }}>Philosophy: </strong>
+                  <em style={{ color: "#adb5bd" }}>
+                    {colors[selectedColor].philosophy}
+                  </em>
                 </div>
                 <div style={{ marginBottom: "1rem" }}>
-                  <h5
-                    style={{
-                      color: "#ffffff",
-                      fontSize: "0.9rem",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Strengths:
-                  </h5>
-                  <div style={{ fontSize: "0.8rem", color: "#dee2e6" }}>
-                    {colorData.strengths.slice(0, 3).map((strength, index) => (
-                      <span key={index}>
-                        {strength}
-                        {index < 2 ? " • " : ""}
-                      </span>
-                    ))}
-                  </div>
+                  <strong style={{ color: "#ffffff" }}>Strengths: </strong>
+                  {colors[selectedColor].strengths.join(", ")}
                 </div>
                 <div>
-                  <h5
-                    style={{
-                      color: "#ffffff",
-                      fontSize: "0.9rem",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    Key Mechanics:
-                  </h5>
-                  <div style={{ fontSize: "0.8rem", color: "#dee2e6" }}>
-                    {colorData.mechanics.slice(0, 3).map((mechanic, index) => (
-                      <span key={index}>
-                        {mechanic}
-                        {index < 2 ? " • " : ""}
-                      </span>
-                    ))}
-                  </div>
+                  <strong style={{ color: "#ffffff" }}>Key Mechanics: </strong>
+                  {colors[selectedColor].mechanics.join(", ")}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Card Types */}
@@ -1012,90 +980,69 @@ export default function Home() {
             Understand the different types of cards in Magic
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
+              margin: "0 auto 2rem auto",
             }}
           >
             {Object.entries(cardTypes).map(([typeKey, typeData]) => (
-              <div
+              <button
                 key={typeKey}
+                onClick={() => setSelectedCardType(typeKey)}
+                className={`section-button ${selectedCardType === typeKey ? "active" : ""}`}
+              >
+                <span style={{ fontSize: "1.5rem" }}>{typeData.icon}</span>
+                <span>{typeData.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {selectedCardType && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
                 style={{
-                  padding: "1.25rem",
-                  background: "#495057",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #6c757d",
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <span style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}>
-                    {typeData.icon}
-                  </span>
-                  <h4 style={{ color: "#ffffff", margin: "0" }}>
-                    {typeData.name}
-                  </h4>
-                </div>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.9rem",
-                    marginBottom: "1rem",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  {typeData.description}
+                {cardTypes[selectedCardType].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {cardTypes[selectedCardType].description}
                 </p>
-                <div style={{ marginBottom: "0.75rem" }}>
-                  <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                    Timing:{" "}
-                  </strong>
-                  <span style={{ color: "#adb5bd", fontSize: "0.85rem" }}>
-                    {typeData.timing}
-                  </span>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>Timing: </strong>
+                  {cardTypes[selectedCardType].timing}
                 </div>
-                <div style={{ marginBottom: "0.75rem" }}>
-                  <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                    Usage:{" "}
-                  </strong>
-                  <span style={{ color: "#adb5bd", fontSize: "0.85rem" }}>
-                    {typeData.usage}
-                  </span>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>Usage: </strong>
+                  {cardTypes[selectedCardType].usage}
                 </div>
-                {typeData.examples && (
+                {cardTypes[selectedCardType].examples && (
                   <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Examples:
-                    </strong>
-                    <div
-                      style={{
-                        color: "#dee2e6",
-                        fontSize: "0.8rem",
-                        marginTop: "0.25rem",
-                      }}
-                    >
-                      {typeData.examples.slice(0, 2).map((example, index) => (
-                        <span key={index}>
-                          {example}
-                          {index < 1 && typeData.examples.length > 1
-                            ? " • "
-                            : ""}
-                        </span>
-                      ))}
-                    </div>
+                    <strong style={{ color: "#ffffff" }}>Examples: </strong>
+                    {cardTypes[selectedCardType].examples.join(", ")}
                   </div>
                 )}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Turn Phases */}
@@ -1287,17 +1234,6 @@ export default function Home() {
               </div>
             </div>
           )}
-
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "1rem",
-              color: "#adb5bd",
-              fontSize: "0.9rem",
-            }}
-          >
-            Click a phase to learn more
-          </div>
         </div>
 
         {/* Card Anatomy */}
@@ -1315,94 +1251,72 @@ export default function Home() {
             {cardAnatomy.overview.description}
           </p>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
+              margin: "0 auto 2rem auto",
             }}
           >
             {Object.entries(cardAnatomy.cardParts).map(
               ([partKey, partData]) => (
-                <div
+                <button
                   key={partKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
+                  onClick={() => setSelectedCardPart(partKey)}
+                  className={`section-button ${selectedCardPart === partKey ? "active" : ""}`}
                 >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "1rem",
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {partData.name}
-                  </h4>
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      Location:{" "}
-                    </strong>
-                    <span style={{ color: "#adb5bd", fontSize: "0.9rem" }}>
-                      {partData.location}
-                    </span>
-                  </div>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {partData.description}
-                  </p>
-                  {partData.examples && (
-                    <div>
-                      <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                        Examples:
-                      </strong>
-                      <ul
-                        style={{
-                          margin: "0.5rem 0 0 1rem",
-                          padding: "0",
-                          color: "#dee2e6",
-                          fontSize: "0.8rem",
-                        }}
-                      >
-                        {partData.examples.slice(0, 2).map((example, index) => (
-                          <li key={index} style={{ marginBottom: "0.25rem" }}>
-                            {example}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {partData.readingTips && (
-                    <div>
-                      <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                        Tips:
-                      </strong>
-                      <p
-                        style={{
-                          margin: "0.5rem 0 0 0",
-                          color: "#adb5bd",
-                          fontSize: "0.8rem",
-                          fontStyle: "italic",
-                        }}
-                      >
-                        {partData.readingTips[0]}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                  {partData.name}
+                </button>
               ),
             )}
           </div>
+
+          {selectedCardPart && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
+                {cardAnatomy.cardParts[selectedCardPart].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>Location: </strong>
+                  {cardAnatomy.cardParts[selectedCardPart].location}
+                </div>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {cardAnatomy.cardParts[selectedCardPart].description}
+                </p>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>Purpose: </strong>
+                  {cardAnatomy.cardParts[selectedCardPart].purpose}
+                </div>
+                {cardAnatomy.cardParts[selectedCardPart].readingTips && (
+                  <div>
+                    <strong style={{ color: "#ffffff" }}>Tips: </strong>
+                    <em style={{ color: "#adb5bd" }}>
+                      {cardAnatomy.cardParts[selectedCardPart].readingTips[0]}
+                    </em>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Mechanics Guide */}
@@ -1606,17 +1520,6 @@ export default function Home() {
               </div>
             </div>
           )}
-
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "1rem",
-              color: "#adb5bd",
-              fontSize: "0.9rem",
-            }}
-          >
-            Click a category to learn more
-          </div>
         </div>
 
         {/* Win Conditions */}
@@ -1633,176 +1536,107 @@ export default function Home() {
           >
             Learn the different ways to win a game of Magic
           </p>
-
-          {/* Primary Win Conditions */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Primary Win Conditions
-          </h3>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
               margin: "0 auto 2rem auto",
             }}
           >
-            {Object.entries(winConditions.primaryWinConditions).map(
-              ([conditionKey, condition]) => (
-                <div
-                  key={conditionKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <span style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}>
-                      {condition.emoji}
-                    </span>
-                    <h4
-                      style={{
-                        color: "#ffffff",
-                        margin: "0",
-                        fontSize: "1.1rem",
-                      }}
-                    >
-                      {condition.name}
-                    </h4>
-                  </div>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {condition.description}
-                  </p>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.85rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.3",
-                    }}
-                  >
-                    {condition.explanation}
-                  </p>
-                  {condition.tips && (
-                    <div>
-                      <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                        Tips:
-                      </strong>
-                      <ul
-                        style={{
-                          margin: "0.5rem 0 0 1rem",
-                          padding: "0",
-                          color: "#dee2e6",
-                          fontSize: "0.8rem",
-                        }}
-                      >
-                        {condition.tips.slice(0, 2).map((tip, index) => (
-                          <li key={index} style={{ marginBottom: "0.25rem" }}>
-                            {tip}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ),
-            )}
+            {Object.entries({
+              ...winConditions.primaryWinConditions,
+              ...winConditions.alternativeWinConditions,
+            }).map(([conditionKey, condition]) => (
+              <button
+                key={conditionKey}
+                onClick={() => setSelectedWinCondition(conditionKey)}
+                className={`section-button ${selectedWinCondition === conditionKey ? "active" : ""}`}
+              >
+                <span style={{ fontSize: "1.5rem" }}>{condition.emoji}</span>
+                <span>{condition.name}</span>
+              </button>
+            ))}
           </div>
 
-          {/* Alternative Win Conditions */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Alternative Win Conditions
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
-              margin: "0 auto",
-            }}
-          >
-            {Object.entries(winConditions.alternativeWinConditions).map(
-              ([conditionKey, condition]) => (
-                <div
-                  key={conditionKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#343a40",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #495057",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <span style={{ fontSize: "1.5rem", marginRight: "0.5rem" }}>
-                      {condition.emoji}
-                    </span>
-                    <h4
-                      style={{
-                        color: "#ffffff",
-                        margin: "0",
-                        fontSize: "1.1rem",
-                      }}
-                    >
-                      {condition.name}
-                    </h4>
+          {selectedWinCondition && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
+                {
+                  (
+                    winConditions.primaryWinConditions[selectedWinCondition] ||
+                    winConditions.alternativeWinConditions[selectedWinCondition]
+                  ).name
+                }
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {
+                    (
+                      winConditions.primaryWinConditions[
+                        selectedWinCondition
+                      ] ||
+                      winConditions.alternativeWinConditions[
+                        selectedWinCondition
+                      ]
+                    ).description
+                  }
+                </p>
+                <p style={{ marginBottom: "1rem", color: "#adb5bd" }}>
+                  {
+                    (
+                      winConditions.primaryWinConditions[
+                        selectedWinCondition
+                      ] ||
+                      winConditions.alternativeWinConditions[
+                        selectedWinCondition
+                      ]
+                    ).explanation
+                  }
+                </p>
+                {(
+                  winConditions.primaryWinConditions[selectedWinCondition] ||
+                  winConditions.alternativeWinConditions[selectedWinCondition]
+                ).tips && (
+                  <div>
+                    <strong style={{ color: "#ffffff" }}>Tips: </strong>
+                    <ul style={{ margin: "0.5rem 0 0 1rem", padding: "0" }}>
+                      {(
+                        winConditions.primaryWinConditions[
+                          selectedWinCondition
+                        ] ||
+                        winConditions.alternativeWinConditions[
+                          selectedWinCondition
+                        ]
+                      ).tips.map((tip, index) => (
+                        <li key={index} style={{ marginBottom: "0.25rem" }}>
+                          {tip}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {condition.description}
-                  </p>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.85rem",
-                      lineHeight: "1.3",
-                    }}
-                  >
-                    {condition.explanation}
-                  </p>
-                </div>
-              ),
-            )}
-          </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Deck Building Fundamentals */}
@@ -1820,241 +1654,78 @@ export default function Home() {
             Essential rules and principles for constructing your deck
           </p>
 
-          {/* Fundamental Rules */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Fundamental Rules
-          </h3>
           <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
               margin: "0 auto 2rem auto",
-            }}
-          >
-            {Object.entries(deckBuilding.fundamentalRules).map(
-              ([ruleKey, rule]) => (
-                <div
-                  key={ruleKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "0.75rem",
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {rule.title}
-                  </h4>
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      Rule:{" "}
-                    </strong>
-                    <span style={{ color: "#dee2e6", fontSize: "0.9rem" }}>
-                      {rule.rule}
-                    </span>
-                  </div>
-                  <p
-                    style={{
-                      color: "#adb5bd",
-                      fontSize: "0.85rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {rule.explanation}
-                  </p>
-                  <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Reasoning:{" "}
-                    </strong>
-                    <span style={{ color: "#dee2e6", fontSize: "0.85rem" }}>
-                      {rule.reasoning}
-                    </span>
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-
-          {/* Deck Building Steps */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Building Your First Deck
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto 2rem auto",
-            }}
-          >
-            {deckBuilding.deckBuildingSteps.map((step, index) => (
-              <div
-                key={index}
-                style={{
-                  padding: "1.25rem",
-                  background: "#343a40",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #495057",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      background: "#6c757d",
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: "0.75rem",
-                      color: "#ffffff",
-                      fontWeight: "bold",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    {step.step}
-                  </div>
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      margin: "0",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    {step.title}
-                  </h4>
-                </div>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.85rem",
-                    margin: "0",
-                    lineHeight: "1.3",
-                  }}
-                >
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Deck Types Overview */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Common Deck Types
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
-              margin: "0 auto",
             }}
           >
             {Object.entries(deckBuilding.deckTypes).map(
               ([typeKey, deckType]) => (
-                <div
+                <button
                   key={typeKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#495057",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #6c757d",
-                  }}
+                  onClick={() => setSelectedDeckType(typeKey)}
+                  className={`section-button ${selectedDeckType === typeKey ? "active" : ""}`}
                 >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "0.75rem",
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {deckType.name}
-                  </h4>
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.9rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {deckType.strategy}
-                  </p>
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Key Features:
-                    </strong>
-                    <ul
-                      style={{
-                        margin: "0.5rem 0 0 1rem",
-                        padding: "0",
-                        color: "#adb5bd",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      {deckType.characteristics
-                        .slice(0, 3)
-                        .map((characteristic, index) => (
-                          <li key={index} style={{ marginBottom: "0.25rem" }}>
-                            {characteristic}
-                          </li>
-                        ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Tip:{" "}
-                    </strong>
-                    <span
-                      style={{
-                        color: "#dee2e6",
-                        fontSize: "0.8rem",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      {deckType.tips}
-                    </span>
-                  </div>
-                </div>
+                  <span style={{ fontSize: "1.2rem" }}>🃏</span>
+                  <span>{deckType.name}</span>
+                </button>
               ),
             )}
           </div>
+
+          {selectedDeckType && (
+            <div
+              className="section-content"
+              style={{
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
+                {deckBuilding.deckTypes[selectedDeckType].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {deckBuilding.deckTypes[selectedDeckType].description}
+                </p>
+                <div style={{ marginBottom: "1rem" }}>
+                  <strong style={{ color: "#ffffff" }}>
+                    Key Characteristics:
+                  </strong>
+                  <ul style={{ margin: "0.5rem 0 0 1rem", padding: "0" }}>
+                    {deckBuilding.deckTypes[
+                      selectedDeckType
+                    ].characteristics.map((characteristic, index) => (
+                      <li key={index} style={{ marginBottom: "0.25rem" }}>
+                        {characteristic}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <strong style={{ color: "#ffffff" }}>Tip: </strong>
+                  <em style={{ color: "#adb5bd" }}>
+                    {deckBuilding.deckTypes[selectedDeckType].tips}
+                  </em>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Combat Basics */}
@@ -2072,250 +1743,67 @@ export default function Home() {
             {combatBasics.combatOverview.description}
           </p>
           <div
-            style={{
-              maxWidth: "800px",
-              margin: "0 auto 2rem auto",
-              padding: "1.5rem",
-              background: "#343a40",
-              borderRadius: "0.5rem",
-              border: "1px solid #495057",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{ color: "#dee2e6", fontSize: "1rem", lineHeight: "1.5" }}
-            >
-              {combatBasics.combatOverview.importance}
-            </p>
-          </div>
-
-          {/* Combat Steps */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Combat Steps in Detail
-          </h3>
-          <div
+            className="section-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1200px",
+              gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+              gap: "0.5rem",
+              maxWidth: "800px",
               margin: "0 auto 2rem auto",
             }}
           >
             {Object.entries(combatBasics.combatSteps).map(([stepKey, step]) => (
-              <div
+              <button
                 key={stepKey}
-                style={{
-                  padding: "1.5rem",
-                  background: "#495057",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #6c757d",
-                }}
+                onClick={() => setSelectedCombatStep(stepKey)}
+                className={`section-button ${selectedCombatStep === stepKey ? "active" : ""}`}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      background: "#6c757d",
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: "0.75rem",
-                      color: "#ffffff",
-                      fontWeight: "bold",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    {step.order}
-                  </div>
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      margin: "0",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    {step.name}
-                  </h4>
-                </div>
-                <p
-                  style={{
-                    color: "#dee2e6",
-                    fontSize: "0.9rem",
-                    marginBottom: "1rem",
-                    lineHeight: "1.4",
-                  }}
-                >
-                  {step.description}
-                </p>
-                {step.whatHappens && (
-                  <div style={{ marginBottom: "1rem" }}>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      What Happens:
-                    </strong>
-                    <ul
-                      style={{
-                        margin: "0.5rem 0 0 1rem",
-                        padding: "0",
-                        color: "#adb5bd",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      {step.whatHappens.slice(0, 2).map((item, index) => (
-                        <li key={index} style={{ marginBottom: "0.25rem" }}>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {step.strategicNotes && (
-                  <div>
-                    <strong style={{ color: "#ffffff", fontSize: "0.85rem" }}>
-                      Strategy:
-                    </strong>
-                    <p
-                      style={{
-                        margin: "0.5rem 0 0 0",
-                        color: "#dee2e6",
-                        fontSize: "0.8rem",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      {step.strategicNotes[0]}
-                    </p>
-                  </div>
-                )}
-              </div>
+                <span style={{ fontSize: "1.2rem" }}>⚔️</span>
+                <span>{step.name}</span>
+              </button>
             ))}
           </div>
 
-          {/* Combat Keywords */}
-          <h3
-            style={{
-              color: "#ffffff",
-              marginBottom: "1rem",
-              textAlign: "center",
-            }}
-          >
-            Important Combat Keywords
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "1rem",
-              maxWidth: "1000px",
-              margin: "0 auto 2rem auto",
-            }}
-          >
-            {Object.entries(combatBasics.combatKeywords).map(
-              ([categoryKey, keywords]) => (
-                <div
-                  key={categoryKey}
-                  style={{
-                    padding: "1.5rem",
-                    background: "#343a40",
-                    borderRadius: "0.5rem",
-                    border: "1px solid #495057",
-                  }}
-                >
-                  <h4
-                    style={{
-                      color: "#ffffff",
-                      marginBottom: "1rem",
-                      fontSize: "1rem",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {categoryKey
-                      .replace(/([A-Z])/g, " $1")
-                      .trim()
-                      .replace(" Keywords", "")}{" "}
-                    Keywords
-                  </h4>
-                  <div style={{ color: "#dee2e6", fontSize: "0.85rem" }}>
-                    {Object.entries(keywords)
-                      .slice(0, 4)
-                      .map(([keyword, description], index) => (
-                        <div key={index} style={{ marginBottom: "0.5rem" }}>
-                          <strong style={{ color: "#ffffff" }}>
-                            {keyword}:
-                          </strong>{" "}
-                          {description}
-                        </div>
-                      ))}
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-
-          {/* Combat Tips */}
-          <div
-            style={{
-              maxWidth: "800px",
-              margin: "0 auto",
-              padding: "1.5rem",
-              background: "#495057",
-              borderRadius: "0.5rem",
-              border: "1px solid #6c757d",
-            }}
-          >
-            <h4
-              style={{
-                color: "#ffffff",
-                marginBottom: "1rem",
-                textAlign: "center",
-              }}
-            >
-              Essential Combat Tips
-            </h4>
+          {selectedCombatStep && (
             <div
+              className="section-content"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                gap: "1rem",
+                padding: "1.5rem",
+                background: "#495057",
+                borderRadius: "0.5rem",
+                border: "1px solid #6c757d",
+                maxWidth: "800px",
+                margin: "0 auto",
               }}
             >
-              {combatBasics.practicalTips.slice(0, 6).map((tip, index) => (
-                <div
-                  key={index}
-                  style={{
-                    padding: "1rem",
-                    background: "#343a40",
-                    borderRadius: "0.375rem",
-                    border: "1px solid #495057",
-                  }}
-                >
-                  <p
-                    style={{
-                      color: "#dee2e6",
-                      fontSize: "0.85rem",
-                      margin: "0",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {tip}
-                  </p>
+              <h3
+                style={{
+                  marginBottom: "1rem",
+                  color: "#ffffff",
+                  textAlign: "center",
+                }}
+              >
+                {combatBasics.combatSteps[selectedCombatStep].name}
+              </h3>
+              <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  {combatBasics.combatSteps[selectedCombatStep].description}
+                </p>
+                <div>
+                  <strong style={{ color: "#ffffff" }}>Key Points: </strong>
+                  <ul style={{ margin: "0.5rem 0 0 1rem", padding: "0" }}>
+                    {combatBasics.combatSteps[selectedCombatStep].keyPoints.map(
+                      (point, index) => (
+                        <li key={index} style={{ marginBottom: "0.25rem" }}>
+                          {point}
+                        </li>
+                      ),
+                    )}
+                  </ul>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* User Management Section */}

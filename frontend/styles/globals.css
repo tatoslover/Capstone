@@ -536,6 +536,43 @@ select:focus {
     margin: 0;
 }
 
+/* Interactive Section Buttons */
+.section-button {
+    min-height: 48px; /* iOS/Android minimum touch target */
+    padding: 0.875rem 0.75rem;
+    background: #343a40;
+    border: 2px solid #495057;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.section-button:hover,
+.section-button:focus {
+    background-color: #495057;
+    border-color: #6c757d;
+    outline: none;
+}
+
+.section-button.active {
+    background-color: #495057;
+    border-color: #6c757d;
+}
+
+.section-button:active {
+    transform: scale(0.98);
+}
+
 /* Mobile-specific adjustments */
 @media (max-width: 575px) {
     .nav-links {
@@ -561,5 +598,31 @@ select:focus {
     .header-box {
         padding: 1.5rem;
         border-radius: 0.75rem;
+    }
+
+    /* Enhanced mobile touch targets */
+    .section-button {
+        min-height: 56px; /* Larger touch targets on mobile */
+        padding: 1rem 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    /* Mobile grid adjustments */
+    .section-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+        gap: 0.75rem !important;
+    }
+
+    /* Mobile content padding */
+    .section-content {
+        padding: 1.25rem !important;
+        font-size: 0.95rem;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 576px) and (max-width: 991px) {
+    .section-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
     }
 }
