@@ -36,6 +36,8 @@ A comprehensive Magic: The Gathering learning platform for beginners.
 
 🔲 **Revise Mechanics guide** for cards and mechanics
 🔲 **Revise Game Modes** for retractable buttons
+🔲 **Add colourless mana** for thoroughness
+
 
 ## Tech Stack
 

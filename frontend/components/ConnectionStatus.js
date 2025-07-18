@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
-import { addConnectionListener, removeConnectionListener } from '../services/apiService';
+import { useState, useEffect } from "react";
+import {
+  addConnectionListener,
+  removeConnectionListener,
+} from "../services/apiService";
 
-const ConnectionStatus = ({ className = '', showDetails = false }) => {
+const ConnectionStatus = ({ className = "", showDetails = false }) => {
   const [isOnline, setIsOnline] = useState(false);
   const [lastChecked, setLastChecked] = useState(null);
 
@@ -20,12 +23,14 @@ const ConnectionStatus = ({ className = '', showDetails = false }) => {
     };
   }, []);
 
-  const statusIcon = isOnline ? '🟢' : '🔴';
-  const statusText = isOnline ? 'Online' : 'Offline';
-  const statusMode = isOnline ? 'Backend Connected' : 'Mock Data Mode';
+  const statusIcon = isOnline ? "🟢" : "🔴";
+  const statusText = isOnline ? "Online" : "Offline";
+  const statusMode = isOnline ? "Backend Connected" : "Mock Data Mode";
 
   return (
-    <div className={`connection-status ${className} ${isOnline ? 'online' : 'offline'}`}>
+    <div
+      className={`connection-status ${className} ${isOnline ? "online" : "offline"}`}
+    >
       <div className="status-indicator">
         <span className="status-icon" role="img" aria-label={statusText}>
           {statusIcon}
@@ -50,21 +55,24 @@ const ConnectionStatus = ({ className = '', showDetails = false }) => {
           flex-direction: column;
           align-items: flex-start;
           font-size: 0.875rem;
-          padding: 0.5rem;
-          border-radius: 0.375rem;
-          transition: all 0.2s ease;
+          padding: 0.75rem;
+          border-radius: 0.5rem;
+          border: 1px solid var(--theme-border);
+          background: rgba(26, 26, 26, 0.95);
+          backdrop-filter: blur(2px);
+          transition: all 0.3s ease;
         }
 
         .connection-status.online {
-          background-color: #f0fdf4;
-          border: 1px solid #bbf7d0;
-          color: #166534;
+          border-color: var(--theme-success);
+          background: rgba(40, 167, 69, 0.1);
+          color: var(--theme-success);
         }
 
         .connection-status.offline {
-          background-color: #fef2f2;
-          border: 1px solid #fecaca;
-          color: #991b1b;
+          border-color: var(--theme-warning);
+          background: rgba(255, 193, 7, 0.1);
+          color: var(--theme-warning);
         }
 
         .status-indicator {
@@ -80,9 +88,9 @@ const ConnectionStatus = ({ className = '', showDetails = false }) => {
         }
 
         .status-details {
-          margin-top: 0.25rem;
+          margin-top: 0.5rem;
           font-size: 0.75rem;
-          opacity: 0.8;
+          opacity: 0.9;
         }
 
         .status-mode {
@@ -90,12 +98,14 @@ const ConnectionStatus = ({ className = '', showDetails = false }) => {
         }
 
         .last-checked {
-          margin-top: 0.125rem;
+          margin-top: 0.25rem;
           font-style: italic;
+          opacity: 0.8;
         }
 
         @keyframes pulse {
-          0%, 100% {
+          0%,
+          100% {
             opacity: 1;
           }
           50% {
@@ -107,7 +117,7 @@ const ConnectionStatus = ({ className = '', showDetails = false }) => {
         @media (max-width: 640px) {
           .connection-status {
             font-size: 0.75rem;
-            padding: 0.375rem;
+            padding: 0.5rem;
           }
 
           .status-details {
