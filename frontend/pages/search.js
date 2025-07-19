@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
-import { CardSearch, CardList } from "../components/Card";
+import { CardSearch } from "../components/Card";
+import SearchCard from "../components/Search/SearchCard";
 import Loading from "../components/UI/Loading";
 import { useTheme } from "../contexts/ThemeContext";
+import { apiService } from "../services/apiService";
 
 export default function SearchPage() {
   const router = useRouter();
@@ -16,7 +18,14 @@ export default function SearchPage() {
   const [totalResults, setTotalResults] = useState(0);
   const [currentQuery, setCurrentQuery] = useState("");
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+  const [sortBy, setSortBy] = useState('relevance');
+  const [filterBy, setFilterBy] = useState('all');
+  const [searchFilter, setSearchFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const resultsPerPage = 10;
+
+
 
   // Load user from localStorage on mount
   useEffect(() => {
@@ -39,6 +48,92 @@ export default function SearchPage() {
     }
   }, [router.isReady, router.query.q]);
 
+  // Extract unique card types for filtering
+  const cardTypes = useMemo(() => {
+    const types = [...new Set(searchResults
+      .map(card => {
+        if (card.type_line) {
+          const mainType = card.type_line.split('—')[0].trim().split(' ')[0];
+          return mainType;
+        }
+        return null;
+      })
+      .filter(type => type)
+    )];
+    return types.sort();
+  }, [searchResults]);
+
+  // Extract unique rarities for filtering
+  const rarities = useMemo(() => {
+    const rarityList = [...new Set(searchResults
+      .map(card => card.rarity)
+      .filter(rarity => rarity)
+    )];
+    return rarityList.sort();
+  }, [searchResults]);
+
+  // Filter and sort results
+  const filteredAndSortedResults = useMemo(() => {
+    let filtered = [...searchResults];
+
+    // Apply search filter
+    if (searchFilter.trim()) {
+      const search = searchFilter.toLowerCase();
+      filtered = filtered.filter(card =>
+        card.name.toLowerCase().includes(search) ||
+        (card.oracle_text && card.oracle_text.toLowerCase().includes(search)) ||
+        (card.type_line && card.type_line.toLowerCase().includes(search))
+      );
+    }
+
+    // Apply type filter
+    if (filterBy !== 'all') {
+      if (filterBy.startsWith('type-')) {
+        const type = filterBy.replace('type-', '');
+        filtered = filtered.filter(card =>
+          card.type_line && card.type_line.toLowerCase().includes(type.toLowerCase())
+        );
+      } else if (filterBy.startsWith('rarity-')) {
+        const rarity = filterBy.replace('rarity-', '');
+        filtered = filtered.filter(card => card.rarity === rarity);
+      }
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'name-desc':
+          return b.name.localeCompare(a.name);
+        case 'mana-cost':
+          const aCmc = a.cmc || 0;
+          const bCmc = b.cmc || 0;
+          return aCmc - bCmc;
+        case 'rarity':
+          const rarityOrder = { common: 1, uncommon: 2, rare: 3, mythic: 4 };
+          return (rarityOrder[a.rarity] || 0) - (rarityOrder[b.rarity] || 0);
+        case 'relevance':
+        default:
+          return 0;
+      }
+    });
+
+    return filtered;
+  }, [searchResults, searchFilter, filterBy, sortBy]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredAndSortedResults.length / resultsPerPage);
+  const startIndex = (currentPage - 1) * resultsPerPage;
+  const paginatedResults = filteredAndSortedResults.slice(startIndex, startIndex + resultsPerPage);
+
+  // Reset to page 1 when filters change
+  useMemo(() => {
+    setCurrentPage(1);
+  }, [searchFilter, filterBy, sortBy]);
+
+
+
   const performSearch = async (query) => {
     if (!query || !query.trim()) {
       setError("Please enter a search term");
@@ -50,15 +145,15 @@ export default function SearchPage() {
       setError("");
       setHasSearched(true);
 
-      let endpoint;
+      let data;
       let displayQuery;
 
       // Handle random card request
       if (query === "*") {
-        endpoint = `${API_URL}/api/cards/random`;
+        data = await apiService.cards.random();
         displayQuery = "Random Card";
       } else {
-        endpoint = `${API_URL}/api/cards/search?q=${encodeURIComponent(query)}`;
+        data = await apiService.cards.search(query);
         displayQuery = query;
 
         // Update URL without causing a page reload for regular searches
@@ -68,19 +163,6 @@ export default function SearchPage() {
           });
         }
       }
-
-      const response = await fetch(endpoint);
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          setSearchResults([]);
-          setTotalResults(0);
-          return;
-        }
-        throw new Error(`Search failed: ${response.status}`);
-      }
-
-      const data = await response.json();
 
       // Handle different response formats
       let cards, total;
@@ -132,30 +214,19 @@ export default function SearchPage() {
 
     try {
       // Add card to favourites via API
-      const response = await fetch(`${API_URL}/api/favorites`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: currentUser.id,
-          card_name: card.name,
-          scryfall_id: card.id,
-          ability_type: extractAbilityType(card),
-          notes: "",
-        }),
+      await apiService.favourites.create({
+        user_id: currentUser.id,
+        card_name: card.name,
+        scryfall_id: card.id,
+        ability_type: extractAbilityType(card),
+        notes: "",
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to add to favourites");
-      }
 
       // Show success notification
       showNotification(`Added "${card.name}" to your favourites!`, "success");
     } catch (err) {
       console.error("Error adding to favourites:", err);
-      if (err.message.includes("already exists")) {
+      if (err.message && err.message.includes("already exists")) {
         showNotification(
           `"${card.name}" is already in your favourites!`,
           "info",
@@ -225,17 +296,7 @@ export default function SearchPage() {
           </div>
         </div>
 
-        {/* User Status */}
-        {currentUser && (
-          <div className="user-status-panel">
-            <p className="user-status-welcome">
-              <strong>Welcome back, {currentUser.username}!</strong>
-              <span className="user-status-text">
-                Click ⭐ on any card to save it to your favourites.
-              </span>
-            </p>
-          </div>
-        )}
+
 
         {/* Search Interface */}
         <CardSearch
@@ -244,104 +305,264 @@ export default function SearchPage() {
           initialQuery={currentQuery}
         />
 
+        {/* Loading State */}
+        {loading && (
+          <div className="loading-container">
+            <Loading message="Searching cards..." size="large" />
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && !loading && (
+          <div className="error text-center mt-2 mb-2">
+            <h3 className="mb-2">Search Error</h3>
+            <p className="mb-3">{error}</p>
+            <button
+              onClick={() => {
+                setError("");
+                setHasSearched(false);
+              }}
+              className="btn"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+
         {/* Search Results */}
-        <div id="search-results">
-          {loading && !hasSearched && (
-            <div className="loading-container">
-              <Loading message="Searching cards..." size="large" />
-            </div>
-          )}
-
-          {error && (
-            <div className="error search-error-section">
-              <h3 className="search-error-title">Search Error</h3>
-              <p className="search-error-message">{error}</p>
-              <button
-                onClick={() => {
-                  setError("");
-                  setHasSearched(false);
-                }}
-                className="search-error-retry"
-              >
-                Try Again
-              </button>
-            </div>
-          )}
-
-          {hasSearched && !loading && !error && (
-            <>
-              {/* Results Summary */}
-              {searchResults.length > 0 && (
-                <div className="search-results-summary">
-                  <div className="search-results-header">
-                    <div>
-                      <h3 className="search-results-title">
-                        Found {searchResults.length} cards
-                        {totalResults > searchResults.length && (
-                          <span className="search-results-total">
-                            (showing first {searchResults.length} of{" "}
-                            {totalResults} total)
-                          </span>
-                        )}
-                      </h3>
-                      <p className="search-results-query">
-                        Search: "{currentQuery}"
+        {!loading && !error && hasSearched && (
+          <>
+            {/* Search and Filter Controls */}
+            {searchResults.length > 0 && (
+              <div className="card mb-3">
+                {/* Search within results */}
+                <div className="form-group">
+                  <div className="search-results-header-combined">
+                    <h3 className="search-results-title">
+                      🔍 Search Results - Found {searchResults.length} cards
+                      {totalResults > searchResults.length && (
+                        <span className="search-results-total">
+                          (showing first {searchResults.length} of {totalResults} total)
+                        </span>
+                      )}
+                    </h3>
+                    <p className="search-results-query">Search: "{currentQuery}"</p>
+                    {filteredAndSortedResults.length > resultsPerPage && (
+                      <p className="pagination-info">
+                        Page {currentPage} of {totalPages} ({startIndex + 1}-{Math.min(startIndex + resultsPerPage, filteredAndSortedResults.length)} of {filteredAndSortedResults.length} results)
                       </p>
-                    </div>
+                    )}
+                    <label className="form-label">Filter results:</label>
+                  </div>
+                  <input
+                    type="text"
+                    value={searchFilter}
+                    onChange={(e) => setSearchFilter(e.target.value)}
+                    placeholder="Filter by card name, text, or type..."
+                    className="search-input"
+                  />
+                </div>
+
+                {/* Filters */}
+                <div className="filters-grid">
+                  {/* Sort By */}
+                  <div className="form-group">
+                    <label className="form-label">
+                      📊 Sort By
+                    </label>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="filter-select"
+                    >
+                      <option value="relevance">Relevance</option>
+                      <option value="name">Name A-Z</option>
+                      <option value="name-desc">Name Z-A</option>
+                      <option value="mana-cost">Mana Cost</option>
+                      <option value="rarity">Rarity</option>
+                    </select>
+                  </div>
+
+                  {/* Filter By Type */}
+                  <div className="form-group">
+                    <label className="form-label">
+                      🎯 Filter By
+                    </label>
+                    <select
+                      value={filterBy}
+                      onChange={(e) => setFilterBy(e.target.value)}
+                      className="filter-select"
+                    >
+                      <option value="all">All Results ({searchResults.length})</option>
+                      {cardTypes.map(type => {
+                        const count = searchResults.filter(card =>
+                          card.type_line && card.type_line.toLowerCase().includes(type.toLowerCase())
+                        ).length;
+                        return (
+                          <option key={type} value={`type-${type}`}>
+                            {type} ({count})
+                          </option>
+                        );
+                      })}
+                      {rarities.map(rarity => {
+                        const count = searchResults.filter(card => card.rarity === rarity).length;
+                        return (
+                          <option key={rarity} value={`rarity-${rarity}`}>
+                            {rarity.charAt(0).toUpperCase() + rarity.slice(1)} ({count})
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Clear Filters */}
+                {(searchFilter || filterBy !== 'all' || sortBy !== 'relevance') && (
+                  <div className="filter-clear-section">
                     <button
                       onClick={() => {
-                        setSearchResults([]);
-                        setHasSearched(false);
-                        setCurrentQuery("");
-                        router.replace("/search", undefined, { shallow: true });
+                        setSearchFilter('');
+                        setFilterBy('all');
+                        setSortBy('relevance');
                       }}
-                      className="search-new-btn"
+                      className="btn btn-secondary"
                     >
-                      New Search
+                      Clear All Filters
                     </button>
                   </div>
+                )}
+              </div>
+            )}
+
+            {/* Show filtered results info if applicable */}
+            {filteredAndSortedResults.length !== searchResults.length && (
+              <div className="card mb-2">
+                <p className="search-results-filtered">
+                  Showing {filteredAndSortedResults.length} filtered results
+                  {searchFilter && ` matching "${searchFilter}"`}
+                </p>
+              </div>
+            )}
+
+            {/* Search Results */}
+            {searchResults.length === 0 ? (
+              <div className="search-empty-state card">
+                <div className="search-empty-icon">🔍</div>
+                <h3 className="search-empty-title">
+                  No cards found for "{currentQuery}"
+                </h3>
+                <div className="search-empty-content">
+                  <p className="search-empty-subtitle">
+                    Try these search tips:
+                  </p>
+                  <ul className="search-tips-list">
+                    <li>Check spelling of card names</li>
+                    <li>Try searching for abilities like "flying" or "trample"</li>
+                    <li>Search for creature types like "dragon" or "angel"</li>
+                    <li>Use the filters above to browse by colour or type</li>
+                    <li>Try more general terms like "red" or "artifact"</li>
+                  </ul>
                 </div>
-              )}
+              </div>
+            ) : filteredAndSortedResults.length === 0 ? (
+              <div className="search-empty-state card">
+                <div className="search-empty-icon">🔍</div>
+                <h3 className="search-empty-title">
+                  No matches found
+                </h3>
+                <p className="search-empty-subtitle">
+                  Try adjusting your search or filter settings.
+                </p>
+              </div>
+            ) : (
+              <div>
+                {/* Results Grid */}
+                <div className="cards-grid">
+                  {paginatedResults.map((card, index) => (
+                    <div
+                      key={card.id || index}
+                      className={`fade-in fade-in-delay-${Math.min(index + 1, 5)}`}
+                    >
+                      <SearchCard
+                        card={card}
+                        currentUser={currentUser}
+                        onFavoriteToggle={handleFavouriteToggle}
+                        showFavoriteButton={true}
+                      />
+                    </div>
+                  ))}
+                </div>
 
-              {/* Card Results */}
-              <CardList
-                cards={searchResults}
-                loading={loading}
-                error={error}
-                currentUser={currentUser}
-                onFavoriteToggle={handleFavouriteToggle}
-                emptyMessage={`No cards found for "${currentQuery}"`}
-                showFavoriteButtons={true}
-              />
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="pagination-controls card">
+                    <div className="pagination-buttons">
+                      <button
+                        onClick={() => setCurrentPage(1)}
+                        disabled={currentPage === 1}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        First
+                      </button>
+                      <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        Previous
+                      </button>
 
-              {/* Search Tips for Empty Results */}
-              {searchResults.length === 0 && !loading && (
-                <div className="search-empty-state">
-                  <div className="search-empty-icon">🔍</div>
-                  <h3 className="search-empty-title">
-                    No cards found for "{currentQuery}"
-                  </h3>
-                  <div className="search-empty-content">
-                    <p className="search-empty-subtitle">
-                      Try these search tips:
-                    </p>
-                    <ul className="search-tips-list">
-                      <li>Check spelling of card names</li>
-                      <li>
-                        Try searching for abilities like "flying" or "trample"
-                      </li>
-                      <li>
-                        Search for creature types like "dragon" or "angel"
-                      </li>
-                      <li>Use the filters above to browse by colour or type</li>
-                      <li>Try more general terms like "red" or "artifact"</li>
-                    </ul>
+                      {/* Page numbers */}
+                      <div className="page-numbers">
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                          let pageNum;
+                          if (totalPages <= 5) {
+                            pageNum = i + 1;
+                          } else if (currentPage <= 3) {
+                            pageNum = i + 1;
+                          } else if (currentPage >= totalPages - 2) {
+                            pageNum = totalPages - 4 + i;
+                          } else {
+                            pageNum = currentPage - 2 + i;
+                          }
+
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`btn ${currentPage === pageNum ? 'btn-primary' : 'btn-secondary'} pagination-btn`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        Next
+                      </button>
+                      <button
+                        onClick={() => setCurrentPage(totalPages)}
+                        disabled={currentPage === totalPages}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        Last
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          )}
-        </div>
+                )}
+
+
+              </div>
+            )}
+
+
+          </>
+        )}
       </div>
     </Layout>
   );

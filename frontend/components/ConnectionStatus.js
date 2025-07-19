@@ -25,7 +25,7 @@ const ConnectionStatus = ({ className = "", showDetails = false }) => {
 
   const statusIcon = isOnline ? "🟢" : "🔴";
   const statusText = isOnline ? "Online" : "Offline";
-  const statusMode = isOnline ? "Backend Connected" : "Mock Data Mode";
+  const statusMode = isOnline ? "Backend Connected" : "Backend Offline";
 
   return (
     <div

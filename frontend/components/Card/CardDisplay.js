@@ -9,6 +9,7 @@ export default function CardDisplay({
 }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { theme } = useTheme();
 
   if (!card) {
@@ -116,13 +117,16 @@ export default function CardDisplay({
   };
 
   return (
-    <div className="mtg-card-container">
+    <div className="mtg-card" onClick={() => setShowModal(true)} style={{ cursor: 'pointer' }}>
       {/* Favorite Button */}
       {showFavoriteButton && currentUser && (
         <button
-          onClick={handleFavoriteClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleFavoriteClick();
+          }}
           className="favorite-btn"
-          title="Add to favorites"
+          title="Add to favourites"
         >
           ⭐
         </button>
@@ -140,7 +144,7 @@ export default function CardDisplay({
               {card.mana_cost && (
                 <p className="mtg-card-placeholder-mana">{formatManaSymbols(card.mana_cost)}</p>
               )}
-              <p className="mtg-card-placeholder-hint">Offline demo mode</p>
+              <p className="mtg-card-placeholder-hint">Placeholder</p>
             </div>
           </div>
         ) : (
@@ -232,12 +236,111 @@ export default function CardDisplay({
               target="_blank"
               rel="noopener noreferrer"
               className="link-btn"
+              onClick={(e) => e.stopPropagation()}
             >
               View on Scryfall
             </a>
           )}
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="card-modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="card-modal-content" onClick={(e) => e.stopPropagation()}>
+            {/* Modal Header */}
+            <div className="card-modal-header">
+              <h2 className="card-modal-title">{card.name}</h2>
+              <button className="card-modal-close" onClick={() => setShowModal(false)}>
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="card-modal-body">
+              {/* Card Image in Modal */}
+              <div className="card-modal-image-container">
+                {showPlaceholder ? (
+                  <div className={`mtg-card-placeholder ${colourClass} large`}>
+                    <div className="mtg-card-placeholder-content">
+                      <h3 className="mtg-card-placeholder-name">{card.name}</h3>
+                      {card.type_line && (
+                        <p className="mtg-card-placeholder-type">{card.type_line}</p>
+                      )}
+                      {card.mana_cost && (
+                        <p className="mtg-card-placeholder-mana">{formatManaSymbols(card.mana_cost)}</p>
+                      )}
+                      <p className="mtg-card-placeholder-hint">Placeholder</p>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src={card.image_uris?.normal}
+                    alt={card.name}
+                    className="card-modal-image"
+                  />
+                )}
+              </div>
+
+              {/* Card Details in Modal */}
+              <div className="card-modal-info">
+                <div className="card-info-section">
+                  {card.mana_cost && (
+                    <p className="mana-cost-display">Mana Cost: {formatManaSymbols(card.mana_cost)}</p>
+                  )}
+                  <p className="type-line-display">Type: {card.type_line}</p>
+                  {card.oracle_text && (
+                    <div className="oracle-text">
+                      <strong>Rules Text:</strong>
+                      <div dangerouslySetInnerHTML={{ __html: highlightKeywords(card.oracle_text) }} />
+                    </div>
+                  )}
+                  {getPowerToughness() && (
+                    <p className="power-toughness-display">Power/Toughness: {getPowerToughness()}</p>
+                  )}
+                  {card.rarity && (
+                    <p className="rarity-display">
+                      Rarity: <span className={`rarity-${card.rarity?.toLowerCase()}`}>{card.rarity}</span>
+                    </p>
+                  )}
+                  {card.set_name && (
+                    <p className="set-display">Set: {card.set_name}</p>
+                  )}
+                  {card.artist && (
+                    <p className="artist-display">Artist: {card.artist}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="card-modal-footer">
+              {showFavoriteButton && currentUser && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleFavoriteClick();
+                  }}
+                  className="favorite-btn-modal"
+                  title="Add to favourites"
+                >
+                  ⭐ Add to Favourites
+                </button>
+              )}
+              {card.scryfall_uri && (
+                <a
+                  href={card.scryfall_uri}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-btn"
+                >
+                  View on Scryfall
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

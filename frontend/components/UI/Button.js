@@ -35,7 +35,7 @@ export default function Button({
   };
 
   const buttonClass =
-    `${getVariantClass()} ${getSizeClass()} ${loading ? "btn-loading" : ""} ${className}`.trim();
+    `btn ${getVariantClass()} ${getSizeClass()} ${loading ? "btn-loading" : ""} ${className}`.trim();
 
   return (
     <button
