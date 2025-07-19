@@ -1,21 +1,87 @@
 const express = require("express");
 const cors = require("cors");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
 const { pool, initTables } = require("./db");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Swagger configuration
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Planeswalker's Primer API",
+      version: "1.0.0",
+      description: "API documentation for the Planeswalker's Primer MTG application",
+      contact: {
+        name: "API Support",
+        email: "support@plansewalkersprimer.com"
+      }
+    },
+    servers: [
+      {
+        url: process.env.NODE_ENV === "production"
+          ? "https://plansewalkers-primer-api.railway.app"
+          : `http://localhost:${PORT}`,
+        description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
+      }
+    ],
+    tags: [
+      { name: "Health", description: "Server health endpoints" },
+      { name: "Users", description: "User management operations" },
+      { name: "Messages", description: "Message CRUD operations" },
+      { name: "Favourites", description: "User favourite cards management" },
+      { name: "Cards", description: "MTG card search via Scryfall API" }
+    ]
+  },
+  apis: ["./server.js"]
+};
+
+const swaggerSpecs = swaggerJsdoc(swaggerOptions);
+
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
+  customCss: ".swagger-ui .topbar { display: none }",
+  customSiteTitle: "Planeswalker's Primer API Documentation"
+}));
 
 // Initialize database tables on startup
 initTables();
 
 // Routes
 
-// Hello World endpoint
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Server welcome message
+ *     tags: [Health]
+ *     description: Returns a welcome message and server status
+ *     responses:
+ *       200:
+ *         description: Server is running successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Hello World from Planeswalker's Primer Backend!"
+ *                 status:
+ *                   type: string
+ *                   example: "Server is running"
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ */
 app.get("/", (req, res) => {
   res.json({
     message: "Hello World from Planeswalker's Primer Backend!",
@@ -24,14 +90,130 @@ app.get("/", (req, res) => {
   });
 });
 
-// Health check
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     summary: Health check endpoint
+ *     tags: [Health]
+ *     description: Returns server health status
+ *     responses:
+ *       200:
+ *         description: Server is healthy
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "OK"
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ */
 app.get("/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
 // CRUD Operations for Messages
 
-// CREATE - Add a new message
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Message:
+ *       type: object
+ *       required:
+ *         - text
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: Auto-generated message ID
+ *         text:
+ *           type: string
+ *           description: Message content
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: Auto-generated user ID
+ *         username:
+ *           type: string
+ *           description: Unique username
+ *           minLength: 1
+ *           maxLength: 50
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *     Favourite:
+ *       type: object
+ *       required:
+ *         - user_id
+ *         - card_name
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: Auto-generated favourite ID
+ *         user_id:
+ *           type: integer
+ *           description: ID of the user who favourited the card
+ *         card_name:
+ *           type: string
+ *           description: Name of the MTG card
+ *         scryfall_id:
+ *           type: string
+ *           description: Scryfall UUID for the card
+ *         ability_type:
+ *           type: string
+ *           description: Type of ability or card category
+ *         notes:
+ *           type: string
+ *           description: User's personal notes about the card
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ */
+
+/**
+ * @swagger
+ * /api/messages:
+ *   post:
+ *     summary: Create a new message
+ *     tags: [Messages]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - text
+ *             properties:
+ *               text:
+ *                 type: string
+ *                 description: Message content
+ *     responses:
+ *       201:
+ *         description: Message created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Message'
+ *       400:
+ *         description: Bad request - missing text
+ *       500:
+ *         description: Database error
+ */
 app.post("/api/messages", async (req, res) => {
   const { text } = req.body;
 
@@ -51,7 +233,25 @@ app.post("/api/messages", async (req, res) => {
   }
 });
 
-// READ - Get all messages
+/**
+ * @swagger
+ * /api/messages:
+ *   get:
+ *     summary: Get all messages
+ *     tags: [Messages]
+ *     description: Retrieve all messages ordered by creation date (newest first)
+ *     responses:
+ *       200:
+ *         description: List of messages
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Message'
+ *       500:
+ *         description: Database error
+ */
 app.get("/api/messages", async (req, res) => {
   try {
     const result = await pool.query(
@@ -64,7 +264,31 @@ app.get("/api/messages", async (req, res) => {
   }
 });
 
-// READ - Get a specific message by ID
+/**
+ * @swagger
+ * /api/messages/{id}:
+ *   get:
+ *     summary: Get a message by ID
+ *     tags: [Messages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Message ID
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Message found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Message'
+ *       404:
+ *         description: Message not found
+ *       500:
+ *         description: Database error
+ */
 app.get("/api/messages/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -84,7 +308,45 @@ app.get("/api/messages/:id", async (req, res) => {
   }
 });
 
-// UPDATE - Update a message by ID
+/**
+ * @swagger
+ * /api/messages/{id}:
+ *   put:
+ *     summary: Update a message by ID
+ *     tags: [Messages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Message ID
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - text
+ *             properties:
+ *               text:
+ *                 type: string
+ *                 description: Updated message content
+ *     responses:
+ *       200:
+ *         description: Message updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Message'
+ *       400:
+ *         description: Bad request - missing text
+ *       404:
+ *         description: Message not found
+ *       500:
+ *         description: Database error
+ */
 app.put("/api/messages/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { text } = req.body;
@@ -110,7 +372,37 @@ app.put("/api/messages/:id", async (req, res) => {
   }
 });
 
-// DELETE - Delete a message by ID
+/**
+ * @swagger
+ * /api/messages/{id}:
+ *   delete:
+ *     summary: Delete a message by ID
+ *     tags: [Messages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Message ID
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Message deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Message deleted"
+ *                 deleted:
+ *                   $ref: '#/components/schemas/Message'
+ *       404:
+ *         description: Message not found
+ *       500:
+ *         description: Database error
+ */
 app.delete("/api/messages/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -133,7 +425,38 @@ app.delete("/api/messages/:id", async (req, res) => {
 
 // User CRUD Operations
 
-// CREATE - Add a new user
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: Unique username (1-50 characters)
+ *                 minLength: 1
+ *                 maxLength: 50
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Bad request - missing username or username already exists
+ *       500:
+ *         description: Database error
+ */
 app.post("/api/users", async (req, res) => {
   const { username } = req.body;
 
@@ -157,7 +480,25 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-// READ - Get all users
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Users]
+ *     description: Retrieve all users ordered by creation date (newest first)
+ *     responses:
+ *       200:
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Database error
+ */
 app.get("/api/users", async (req, res) => {
   try {
     const result = await pool.query(
@@ -170,7 +511,31 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
-// READ - Get a specific user by ID
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: User ID
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: User found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Database error
+ */
 app.get("/api/users/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -191,7 +556,47 @@ app.get("/api/users/:id", async (req, res) => {
   }
 });
 
-// UPDATE - Update a user by ID
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     summary: Update a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: User ID
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: Updated username (1-50 characters)
+ *                 minLength: 1
+ *                 maxLength: 50
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Bad request - missing username or username already exists
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Database error
+ */
 app.put("/api/users/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { username } = req.body;
@@ -220,7 +625,42 @@ app.put("/api/users/:id", async (req, res) => {
   }
 });
 
-// DELETE - Delete a user by ID
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   delete:
+ *     summary: Delete a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: User ID
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User deleted"
+ *                 deleted:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     username:
+ *                       type: string
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Database error
+ */
 app.delete("/api/users/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -243,7 +683,41 @@ app.delete("/api/users/:id", async (req, res) => {
 
 // Scryfall API Integration
 
-// Search cards via Scryfall API
+/**
+ * @swagger
+ * /api/cards/search:
+ *   get:
+ *     summary: Search MTG cards via Scryfall API
+ *     tags: [Cards]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         required: true
+ *         description: Search query for cards
+ *         schema:
+ *           type: string
+ *           example: "lightning bolt"
+ *     responses:
+ *       200:
+ *         description: Search results from Scryfall
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 has_more:
+ *                   type: boolean
+ *                 total_cards:
+ *                   type: integer
+ *       400:
+ *         description: Bad request - missing search query
+ *       500:
+ *         description: Failed to search cards
+ */
 app.get("/api/cards/search", async (req, res) => {
   const { q } = req.query;
 
@@ -271,7 +745,39 @@ app.get("/api/cards/search", async (req, res) => {
   }
 });
 
-// Get random cards by ability type
+/**
+ * @swagger
+ * /api/cards/random:
+ *   get:
+ *     summary: Get random MTG cards
+ *     tags: [Cards]
+ *     parameters:
+ *       - in: query
+ *         name: ability
+ *         required: false
+ *         description: Filter by ability type
+ *         schema:
+ *           type: string
+ *           example: "flying"
+ *     responses:
+ *       200:
+ *         description: Random cards from Scryfall (max 10)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                 has_more:
+ *                   type: boolean
+ *                 total_cards:
+ *                   type: integer
+ *       500:
+ *         description: Failed to get random cards
+ */
 app.get("/api/cards/random", async (req, res) => {
   const { ability } = req.query;
 
@@ -307,7 +813,31 @@ app.get("/api/cards/random", async (req, res) => {
   }
 });
 
-// Get specific card by Scryfall ID
+/**
+ * @swagger
+ * /api/cards/{id}:
+ *   get:
+ *     summary: Get a specific MTG card by Scryfall ID
+ *     tags: [Cards]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Scryfall card ID
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Card details from Scryfall
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       404:
+ *         description: Card not found
+ *       500:
+ *         description: Failed to fetch card
+ */
 app.get("/api/cards/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -329,9 +859,51 @@ app.get("/api/cards/:id", async (req, res) => {
   }
 });
 
-// Favorites CRUD Operations
+// Favourites CRUD Operations
 
-// CREATE - Add a card to user's favorites
+/**
+ * @swagger
+ * /api/favorites:
+ *   post:
+ *     summary: Add a card to user's favourites
+ *     tags: [Favourites]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - user_id
+ *               - card_name
+ *             properties:
+ *               user_id:
+ *                 type: integer
+ *                 description: ID of the user
+ *               card_name:
+ *                 type: string
+ *                 description: Name of the MTG card
+ *               scryfall_id:
+ *                 type: string
+ *                 description: Scryfall UUID for the card
+ *               ability_type:
+ *                 type: string
+ *                 description: Type of ability or card category
+ *               notes:
+ *                 type: string
+ *                 description: User's personal notes
+ *     responses:
+ *       201:
+ *         description: Favourite added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Favourite'
+ *       400:
+ *         description: Bad request - missing required fields
+ *       500:
+ *         description: Database error
+ */
 app.post("/api/favorites", async (req, res) => {
   const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
 
@@ -353,7 +925,31 @@ app.post("/api/favorites", async (req, res) => {
   }
 });
 
-// READ - Get all favorites for a user
+/**
+ * @swagger
+ * /api/favorites/{userId}:
+ *   get:
+ *     summary: Get all favourites for a user
+ *     tags: [Favourites]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: User ID
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: User's favourite cards
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Favourite'
+ *       500:
+ *         description: Database error
+ */
 app.get("/api/favorites/:userId", async (req, res) => {
   const userId = parseInt(req.params.userId);
 
@@ -369,7 +965,44 @@ app.get("/api/favorites/:userId", async (req, res) => {
   }
 });
 
-// UPDATE - Update a favorite (mainly for notes)
+/**
+ * @swagger
+ * /api/favorites/{id}:
+ *   put:
+ *     summary: Update a favourite (mainly for notes)
+ *     tags: [Favourites]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Favourite ID
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               notes:
+ *                 type: string
+ *                 description: Updated notes
+ *               ability_type:
+ *                 type: string
+ *                 description: Updated ability type
+ *     responses:
+ *       200:
+ *         description: Favourite updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Favourite'
+ *       404:
+ *         description: Favourite not found
+ *       500:
+ *         description: Database error
+ */
 app.put("/api/favorites/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { notes, ability_type } = req.body;
@@ -391,7 +1024,37 @@ app.put("/api/favorites/:id", async (req, res) => {
   }
 });
 
-// DELETE - Remove a favorite
+/**
+ * @swagger
+ * /api/favorites/{id}:
+ *   delete:
+ *     summary: Remove a favourite
+ *     tags: [Favourites]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Favourite ID
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Favourite removed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Favourite removed"
+ *                 deleted:
+ *                   $ref: '#/components/schemas/Favourite'
+ *       404:
+ *         description: Favourite not found
+ *       500:
+ *         description: Database error
+ */
 app.delete("/api/favorites/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 

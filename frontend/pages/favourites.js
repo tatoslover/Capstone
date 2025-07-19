@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
-import { FavoritesList } from "../components/Favorites";
+import { FavouritesList } from "../components/Favorites";
 import Loading from "../components/UI/Loading";
+import { apiService } from "../services/apiService";
 
-export default function FavoritesPage() {
+export default function FavouritesPage() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState(null);
-  const [favorites, setFavorites] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
-
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
   // Load user from localStorage on mount
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function FavoritesPage() {
       try {
         const user = JSON.parse(savedUser);
         setCurrentUser(user);
-        fetchFavorites(user.id);
+        fetchFavourites(user.id);
       } catch (e) {
         localStorage.removeItem("currentUser");
         setLoading(false);
@@ -31,55 +30,37 @@ export default function FavoritesPage() {
     }
   }, []);
 
-  const fetchFavorites = async (userId) => {
+  const fetchFavourites = async (userId) => {
     try {
       setLoading(true);
       setError("");
 
-      const response = await fetch(`${API_URL}/api/favorites/${userId}`);
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          setFavorites([]);
-          return;
-        }
-        throw new Error(`Failed to fetch favorites: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setFavorites(Array.isArray(data) ? data : []);
+      const data = await apiService.favourites.getByUserId(userId);
+      setFavourites(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching favorites:", err);
-      setError("Failed to load your favorites. Please try again.");
-      setFavorites([]);
+      // Better error message for offline mode
+      if (err.message === "OFFLINE_MODE") {
+        setError("Currently offline - demo mode active with sample data");
+      } else {
+        setError("Failed to load your favourites. Please try again.");
+      }
+      setFavourites([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEditFavorite = async (favoriteId, newNotes) => {
+  const handleEditFavourite = async (favouriteId, newNotes) => {
     try {
       setActionLoading(true);
 
-      const response = await fetch(`${API_URL}/api/favorites/${favoriteId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ notes: newNotes }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to update notes");
-      }
-
-      const updatedFavorite = await response.json();
+      await apiService.favourites.update(favouriteId, { notes: newNotes });
 
       // Update local state
-      setFavorites((prevFavorites) =>
-        prevFavorites.map((fav) =>
-          fav.id === favoriteId ? { ...fav, notes: newNotes } : fav,
+      setFavourites((prevFavourites) =>
+        prevFavourites.map((fav) =>
+          fav.id === favouriteId ? { ...fav, notes: newNotes } : fav,
         ),
       );
 
@@ -94,25 +75,18 @@ export default function FavoritesPage() {
     }
   };
 
-  const handleDeleteFavorite = async (favoriteId) => {
+  const handleDeleteFavourite = async (favouriteId) => {
     try {
       setActionLoading(true);
 
-      const response = await fetch(`${API_URL}/api/favorites/${favoriteId}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to remove favorite");
-      }
+      await apiService.favourites.delete(favouriteId);
 
       // Update local state
-      setFavorites((prevFavorites) =>
-        prevFavorites.filter((fav) => fav.id !== favoriteId),
+      setFavourites((prevFavourites) =>
+        prevFavourites.filter((fav) => fav.id !== favouriteId),
       );
 
-      showNotification("Card removed from favorites!", "success");
+      showNotification("Card removed from favourites!", "success");
     } catch (err) {
       console.error("Error deleting favorite:", err);
       showNotification(err.message, "error");
@@ -188,12 +162,21 @@ export default function FavoritesPage() {
               className="d-flex gap-2 justify-center"
               style={{ flexWrap: "wrap" }}
             >
-              <a href="/" className="btn-outline">
+              <a href="/profile" className="btn-outline">
                 Create Profile
               </a>
-              <a href="/search" className="btn-secondary">
-                Search Cards
-              </a>
+              <button
+                onClick={() => {
+                  // Set demo user for offline experience
+                  const demoUser = { id: 1, username: "Demo" };
+                  localStorage.setItem("currentUser", JSON.stringify(demoUser));
+                  setCurrentUser(demoUser);
+                  fetchFavourites(1);
+                }}
+                className="btn-secondary"
+              >
+                Demo Profile
+              </button>
             </div>
           </div>
         </div>
@@ -206,70 +189,61 @@ export default function FavoritesPage() {
       <div className="container page-content">
         {/* Page Header */}
         <div className="text-center mb-3">
-          <div
-            className="header-box"
-            style={{ maxWidth: "800px", margin: "0 auto" }}
-          >
-            <h1>My Favorite Cards</h1>
-            <p style={{ fontSize: "1.25rem" }}>
+          <div className="header-box">
+            <h1>My Favourite Cards</h1>
+            <p>
               {currentUser
                 ? `${currentUser.username}'s personal collection`
                 : "Your saved MTG cards"}
             </p>
+            {currentUser && !loading && (
+              <p className="card-count">
+                {favourites.length} {favourites.length === 1 ? 'card' : 'cards'} saved
+              </p>
+            )}
           </div>
         </div>
 
-        {/* User Welcome */}
-        {currentUser && (
-          <div className="card text-center mb-3">
-            <h3 className="card-title mb-1">
-              Welcome back, {currentUser.username}! ⭐
-            </h3>
-            <p className="mb-0">
-              Manage your favorite cards, add personal notes, and build your
-              reference collection.
-            </p>
-          </div>
-        )}
+
 
         {/* Loading State */}
         {loading && (
-          <div className="loading">
-            <Loading message="Loading your favorites..." size="large" />
+          <div className="loading-container">
+            <Loading message="Loading your favourites..." size="large" />
           </div>
         )}
 
         {/* Error State */}
         {error && !loading && (
           <div className="error text-center mt-2 mb-2">
-            <h3 className="mb-2">Unable to Load Favorites</h3>
+            <h3 className="mb-2">Unable to Load Favourites</h3>
             <p className="mb-3">{error}</p>
             <button
-              onClick={() => currentUser && fetchFavorites(currentUser.id)}
+              onClick={() => currentUser && fetchFavourites(currentUser.id)}
             >
               Try Again
             </button>
           </div>
         )}
 
-        {/* Favorites List */}
+        {/* Favourites List */}
         {!loading && !error && currentUser && (
-          <FavoritesList
-            favorites={favorites}
+          <FavouritesList
+            favourites={favourites}
             loading={actionLoading}
             error=""
             currentUser={currentUser}
-            onEditFavorite={handleEditFavorite}
-            onDeleteFavorite={handleDeleteFavorite}
+            onEditFavorite={handleEditFavourite}
+            onDeleteFavorite={handleDeleteFavourite}
             onCardClick={handleCardClick}
           />
         )}
 
         {/* Help Section */}
-        {!loading && currentUser && favorites.length === 0 && !error && (
+        {!loading && currentUser && favourites.length === 0 && !error && (
           <div className="card mt-3">
             <h4 className="card-title">
-              💡 How to Build Your Favorites Collection
+              💡 How to Build Your Favourites Collection
             </h4>
             <ol style={{ paddingLeft: "1.5rem" }}>
               <li className="mb-1">
@@ -285,13 +259,27 @@ export default function FavoritesPage() {
                 useful to you
               </li>
               <li className="mb-1">
-                <strong>Organize and review:</strong> Use filters to find cards
+                <strong>Organise and review:</strong> Use filters to find cards
                 quickly during games
               </li>
             </ol>
           </div>
         )}
       </div>
+
+      <style jsx>{`
+        .header-box {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .card-count {
+          font-size: 1.1rem;
+          color: var(--theme-textLight);
+          margin-top: 0.5rem;
+          margin-bottom: 0;
+        }
+      `}</style>
     </Layout>
   );
 }

@@ -34,9 +34,10 @@ A comprehensive Magic: The Gathering learning platform for beginners.
 
 ## Todo
 
-🔲 **Card search integration** with enhanced mechanics data
-🔲 **Format legality checking** for cards and mechanics
 🔲 **Revise Mechanics guide** for cards and mechanics
+🔲 **Revise Game Modes** for retractable buttons
+🔲 **Add colourless mana** for thoroughness
+
 
 ## Tech Stack
 

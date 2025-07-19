@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
 import Loading from "../components/UI/Loading";
+import { apiService, addConnectionListener, removeConnectionListener } from "../services/apiService";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -11,10 +12,10 @@ export default function ProfilePage() {
   const [error, setError] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const [newUsername, setNewUsername] = useState("");
   const [editingUsername, setEditingUsername] = useState("");
-
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+  const [isOnline, setIsOnline] = useState(true);
 
   // Load user from localStorage on mount
   useEffect(() => {
@@ -29,6 +30,17 @@ export default function ProfilePage() {
       }
     }
     fetchUsers();
+
+    // Listen for connection status changes
+    const handleConnectionChange = (online) => {
+      setIsOnline(online);
+    };
+
+    addConnectionListener(handleConnectionChange);
+
+    return () => {
+      removeConnectionListener(handleConnectionChange);
+    };
   }, []);
 
   const fetchUsers = async () => {
@@ -36,17 +48,15 @@ export default function ProfilePage() {
       setLoading(true);
       setError("");
 
-      const response = await fetch(`${API_URL}/api/users`);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch users: ${response.status}`);
-      }
-
-      const data = await response.json();
+      const data = await apiService.users.getAll();
       setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching users:", err);
-      setError("Failed to load users. Please try again.");
+      if (err.message === 'OFFLINE_MODE' || !isOnline) {
+        setError("Currently in offline mode - demo functionality available");
+      } else {
+        setError("Failed to load users. Please try again.");
+      }
       setUsers([]);
     } finally {
       setLoading(false);
@@ -61,20 +71,7 @@ export default function ProfilePage() {
       setActionLoading(true);
       setError("");
 
-      const response = await fetch(`${API_URL}/api/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: newUsername.trim() }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to create user");
-      }
-
-      const newUser = await response.json();
+      const newUser = await apiService.users.create({ username: newUsername.trim() });
 
       // Update local state
       setUsers((prevUsers) => [...prevUsers, newUser]);
@@ -82,11 +79,16 @@ export default function ProfilePage() {
       localStorage.setItem("currentUser", JSON.stringify(newUser));
       setNewUsername("");
       setEditingUsername(newUser.username);
+      setIsCreating(false);
 
       showNotification("Profile created successfully!", "success");
     } catch (err) {
       console.error("Error creating user:", err);
-      setError(err.message);
+      if (err.message === 'OFFLINE_MODE' || !isOnline) {
+        setError("Cannot create profiles in offline mode");
+      } else {
+        setError(err.message || "Failed to create user");
+      }
     } finally {
       setActionLoading(false);
     }
@@ -96,24 +98,17 @@ export default function ProfilePage() {
     e.preventDefault();
     if (!editingUsername.trim() || !currentUser) return;
 
+    // Protect Demo user in offline mode
+    if ((!isOnline || !apiService.isOnline()) && currentUser.username === "Demo") {
+      setError("Cannot modify Demo profile in offline mode");
+      return;
+    }
+
     try {
       setActionLoading(true);
       setError("");
 
-      const response = await fetch(`${API_URL}/api/users/${currentUser.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: editingUsername.trim() }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to update user");
-      }
-
-      const updatedUser = await response.json();
+      const updatedUser = await apiService.users.update(currentUser.id, { username: editingUsername.trim() });
 
       // Update local state
       setUsers((prevUsers) =>
@@ -128,7 +123,11 @@ export default function ProfilePage() {
       showNotification("Profile updated successfully!", "success");
     } catch (err) {
       console.error("Error updating user:", err);
-      setError(err.message);
+      if (err.message === 'OFFLINE_MODE' || !isOnline) {
+        setError("Cannot update profiles in offline mode");
+      } else {
+        setError(err.message || "Failed to update user");
+      }
     } finally {
       setActionLoading(false);
     }
@@ -136,6 +135,12 @@ export default function ProfilePage() {
 
   const handleDeleteUser = async () => {
     if (!currentUser) return;
+
+    // Protect Demo user in offline mode
+    if ((!isOnline || !apiService.isOnline()) && currentUser.username === "Demo") {
+      setError("Cannot delete Demo profile in offline mode");
+      return;
+    }
 
     const confirmed = window.confirm(
       `Are you sure you want to delete your profile "${currentUser.username}"? This will also remove all your saved favourites and cannot be undone.`,
@@ -147,14 +152,7 @@ export default function ProfilePage() {
       setActionLoading(true);
       setError("");
 
-      const response = await fetch(`${API_URL}/api/users/${currentUser.id}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to delete user");
-      }
+      await apiService.users.delete(currentUser.id);
 
       // Update local state
       setUsers((prevUsers) =>
@@ -168,7 +166,11 @@ export default function ProfilePage() {
       showNotification("Profile deleted successfully!", "success");
     } catch (err) {
       console.error("Error deleting user:", err);
-      setError(err.message);
+      if (err.message === 'OFFLINE_MODE' || !isOnline) {
+        setError("Cannot delete profiles in offline mode");
+      } else {
+        setError(err.message || "Failed to delete user");
+      }
     } finally {
       setActionLoading(false);
     }
@@ -241,15 +243,15 @@ export default function ProfilePage() {
 
         {/* Loading State */}
         {loading && (
-          <div style={{ textAlign: "center", padding: "4rem 0" }}>
+          <div className="loading-container">
             <Loading message="Loading profile..." size="large" />
           </div>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="error mt-2 mb-2">
-            <h4 className="mb-1">Error</h4>
+          <div className={`${error.includes('offline') ? 'info' : 'error'} mt-2 mb-2`}>
+            <h4 className="mb-1">{error.includes('offline') ? 'Offline Mode' : 'Error'}</h4>
             <p className="mb-0">{error}</p>
           </div>
         )}
@@ -266,24 +268,35 @@ export default function ProfilePage() {
                   {new Date(currentUser.created_at).toLocaleDateString()}
                 </p>
 
-                {/* Edit/Delete Buttons */}
+                {/* Create/Edit/Delete Buttons */}
                 <div
                   className="d-flex gap-2 justify-center mt-3"
                   style={{ flexWrap: "wrap" }}
                 >
                   <button
-                    onClick={() => setIsEditing(!isEditing)}
+                    onClick={() => setIsCreating(!isCreating)}
                     disabled={actionLoading}
-                    className={isEditing ? "btn-secondary" : ""}
-                    style={{ opacity: actionLoading ? 0.7 : 1 }}
+                    className="btn profile-btn-blue"
+                  >
+                    {isCreating ? "Cancel Create" : "Create Profile"}
+                  </button>
+                  <button
+                    onClick={() => setIsEditing(!isEditing)}
+                    disabled={actionLoading || ((!isOnline || !apiService.isOnline()) && currentUser.username === "Demo")}
+                    className="btn profile-btn-blue"
                   >
                     {isEditing ? "Cancel Edit" : "Edit Profile"}
                   </button>
                   <button
                     onClick={handleDeleteUser}
-                    disabled={actionLoading}
-                    className="btn-danger"
-                    style={{ opacity: actionLoading ? 0.7 : 1 }}
+                    disabled={actionLoading || ((!isOnline || !apiService.isOnline()) && currentUser.username === "Demo")}
+                    className="btn btn-danger"
+                    style={{
+                      opacity: actionLoading || ((!isOnline || !apiService.isOnline()) && currentUser.username === "Demo") ? 0.5 : 1,
+                      background: 'var(--theme-danger)',
+                      color: 'white',
+                      border: 'none'
+                    }}
                   >
                     {actionLoading ? "Deleting..." : "Delete Profile"}
                   </button>
@@ -323,19 +336,14 @@ export default function ProfilePage() {
                       type="button"
                       onClick={() => setIsEditing(false)}
                       disabled={actionLoading}
-                      className="btn-secondary"
-                      style={{ opacity: actionLoading ? 0.7 : 1 }}
+                      className="btn profile-btn-blue"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={actionLoading || !editingUsername.trim()}
-                      className="btn-success"
-                      style={{
-                        opacity:
-                          actionLoading || !editingUsername.trim() ? 0.7 : 1,
-                      }}
+                      className="btn profile-btn-blue"
                     >
                       {actionLoading ? "Updating..." : "Update Profile"}
                     </button>
@@ -345,7 +353,7 @@ export default function ProfilePage() {
             )}
 
             {/* Create New Profile Form */}
-            {!currentUser && (
+            {(isCreating || !currentUser) && (
               <div className="card mb-3">
                 <h3 className="card-title mb-3">Create New Profile</h3>
                 <form onSubmit={handleCreateUser}>
@@ -360,15 +368,28 @@ export default function ProfilePage() {
                       required
                     />
                   </div>
-                  <button
-                    type="submit"
-                    disabled={actionLoading || !newUsername.trim()}
-                    style={{
-                      opacity: actionLoading || !newUsername.trim() ? 0.7 : 1,
-                    }}
-                  >
-                    {actionLoading ? "Creating..." : "Create Profile"}
-                  </button>
+                  <div className="d-flex gap-2" style={{ justifyContent: "flex-end" }}>
+                    {currentUser && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsCreating(false);
+                          setNewUsername("");
+                        }}
+                        disabled={actionLoading}
+                        className="btn profile-btn-blue"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                    <button
+                      type="submit"
+                      disabled={actionLoading || !newUsername.trim() || (!isOnline && !apiService.isOnline())}
+                      className="btn profile-btn-blue"
+                    >
+                      {actionLoading ? "Creating..." : "Create Profile"}
+                    </button>
+                  </div>
                 </form>
               </div>
             )}
@@ -427,10 +448,10 @@ export default function ProfilePage() {
                         <button
                           onClick={() => handleSwitchUser(user)}
                           disabled={actionLoading}
+                          className="btn profile-btn-blue"
                           style={{
                             padding: "0.5rem 1rem",
-                            fontSize: "0.875rem",
-                            opacity: actionLoading ? 0.7 : 1,
+                            fontSize: "0.875rem"
                           }}
                         >
                           Select
@@ -442,44 +463,7 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {/* Profile Stats */}
-            {currentUser && (
-              <div className="card mt-3">
-                <h3 className="card-title mb-3">Profile Stats</h3>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                    gap: "1rem",
-                  }}
-                >
-                  <div className="text-center">
-                    <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
-                      ⭐
-                    </div>
-                    <p className="mb-0">Saved Favourites</p>
-                    <p
-                      className="card-title mb-0"
-                      style={{ fontSize: "1.5rem" }}
-                    >
-                      View in <a href="/favourites">My Favourites</a>
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>
-                      🔍
-                    </div>
-                    <p className="mb-0">Quick Actions</p>
-                    <p
-                      className="card-title mb-0"
-                      style={{ fontSize: "1.5rem" }}
-                    >
-                      <a href="/search">Search Cards</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
+
           </>
         )}
       </div>

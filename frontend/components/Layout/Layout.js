@@ -10,6 +10,7 @@ import WizardSilhouette from "../UI/WizardSilhouette";
 import WizardSwirl from "../UI/WizardSwirl";
 import MinimalWizard from "../UI/MinimalWizard";
 import ManaSymbols from "../UI/ManaSymbols";
+import ConnectionStatus from "../ConnectionStatus";
 
 export default function Layout({ children, title = "Planeswalker's Primer" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -196,8 +197,13 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
                 </Link>
               </div>
 
-              {/* Theme Selector and Quick Reference - Always at bottom and centred */}
+              {/* Theme Selector, Connection Status and Quick Reference - Always at bottom and centred */}
               <div className="nav-bottom-section">
+                {/* Connection Status */}
+                <div className="connection-status-section">
+                  <ConnectionStatus showDetails={false} />
+                </div>
+
                 {/* Theme Selector */}
                 <div className="theme-selector-section">
                   <div className="theme-selector-label">Choose Theme:</div>

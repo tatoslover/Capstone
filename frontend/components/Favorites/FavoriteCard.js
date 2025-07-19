@@ -1,18 +1,17 @@
 import { useState } from 'react';
-import CardPreview from '../Card/CardPreview';
 
-export default function FavoriteCard({
-  favorite,
+export default function FavouriteCard({
+  favourite,
   currentUser,
   onEdit,
   onDelete,
   onCardClick
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editNotes, setEditNotes] = useState(favorite.notes || '');
+  const [editNotes, setEditNotes] = useState(favourite.notes || '');
   const [loading, setLoading] = useState(false);
 
-  if (!favorite) {
+  if (!favourite) {
     return null;
   }
 
@@ -21,7 +20,7 @@ export default function FavoriteCard({
 
     try {
       setLoading(true);
-      await onEdit(favorite.id, editNotes);
+      await onEdit(favourite.id, editNotes);
       setIsEditing(false);
     } catch (error) {
       console.error('Error saving notes:', error);
@@ -32,7 +31,7 @@ export default function FavoriteCard({
   };
 
   const handleCancelEdit = () => {
-    setEditNotes(favorite.notes || '');
+    setEditNotes(favourite.notes || '');
     setIsEditing(false);
   };
 
@@ -40,269 +39,251 @@ export default function FavoriteCard({
     if (!onDelete) return;
 
     const confirmDelete = window.confirm(
-      `Are you sure you want to remove "${favorite.card_name}" from your favorites?`
+      `Are you sure you want to remove "${favourite.card_name}" from your favourites?`
     );
 
     if (confirmDelete) {
       try {
         setLoading(true);
-        await onDelete(favorite.id);
+        await onDelete(favourite.id);
       } catch (error) {
-        console.error('Error deleting favorite:', error);
-        alert('Failed to remove favorite. Please try again.');
+        console.error('Error deleting favourite:', error);
+        alert('Failed to remove favourite. Please try again.');
         setLoading(false);
       }
     }
   };
 
-  // Mock card object for CardPreview (since we only have basic info in favorites)
-  const mockCard = {
-    id: favorite.scryfall_id,
-    name: favorite.card_name,
-    type_line: favorite.ability_type || 'Card',
-    // These would ideally be fetched from Scryfall if needed
-    image_uris: favorite.image_uris ? { small: favorite.image_uris.small } : null,
-    oracle_text: favorite.oracle_text || '',
-    mana_cost: favorite.mana_cost || '',
-    power: favorite.power,
-    toughness: favorite.toughness,
-    rarity: favorite.rarity || 'common'
+  const handleCardClick = () => {
+    if (onCardClick) {
+      onCardClick(favourite);
+    }
   };
 
+  // Use real Scryfall image data if available - for demo mode, image_uris is intentionally null
+  const cardImageUrl = favourite.image_uris?.normal || favourite.image_uris?.large || favourite.image_uris?.small || null;
+
+  // Helper function to determine CSS colour class from colour identity
+  const getCardColourClass = (colours) => {
+    if (!colours || colours.length === 0) {
+      return "mtg-colour-colourless";
+    } else if (colours.length === 1) {
+      const classMap = {
+        W: "mtg-colour-white",
+        U: "mtg-colour-blue",
+        B: "mtg-colour-black",
+        R: "mtg-colour-red",
+        G: "mtg-colour-green",
+      };
+      return classMap[colours[0]] || "mtg-colour-colourless";
+    } else {
+      return "mtg-colour-multicolour";
+    }
+  };
+
+  // Get colours from the favourite data
+  const cardColours = favourite.colour_identity || favourite.colours || [];
+  const colourClass = getCardColourClass(cardColours);
+
+  // Debug logging to see why placeholders aren't colored
+  console.log(`${favourite.card_name} placeholder debug:`, {
+    cardColours,
+    colourClass,
+    hasImageUris: !!favourite.image_uris,
+    cardImageUrl
+  });
+
+
+
+
+
+
   return (
-    <div style={{
-      background: 'white',
-      border: '2px solid #ffc107',
-      borderRadius: '0.75rem',
-      padding: '1.5rem',
-      marginBottom: '1.5rem',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-      position: 'relative'
-    }}>
-      {/* Favorite Indicator */}
-      <div style={{
-        position: 'absolute',
-        top: '1rem',
-        right: '1rem',
-        background: '#ffc107',
-        color: '#212529',
-        borderRadius: '50%',
-        width: '2.5rem',
-        height: '2.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '1.25rem',
-        fontWeight: 'bold'
-      }}>
-        ⭐
-      </div>
+    <div className="mtg-card-container favourite-card">
+      {/* Favourite Star Indicator */}
+      <div className="favourite-star">⭐</div>
 
-      {/* Card Preview */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <CardPreview
-          card={mockCard}
-          onClick={onCardClick}
-          currentUser={currentUser}
-          showFavoriteButton={false}
-        />
-      </div>
-
-      {/* Favorite Metadata */}
-      <div style={{
-        background: '#f8f9fa',
-        padding: '1rem',
-        borderRadius: '0.5rem',
-        border: '1px solid #e9ecef',
-        marginBottom: '1rem'
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '0.5rem',
-          flexWrap: 'wrap',
-          gap: '0.5rem'
-        }}>
-          <div style={{ fontSize: '0.875rem', color: '#6c757d' }}>
-            <strong>Added:</strong> {new Date(favorite.created_at).toLocaleDateString()}
-          </div>
-          {favorite.ability_type && (
-            <div style={{
-              background: '#e3f2fd',
-              color: '#1565c0',
-              padding: '0.25rem 0.5rem',
-              borderRadius: '0.25rem',
-              fontSize: '0.75rem',
-              fontWeight: '600'
-            }}>
-              {favorite.ability_type}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Notes Section */}
-      <div style={{
-        background: '#fff3cd',
-        border: '1px solid #ffeaa7',
-        borderRadius: '0.5rem',
-        padding: '1rem'
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '0.75rem'
-        }}>
-          <h4 style={{
-            margin: 0,
-            fontSize: '1rem',
-            color: '#856404'
-          }}>
-            📝 My Notes
-          </h4>
-          {!isEditing && (
-            <button
-              onClick={() => setIsEditing(true)}
-              disabled={loading}
-              style={{
-                background: 'transparent',
-                border: '1px solid #856404',
-                color: '#856404',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '0.25rem',
-                fontSize: '0.75rem',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              ✏️ Edit
-            </button>
-          )}
-        </div>
-
-        {isEditing ? (
-          <div>
-            <textarea
-              value={editNotes}
-              onChange={(e) => setEditNotes(e.target.value)}
-              placeholder="Add your personal notes about this card..."
-              disabled={loading}
-              style={{
-                width: '100%',
-                minHeight: '100px',
-                padding: '0.75rem',
-                border: '1px solid #ddd',
-                borderRadius: '0.25rem',
-                fontSize: '0.9rem',
-                fontFamily: 'inherit',
-                resize: 'vertical',
-                marginBottom: '0.75rem'
-              }}
-            />
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button
-                onClick={handleSaveNotes}
-                disabled={loading}
-                style={{
-                  background: '#28a745',
-                  color: 'white',
-                  border: 'none',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.25rem',
-                  fontSize: '0.875rem',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                {loading ? 'Saving...' : 'Save Notes'}
-              </button>
-              <button
-                onClick={handleCancelEdit}
-                disabled={loading}
-                style={{
-                  background: '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.25rem',
-                  fontSize: '0.875rem',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div>
-            {favorite.notes ? (
-              <p style={{
-                margin: 0,
-                fontSize: '0.9rem',
-                lineHeight: '1.5',
-                color: '#856404',
-                fontStyle: favorite.notes ? 'normal' : 'italic'
-              }}>
-                {favorite.notes}
-              </p>
-            ) : (
-              <p style={{
-                margin: 0,
-                fontSize: '0.9rem',
-                color: '#856404',
-                fontStyle: 'italic',
-                opacity: 0.7
-              }}>
-                No notes added yet. Click "Edit" to add your thoughts about this card.
-              </p>
+      {/* Card Image - Main Focus */}
+      <div className="card-image-container" onClick={handleCardClick}>
+        {/* Fallback/Placeholder - always show for demo mode */}
+        <div className={`mtg-card-placeholder ${colourClass}`}>
+          <div className="mtg-card-placeholder-content">
+            <h3 className="mtg-card-placeholder-name">{favourite.card_name}</h3>
+            {favourite.ability_type && (
+              <p className="mtg-card-placeholder-type">{favourite.ability_type}</p>
             )}
+            {favourite.mana_cost && (
+              <p className="mtg-card-placeholder-mana">{favourite.mana_cost}</p>
+            )}
+            <p className="mtg-card-placeholder-hint">Click to view details</p>
           </div>
-        )}
+        </div>
+
+        {/* Click Overlay */}
+        <div className="card-click-overlay">
+          <span className="click-hint">Click for details</span>
+        </div>
       </div>
 
-      {/* Actions */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: '1rem',
-        paddingTop: '1rem',
-        borderTop: '1px solid #e9ecef'
-      }}>
-        <div style={{ fontSize: '0.8rem', color: '#6c757d' }}>
-          Added to your favorites collection
-        </div>
-        <button
-          onClick={handleDelete}
-          disabled={loading}
-          style={{
-            background: '#dc3545',
-            color: 'white',
-            border: 'none',
-            padding: '0.5rem 1rem',
-            borderRadius: '0.25rem',
-            fontSize: '0.875rem',
-            cursor: 'pointer',
-            fontWeight: '500',
-            opacity: loading ? 0.6 : 1
-          }}
-          onMouseOver={(e) => {
-            if (!loading) {
-              e.target.style.background = '#c82333';
-            }
-          }}
-          onMouseOut={(e) => {
-            if (!loading) {
-              e.target.style.background = '#dc3545';
-            }
-          }}
-        >
-          {loading ? 'Removing...' : '🗑️ Remove'}
-        </button>
-      </div>
+      <style jsx>{`
+        .favourite-card {
+          position: relative;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: 2px solid var(--theme-highlight);
+          max-width: 300px;
+          margin: 0 auto;
+        }
+
+        .favourite-card:hover {
+          box-shadow: 0 6px 12px rgba(var(--theme-accent-rgb), 0.2);
+          transform: translateY(-2px);
+        }
+
+        .favourite-star {
+          position: absolute;
+          top: 0.25rem;
+          right: 0.25rem;
+          background: var(--theme-warning);
+          color: var(--theme-cardBg);
+          border-radius: 50%;
+          width: 1.5rem;
+          height: 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.75rem;
+          font-weight: bold;
+          z-index: 2;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image-container {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 5/7;
+          border-radius: 0.5rem;
+          overflow: hidden;
+          cursor: pointer;
+          max-height: 300px;
+        }
+
+        .card-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .card-image:hover {
+          transform: scale(1.05);
+        }
+
+        .card-placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          border-radius: 0.75rem;
+          background-image:
+            radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          min-height: 300px;
+        }
+
+        .card-placeholder:hover {
+          border-color: rgba(255, 255, 255, 0.4);
+          transform: scale(1.02);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-placeholder::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.1) 50%, transparent 51%);
+          pointer-events: none;
+        }
+
+        .card-placeholder-content {
+          text-align: center;
+          padding: 1rem;
+          z-index: 1;
+          position: relative;
+        }
+
+        .mtg-card-name {
+          font-size: 1.1rem;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+          letter-spacing: 0.5px;
+          color: inherit !important;
+        }
+
+        .mtg-card-type {
+          font-size: 0.8rem;
+          margin-bottom: 0.5rem;
+          font-style: italic;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+          color: inherit !important;
+          opacity: 0.9;
+        }
+
+        .mtg-mana-cost {
+          font-size: 0.9rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          font-family: 'Courier New', monospace;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+          color: inherit !important;
+          opacity: 0.8;
+        }
+
+        .card-click-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+          color: white;
+          padding: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .card-image-container:hover .card-click-overlay {
+          opacity: 1;
+        }
+
+        .click-hint {
+          font-size: 0.8rem;
+          font-weight: 500;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+          opacity: 0.7;
+          color: inherit !important;
+        }
+
+        @media (max-width: 768px) {
+          .favourite-card {
+            border: 2px solid var(--theme-highlight);
+            max-width: 300px;
+            margin: 0 auto;
+          }
+        }
+      `}</style>
     </div>
   );
 }
