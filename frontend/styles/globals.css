@@ -1681,6 +1681,405 @@ button.profile-btn-blue:disabled,
   }
 }
 
+/* Card Modal Styles */
+.card-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.card-modal-content {
+  background: #000000;
+  border-radius: 1rem;
+  max-width: 700px;
+  width: 85%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  animation: modalSlideIn 0.3s ease-out;
+  border: 2px solid #333333;
+  position: relative;
+  margin: auto;
+  color: white;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid #333333;
+  color: white;
+}
+
+.card-modal-title {
+  margin: 0;
+  color: #74b9ff;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.card-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.card-modal-close:hover {
+  background: #333333;
+  color: #74b9ff;
+}
+
+.card-modal-body {
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.card-modal-image-container {
+  flex: 0 0 auto;
+  max-width: 280px;
+  width: 100%;
+}
+
+.card-modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card-modal-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.card-info-section {
+  background: #111111;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #333333;
+  color: white;
+}
+
+.mana-cost-display,
+.type-line-display,
+.power-toughness-display,
+.rarity-display,
+.set-display,
+.artist-display {
+  margin-bottom: 1rem;
+  color: var(--theme-text);
+}
+
+.oracle-text {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #222222;
+  border-radius: 6px;
+  border: 1px solid #444444;
+  color: white;
+}
+
+.oracle-text strong {
+  color: #74b9ff;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.card-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-top: 1px solid #333333;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: white;
+}
+
+.favorite-btn-modal {
+  background: #74b9ff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.favorite-btn-modal:hover {
+  background: #0984e3;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .card-modal-content {
+    margin: 0.5rem;
+    max-height: 85vh;
+    width: 92%;
+  }
+
+  .card-modal-header,
+  .card-modal-body,
+  .card-modal-footer {
+    padding: 1.5rem;
+  }
+
+  .card-modal-title {
+    font-size: 1.5rem;
+  }
+
+  .card-modal-body {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .card-modal-image-container {
+    max-width: 100%;
+    align-self: center;
+  }
+
+  .card-modal-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Notes section styles */
+.notes-section {
+  margin-top: 1.5rem;
+  background: #111111;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: white;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.notes-header h4 {
+  margin: 0;
+  color: #74b9ff;
+  font-size: 1.1rem;
+}
+
+.notes-display {
+  background: #222222;
+  border: 1px solid #444444;
+  border-radius: 6px;
+  padding: 1rem;
+  min-height: 60px;
+  color: white;
+}
+
+.notes-placeholder {
+  color: #888888;
+  font-style: italic;
+  margin: 0;
+}
+
+.ability-badge {
+  display: inline-block;
+  background: #74b9ff;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.date-added {
+  color: #888888;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+/* Mana Symbol Styles */
+.mana-symbols {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 0.5rem;
+}
+
+.mana-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.8rem;
+  line-height: 1;
+  vertical-align: middle;
+  margin: 0 0.1rem;
+}
+
+.mana-generic {
+  background: #ccc;
+  color: #333;
+  border: 2px solid #999;
+}
+
+.mana-white {
+  background: #fffbd5;
+  color: #333;
+  border: 2px solid #ffeaa7;
+}
+
+.mana-blue {
+  background: #74b9ff;
+  color: white;
+  border: 2px solid #0984e3;
+}
+
+.mana-black {
+  background: #2d3436;
+  color: white;
+  border: 2px solid #636e72;
+}
+
+.mana-red {
+  background: #e17055;
+  color: white;
+  border: 2px solid #d63031;
+}
+
+.mana-green {
+  background: #00b894;
+  color: white;
+  border: 2px solid #00a085;
+}
+
+.mana-colorless {
+  background: #ddd;
+  color: #333;
+  border: 2px solid #999;
+}
+
+.mana-hybrid {
+  background: linear-gradient(45deg, #e17055 50%, #00b894 50%);
+  color: white;
+  border: 2px solid #636e72;
+  font-size: 0.6rem;
+}
+
+.mana-variable {
+  background: #6c5ce7;
+  color: white;
+  border: 2px solid #5f3dc4;
+}
+
+/* Oracle Text Improvements */
+.oracle-text-content {
+  margin-top: 0.5rem;
+}
+
+.oracle-sentence {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+}
+
+.oracle-sentence:last-child {
+  margin-bottom: 0;
+}
+
+.oracle-sentence .mana-symbol {
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 0.7rem;
+}
+
+/* Rarity Badge Styles */
+.rarity-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rarity-common {
+  background: #636e72;
+  color: white;
+}
+
+.rarity-uncommon {
+  background: #74b9ff;
+  color: white;
+}
+
+.rarity-rare {
+  background: #fdcb6e;
+  color: #2d3436;
+}
+
+.rarity-mythic {
+  background: #e17055;
+  color: white;
+}
+
+/* Card Info Section Improvements */
+.mana-cost-display, .type-line-display, .power-toughness-display, .rarity-display, .set-display, .artist-display {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mana-cost-display strong, .type-line-display strong, .power-toughness-display strong, .rarity-display strong, .set-display strong, .artist-display strong {
+  min-width: 6rem;
+  color: #74b9ff;
+}
+
 /* MTG Card Placeholder Styles */
 .mtg-card-placeholder {
   width: 100%;
@@ -1846,6 +2245,30 @@ button.profile-btn-blue:disabled,
 .search-controls {
     display: flex;
     gap: 0.5rem;
+}
+
+/* Search button styling - same approach as profile-btn-blue */
+.search-controls .btn-primary,
+.search-form .btn-primary,
+button.search-btn-primary,
+.btn.search-btn-primary {
+    background-color: #007bff !important;
+    background: #007bff !important;
+    border-color: #007bff !important;
+    color: white !important;
+    border: 2px solid #007bff !important;
+}
+
+.search-controls .btn-primary:hover,
+.search-form .btn-primary:hover,
+button.search-btn-primary:hover,
+.btn.search-btn-primary:hover {
+    background-color: #0056b3 !important;
+    background: #0056b3 !important;
+    border-color: #0056b3 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
 }
 
 .quick-search-section {
@@ -2547,5 +2970,450 @@ button.profile-btn-blue:disabled,
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Search Results Layout - Matching Favourites */
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--theme-border);
+    border-radius: 4px;
+    background: var(--theme-background);
+    color: var(--theme-text);
+}
+
+.filter-clear-section {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.search-results-filtered {
+    color: var(--theme-accent);
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+/* Pagination Styles */
+.pagination-controls {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.pagination-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.page-numbers .btn {
+  background: var(--theme-accent);
+  color: white;
+  border: 1px solid var(--theme-accent);
+  min-width: 2.5rem;
+}
+
+.page-numbers .btn:hover {
+  background: var(--theme-accent-hover);
+  border-color: var(--theme-accent-hover);
+  color: white;
+}
+
+.page-numbers .btn-primary {
+  background: var(--theme-accent);
+  border-color: var(--theme-accent);
+  color: white;
+  font-weight: 600;
+}
+
+.page-numbers .btn-secondary {
+  background: var(--theme-accent);
+  border-color: var(--theme-accent);
+  color: white;
+}
+
+.page-numbers .btn:disabled {
+  background: var(--theme-muted);
+  border-color: var(--theme-muted);
+  color: var(--theme-text-muted);
+}
+
+/* Pagination button styling - same approach as profile-btn-blue */
+.pagination-controls .btn-secondary,
+.pagination-controls .btn-primary,
+button.pagination-btn,
+.btn.pagination-btn {
+  background-color: #007bff !important;
+  background: #007bff !important;
+  border-color: #007bff !important;
+  color: white !important;
+  border: 2px solid #007bff !important;
+}
+
+.pagination-controls .btn-secondary:hover,
+.pagination-controls .btn-primary:hover,
+button.pagination-btn:hover,
+.btn.pagination-btn:hover {
+  background-color: #0056b3 !important;
+  background: #0056b3 !important;
+  border-color: #0056b3 !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
+}
+
+.pagination-controls .btn-secondary:disabled,
+.pagination-controls .btn-primary:disabled,
+button.pagination-btn:disabled,
+.btn.pagination-btn:disabled {
+  background-color: #007bff !important;
+  background: #007bff !important;
+  border-color: #007bff !important;
+  opacity: 0.5 !important;
+  transform: none !important;
+}
+
+.pagination-info {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--theme-text);
+    font-size: 0.9rem;
+}
+
+/* Search Results Header Combined */
+.search-results-header-combined {
+  margin-bottom: 1rem;
+}
+
+.search-results-header-combined .search-results-title {
+  margin: 0 0 0.5rem 0;
+  color: var(--theme-accent);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.search-results-header-combined .search-results-query {
+  margin: 0 0 0.5rem 0;
+  color: var(--theme-text);
+  font-size: 0.95rem;
+}
+
+.search-results-header-combined .pagination-info {
+  color: var(--theme-text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.search-results-header-combined .form-label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.search-results-total {
+  color: var(--theme-text-muted);
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
+.search-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-results-title {
+    margin-bottom: 0.5rem;
+    color: var(--theme-accent);
+}
+
+.search-results-query {
+    color: var(--theme-text);
+    margin-bottom: 0;
+}
+
+.search-results-total {
+    color: var(--theme-muted);
+    font-weight: normal;
+}
+
+.results-info {
+  color: var(--theme-text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.api-limit-note {
+  color: var(--theme-warning);
+  font-weight: 500;
+}
+
+/* Mobile Responsive for Search */
+@media (max-width: 768px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .page-numbers {
+        order: -1;
+        margin-bottom: 1rem;
+    }
+
+    .search-results-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .results-info {
+        align-self: flex-start;
+        margin-top: 0.5rem;
+    }
+}
+
+/* SearchCard Component Styles */
+.search-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: var(--theme-background);
+    border: 1px solid var(--theme-border);
+}
+
+.search-card .favorite-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.search-card .favorite-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+.search-card .favorite-btn-selected {
+    background: #fdcb6e !important;
+    color: #2d3436 !important;
+    box-shadow: 0 2px 8px rgba(253, 203, 110, 0.4) !important;
+}
+
+.search-card .favorite-btn-selected:hover {
+    background: #f39c12 !important;
+    transform: scale(1.1);
+}
+
+.search-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  border-color: var(--theme-accent);
+}
+
+.search-card-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 5/7; /* MTG card ratio */
+    overflow: hidden;
+}
+
+.search-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.search-card-image.loaded {
+    opacity: 1;
+}
+
+.search-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 1rem;
+    color: white;
+}
+
+.search-card-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.search-card:hover .search-card-overlay {
+  opacity: 1;
+}
+
+.search-card::after {
+  content: "Click to view details";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.search-card:hover::after {
+  opacity: 1;
+}
+
+/* Favourite card specific styles */
+.favourite-card {
+  border: 2px solid #fdcb6e !important;
+}
+
+.favourite-card:hover {
+  border-color: #e17055 !important;
+  box-shadow: 0 8px 20px rgba(253, 203, 110, 0.3) !important;
+}
+
+.favourite-star {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: #fdcb6e;
+  color: #2d3436;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.remove-btn {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  background: #d63031;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 2;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #e74c3c;
+  transform: scale(1.1);
+}
+
+/* Placeholder adjustments for search cards */
+.search-card .mtg-card-placeholder {
+    height: 100%;
+    min-height: unset;
+}
+
+.search-card .mtg-card-placeholder-content {
+    padding: 1rem;
+}
+
+.search-card .mtg-card-placeholder-name {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.search-card .mtg-card-placeholder-type {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.search-card .mtg-card-placeholder-mana {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+}
+
+.search-card .mtg-card-placeholder-hint {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Search Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+@media (max-width: 768px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .search-card-name {
+        font-size: 0.8rem;
+    }
+
+    .search-card-overlay {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.5rem;
+    }
+
+    .search-card-name {
+        font-size: 0.75rem;
     }
 }

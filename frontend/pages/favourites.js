@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
-import { FavouritesList } from "../components/Favorites";
+import SearchCard from "../components/Search/SearchCard";
 import Loading from "../components/UI/Loading";
-import { apiService } from "../services/apiService";
+import { apiService, addConnectionListener, removeConnectionListener } from "../services/apiService";
 
 export default function FavouritesPage() {
   const router = useRouter();
@@ -12,15 +12,39 @@ export default function FavouritesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
+  const [isOnline, setIsOnline] = useState(true);
+
+  // Filtering and sorting state
+  const [sortBy, setSortBy] = useState('newest');
+  const [filterBy, setFilterBy] = useState('all');
+  const [searchFilter, setSearchFilter] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const resultsPerPage = 10;
 
   // Load user from localStorage on mount
   useEffect(() => {
+    // Listen for connection status changes first
+    const handleConnectionChange = (online) => {
+      setIsOnline(online);
+    };
+
+    addConnectionListener(handleConnectionChange);
+
+    // Get initial connection status
+    setIsOnline(apiService.isOnline());
+
     const savedUser = localStorage.getItem("currentUser");
     if (savedUser) {
       try {
         const user = JSON.parse(savedUser);
         setCurrentUser(user);
-        fetchFavourites(user.id);
+        // Check connection and fetch if online
+        if (apiService.isOnline()) {
+          fetchFavourites(user.id);
+        } else {
+          setLoading(false);
+        }
       } catch (e) {
         localStorage.removeItem("currentUser");
         setLoading(false);
@@ -28,78 +52,194 @@ export default function FavouritesPage() {
     } else {
       setLoading(false);
     }
+
+    return () => {
+      removeConnectionListener(handleConnectionChange);
+    };
   }, []);
 
+  // Separate effect to handle connection changes for existing users
+  useEffect(() => {
+    if (isOnline && currentUser && favourites.length === 0 && !loading) {
+      fetchFavourites(currentUser.id);
+    }
+  }, [isOnline, currentUser]);
+
   const fetchFavourites = async (userId) => {
+    if (!isOnline) {
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
 
-      const data = await apiService.favourites.getByUserId(userId);
-      setFavourites(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error("Error fetching favorites:", err);
-      // Better error message for offline mode
-      if (err.message === "OFFLINE_MODE") {
-        setError("Currently offline - demo mode active with sample data");
-      } else {
-        setError("Failed to load your favourites. Please try again.");
+      // Get favourites list from backend
+      const favouritesData = await apiService.favourites.getByUserId(userId);
+
+      if (!Array.isArray(favouritesData) || favouritesData.length === 0) {
+        setFavourites([]);
+        return;
       }
+
+      // Fetch actual card data from Scryfall for each favourite
+      const cardPromises = favouritesData.map(async (fav) => {
+        try {
+          if (fav.scryfall_id) {
+            const cardData = await apiService.cards.getById(fav.scryfall_id);
+            // Merge Scryfall card data with favourite metadata
+            return {
+              ...cardData,
+              favourite_id: fav.id,
+              notes: fav.notes,
+              created_at: fav.created_at,
+              ability_type: fav.ability_type
+            };
+          } else {
+            // Fallback for favourites without scryfall_id
+            return {
+              id: fav.id,
+              name: fav.card_name || 'Unknown Card',
+              favourite_id: fav.id,
+              notes: fav.notes,
+              created_at: fav.created_at,
+              ability_type: fav.ability_type
+            };
+          }
+        } catch (cardError) {
+          console.warn(`Failed to fetch card data for favourite ${fav.id}:`, cardError);
+          // Return fallback data if Scryfall fetch fails
+          return {
+            id: fav.scryfall_id || fav.id,
+            name: fav.card_name || 'Unknown Card',
+            favourite_id: fav.id,
+            notes: fav.notes,
+            created_at: fav.created_at,
+            ability_type: fav.ability_type
+          };
+        }
+      });
+
+      const cardsWithFavouriteData = await Promise.all(cardPromises);
+      setFavourites(cardsWithFavouriteData);
+    } catch (err) {
+      console.error("Error fetching favourites:", err);
+      setError("Failed to load your favourites. Please try again.");
       setFavourites([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEditFavourite = async (favouriteId, newNotes) => {
-    try {
-      setActionLoading(true);
+  // Extract unique ability types for filtering
+  const abilityTypes = useMemo(() => {
+    const types = [...new Set(favourites
+      .map(fav => fav.ability_type)
+      .filter(type => type && type !== '')
+    )];
+    return types.sort();
+  }, [favourites]);
 
-      await apiService.favourites.update(favouriteId, { notes: newNotes });
+  // Extract unique rarities for filtering
+  const rarities = useMemo(() => {
+    const rarityList = [...new Set(favourites
+      .map(card => card.rarity)
+      .filter(rarity => rarity)
+    )];
+    return rarityList.sort();
+  }, [favourites]);
 
-      // Update local state
-      setFavourites((prevFavourites) =>
-        prevFavourites.map((fav) =>
-          fav.id === favouriteId ? { ...fav, notes: newNotes } : fav,
-        ),
+  // Filter and sort results
+  const filteredAndSortedResults = useMemo(() => {
+    let filtered = [...favourites];
+
+    // Apply search filter
+    if (searchFilter.trim()) {
+      const search = searchFilter.toLowerCase();
+      filtered = filtered.filter(card =>
+        card.name.toLowerCase().includes(search) ||
+        (card.oracle_text && card.oracle_text.toLowerCase().includes(search)) ||
+        (card.type_line && card.type_line.toLowerCase().includes(search)) ||
+        (card.notes && card.notes.toLowerCase().includes(search))
       );
-
-      // Show success notification
-      showNotification("Notes updated successfully!", "success");
-    } catch (err) {
-      console.error("Error updating favorite:", err);
-      showNotification(err.message, "error");
-      throw err; // Re-throw to handle in component
-    } finally {
-      setActionLoading(false);
     }
-  };
 
-  const handleDeleteFavourite = async (favouriteId) => {
+    // Apply type filter
+    if (filterBy !== 'all') {
+      if (filterBy.startsWith('type-')) {
+        const type = filterBy.replace('type-', '');
+        filtered = filtered.filter(card =>
+          card.ability_type === type
+        );
+      } else if (filterBy.startsWith('rarity-')) {
+        const rarity = filterBy.replace('rarity-', '');
+        filtered = filtered.filter(card => card.rarity === rarity);
+      }
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'newest':
+          return new Date(b.created_at) - new Date(a.created_at);
+        case 'oldest':
+          return new Date(a.created_at) - new Date(b.created_at);
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'name-desc':
+          return b.name.localeCompare(a.name);
+        case 'mana-cost':
+          const aCmc = a.cmc || 0;
+          const bCmc = b.cmc || 0;
+          return aCmc - bCmc;
+        case 'rarity':
+          const rarityOrder = { common: 1, uncommon: 2, rare: 3, mythic: 4 };
+          return (rarityOrder[a.rarity] || 0) - (rarityOrder[b.rarity] || 0);
+        case 'type':
+          const typeA = a.ability_type || 'zzz';
+          const typeB = b.ability_type || 'zzz';
+          return typeA.localeCompare(typeB);
+        default:
+          return 0;
+      }
+    });
+
+    return filtered;
+  }, [favourites, searchFilter, filterBy, sortBy]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredAndSortedResults.length / resultsPerPage);
+  const startIndex = (currentPage - 1) * resultsPerPage;
+  const paginatedResults = filteredAndSortedResults.slice(startIndex, startIndex + resultsPerPage);
+
+  // Reset to page 1 when filters change
+  useMemo(() => {
+    setCurrentPage(1);
+  }, [searchFilter, filterBy, sortBy]);
+
+  const handleRemoveFavourite = async (card) => {
+    if (!isOnline) {
+      showNotification("Cannot remove favourites while offline.", "error");
+      return;
+    }
+
     try {
       setActionLoading(true);
 
-      await apiService.favourites.delete(favouriteId);
+      await apiService.favourites.delete(card.favourite_id);
 
       // Update local state
       setFavourites((prevFavourites) =>
-        prevFavourites.filter((fav) => fav.id !== favouriteId),
+        prevFavourites.filter((fav) => fav.favourite_id !== card.favourite_id)
       );
 
       showNotification("Card removed from favourites!", "success");
     } catch (err) {
-      console.error("Error deleting favorite:", err);
-      showNotification(err.message, "error");
-      throw err; // Re-throw to handle in component
+      console.error("Error deleting favourite:", err);
+      showNotification("Failed to remove from favourites. Please try again.", "error");
     } finally {
       setActionLoading(false);
-    }
-  };
-
-  const handleCardClick = (card) => {
-    // For now, navigate to search with the card name
-    if (card && card.name) {
-      router.push(`/search?q=${encodeURIComponent(card.name)}`);
     }
   };
 
@@ -144,6 +284,40 @@ export default function FavouritesPage() {
     }, 3000);
   };
 
+  // Show offline message if backend is not connected
+  if (!isOnline) {
+    return (
+      <Layout title="Favourites - Planeswalker's Primer">
+        <div className="container page-content">
+          <div
+            className="card text-center"
+            style={{ maxWidth: "600px", margin: "0 auto" }}
+          >
+            <div style={{ fontSize: "4rem", marginBottom: "1.5rem" }}>🌐</div>
+            <h2 className="card-title">Currently Offline</h2>
+            <p className="mb-3" style={{ fontSize: "1.1rem" }}>
+              Your favourites require a connection to the backend server. Please check your connection and try again.
+            </p>
+            <div
+              className="d-flex gap-2 justify-center"
+              style={{ flexWrap: "wrap" }}
+            >
+              <button
+                onClick={() => window.location.reload()}
+                className="btn"
+              >
+                🔄 Retry Connection
+              </button>
+              <a href="/search" className="btn-outline">
+                🔍 Search Cards Instead
+              </a>
+            </div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   // Redirect to home if no user
   if (!loading && !currentUser) {
     return (
@@ -156,7 +330,7 @@ export default function FavouritesPage() {
             <div style={{ fontSize: "4rem", marginBottom: "1.5rem" }}>👤</div>
             <h2 className="card-title">Profile Required</h2>
             <p className="mb-3" style={{ fontSize: "1.1rem" }}>
-              You need to create a profile to save and view your favorite cards.
+              You need to create a profile to save and view your favourite cards.
             </p>
             <div
               className="d-flex gap-2 justify-center"
@@ -165,18 +339,6 @@ export default function FavouritesPage() {
               <a href="/profile" className="btn-outline">
                 Create Profile
               </a>
-              <button
-                onClick={() => {
-                  // Set demo user for offline experience
-                  const demoUser = { id: 1, username: "Demo" };
-                  localStorage.setItem("currentUser", JSON.stringify(demoUser));
-                  setCurrentUser(demoUser);
-                  fetchFavourites(1);
-                }}
-                className="btn-secondary"
-              >
-                Demo Profile
-              </button>
             </div>
           </div>
         </div>
@@ -204,8 +366,6 @@ export default function FavouritesPage() {
           </div>
         </div>
 
-
-
         {/* Loading State */}
         {loading && (
           <div className="loading-container">
@@ -220,23 +380,235 @@ export default function FavouritesPage() {
             <p className="mb-3">{error}</p>
             <button
               onClick={() => currentUser && fetchFavourites(currentUser.id)}
+              className="btn"
             >
               Try Again
             </button>
           </div>
         )}
 
-        {/* Favourites List */}
+        {/* Search and Filter Controls */}
+        {!loading && !error && currentUser && favourites.length > 0 && (
+          <div className="card mb-3">
+            {/* Search within results */}
+            <div className="form-group">
+              <div className="search-results-header-combined">
+                <h3 className="search-results-title">
+                  ⭐ Your Favourites - Found {favourites.length} cards
+                </h3>
+                <p className="search-results-query">Your saved collection</p>
+                {filteredAndSortedResults.length > resultsPerPage && (
+                  <p className="pagination-info">
+                    Page {currentPage} of {totalPages} ({startIndex + 1}-{Math.min(startIndex + resultsPerPage, filteredAndSortedResults.length)} of {filteredAndSortedResults.length} results)
+                  </p>
+                )}
+                <label className="form-label">Filter favourites:</label>
+              </div>
+              <input
+                type="text"
+                value={searchFilter}
+                onChange={(e) => setSearchFilter(e.target.value)}
+                placeholder="Filter by card name, text, notes, or type..."
+                className="search-input"
+              />
+            </div>
+
+            {/* Filters */}
+            <div className="filters-grid">
+              {/* Sort By */}
+              <div className="form-group">
+                <label className="form-label">
+                  📊 Sort By
+                </label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="filter-select"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="name">Name A-Z</option>
+                  <option value="name-desc">Name Z-A</option>
+                  <option value="mana-cost">Mana Cost</option>
+                  <option value="rarity">Rarity</option>
+                  <option value="type">Ability Type</option>
+                </select>
+              </div>
+
+              {/* Filter By Type */}
+              <div className="form-group">
+                <label className="form-label">
+                  🎯 Filter By
+                </label>
+                <select
+                  value={filterBy}
+                  onChange={(e) => setFilterBy(e.target.value)}
+                  className="filter-select"
+                >
+                  <option value="all">All Cards ({favourites.length})</option>
+                  {abilityTypes.map(type => {
+                    const count = favourites.filter(card => card.ability_type === type).length;
+                    return (
+                      <option key={type} value={`type-${type}`}>
+                        {type} ({count})
+                      </option>
+                    );
+                  })}
+                  {rarities.map(rarity => {
+                    const count = favourites.filter(card => card.rarity === rarity).length;
+                    return (
+                      <option key={rarity} value={`rarity-${rarity}`}>
+                        {rarity.charAt(0).toUpperCase() + rarity.slice(1)} ({count})
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
+
+            {/* Clear Filters */}
+            {(searchFilter || filterBy !== 'all' || sortBy !== 'newest') && (
+              <div className="filter-clear-section">
+                <button
+                  onClick={() => {
+                    setSearchFilter('');
+                    setFilterBy('all');
+                    setSortBy('newest');
+                  }}
+                  className="btn btn-secondary"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Show filtered results info if applicable */}
+        {!loading && !error && filteredAndSortedResults.length !== favourites.length && favourites.length > 0 && (
+          <div className="card mb-2">
+            <p className="search-results-filtered">
+              Showing {filteredAndSortedResults.length} filtered results
+              {searchFilter && ` matching "${searchFilter}"`}
+            </p>
+          </div>
+        )}
+
+        {/* Results */}
         {!loading && !error && currentUser && (
-          <FavouritesList
-            favourites={favourites}
-            loading={actionLoading}
-            error=""
-            currentUser={currentUser}
-            onEditFavorite={handleEditFavourite}
-            onDeleteFavorite={handleDeleteFavourite}
-            onCardClick={handleCardClick}
-          />
+          <>
+            {favourites.length === 0 ? (
+              <div className="search-empty-state card">
+                <div className="search-empty-icon">⭐</div>
+                <h3 className="search-empty-title">
+                  No Favourites Yet
+                </h3>
+                <div className="search-empty-content">
+                  <p className="search-empty-subtitle">
+                    Start building your collection by searching for cards and clicking the ⭐ button!
+                  </p>
+                  <div className="mt-3">
+                    <a href="/search" className="btn">
+                      🔍 Search for Cards
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ) : filteredAndSortedResults.length === 0 ? (
+              <div className="search-empty-state card">
+                <div className="search-empty-icon">🔍</div>
+                <h3 className="search-empty-title">
+                  No matches found
+                </h3>
+                <p className="search-empty-subtitle">
+                  Try adjusting your search or filter settings.
+                </p>
+              </div>
+            ) : (
+              <div>
+                {/* Results Grid */}
+                <div className="cards-grid">
+                  {paginatedResults.map((card, index) => (
+                    <div
+                      key={card.favourite_id || card.id}
+                      className={`fade-in fade-in-delay-${Math.min(index + 1, 5)}`}
+                    >
+                      <SearchCard
+                        card={card}
+                        currentUser={currentUser}
+                        onRemoveFavorite={handleRemoveFavourite}
+                        showFavoriteButton={true}
+                        isFavorite={true}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="pagination-controls card">
+                    <div className="pagination-buttons">
+                      <button
+                        onClick={() => setCurrentPage(1)}
+                        disabled={currentPage === 1}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        First
+                      </button>
+                      <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        Previous
+                      </button>
+
+                      {/* Page numbers */}
+                      <div className="page-numbers">
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                          let pageNum;
+                          if (totalPages <= 5) {
+                            pageNum = i + 1;
+                          } else if (currentPage <= 3) {
+                            pageNum = i + 1;
+                          } else if (currentPage >= totalPages - 2) {
+                            pageNum = totalPages - 4 + i;
+                          } else {
+                            pageNum = currentPage - 2 + i;
+                          }
+
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`btn ${currentPage === pageNum ? 'btn-primary' : 'btn-secondary'} pagination-btn`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        Next
+                      </button>
+                      <button
+                        onClick={() => setCurrentPage(totalPages)}
+                        disabled={currentPage === totalPages}
+                        className="btn btn-secondary pagination-btn"
+                      >
+                        Last
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
         )}
 
         {/* Help Section */}

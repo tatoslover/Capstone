@@ -32,14 +32,6 @@ export default function CardList({
 
   return (
     <div>
-      {/* Results Header */}
-      <div className="results-header">
-        <h3 className="results-count">
-          {cards.length} {cards.length === 1 ? "card" : "cards"} found
-        </h3>
-        <div className="results-info">Powered by Scryfall API</div>
-      </div>
-
       {/* Cards Grid */}
       <div className="cards-grid">
         {cards.map((card, index) => (

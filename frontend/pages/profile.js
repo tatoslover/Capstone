@@ -17,6 +17,7 @@ export default function ProfilePage() {
   const [editingUsername, setEditingUsername] = useState("");
   const [isOnline, setIsOnline] = useState(true);
 
+
   // Load user from localStorage on mount
   useEffect(() => {
     const savedUser = localStorage.getItem("currentUser");
@@ -29,21 +30,42 @@ export default function ProfilePage() {
         localStorage.removeItem("currentUser");
       }
     }
-    fetchUsers();
 
-    // Listen for connection status changes
+    // Listen for connection status changes first
     const handleConnectionChange = (online) => {
       setIsOnline(online);
     };
 
     addConnectionListener(handleConnectionChange);
 
+    // Get initial connection status
+    setIsOnline(apiService.isOnline());
+
+    // Check connection and fetch if online
+    if (apiService.isOnline()) {
+      fetchUsers();
+    } else {
+      setLoading(false);
+    }
+
     return () => {
       removeConnectionListener(handleConnectionChange);
     };
   }, []);
 
+  // Separate effect to handle connection changes
+  useEffect(() => {
+    if (isOnline && users.length === 0 && !loading) {
+      fetchUsers();
+    }
+  }, [isOnline]);
+
   const fetchUsers = async () => {
+    if (!isOnline) {
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
@@ -66,6 +88,11 @@ export default function ProfilePage() {
   const handleCreateUser = async (e) => {
     e.preventDefault();
     if (!newUsername.trim()) return;
+
+    if (!isOnline) {
+      showNotification("Cannot create profiles while offline.", "error");
+      return;
+    }
 
     try {
       setActionLoading(true);
@@ -98,11 +125,12 @@ export default function ProfilePage() {
     e.preventDefault();
     if (!editingUsername.trim() || !currentUser) return;
 
-    // Protect Demo user in offline mode
-    if ((!isOnline || !apiService.isOnline()) && currentUser.username === "Demo") {
-      setError("Cannot modify Demo profile in offline mode");
+    if (!isOnline) {
+      showNotification("Cannot update profiles while offline.", "error");
       return;
     }
+
+
 
     try {
       setActionLoading(true);
@@ -123,11 +151,7 @@ export default function ProfilePage() {
       showNotification("Profile updated successfully!", "success");
     } catch (err) {
       console.error("Error updating user:", err);
-      if (err.message === 'OFFLINE_MODE' || !isOnline) {
-        setError("Cannot update profiles in offline mode");
-      } else {
-        setError(err.message || "Failed to update user");
-      }
+      setError(err.message || "Failed to update user");
     } finally {
       setActionLoading(false);
     }
@@ -136,11 +160,12 @@ export default function ProfilePage() {
   const handleDeleteUser = async () => {
     if (!currentUser) return;
 
-    // Protect Demo user in offline mode
-    if ((!isOnline || !apiService.isOnline()) && currentUser.username === "Demo") {
-      setError("Cannot delete Demo profile in offline mode");
+    if (!isOnline) {
+      showNotification("Cannot delete profiles while offline.", "error");
       return;
     }
+
+
 
     const confirmed = window.confirm(
       `Are you sure you want to delete your profile "${currentUser.username}"? This will also remove all your saved favourites and cannot be undone.`,
@@ -224,6 +249,40 @@ export default function ProfilePage() {
       }
     }, 3000);
   };
+
+  // Show offline message if backend is not connected
+  if (!isOnline) {
+    return (
+      <Layout title="Profile - Planeswalker's Primer">
+        <div className="container page-content">
+          <div
+            className="card text-center"
+            style={{ maxWidth: "600px", margin: "0 auto" }}
+          >
+            <div style={{ fontSize: "4rem", marginBottom: "1.5rem" }}>🌐</div>
+            <h2 className="card-title">Currently Offline</h2>
+            <p className="mb-3" style={{ fontSize: "1.1rem" }}>
+              Profile management requires a connection to the backend server. Please check your connection and try again.
+            </p>
+            <div
+              className="d-flex gap-2 justify-center"
+              style={{ flexWrap: "wrap" }}
+            >
+              <button
+                onClick={() => window.location.reload()}
+                className="btn"
+              >
+                🔄 Retry Connection
+              </button>
+              <a href="/search" className="btn-outline">
+                🔍 Search Cards Instead
+              </a>
+            </div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout title="Profile - Planeswalker's Primer">

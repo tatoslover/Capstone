@@ -154,13 +154,6 @@ export default function CardSearch({
 
   return (
     <div className="card">
-      <div className="card-header">
-        <h3 className="card-title search-page-title">Search Magic Cards</h3>
-        <p className="card-subtitle search-page-subtitle">
-          Find cards by name, ability, or use filters to explore
-        </p>
-      </div>
-
       {/* Main Search */}
       <form onSubmit={handleSubmit} className="search-form">
         <div className="form-group">
@@ -189,7 +182,7 @@ export default function CardSearch({
               type="submit"
               loading={loading}
               disabled={!searchQuery.trim() && !hasActiveFilters()}
-              className="btn-primary"
+              className="btn-primary search-btn-primary"
             >
               Search
             </Button>
@@ -200,11 +193,7 @@ export default function CardSearch({
                 onSearch("*");
               }}
               loading={loading}
-              className="btn-primary"
-              style={{
-                backgroundColor: "var(--theme-highlight)",
-                borderColor: "var(--theme-highlight)",
-              }}
+              className="btn-primary search-btn-primary"
             >
               🎲 Random
             </Button>
