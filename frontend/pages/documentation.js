@@ -1,12 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
+import { apiService, addConnectionListener, removeConnectionListener } from "../services/apiService";
 
 export default function Documentation() {
   const [selectedSection, setSelectedSection] = useState(null);
+  const [dbConnectionStatus, setDbConnectionStatus] = useState("unknown");
+  const [isTestingConnection, setIsTestingConnection] = useState(false);
+  const [swaggerLoaded, setSwaggerLoaded] = useState(false);
+  const [swaggerError, setSwaggerError] = useState(false);
 
   const handleSectionClick = (section) => {
     setSelectedSection(selectedSection === section ? null : section);
   };
+
+  // Test database connection
+  const testDatabaseConnection = async () => {
+    setIsTestingConnection(true);
+    setDbConnectionStatus("unknown");
+    try {
+      const response = await apiService.health();
+      if (response && response.status === "OK") {
+        setDbConnectionStatus("connected");
+        setSwaggerError(false);
+      } else {
+        setDbConnectionStatus("disconnected");
+      }
+    } catch (error) {
+      console.log("Database connection test failed:", error.message);
+      setDbConnectionStatus("disconnected");
+      setSwaggerError(true);
+    } finally {
+      setIsTestingConnection(false);
+    }
+  };
+
+  // Monitor API connection status
+  useEffect(() => {
+    const checkConnection = (isOnline) => {
+      setDbConnectionStatus(isOnline ? "connected" : "disconnected");
+    };
+
+    // Initial check
+    testDatabaseConnection();
+
+    // Listen for connection changes
+    addConnectionListener(checkConnection);
+
+    return () => {
+      removeConnectionListener(checkConnection);
+    };
+  }, []);
 
   const sectionInfo = {
     introduction: {
@@ -203,6 +246,117 @@ export default function Documentation() {
         </div>
       ),
     },
+    api: {
+      title: "API Documentation",
+      content: (
+        <div>
+          <h4 className="doc-heading">Railway Database Connection</h4>
+          <div className="api-connection-status">
+            <div className={`connection-indicator ${dbConnectionStatus}`}>
+              <span className="connection-dot"></span>
+              <span className="connection-text">
+                Database: {dbConnectionStatus === "connected" ? "Connected" :
+                          dbConnectionStatus === "disconnected" ? "Disconnected" :
+                          "Testing..."}
+              </span>
+            </div>
+            <button
+              className="btn btn-secondary btn-size-small"
+              onClick={testDatabaseConnection}
+              disabled={isTestingConnection}
+            >
+              {isTestingConnection ? "Testing..." : "Test Connection"}
+            </button>
+          </div>
+
+          <h4 className="doc-heading">Interactive API Explorer</h4>
+          <p className="doc-paragraph">
+            The API documentation provides interactive testing for all backend endpoints including users, favourites, messages, and MTG card search functionality.
+          </p>
+
+          <div className="api-swagger-container">
+            {dbConnectionStatus === "connected" && !swaggerError ? (
+              <iframe
+                src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api-docs`}
+                className="swagger-iframe"
+                title="API Documentation"
+                onLoad={() => setSwaggerLoaded(true)}
+                onError={() => setSwaggerError(true)}
+              />
+            ) : (
+              <div className="swagger-fallback">
+                <div className="swagger-fallback-content">
+                  <h5>📋 API Documentation Unavailable</h5>
+                  <p>The interactive Swagger documentation requires the backend server to be running.</p>
+                  {dbConnectionStatus === "disconnected" && (
+                    <div className="swagger-fallback-instructions">
+                      <p><strong>To view the interactive API documentation:</strong></p>
+                      <ol>
+                        <li>Start the backend server: <code>cd backend && npm start</code></li>
+                        <li>Ensure it's running on <code>http://localhost:3001</code></li>
+                        <li>Click "Test Connection" above to verify connectivity</li>
+                        <li>Refresh this page once connected</li>
+                      </ol>
+                      <p>Alternatively, visit <a href="http://localhost:3001/api-docs" target="_blank" rel="noopener noreferrer">http://localhost:3001/api-docs</a> directly when the server is running.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <h4 className="doc-heading">Available Endpoints</h4>
+          <div className="api-endpoints-grid">
+            <div className="api-endpoint-card">
+              <h5>Health & Status</h5>
+              <ul className="doc-list">
+                <li><code>GET /health</code> - Server health check</li>
+                <li><code>GET /</code> - Welcome message</li>
+              </ul>
+            </div>
+
+            <div className="api-endpoint-card">
+              <h5>User Management</h5>
+              <ul className="doc-list">
+                <li><code>GET /api/users</code> - List all users</li>
+                <li><code>POST /api/users</code> - Create new user</li>
+                <li><code>PUT /api/users/:id</code> - Update user</li>
+                <li><code>DELETE /api/users/:id</code> - Delete user</li>
+              </ul>
+            </div>
+
+            <div className="api-endpoint-card">
+              <h5>Favourites System</h5>
+              <ul className="doc-list">
+                <li><code>GET /api/favorites/:userId</code> - User's favourites</li>
+                <li><code>POST /api/favorites</code> - Add favourite</li>
+                <li><code>PUT /api/favorites/:id</code> - Update favourite</li>
+                <li><code>DELETE /api/favorites/:id</code> - Remove favourite</li>
+              </ul>
+            </div>
+
+            <div className="api-endpoint-card">
+              <h5>MTG Cards (Scryfall)</h5>
+              <ul className="doc-list">
+                <li><code>GET /api/cards/search</code> - Search cards</li>
+                <li><code>GET /api/cards/random</code> - Random cards</li>
+                <li><code>GET /api/cards/:id</code> - Get card by ID</li>
+              </ul>
+            </div>
+          </div>
+
+          <h4 className="doc-heading">Database Schema</h4>
+          <p className="doc-paragraph">
+            The application uses PostgreSQL hosted on Railway with the following main tables:
+          </p>
+          <ul className="doc-list">
+            <li><strong>users</strong> - User account information</li>
+            <li><strong>favourites</strong> - User's favourite MTG cards with personal notes</li>
+            <li><strong>messages</strong> - System messages and notifications</li>
+          </ul>
+        </div>
+      ),
+    },
     references: {
       title: "References",
       content: (
@@ -301,6 +455,12 @@ export default function Documentation() {
               className={`doc-section-btn ${selectedSection === "implementation" ? "active" : ""}`}
             >
               🚀 Implementation
+            </button>
+            <button
+              onClick={() => handleSectionClick("api")}
+              className={`doc-section-btn ${selectedSection === "api" ? "active" : ""}`}
+            >
+              🔌 API Documentation
             </button>
             <button
               onClick={() => handleSectionClick("references")}

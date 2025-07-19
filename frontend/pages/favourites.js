@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
-import { FavoritesList } from "../components/Favorites";
+import { FavouritesList } from "../components/Favorites";
 import Loading from "../components/UI/Loading";
 import { apiService } from "../services/apiService";
 
-export default function FavoritesPage() {
+export default function FavouritesPage() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState(null);
-  const [favorites, setFavorites] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
@@ -20,7 +20,7 @@ export default function FavoritesPage() {
       try {
         const user = JSON.parse(savedUser);
         setCurrentUser(user);
-        fetchFavorites(user.id);
+        fetchFavourites(user.id);
       } catch (e) {
         localStorage.removeItem("currentUser");
         setLoading(false);
@@ -30,13 +30,13 @@ export default function FavoritesPage() {
     }
   }, []);
 
-  const fetchFavorites = async (userId) => {
+  const fetchFavourites = async (userId) => {
     try {
       setLoading(true);
       setError("");
 
       const data = await apiService.favourites.getByUserId(userId);
-      setFavorites(Array.isArray(data) ? data : []);
+      setFavourites(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching favorites:", err);
       // Better error message for offline mode
@@ -45,22 +45,22 @@ export default function FavoritesPage() {
       } else {
         setError("Failed to load your favourites. Please try again.");
       }
-      setFavorites([]);
+      setFavourites([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleEditFavorite = async (favoriteId, newNotes) => {
+  const handleEditFavourite = async (favouriteId, newNotes) => {
     try {
       setActionLoading(true);
 
-      await apiService.favourites.update(favoriteId, { notes: newNotes });
+      await apiService.favourites.update(favouriteId, { notes: newNotes });
 
       // Update local state
-      setFavorites((prevFavorites) =>
-        prevFavorites.map((fav) =>
-          fav.id === favoriteId ? { ...fav, notes: newNotes } : fav,
+      setFavourites((prevFavourites) =>
+        prevFavourites.map((fav) =>
+          fav.id === favouriteId ? { ...fav, notes: newNotes } : fav,
         ),
       );
 
@@ -75,15 +75,15 @@ export default function FavoritesPage() {
     }
   };
 
-  const handleDeleteFavorite = async (favoriteId) => {
+  const handleDeleteFavourite = async (favouriteId) => {
     try {
       setActionLoading(true);
 
-      await apiService.favourites.delete(favoriteId);
+      await apiService.favourites.delete(favouriteId);
 
       // Update local state
-      setFavorites((prevFavorites) =>
-        prevFavorites.filter((fav) => fav.id !== favoriteId),
+      setFavourites((prevFavourites) =>
+        prevFavourites.filter((fav) => fav.id !== favouriteId),
       );
 
       showNotification("Card removed from favourites!", "success");
@@ -171,7 +171,7 @@ export default function FavoritesPage() {
                   const demoUser = { id: 1, username: "Demo" };
                   localStorage.setItem("currentUser", JSON.stringify(demoUser));
                   setCurrentUser(demoUser);
-                  fetchFavorites(1);
+                  fetchFavourites(1);
                 }}
                 className="btn-secondary"
               >
@@ -198,7 +198,7 @@ export default function FavoritesPage() {
             </p>
             {currentUser && !loading && (
               <p className="card-count">
-                {favorites.length} {favorites.length === 1 ? 'card' : 'cards'} saved
+                {favourites.length} {favourites.length === 1 ? 'card' : 'cards'} saved
               </p>
             )}
           </div>
@@ -208,7 +208,7 @@ export default function FavoritesPage() {
 
         {/* Loading State */}
         {loading && (
-          <div className="loading">
+          <div className="loading-container">
             <Loading message="Loading your favourites..." size="large" />
           </div>
         )}
@@ -219,7 +219,7 @@ export default function FavoritesPage() {
             <h3 className="mb-2">Unable to Load Favourites</h3>
             <p className="mb-3">{error}</p>
             <button
-              onClick={() => currentUser && fetchFavorites(currentUser.id)}
+              onClick={() => currentUser && fetchFavourites(currentUser.id)}
             >
               Try Again
             </button>
@@ -228,19 +228,19 @@ export default function FavoritesPage() {
 
         {/* Favourites List */}
         {!loading && !error && currentUser && (
-          <FavoritesList
-            favorites={favorites}
+          <FavouritesList
+            favourites={favourites}
             loading={actionLoading}
             error=""
             currentUser={currentUser}
-            onEditFavorite={handleEditFavorite}
-            onDeleteFavorite={handleDeleteFavorite}
+            onEditFavorite={handleEditFavourite}
+            onDeleteFavorite={handleDeleteFavourite}
             onCardClick={handleCardClick}
           />
         )}
 
         {/* Help Section */}
-        {!loading && currentUser && favorites.length === 0 && !error && (
+        {!loading && currentUser && favourites.length === 0 && !error && (
           <div className="card mt-3">
             <h4 className="card-title">
               💡 How to Build Your Favourites Collection

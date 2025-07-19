@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
-import FavoriteCard from './FavoriteCard';
+import FavouriteCard from './FavoriteCard';
 import Loading from '../UI/Loading';
 
-export default function FavoritesList({
-  favorites = [],
+export default function FavouritesList({
+  favourites = [],
   loading = false,
   error = '',
   currentUser,
@@ -14,19 +14,20 @@ export default function FavoritesList({
   const [sortBy, setSortBy] = useState('newest');
   const [filterBy, setFilterBy] = useState('all');
   const [searchFilter, setSearchFilter] = useState('');
+  const [selectedCard, setSelectedCard] = useState(null);
 
   // Extract unique ability types for filtering
   const abilityTypes = useMemo(() => {
-    const types = [...new Set(favorites
+    const types = [...new Set(favourites
       .map(fav => fav.ability_type)
       .filter(type => type && type !== '')
     )];
     return types.sort();
-  }, [favorites]);
+  }, [favourites]);
 
-  // Filter and sort favorites
-  const filteredAndSortedFavorites = useMemo(() => {
-    let filtered = [...favorites];
+  // Filter and sort favourites
+  const filteredAndSortedFavourites = useMemo(() => {
+    let filtered = [...favourites];
 
     // Apply search filter
     if (searchFilter.trim()) {
@@ -66,10 +67,22 @@ export default function FavoritesList({
     });
 
     return filtered;
-  }, [favorites, sortBy, filterBy, searchFilter]);
+  }, [favourites, sortBy, filterBy, searchFilter]);
 
-  if (loading && favorites.length === 0) {
-    return <Loading message="Loading your favourites..." size="large" />;
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCard(null);
+  };
+
+  if (loading && favourites.length === 0) {
+    return (
+      <div className="loading-container">
+        <Loading message="Loading your favourites..." size="large" />
+      </div>
+    );
   }
 
   if (error) {
@@ -84,7 +97,7 @@ export default function FavoritesList({
   return (
     <div>
       {/* Search and Filters */}
-      {favorites.length > 0 && (
+      {favourites.length > 0 && (
         <div className="card mb-3">
           {/* Search */}
           <div className="form-group">
@@ -129,18 +142,18 @@ export default function FavoritesList({
                 onChange={(e) => setFilterBy(e.target.value)}
                 className="filter-select"
               >
-                <option value="all">All Cards ({favorites.length})</option>
+                <option value="all">All Cards ({favourites.length})</option>
                 {abilityTypes.map(type => {
-                  const count = favorites.filter(fav => fav.ability_type === type).length;
+                  const count = favourites.filter(fav => fav.ability_type === type).length;
                   return (
                     <option key={type} value={type}>
                       {type} ({count})
                     </option>
                   );
                 })}
-                {favorites.some(fav => !fav.ability_type || fav.ability_type === '') && (
+                {favourites.some(fav => !fav.ability_type || fav.ability_type === '') && (
                   <option value="no-type">
-                    Other Cards ({favorites.filter(fav => !fav.ability_type || fav.ability_type === '').length})
+                    Other Cards ({favourites.filter(fav => !fav.ability_type || fav.ability_type === '').length})
                   </option>
                 )}
               </select>
@@ -166,17 +179,17 @@ export default function FavoritesList({
       )}
 
       {/* Results Count */}
-      {favorites.length > 0 && filteredAndSortedFavorites.length !== favorites.length && (
+      {favourites.length > 0 && filteredAndSortedFavourites.length !== favourites.length && (
         <div className="search-results-summary">
           <p className="text-center">
-            Showing {filteredAndSortedFavorites.length} of {favorites.length} favourites
+            Showing {filteredAndSortedFavourites.length} of {favourites.length} favourites
             {searchFilter && ` matching "${searchFilter}"`}
           </p>
         </div>
       )}
 
       {/* Favourites List */}
-      {favorites.length === 0 ? (
+      {favourites.length === 0 ? (
         <div className="card text-center">
           <div className="empty-state-icon">⭐</div>
           <h3 className="card-title">
@@ -189,7 +202,7 @@ export default function FavoritesList({
             🔍 Search for Cards
           </a>
         </div>
-      ) : filteredAndSortedFavorites.length === 0 ? (
+      ) : filteredAndSortedFavourites.length === 0 ? (
         <div className="search-empty-state">
           <div className="search-empty-icon">🔍</div>
           <h3 className="search-empty-title">
@@ -203,17 +216,17 @@ export default function FavoritesList({
         <div>
           {/* Favourites Grid */}
           <div className="favourites-grid">
-            {filteredAndSortedFavorites.map((favorite, index) => (
+            {filteredAndSortedFavourites.map((favourite, index) => (
               <div
-                key={favorite.id}
+                key={favourite.id}
                 className="favourite-card-wrapper"
               >
-                <FavoriteCard
-                  favorite={favorite}
+                <FavouriteCard
+                  favourite={favourite}
                   currentUser={currentUser}
                   onEdit={onEditFavorite}
                   onDelete={onDeleteFavorite}
-                  onCardClick={onCardClick}
+                  onCardClick={() => handleCardClick(favourite)}
                 />
               </div>
             ))}
@@ -223,8 +236,80 @@ export default function FavoritesList({
         </div>
       )}
 
+      {/* Card Details Modal */}
+      {selectedCard && (
+        <div className="card-modal-overlay" onClick={handleCloseModal}>
+          <div className="card-modal-content" onClick={(e) => e.stopPropagation()}>
+            {/* Modal Header */}
+            <div className="card-modal-header">
+              <h2 className="card-modal-title">{selectedCard.card_name}</h2>
+              <button className="card-modal-close" onClick={handleCloseModal}>
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="card-modal-body">
+              {/* Card Info */}
+              <div className="card-info-section">
+                {selectedCard.ability_type && (
+                  <span className="ability-badge">{selectedCard.ability_type}</span>
+                )}
+                {selectedCard.mana_cost && (
+                  <p className="mana-cost-display">Mana Cost: {selectedCard.mana_cost}</p>
+                )}
+                {selectedCard.oracle_text && (
+                  <p className="oracle-text">{selectedCard.oracle_text}</p>
+                )}
+                {selectedCard.power && selectedCard.toughness && (
+                  <p className="power-toughness">Power/Toughness: {selectedCard.power}/{selectedCard.toughness}</p>
+                )}
+                <p className="date-added">Added: {new Date(selectedCard.created_at).toLocaleDateString()}</p>
+              </div>
+
+              {/* Notes Section */}
+              <div className="notes-section">
+                <div className="notes-header">
+                  <h4>📝 My Notes</h4>
+                  <button
+                    onClick={() => {/* Add edit functionality */}}
+                    className="btn-outline btn-small"
+                  >
+                    ✏️ Edit
+                  </button>
+                </div>
+
+                <div className="notes-display">
+                  {selectedCard.notes ? (
+                    <p>{selectedCard.notes}</p>
+                  ) : (
+                    <p className="notes-placeholder">
+                      No notes added yet. Click "Edit" to add your thoughts about this card.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="card-modal-footer">
+              <span className="action-hint">Added to your favourites collection</span>
+              <button
+                onClick={() => {
+                  onDeleteFavorite(selectedCard.id);
+                  handleCloseModal();
+                }}
+                className="btn btn-danger"
+              >
+                🗑️ Remove from Favourites
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Loading Overlay */}
-      {loading && favorites.length > 0 && (
+      {loading && favourites.length > 0 && (
         <div className="loading-overlay">
           <div className="loading-overlay-content">
             <Loading message="Updating favourites..." />
@@ -289,8 +374,8 @@ export default function FavoritesList({
 
         .favourites-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-          gap: 1.5rem;
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 1rem;
         }
 
         .favourite-card-wrapper {
@@ -336,6 +421,182 @@ export default function FavoritesList({
           }
         }
 
+        .card-modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          padding: 1rem;
+          backdrop-filter: blur(4px);
+        }
+
+        .card-modal-content {
+          background: var(--theme-cardBg);
+          border-radius: 1rem;
+          border: 1px solid var(--theme-border);
+          max-width: 600px;
+          width: 100%;
+          max-height: 90vh;
+          overflow-y: auto;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+          animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        .card-modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 2rem;
+          border-bottom: 1px solid var(--theme-border);
+          background: linear-gradient(135deg, var(--theme-cardBg), var(--theme-hover));
+        }
+
+        .card-modal-title {
+          margin: 0;
+          color: var(--theme-accent);
+          font-size: 1.75rem;
+          font-weight: bold;
+        }
+
+        .card-modal-close {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          color: var(--theme-textLight);
+          cursor: pointer;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          transition: all 0.2s ease;
+          width: 2.5rem;
+          height: 2.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .card-modal-close:hover {
+          background: var(--theme-hover);
+          color: var(--theme-text);
+          transform: scale(1.1);
+        }
+
+        .card-modal-body {
+          padding: 2rem;
+        }
+
+        .card-info-section {
+          margin-bottom: 2rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid var(--theme-border);
+        }
+
+        .ability-badge {
+          background: rgba(var(--theme-primary-rgb), 0.15);
+          color: var(--theme-primary);
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          font-size: 0.85rem;
+          font-weight: 600;
+          border: 1px solid var(--theme-primary);
+          display: inline-block;
+          margin-bottom: 1rem;
+        }
+
+        .mana-cost-display,
+        .oracle-text,
+        .power-toughness,
+        .date-added {
+          margin: 0.75rem 0;
+          font-size: 1rem;
+          line-height: 1.6;
+        }
+
+        .oracle-text {
+          font-style: italic;
+          color: var(--theme-textLight);
+          background: var(--theme-hover);
+          padding: 1rem;
+          border-radius: 0.5rem;
+          border-left: 3px solid var(--theme-primary);
+        }
+
+        .power-toughness {
+          font-weight: bold;
+          color: var(--theme-accent);
+        }
+
+        .date-added {
+          color: var(--theme-textLight);
+          font-size: 0.9rem;
+        }
+
+        .notes-section {
+          margin-bottom: 1rem;
+        }
+
+        .notes-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+        }
+
+        .notes-header h4 {
+          margin: 0;
+          font-size: 1.1rem;
+          color: var(--theme-accent);
+        }
+
+        .btn-small {
+          font-size: 0.85rem;
+          padding: 0.5rem 1rem;
+        }
+
+        .notes-display p {
+          margin: 0;
+          font-size: 1rem;
+          line-height: 1.6;
+        }
+
+        .notes-placeholder {
+          font-style: italic;
+          color: var(--theme-textLight);
+          opacity: 0.8;
+        }
+
+        .card-modal-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 2rem;
+          border-top: 1px solid var(--theme-border);
+          background: var(--theme-hover);
+          border-bottom-left-radius: 1rem;
+          border-bottom-right-radius: 1rem;
+        }
+
+        .action-hint {
+          font-size: 0.9rem;
+          color: var(--theme-textLight);
+        }
+
         @media (max-width: 768px) {
           .favourites-grid {
             grid-template-columns: 1fr;
@@ -344,6 +605,27 @@ export default function FavoritesList({
 
           .filters-grid {
             grid-template-columns: 1fr;
+          }
+
+          .card-modal-content {
+            margin: 0.5rem;
+            max-height: 95vh;
+          }
+
+          .card-modal-header,
+          .card-modal-body,
+          .card-modal-footer {
+            padding: 1.5rem;
+          }
+
+          .card-modal-title {
+            font-size: 1.5rem;
+          }
+
+          .card-modal-footer {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
           }
         }
       `}</style>

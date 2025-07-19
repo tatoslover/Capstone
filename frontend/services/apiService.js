@@ -8,8 +8,8 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 const HEALTH_CHECK_INTERVAL = 30000; // 30 seconds
 const REQUEST_TIMEOUT = 5000; // 5 seconds
 
-// Connection state management
-let isOnline = false;
+// Connection state management - start by checking if backend is available
+let isOnline = true;
 let connectionListeners = [];
 let healthCheckInterval = null;
 
@@ -87,44 +87,32 @@ export function stopHealthChecks() {
 
 // Generic API request function with fallback
 async function apiRequest(endpoint, options = {}) {
-  // If we know we're offline, use mock immediately
-  if (!isOnline && endpoint !== '/health') {
-    console.log(`📱 Using offline mode for: ${endpoint}`);
-    throw new Error('OFFLINE_MODE');
-  }
-
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      ...options,
       signal: controller.signal,
+      ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...options.headers
-      }
+        ...options.headers,
+      },
     });
 
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      throw new Error(`API Error: ${response.status}`);
     }
 
     const data = await response.json();
-
-    // If this request succeeded, we're definitely online
     notifyConnectionChange(true);
-
     return data;
   } catch (error) {
-    // If it's a network error, mark as offline and use mock
-    if (error.name === 'AbortError' || error.message.includes('fetch')) {
-      notifyConnectionChange(false);
-      throw new Error('OFFLINE_MODE');
-    }
-    throw error;
+    console.log(`📱 Backend unavailable for ${endpoint}, using offline mode:`, error.message);
+    notifyConnectionChange(false);
+    throw new Error('OFFLINE_MODE');
   }
 }
 
@@ -267,42 +255,22 @@ export const apiService = {
   },
 
   // Card operations
+  // Card search (direct Scryfall API via mock service)
   cards: {
     async search(query) {
-      try {
-        return await apiRequest(`/api/cards/search?q=${encodeURIComponent(query)}`);
-      } catch (error) {
-        if (error.message === 'OFFLINE_MODE') {
-          return await mockApi.cards.search(query);
-        }
-        throw error;
-      }
+      // Always use mock API which now calls Scryfall directly
+      return await mockApi.cards.search(query);
     },
 
-    async random(ability = '') {
-      try {
-        const url = ability
-          ? `/api/cards/random?ability=${encodeURIComponent(ability)}`
-          : '/api/cards/random';
-        return await apiRequest(url);
-      } catch (error) {
-        if (error.message === 'OFFLINE_MODE') {
-          return await mockApi.cards.random(ability);
-        }
-        throw error;
-      }
+    async random(ability) {
+      // Always use mock API which now calls Scryfall directly
+      return await mockApi.cards.random(ability);
     },
 
     async getById(id) {
-      try {
-        return await apiRequest(`/api/cards/${id}`);
-      } catch (error) {
-        if (error.message === 'OFFLINE_MODE') {
-          return await mockApi.cards.getById(id);
-        }
-        throw error;
-      }
-    }
+      // Always use mock API which now calls Scryfall directly
+      return await mockApi.cards.getById(id);
+    },
   },
 
   // Messages (for testing)
@@ -336,22 +304,8 @@ export const apiService = {
 
 // Auto-start health checks when module loads
 if (typeof window !== 'undefined') {
-  // Only start health checks in browser environment
+  // Start health checks to detect backend availability
   startHealthChecks();
-
-  // Clean up on page unload
-  window.addEventListener('beforeunload', stopHealthChecks);
-
-  // Also listen to online/offline events from browser
-  window.addEventListener('online', () => {
-    console.log('🌐 Browser detected online status');
-    checkBackendHealth();
-  });
-
-  window.addEventListener('offline', () => {
-    console.log('🌐 Browser detected offline status');
-    notifyConnectionChange(false);
-  });
 }
 
 export default apiService;

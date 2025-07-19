@@ -21,6 +21,31 @@ export default function CardDisplay({
     }
   };
 
+  // Helper function to determine CSS colour class from colour identity
+  const getCardColourClass = (colours) => {
+    if (!colours || colours.length === 0) {
+      return "mtg-colour-colourless";
+    } else if (colours.length === 1) {
+      const classMap = {
+        W: "mtg-colour-white",
+        U: "mtg-colour-blue",
+        B: "mtg-colour-black",
+        R: "mtg-colour-red",
+        G: "mtg-colour-green",
+      };
+      return classMap[colours[0]] || "mtg-colour-colourless";
+    } else {
+      return "mtg-colour-multicolour";
+    }
+  };
+
+  // Get colours from the card data
+  const cardColours = card.color_identity || card.colours || [];
+  const colourClass = getCardColourClass(cardColours);
+
+  // Check if we should show placeholder (no image available or error)
+  const showPlaceholder = !card.image_uris?.normal || imageError;
+
   // Parse mana symbols for better display
   const formatManaSymbols = (manaCost) => {
     if (!manaCost) return "";
@@ -104,20 +129,35 @@ export default function CardDisplay({
       )}
 
       {/* Card Image */}
-      {card.image_uris?.normal && !imageError && (
-        <div className="card-image-container">
-          {!imageLoaded && (
-            <div className="card-image-placeholder">Loading image...</div>
-          )}
-          <img
-            src={card.image_uris.normal}
-            alt={card.name}
-            onLoad={() => setImageLoaded(true)}
-            onError={() => setImageError(true)}
-            className={`card-image ${imageLoaded ? "loaded" : ""}`}
-          />
-        </div>
-      )}
+      <div className="card-image-container">
+        {showPlaceholder ? (
+          <div className={`mtg-card-placeholder ${colourClass}`}>
+            <div className="mtg-card-placeholder-content">
+              <h3 className="mtg-card-placeholder-name">{card.name}</h3>
+              {card.type_line && (
+                <p className="mtg-card-placeholder-type">{card.type_line}</p>
+              )}
+              {card.mana_cost && (
+                <p className="mtg-card-placeholder-mana">{formatManaSymbols(card.mana_cost)}</p>
+              )}
+              <p className="mtg-card-placeholder-hint">Offline demo mode</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            {!imageLoaded && (
+              <div className="card-image-placeholder">Loading image...</div>
+            )}
+            <img
+              src={card.image_uris.normal}
+              alt={card.name}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageError(true)}
+              className={`card-image ${imageLoaded ? "loaded" : ""}`}
+            />
+          </>
+        )}
+      </div>
 
       {/* Card Details */}
       <div className="mtg-card-details">

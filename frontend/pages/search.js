@@ -124,14 +124,14 @@ export default function SearchPage() {
     performSearch(query);
   };
 
-  const handleFavoriteToggle = async (card) => {
+  const handleFavouriteToggle = async (card) => {
     if (!currentUser) {
-      alert("Please create a profile first to save favorites!");
+      alert("Please create a profile first to save favourites!");
       return;
     }
 
     try {
-      // Add card to favorites via API
+      // Add card to favourites via API
       const response = await fetch(`${API_URL}/api/favorites`, {
         method: "POST",
         headers: {
@@ -148,21 +148,21 @@ export default function SearchPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to add to favorites");
+        throw new Error(errorData.error || "Failed to add to favourites");
       }
 
       // Show success notification
-      showNotification(`Added "${card.name}" to your favorites!`, "success");
+      showNotification(`Added "${card.name}" to your favourites!`, "success");
     } catch (err) {
-      console.error("Error adding to favorites:", err);
+      console.error("Error adding to favourites:", err);
       if (err.message.includes("already exists")) {
         showNotification(
-          `"${card.name}" is already in your favorites!`,
+          `"${card.name}" is already in your favourites!`,
           "info",
         );
       } else {
         showNotification(
-          "Failed to add to favorites. Please try again.",
+          "Failed to add to favourites. Please try again.",
           "error",
         );
       }
@@ -247,7 +247,9 @@ export default function SearchPage() {
         {/* Search Results */}
         <div id="search-results">
           {loading && !hasSearched && (
-            <Loading message="Searching cards..." size="large" />
+            <div className="loading-container">
+              <Loading message="Searching cards..." size="large" />
+            </div>
           )}
 
           {error && (
@@ -307,7 +309,7 @@ export default function SearchPage() {
                 loading={loading}
                 error={error}
                 currentUser={currentUser}
-                onFavoriteToggle={handleFavoriteToggle}
+                onFavoriteToggle={handleFavouriteToggle}
                 emptyMessage={`No cards found for "${currentQuery}"`}
                 showFavoriteButtons={true}
               />
