@@ -82,7 +82,20 @@ app.use(performanceLogger);
 // CORS and JSON parsing (MUST come before rate limiting to set headers)
 app.use(cors({
   origin: process.env.NODE_ENV === "production"
-    ? ["https://capstone-9tvkmrtc9-samuel-loves-projects.vercel.app"]
+    ? (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        // Allow any Vercel deployment URL that contains 'capstone' and 'samuel-loves-projects'
+        if (origin.includes('vercel.app') &&
+            origin.includes('capstone') &&
+            origin.includes('samuel-loves-projects')) {
+          return callback(null, true);
+        }
+
+        // Reject other origins
+        callback(new Error('Not allowed by CORS'));
+      }
     : ["http://localhost:3000"],
   credentials: true
 }));
