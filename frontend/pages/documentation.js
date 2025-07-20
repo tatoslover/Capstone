@@ -365,14 +365,67 @@ export default function Documentation() {
           </p>
 
           <div className="api-swagger-container">
-            {dbConnectionStatus === "connected" && !swaggerError ? (
-              <iframe
-                src={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
-                className="swagger-iframe"
-                title="API Documentation"
-                onLoad={() => setSwaggerLoaded(true)}
-                onError={() => setSwaggerError(true)}
-              />
+            {dbConnectionStatus === "connected" ? (
+              <div className="swagger-fallback">
+                <div className="swagger-fallback-content">
+                  <h5>📋 API Documentation Available</h5>
+                  <p>
+                    The interactive Swagger documentation is available in a separate window to avoid browser security restrictions.
+                  </p>
+                  <div className="text-center mb-3">
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary"
+                    >
+                      🚀 Open API Documentation
+                    </a>
+                  </div>
+
+                  <div className="api-endpoints-grid">
+                    <div className="api-endpoint-card">
+                      <h5>Health & Monitoring</h5>
+                      <code>GET /</code> - Server status<br/>
+                      <code>GET /health</code> - Health check<br/>
+                      <code>GET /api/monitoring/health</code> - Detailed health
+                    </div>
+
+                    <div className="api-endpoint-card">
+                      <h5>User Management</h5>
+                      <code>GET /api/users</code> - List all users<br/>
+                      <code>POST /api/users</code> - Create user<br/>
+                      <code>GET /api/users/:id</code> - Get user<br/>
+                      <code>PUT /api/users/:id</code> - Update user<br/>
+                      <code>DELETE /api/users/:id</code> - Delete user
+                    </div>
+
+                    <div className="api-endpoint-card">
+                      <h5>Messages</h5>
+                      <code>GET /api/messages</code> - List messages<br/>
+                      <code>POST /api/messages</code> - Create message<br/>
+                      <code>GET /api/messages/:id</code> - Get message<br/>
+                      <code>PUT /api/messages/:id</code> - Update message<br/>
+                      <code>DELETE /api/messages/:id</code> - Delete message
+                    </div>
+
+                    <div className="api-endpoint-card">
+                      <h5>Favourites</h5>
+                      <code>GET /api/favourites</code> - List favourites<br/>
+                      <code>POST /api/favourites</code> - Add favourite<br/>
+                      <code>GET /api/favourites/:id</code> - Get favourite<br/>
+                      <code>DELETE /api/favourites/:id</code> - Remove favourite
+                    </div>
+
+                    <div className="api-endpoint-card">
+                      <h5>MTG Cards</h5>
+                      <code>GET /api/cards/search</code> - Search cards<br/>
+                      <code>GET /api/cards/random</code> - Random card<br/>
+                      <code>GET /api/cards/autocomplete</code> - Card suggestions
+                    </div>
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="swagger-fallback">
                 <div className="swagger-fallback-content">
@@ -381,40 +434,27 @@ export default function Documentation() {
                     The interactive Swagger documentation requires the backend
                     server to be running.
                   </p>
-                  {dbConnectionStatus === "disconnected" && (
-                    <div className="swagger-fallback-instructions">
-                      <p>
-                        <strong>
-                          To view the interactive API documentation:
-                        </strong>
-                      </p>
-                      <ol>
-                        <li>
-                          Start the backend server:{" "}
-                          <code>cd backend && npm start</code>
-                        </li>
-                        <li>
-                          Ensure it's running on{" "}
-                          <code>http://localhost:3001</code>
-                        </li>
-                        <li>
-                          Click "Test Connection" above to verify connectivity
-                        </li>
-                        <li>Refresh this page once connected</li>
-                      </ol>
-                      <p>
-                        Alternatively, visit{" "}
-                        <a
-                          href="http://localhost:3001/api-docs"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          http://localhost:3001/api-docs
-                        </a>{" "}
-                        directly when the server is running.
-                      </p>
-                    </div>
-                  )}
+                  <div className="swagger-fallback-instructions">
+                    <p>
+                      <strong>
+                        To view the interactive API documentation:
+                      </strong>
+                    </p>
+                    <ol>
+                      <li>
+                        Start the backend server:{" "}
+                        <code>cd backend && npm start</code>
+                      </li>
+                      <li>
+                        Ensure it's running on{" "}
+                        <code>http://localhost:3001</code>
+                      </li>
+                      <li>
+                        Click "Test Connection" above to verify connectivity
+                      </li>
+                      <li>Refresh this page once connected</li>
+                    </ol>
+                  </div>
                 </div>
               </div>
             )}

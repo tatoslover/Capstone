@@ -1497,6 +1497,7 @@ button.profile-btn-blue:disabled,
 .doc-section-title {
     color: var(--theme-accent);
     margin-bottom: 0.75rem;
+    text-align: center;
 }
 
 /* API Documentation Styles */
