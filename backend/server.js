@@ -1086,10 +1086,12 @@ app.use("*", (req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📝 API available at http://localhost:${PORT}/api/messages`);
-});
+// Only start server if not being imported for testing
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📝 API available at http://localhost:${PORT}/api/messages`);
+  });
+}
 
 module.exports = app;
