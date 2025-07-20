@@ -2,7 +2,7 @@
 // No offline fallbacks or mock data
 
 // Configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 const REQUEST_TIMEOUT = 5000; // 5 seconds
 
 // Connection state management
@@ -19,15 +19,15 @@ export function addConnectionListener(callback) {
 
 // Remove connection status listener
 export function removeConnectionListener(callback) {
-  connectionListeners = connectionListeners.filter(cb => cb !== callback);
+  connectionListeners = connectionListeners.filter((cb) => cb !== callback);
 }
 
 // Notify all listeners of connection status change
 function notifyConnectionChange(online) {
   if (isOnline !== online) {
     isOnline = online;
-    console.log(`🔗 Backend connection: ${online ? 'ONLINE' : 'OFFLINE'}`);
-    connectionListeners.forEach(callback => callback(online));
+    console.log(`🔗 Backend connection: ${online ? "ONLINE" : "OFFLINE"}`);
+    connectionListeners.forEach((callback) => callback(online));
   }
 }
 
@@ -38,11 +38,11 @@ async function checkBackendHealth() {
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
 
     const response = await fetch(`${API_BASE_URL}/health`, {
-      method: 'GET',
+      method: "GET",
       signal: controller.signal,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     clearTimeout(timeoutId);
@@ -92,7 +92,7 @@ async function apiRequest(endpoint, options = {}) {
       signal: controller.signal,
       ...options,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...options.headers,
       },
     });
@@ -120,13 +120,13 @@ export const apiService = {
 
   // Health check
   async health() {
-    return await apiRequest('/health');
+    return await apiRequest("/health");
   },
 
   // User operations
   users: {
     async getAll() {
-      return await apiRequest('/api/users');
+      return await apiRequest("/api/users");
     },
 
     async getById(id) {
@@ -134,51 +134,51 @@ export const apiService = {
     },
 
     async create(userData) {
-      return await apiRequest('/api/users', {
-        method: 'POST',
-        body: JSON.stringify(userData)
+      return await apiRequest("/api/users", {
+        method: "POST",
+        body: JSON.stringify(userData),
       });
     },
 
     async update(id, userData) {
       return await apiRequest(`/api/users/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(userData)
+        method: "PUT",
+        body: JSON.stringify(userData),
       });
     },
 
     async delete(id) {
       return await apiRequest(`/api/users/${id}`, {
-        method: 'DELETE'
+        method: "DELETE",
       });
-    }
+    },
   },
 
   // Favourites operations
   favourites: {
     async getByUserId(userId) {
-      return await apiRequest(`/api/favorites/${userId}`);
+      return await apiRequest(`/api/favourites/${userId}`);
     },
 
     async create(favouriteData) {
-      return await apiRequest('/api/favorites', {
-        method: 'POST',
-        body: JSON.stringify(favouriteData)
+      return await apiRequest("/api/favourites", {
+        method: "POST",
+        body: JSON.stringify(favouriteData),
       });
     },
 
     async update(id, favouriteData) {
-      return await apiRequest(`/api/favorites/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(favouriteData)
+      return await apiRequest(`/api/favourites/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(favouriteData),
       });
     },
 
     async delete(id) {
-      return await apiRequest(`/api/favorites/${id}`, {
-        method: 'DELETE'
+      return await apiRequest(`/api/favourites/${id}`, {
+        method: "DELETE",
       });
-    }
+    },
   },
 
   // Card operations - direct Scryfall API calls
@@ -186,12 +186,15 @@ export const apiService = {
     async search(query) {
       try {
         const encodedQuery = encodeURIComponent(query);
-        const response = await fetch(`https://api.scryfall.com/cards/search?q=${encodedQuery}`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          }
-        });
+        const response = await fetch(
+          `https://api.scryfall.com/cards/search?q=${encodedQuery}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+            },
+          },
+        );
 
         if (!response.ok) {
           if (response.status === 404) {
@@ -202,23 +205,23 @@ export const apiService = {
 
         return await response.json();
       } catch (error) {
-        console.error('Card search error:', error);
+        console.error("Card search error:", error);
         throw error;
       }
     },
 
     async random(ability) {
       try {
-        let url = 'https://api.scryfall.com/cards/random';
+        let url = "https://api.scryfall.com/cards/random";
         if (ability) {
           url += `?q=oracle:${encodeURIComponent(ability)}`;
         }
 
         const response = await fetch(url, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Accept': 'application/json',
-          }
+            Accept: "application/json",
+          },
         });
 
         if (!response.ok) {
@@ -227,7 +230,7 @@ export const apiService = {
 
         return await response.json();
       } catch (error) {
-        console.error('Random card error:', error);
+        console.error("Random card error:", error);
         throw error;
       }
     },
@@ -235,10 +238,10 @@ export const apiService = {
     async getById(id) {
       try {
         const response = await fetch(`https://api.scryfall.com/cards/${id}`, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Accept': 'application/json',
-          }
+            Accept: "application/json",
+          },
         });
 
         if (!response.ok) {
@@ -247,7 +250,7 @@ export const apiService = {
 
         return await response.json();
       } catch (error) {
-        console.error('Get card by ID error:', error);
+        console.error("Get card by ID error:", error);
         throw error;
       }
     },
@@ -256,20 +259,20 @@ export const apiService = {
   // Messages (for testing)
   messages: {
     async getAll() {
-      return await apiRequest('/api/messages');
+      return await apiRequest("/api/messages");
     },
 
     async create(messageData) {
-      return await apiRequest('/api/messages', {
-        method: 'POST',
-        body: JSON.stringify(messageData)
+      return await apiRequest("/api/messages", {
+        method: "POST",
+        body: JSON.stringify(messageData),
       });
-    }
-  }
+    },
+  },
 };
 
 // Auto-start health checks when module loads
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   // Start health checks to detect backend availability
   startHealthChecks();
 }

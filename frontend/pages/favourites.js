@@ -3,7 +3,11 @@ import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
 import SearchCard from "../components/Search/SearchCard";
 import Loading from "../components/UI/Loading";
-import { apiService, addConnectionListener, removeConnectionListener } from "../services/apiService";
+import {
+  apiService,
+  addConnectionListener,
+  removeConnectionListener,
+} from "../services/apiService";
 
 export default function FavouritesPage() {
   const router = useRouter();
@@ -15,9 +19,9 @@ export default function FavouritesPage() {
   const [isOnline, setIsOnline] = useState(true);
 
   // Filtering and sorting state
-  const [sortBy, setSortBy] = useState('newest');
-  const [filterBy, setFilterBy] = useState('all');
-  const [searchFilter, setSearchFilter] = useState('');
+  const [sortBy, setSortBy] = useState("newest");
+  const [filterBy, setFilterBy] = useState("all");
+  const [searchFilter, setSearchFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const resultsPerPage = 10;
@@ -94,29 +98,32 @@ export default function FavouritesPage() {
               favourite_id: fav.id,
               notes: fav.notes,
               created_at: fav.created_at,
-              ability_type: fav.ability_type
+              ability_type: fav.ability_type,
             };
           } else {
             // Fallback for favourites without scryfall_id
             return {
               id: fav.id,
-              name: fav.card_name || 'Unknown Card',
+              name: fav.card_name || "Unknown Card",
               favourite_id: fav.id,
               notes: fav.notes,
               created_at: fav.created_at,
-              ability_type: fav.ability_type
+              ability_type: fav.ability_type,
             };
           }
         } catch (cardError) {
-          console.warn(`Failed to fetch card data for favourite ${fav.id}:`, cardError);
+          console.warn(
+            `Failed to fetch card data for favourite ${fav.id}:`,
+            cardError,
+          );
           // Return fallback data if Scryfall fetch fails
           return {
             id: fav.scryfall_id || fav.id,
-            name: fav.card_name || 'Unknown Card',
+            name: fav.card_name || "Unknown Card",
             favourite_id: fav.id,
             notes: fav.notes,
             created_at: fav.created_at,
-            ability_type: fav.ability_type
+            ability_type: fav.ability_type,
           };
         }
       });
@@ -134,19 +141,23 @@ export default function FavouritesPage() {
 
   // Extract unique ability types for filtering
   const abilityTypes = useMemo(() => {
-    const types = [...new Set(favourites
-      .map(fav => fav.ability_type)
-      .filter(type => type && type !== '')
-    )];
+    const types = [
+      ...new Set(
+        favourites
+          .map((fav) => fav.ability_type)
+          .filter((type) => type && type !== ""),
+      ),
+    ];
     return types.sort();
   }, [favourites]);
 
   // Extract unique rarities for filtering
   const rarities = useMemo(() => {
-    const rarityList = [...new Set(favourites
-      .map(card => card.rarity)
-      .filter(rarity => rarity)
-    )];
+    const rarityList = [
+      ...new Set(
+        favourites.map((card) => card.rarity).filter((rarity) => rarity),
+      ),
+    ];
     return rarityList.sort();
   }, [favourites]);
 
@@ -157,48 +168,48 @@ export default function FavouritesPage() {
     // Apply search filter
     if (searchFilter.trim()) {
       const search = searchFilter.toLowerCase();
-      filtered = filtered.filter(card =>
-        card.name.toLowerCase().includes(search) ||
-        (card.oracle_text && card.oracle_text.toLowerCase().includes(search)) ||
-        (card.type_line && card.type_line.toLowerCase().includes(search)) ||
-        (card.notes && card.notes.toLowerCase().includes(search))
+      filtered = filtered.filter(
+        (card) =>
+          card.name.toLowerCase().includes(search) ||
+          (card.oracle_text &&
+            card.oracle_text.toLowerCase().includes(search)) ||
+          (card.type_line && card.type_line.toLowerCase().includes(search)) ||
+          (card.notes && card.notes.toLowerCase().includes(search)),
       );
     }
 
     // Apply type filter
-    if (filterBy !== 'all') {
-      if (filterBy.startsWith('type-')) {
-        const type = filterBy.replace('type-', '');
-        filtered = filtered.filter(card =>
-          card.ability_type === type
-        );
-      } else if (filterBy.startsWith('rarity-')) {
-        const rarity = filterBy.replace('rarity-', '');
-        filtered = filtered.filter(card => card.rarity === rarity);
+    if (filterBy !== "all") {
+      if (filterBy.startsWith("type-")) {
+        const type = filterBy.replace("type-", "");
+        filtered = filtered.filter((card) => card.ability_type === type);
+      } else if (filterBy.startsWith("rarity-")) {
+        const rarity = filterBy.replace("rarity-", "");
+        filtered = filtered.filter((card) => card.rarity === rarity);
       }
     }
 
     // Apply sorting
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case 'newest':
+        case "newest":
           return new Date(b.created_at) - new Date(a.created_at);
-        case 'oldest':
+        case "oldest":
           return new Date(a.created_at) - new Date(b.created_at);
-        case 'name':
+        case "name":
           return a.name.localeCompare(b.name);
-        case 'name-desc':
+        case "name-desc":
           return b.name.localeCompare(a.name);
-        case 'mana-cost':
+        case "mana-cost":
           const aCmc = a.cmc || 0;
           const bCmc = b.cmc || 0;
           return aCmc - bCmc;
-        case 'rarity':
+        case "rarity":
           const rarityOrder = { common: 1, uncommon: 2, rare: 3, mythic: 4 };
           return (rarityOrder[a.rarity] || 0) - (rarityOrder[b.rarity] || 0);
-        case 'type':
-          const typeA = a.ability_type || 'zzz';
-          const typeB = b.ability_type || 'zzz';
+        case "type":
+          const typeA = a.ability_type || "zzz";
+          const typeB = b.ability_type || "zzz";
           return typeA.localeCompare(typeB);
         default:
           return 0;
@@ -209,9 +220,14 @@ export default function FavouritesPage() {
   }, [favourites, searchFilter, filterBy, sortBy]);
 
   // Pagination
-  const totalPages = Math.ceil(filteredAndSortedResults.length / resultsPerPage);
+  const totalPages = Math.ceil(
+    filteredAndSortedResults.length / resultsPerPage,
+  );
   const startIndex = (currentPage - 1) * resultsPerPage;
-  const paginatedResults = filteredAndSortedResults.slice(startIndex, startIndex + resultsPerPage);
+  const paginatedResults = filteredAndSortedResults.slice(
+    startIndex,
+    startIndex + resultsPerPage,
+  );
 
   // Reset to page 1 when filters change
   useMemo(() => {
@@ -231,13 +247,16 @@ export default function FavouritesPage() {
 
       // Update local state
       setFavourites((prevFavourites) =>
-        prevFavourites.filter((fav) => fav.favourite_id !== card.favourite_id)
+        prevFavourites.filter((fav) => fav.favourite_id !== card.favourite_id),
       );
 
       showNotification("Card removed from favourites!", "success");
     } catch (err) {
       console.error("Error deleting favourite:", err);
-      showNotification("Failed to remove from favourites. Please try again.", "error");
+      showNotification(
+        "Failed to remove from favourites. Please try again.",
+        "error",
+      );
     } finally {
       setActionLoading(false);
     }
@@ -296,16 +315,14 @@ export default function FavouritesPage() {
             <div style={{ fontSize: "4rem", marginBottom: "1.5rem" }}>🌐</div>
             <h2 className="card-title">Currently Offline</h2>
             <p className="mb-3" style={{ fontSize: "1.1rem" }}>
-              Your favourites require a connection to the backend server. Please check your connection and try again.
+              Your favourites require a connection to the backend server. Please
+              check your connection and try again.
             </p>
             <div
               className="d-flex gap-2 justify-center"
               style={{ flexWrap: "wrap" }}
             >
-              <button
-                onClick={() => window.location.reload()}
-                className="btn"
-              >
+              <button onClick={() => window.location.reload()} className="btn">
                 🔄 Retry Connection
               </button>
               <a href="/search" className="btn-outline">
@@ -321,7 +338,7 @@ export default function FavouritesPage() {
   // Redirect to home if no user
   if (!loading && !currentUser) {
     return (
-      <Layout title="Favorites - Planeswalker's Primer">
+      <Layout title="Favourites - Planeswalker's Primer">
         <div className="container page-content">
           <div
             className="card text-center"
@@ -330,7 +347,8 @@ export default function FavouritesPage() {
             <div style={{ fontSize: "4rem", marginBottom: "1.5rem" }}>👤</div>
             <h2 className="card-title">Profile Required</h2>
             <p className="mb-3" style={{ fontSize: "1.1rem" }}>
-              You need to create a profile to save and view your favourite cards.
+              You need to create a profile to save and view your favourite
+              cards.
             </p>
             <div
               className="d-flex gap-2 justify-center"
@@ -347,7 +365,7 @@ export default function FavouritesPage() {
   }
 
   return (
-    <Layout title="My Favorites - Planeswalker's Primer">
+    <Layout title="My Favourites - Planeswalker's Primer">
       <div className="container page-content">
         {/* Page Header */}
         <div className="text-center mb-3">
@@ -360,7 +378,8 @@ export default function FavouritesPage() {
             </p>
             {currentUser && !loading && (
               <p className="card-count">
-                {favourites.length} {favourites.length === 1 ? 'card' : 'cards'} saved
+                {favourites.length} {favourites.length === 1 ? "card" : "cards"}{" "}
+                saved
               </p>
             )}
           </div>
@@ -399,7 +418,12 @@ export default function FavouritesPage() {
                 <p className="search-results-query">Your saved collection</p>
                 {filteredAndSortedResults.length > resultsPerPage && (
                   <p className="pagination-info">
-                    Page {currentPage} of {totalPages} ({startIndex + 1}-{Math.min(startIndex + resultsPerPage, filteredAndSortedResults.length)} of {filteredAndSortedResults.length} results)
+                    Page {currentPage} of {totalPages} ({startIndex + 1}-
+                    {Math.min(
+                      startIndex + resultsPerPage,
+                      filteredAndSortedResults.length,
+                    )}{" "}
+                    of {filteredAndSortedResults.length} results)
                   </p>
                 )}
                 <label className="form-label">Filter favourites:</label>
@@ -417,9 +441,7 @@ export default function FavouritesPage() {
             <div className="filters-grid">
               {/* Sort By */}
               <div className="form-group">
-                <label className="form-label">
-                  📊 Sort By
-                </label>
+                <label className="form-label">📊 Sort By</label>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
@@ -437,28 +459,31 @@ export default function FavouritesPage() {
 
               {/* Filter By Type */}
               <div className="form-group">
-                <label className="form-label">
-                  🎯 Filter By
-                </label>
+                <label className="form-label">🎯 Filter By</label>
                 <select
                   value={filterBy}
                   onChange={(e) => setFilterBy(e.target.value)}
                   className="filter-select"
                 >
                   <option value="all">All Cards ({favourites.length})</option>
-                  {abilityTypes.map(type => {
-                    const count = favourites.filter(card => card.ability_type === type).length;
+                  {abilityTypes.map((type) => {
+                    const count = favourites.filter(
+                      (card) => card.ability_type === type,
+                    ).length;
                     return (
                       <option key={type} value={`type-${type}`}>
                         {type} ({count})
                       </option>
                     );
                   })}
-                  {rarities.map(rarity => {
-                    const count = favourites.filter(card => card.rarity === rarity).length;
+                  {rarities.map((rarity) => {
+                    const count = favourites.filter(
+                      (card) => card.rarity === rarity,
+                    ).length;
                     return (
                       <option key={rarity} value={`rarity-${rarity}`}>
-                        {rarity.charAt(0).toUpperCase() + rarity.slice(1)} ({count})
+                        {rarity.charAt(0).toUpperCase() + rarity.slice(1)} (
+                        {count})
                       </option>
                     );
                   })}
@@ -467,13 +492,13 @@ export default function FavouritesPage() {
             </div>
 
             {/* Clear Filters */}
-            {(searchFilter || filterBy !== 'all' || sortBy !== 'newest') && (
+            {(searchFilter || filterBy !== "all" || sortBy !== "newest") && (
               <div className="filter-clear-section">
                 <button
                   onClick={() => {
-                    setSearchFilter('');
-                    setFilterBy('all');
-                    setSortBy('newest');
+                    setSearchFilter("");
+                    setFilterBy("all");
+                    setSortBy("newest");
                   }}
                   className="btn btn-secondary"
                 >
@@ -485,14 +510,17 @@ export default function FavouritesPage() {
         )}
 
         {/* Show filtered results info if applicable */}
-        {!loading && !error && filteredAndSortedResults.length !== favourites.length && favourites.length > 0 && (
-          <div className="card mb-2">
-            <p className="search-results-filtered">
-              Showing {filteredAndSortedResults.length} filtered results
-              {searchFilter && ` matching "${searchFilter}"`}
-            </p>
-          </div>
-        )}
+        {!loading &&
+          !error &&
+          filteredAndSortedResults.length !== favourites.length &&
+          favourites.length > 0 && (
+            <div className="card mb-2">
+              <p className="search-results-filtered">
+                Showing {filteredAndSortedResults.length} filtered results
+                {searchFilter && ` matching "${searchFilter}"`}
+              </p>
+            </div>
+          )}
 
         {/* Results */}
         {!loading && !error && currentUser && (
@@ -500,12 +528,11 @@ export default function FavouritesPage() {
             {favourites.length === 0 ? (
               <div className="search-empty-state card">
                 <div className="search-empty-icon">⭐</div>
-                <h3 className="search-empty-title">
-                  No Favourites Yet
-                </h3>
+                <h3 className="search-empty-title">No Favourites Yet</h3>
                 <div className="search-empty-content">
                   <p className="search-empty-subtitle">
-                    Start building your collection by searching for cards and clicking the ⭐ button!
+                    Start building your collection by searching for cards and
+                    clicking the ⭐ button!
                   </p>
                   <div className="mt-3">
                     <a href="/search" className="btn">
@@ -517,9 +544,7 @@ export default function FavouritesPage() {
             ) : filteredAndSortedResults.length === 0 ? (
               <div className="search-empty-state card">
                 <div className="search-empty-icon">🔍</div>
-                <h3 className="search-empty-title">
-                  No matches found
-                </h3>
+                <h3 className="search-empty-title">No matches found</h3>
                 <p className="search-empty-subtitle">
                   Try adjusting your search or filter settings.
                 </p>
@@ -536,9 +561,9 @@ export default function FavouritesPage() {
                       <SearchCard
                         card={card}
                         currentUser={currentUser}
-                        onRemoveFavorite={handleRemoveFavourite}
-                        showFavoriteButton={true}
-                        isFavorite={true}
+                        onRemoveFavourite={handleRemoveFavourite}
+                        showFavouriteButton={true}
+                        isFavourite={true}
                       />
                     </div>
                   ))}
@@ -565,28 +590,31 @@ export default function FavouritesPage() {
 
                       {/* Page numbers */}
                       <div className="page-numbers">
-                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                          let pageNum;
-                          if (totalPages <= 5) {
-                            pageNum = i + 1;
-                          } else if (currentPage <= 3) {
-                            pageNum = i + 1;
-                          } else if (currentPage >= totalPages - 2) {
-                            pageNum = totalPages - 4 + i;
-                          } else {
-                            pageNum = currentPage - 2 + i;
-                          }
+                        {Array.from(
+                          { length: Math.min(5, totalPages) },
+                          (_, i) => {
+                            let pageNum;
+                            if (totalPages <= 5) {
+                              pageNum = i + 1;
+                            } else if (currentPage <= 3) {
+                              pageNum = i + 1;
+                            } else if (currentPage >= totalPages - 2) {
+                              pageNum = totalPages - 4 + i;
+                            } else {
+                              pageNum = currentPage - 2 + i;
+                            }
 
-                          return (
-                            <button
-                              key={pageNum}
-                              onClick={() => setCurrentPage(pageNum)}
-                              className={`btn ${currentPage === pageNum ? 'btn-primary' : 'btn-secondary'} pagination-btn`}
-                            >
-                              {pageNum}
-                            </button>
-                          );
-                        })}
+                            return (
+                              <button
+                                key={pageNum}
+                                onClick={() => setCurrentPage(pageNum)}
+                                className={`btn ${currentPage === pageNum ? "btn-primary" : "btn-secondary"} pagination-btn`}
+                              >
+                                {pageNum}
+                              </button>
+                            );
+                          },
+                        )}
                       </div>
 
                       <button

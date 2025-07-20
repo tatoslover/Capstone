@@ -6,9 +6,9 @@ export default function CardList({
   loading = false,
   error = "",
   currentUser,
-  onFavoriteToggle,
+  onFavouriteToggle,
   emptyMessage = "No cards found",
-  showFavoriteButtons = true,
+  showFavouriteButtons = true,
 }) {
   if (loading) {
     return <Loading message="Loading cards..." />;
@@ -42,8 +42,8 @@ export default function CardList({
             <CardDisplay
               card={card}
               currentUser={currentUser}
-              onFavoriteToggle={onFavoriteToggle}
-              showFavoriteButton={showFavoriteButtons}
+              onFavouriteToggle={onFavouriteToggle}
+              showFavouriteButton={showFavouriteButtons}
             />
           </div>
         ))}

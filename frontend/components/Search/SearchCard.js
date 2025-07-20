@@ -10,16 +10,16 @@ const setGlobalActiveModal = (modal) => {
     globalActiveModal.close();
   }
   globalActiveModal = modal;
-  modalListeners.forEach(listener => listener(modal));
+  modalListeners.forEach((listener) => listener(modal));
 };
 
 export default function SearchCard({
   card,
   currentUser,
-  onFavoriteToggle,
-  onRemoveFavorite,
-  showFavoriteButton = true,
-  isFavorite = false,
+  onFavouriteToggle,
+  onRemoveFavourite,
+  showFavouriteButton = true,
+  isFavourite = false,
 }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -33,7 +33,7 @@ export default function SearchCard({
   // Modal management
   useEffect(() => {
     const modalManager = {
-      close: () => setShowModal(false)
+      close: () => setShowModal(false),
     };
 
     const listener = (activeModal) => {
@@ -61,11 +61,11 @@ export default function SearchCard({
     return null;
   }
 
-  const handleFavoriteClick = () => {
-    if (isFavorite && onRemoveFavorite && currentUser) {
-      onRemoveFavorite(card);
-    } else if (onFavoriteToggle && currentUser) {
-      onFavoriteToggle(card);
+  const handleFavouriteClick = () => {
+    if (isFavourite && onRemoveFavourite && currentUser) {
+      onRemoveFavourite(card);
+    } else if (onFavouriteToggle && currentUser) {
+      onFavouriteToggle(card);
     }
   };
 
@@ -113,21 +113,48 @@ export default function SearchCard({
     let formatted = manaCost;
 
     // Generic mana costs {1}, {2}, etc.
-    formatted = formatted.replace(/\{(\d+)\}/g, '<span class="mana-symbol mana-generic">$1</span>');
+    formatted = formatted.replace(
+      /\{(\d+)\}/g,
+      '<span class="mana-symbol mana-generic">$1</span>',
+    );
 
     // Colored mana symbols
-    formatted = formatted.replace(/\{W\}/g, '<span class="mana-symbol mana-white">W</span>');
-    formatted = formatted.replace(/\{U\}/g, '<span class="mana-symbol mana-blue">U</span>');
-    formatted = formatted.replace(/\{B\}/g, '<span class="mana-symbol mana-black">B</span>');
-    formatted = formatted.replace(/\{R\}/g, '<span class="mana-symbol mana-red">R</span>');
-    formatted = formatted.replace(/\{G\}/g, '<span class="mana-symbol mana-green">G</span>');
-    formatted = formatted.replace(/\{C\}/g, '<span class="mana-symbol mana-colorless">C</span>');
+    formatted = formatted.replace(
+      /\{W\}/g,
+      '<span class="mana-symbol mana-white">W</span>',
+    );
+    formatted = formatted.replace(
+      /\{U\}/g,
+      '<span class="mana-symbol mana-blue">U</span>',
+    );
+    formatted = formatted.replace(
+      /\{B\}/g,
+      '<span class="mana-symbol mana-black">B</span>',
+    );
+    formatted = formatted.replace(
+      /\{R\}/g,
+      '<span class="mana-symbol mana-red">R</span>',
+    );
+    formatted = formatted.replace(
+      /\{G\}/g,
+      '<span class="mana-symbol mana-green">G</span>',
+    );
+    formatted = formatted.replace(
+      /\{C\}/g,
+      '<span class="mana-symbol mana-colorless">C</span>',
+    );
 
     // Hybrid mana
-    formatted = formatted.replace(/\{([WUBRG])\/([WUBRG])\}/g, '<span class="mana-symbol mana-hybrid">$1/$2</span>');
+    formatted = formatted.replace(
+      /\{([WUBRG])\/([WUBRG])\}/g,
+      '<span class="mana-symbol mana-hybrid">$1/$2</span>',
+    );
 
     // Variable mana
-    formatted = formatted.replace(/\{X\}/g, '<span class="mana-symbol mana-variable">X</span>');
+    formatted = formatted.replace(
+      /\{X\}/g,
+      '<span class="mana-symbol mana-variable">X</span>',
+    );
 
     return formatted;
   };
@@ -142,12 +169,15 @@ export default function SearchCard({
     // Split on periods followed by space and capital letter (sentence boundaries)
     // Also split on specific keywords that should be on new lines
     let formatted = textWithMana
-      .replace(/\. ([A-Z])/g, '.\n$1')
-      .replace(/\n([A-Z][a-z]+ \([^)]+\))/g, '\n\n$1') // Abilities with reminder text
-      .replace(/\n(Flying|Trample|Haste|Vigilance|Deathtouch|Lifelink|First strike|Double strike|Hexproof|Indestructible|Reach|Defender|Menace|Ward)/g, '\n\n$1')
-      .split('\n')
-      .map(sentence => sentence.trim())
-      .filter(sentence => sentence.length > 0);
+      .replace(/\. ([A-Z])/g, ".\n$1")
+      .replace(/\n([A-Z][a-z]+ \([^)]+\))/g, "\n\n$1") // Abilities with reminder text
+      .replace(
+        /\n(Flying|Trample|Haste|Vigilance|Deathtouch|Lifelink|First strike|Double strike|Hexproof|Indestructible|Reach|Defender|Menace|Ward)/g,
+        "\n\n$1",
+      )
+      .split("\n")
+      .map((sentence) => sentence.trim())
+      .filter((sentence) => sentence.length > 0);
 
     return formatted;
   };
@@ -165,10 +195,8 @@ export default function SearchCard({
       <div
         className="search-card"
         onClick={openModal}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: "pointer" }}
       >
-
-
         {/* Card Image Only */}
         <div className="search-card-image-container">
           {showPlaceholder ? (
@@ -179,7 +207,9 @@ export default function SearchCard({
                   <p className="mtg-card-placeholder-type">{card.type_line}</p>
                 )}
                 {card.mana_cost && (
-                  <p className="mtg-card-placeholder-mana">{formatManaSymbols(card.mana_cost)}</p>
+                  <p className="mtg-card-placeholder-mana">
+                    {formatManaSymbols(card.mana_cost)}
+                  </p>
                 )}
                 <p className="mtg-card-placeholder-hint">Placeholder</p>
               </div>
@@ -207,132 +237,159 @@ export default function SearchCard({
       </div>
 
       {/* Modal */}
-      {showModal && mounted && createPortal(
-        <div className="card-modal-overlay" onClick={closeModal}>
-          <div className="card-modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* Modal Header */}
-            <div className="card-modal-header">
-              <h2 className="card-modal-title">{card.name}</h2>
-              <button className="card-modal-close" onClick={closeModal}>
-                ✕
-              </button>
-            </div>
-
-            {/* Modal Body */}
-            <div className="card-modal-body">
-              {/* Card Image in Modal */}
-              <div className="card-modal-image-container">
-                {showPlaceholder ? (
-                  <div className={`mtg-card-placeholder ${colourClass}`}>
-                    <div className="mtg-card-placeholder-content">
-                      <h3 className="mtg-card-placeholder-name">{card.name}</h3>
-                      {card.type_line && (
-                        <p className="mtg-card-placeholder-type">{card.type_line}</p>
-                      )}
-                      {card.mana_cost && (
-                        <p className="mtg-card-placeholder-mana">{formatManaSymbols(card.mana_cost)}</p>
-                      )}
-                      <p className="mtg-card-placeholder-hint">Placeholder</p>
-                    </div>
-                  </div>
-                ) : (
-                  <img
-                    src={card.image_uris?.normal}
-                    alt={card.name}
-                    className="card-modal-image"
-                  />
-                )}
+      {showModal &&
+        mounted &&
+        createPortal(
+          <div className="card-modal-overlay" onClick={closeModal}>
+            <div
+              className="card-modal-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="card-modal-header">
+                <h2 className="card-modal-title">{card.name}</h2>
+                <button className="card-modal-close" onClick={closeModal}>
+                  ✕
+                </button>
               </div>
 
-              {/* Card Details */}
-              <div className="card-info-section">
-                {card.mana_cost && (
-                  <div className="mana-cost-display">
-                    <strong>Mana Cost:</strong>
-                    <span
-                      className="mana-symbols"
-                      dangerouslySetInnerHTML={{ __html: formatManaSymbols(card.mana_cost) }}
+              {/* Modal Body */}
+              <div className="card-modal-body">
+                {/* Card Image in Modal */}
+                <div className="card-modal-image-container">
+                  {showPlaceholder ? (
+                    <div className={`mtg-card-placeholder ${colourClass}`}>
+                      <div className="mtg-card-placeholder-content">
+                        <h3 className="mtg-card-placeholder-name">
+                          {card.name}
+                        </h3>
+                        {card.type_line && (
+                          <p className="mtg-card-placeholder-type">
+                            {card.type_line}
+                          </p>
+                        )}
+                        {card.mana_cost && (
+                          <p className="mtg-card-placeholder-mana">
+                            {formatManaSymbols(card.mana_cost)}
+                          </p>
+                        )}
+                        <p className="mtg-card-placeholder-hint">Placeholder</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <img
+                      src={card.image_uris?.normal}
+                      alt={card.name}
+                      className="card-modal-image"
                     />
-                  </div>
-                )}
-                <p className="type-line-display"><strong>Type:</strong> {card.type_line}</p>
-                {card.oracle_text && (
-                  <div className="oracle-text">
-                    <strong>Rules Text:</strong>
-                    <div className="oracle-text-content">
-                      {formatOracleText(card.oracle_text).map((sentence, index) => (
-                        <div
-                          key={index}
-                          className="oracle-sentence"
-                          dangerouslySetInnerHTML={{ __html: sentence }}
-                        />
-                      ))}
+                  )}
+                </div>
+
+                {/* Card Details */}
+                <div className="card-info-section">
+                  {card.mana_cost && (
+                    <div className="mana-cost-display">
+                      <strong>Mana Cost:</strong>
+                      <span
+                        className="mana-symbols"
+                        dangerouslySetInnerHTML={{
+                          __html: formatManaSymbols(card.mana_cost),
+                        }}
+                      />
                     </div>
-                  </div>
+                  )}
+                  <p className="type-line-display">
+                    <strong>Type:</strong> {card.type_line}
+                  </p>
+                  {card.oracle_text && (
+                    <div className="oracle-text">
+                      <strong>Rules Text:</strong>
+                      <div className="oracle-text-content">
+                        {formatOracleText(card.oracle_text).map(
+                          (sentence, index) => (
+                            <div
+                              key={index}
+                              className="oracle-sentence"
+                              dangerouslySetInnerHTML={{ __html: sentence }}
+                            />
+                          ),
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  {getPowerToughness() && (
+                    <p className="power-toughness-display">
+                      <strong>Power/Toughness:</strong> {getPowerToughness()}
+                    </p>
+                  )}
+                  {card.rarity && (
+                    <div className="rarity-display">
+                      <strong>Rarity:</strong>{" "}
+                      <span
+                        className={`rarity-badge rarity-${card.rarity?.toLowerCase()}`}
+                      >
+                        {card.rarity}
+                      </span>
+                    </div>
+                  )}
+                  {card.set_name && (
+                    <p className="set-display">
+                      <strong>Set:</strong> {card.set_name}
+                    </p>
+                  )}
+                  {card.artist && (
+                    <p className="artist-display">
+                      <strong>Artist:</strong> {card.artist}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="card-modal-footer">
+                {isFavourite && currentUser && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onRemoveFavourite) {
+                        onRemoveFavourite(card);
+                      }
+                    }}
+                    className="remove-favourite-btn"
+                    title="Remove from favourites"
+                  >
+                    Remove from Favourites
+                  </button>
                 )}
-                {getPowerToughness() && (
-                  <p className="power-toughness-display"><strong>Power/Toughness:</strong> {getPowerToughness()}</p>
+                {!isFavourite && showFavouriteButton && currentUser && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleFavouriteClick();
+                      closeModal();
+                    }}
+                    className="favourite-btn-modal"
+                    title="Add to favourites"
+                  >
+                    ⭐ Add to Favourites
+                  </button>
                 )}
-                {card.rarity && (
-                  <div className="rarity-display">
-                    <strong>Rarity:</strong> <span className={`rarity-badge rarity-${card.rarity?.toLowerCase()}`}>{card.rarity}</span>
-                  </div>
-                )}
-                {card.set_name && (
-                  <p className="set-display"><strong>Set:</strong> {card.set_name}</p>
-                )}
-                {card.artist && (
-                  <p className="artist-display"><strong>Artist:</strong> {card.artist}</p>
+                {card.scryfall_uri && (
+                  <a
+                    href={card.scryfall_uri}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-btn"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    View on Scryfall
+                  </a>
                 )}
               </div>
             </div>
-
-            {/* Modal Footer */}
-            <div className="card-modal-footer">
-              {isFavorite && currentUser && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (onRemoveFavorite) {
-                      onRemoveFavorite(card);
-                    }
-                    closeModal();
-                  }}
-                  className="btn btn-danger"
-                  title="Remove from favourites"
-                >
-                  🗑️ Remove from Favourites
-                </button>
-              )}
-              {!isFavorite && showFavoriteButton && currentUser && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleFavoriteClick();
-                    closeModal();
-                  }}
-                  className="btn btn-success"
-                  title="Add to favourites"
-                >
-                  ⭐ Add to Favourites
-                </button>
-              )}
-              {card.scryfall_uri && (
-                <a
-                  href={card.scryfall_uri}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-btn"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  View on Scryfall
-                </a>
-              )}
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

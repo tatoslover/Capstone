@@ -3,9 +3,9 @@ import { useTheme } from "../../contexts/ThemeContext";
 
 export default function CardDisplay({
   card,
-  showFavoriteButton = true,
+  showFavouriteButton = true,
   currentUser,
-  onFavoriteToggle,
+  onFavouriteToggle,
 }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -16,9 +16,9 @@ export default function CardDisplay({
     return null;
   }
 
-  const handleFavoriteClick = () => {
-    if (onFavoriteToggle && currentUser) {
-      onFavoriteToggle(card);
+  const handleFavouriteClick = () => {
+    if (onFavouriteToggle && currentUser) {
+      onFavouriteToggle(card);
     }
   };
 
@@ -117,15 +117,19 @@ export default function CardDisplay({
   };
 
   return (
-    <div className="mtg-card" onClick={() => setShowModal(true)} style={{ cursor: 'pointer' }}>
-      {/* Favorite Button */}
-      {showFavoriteButton && currentUser && (
+    <div
+      className="mtg-card"
+      onClick={() => setShowModal(true)}
+      style={{ cursor: "pointer" }}
+    >
+      {/* Favourite Button */}
+      {showFavouriteButton && currentUser && (
         <button
           onClick={(e) => {
             e.stopPropagation();
-            handleFavoriteClick();
+            handleFavouriteClick();
           }}
-          className="favorite-btn"
+          className="favourite-btn"
           title="Add to favourites"
         >
           ⭐
@@ -142,7 +146,9 @@ export default function CardDisplay({
                 <p className="mtg-card-placeholder-type">{card.type_line}</p>
               )}
               {card.mana_cost && (
-                <p className="mtg-card-placeholder-mana">{formatManaSymbols(card.mana_cost)}</p>
+                <p className="mtg-card-placeholder-mana">
+                  {formatManaSymbols(card.mana_cost)}
+                </p>
               )}
               <p className="mtg-card-placeholder-hint">Placeholder</p>
             </div>
@@ -247,11 +253,17 @@ export default function CardDisplay({
       {/* Modal */}
       {showModal && (
         <div className="card-modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="card-modal-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="card-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Modal Header */}
             <div className="card-modal-header">
               <h2 className="card-modal-title">{card.name}</h2>
-              <button className="card-modal-close" onClick={() => setShowModal(false)}>
+              <button
+                className="card-modal-close"
+                onClick={() => setShowModal(false)}
+              >
                 ✕
               </button>
             </div>
@@ -265,10 +277,14 @@ export default function CardDisplay({
                     <div className="mtg-card-placeholder-content">
                       <h3 className="mtg-card-placeholder-name">{card.name}</h3>
                       {card.type_line && (
-                        <p className="mtg-card-placeholder-type">{card.type_line}</p>
+                        <p className="mtg-card-placeholder-type">
+                          {card.type_line}
+                        </p>
                       )}
                       {card.mana_cost && (
-                        <p className="mtg-card-placeholder-mana">{formatManaSymbols(card.mana_cost)}</p>
+                        <p className="mtg-card-placeholder-mana">
+                          {formatManaSymbols(card.mana_cost)}
+                        </p>
                       )}
                       <p className="mtg-card-placeholder-hint">Placeholder</p>
                     </div>
@@ -286,21 +302,32 @@ export default function CardDisplay({
               <div className="card-modal-info">
                 <div className="card-info-section">
                   {card.mana_cost && (
-                    <p className="mana-cost-display">Mana Cost: {formatManaSymbols(card.mana_cost)}</p>
+                    <p className="mana-cost-display">
+                      Mana Cost: {formatManaSymbols(card.mana_cost)}
+                    </p>
                   )}
                   <p className="type-line-display">Type: {card.type_line}</p>
                   {card.oracle_text && (
                     <div className="oracle-text">
                       <strong>Rules Text:</strong>
-                      <div dangerouslySetInnerHTML={{ __html: highlightKeywords(card.oracle_text) }} />
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: highlightKeywords(card.oracle_text),
+                        }}
+                      />
                     </div>
                   )}
                   {getPowerToughness() && (
-                    <p className="power-toughness-display">Power/Toughness: {getPowerToughness()}</p>
+                    <p className="power-toughness-display">
+                      Power/Toughness: {getPowerToughness()}
+                    </p>
                   )}
                   {card.rarity && (
                     <p className="rarity-display">
-                      Rarity: <span className={`rarity-${card.rarity?.toLowerCase()}`}>{card.rarity}</span>
+                      Rarity:{" "}
+                      <span className={`rarity-${card.rarity?.toLowerCase()}`}>
+                        {card.rarity}
+                      </span>
                     </p>
                   )}
                   {card.set_name && (
@@ -315,13 +342,13 @@ export default function CardDisplay({
 
             {/* Modal Footer */}
             <div className="card-modal-footer">
-              {showFavoriteButton && currentUser && (
+              {showFavouriteButton && currentUser && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleFavoriteClick();
+                    handleFavouriteClick();
                   }}
-                  className="favorite-btn-modal"
+                  className="favourite-btn-modal"
                   title="Add to favourites"
                 >
                   ⭐ Add to Favourites

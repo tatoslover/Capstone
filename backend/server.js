@@ -15,29 +15,34 @@ const swaggerOptions = {
     info: {
       title: "Planeswalker's Primer API",
       version: "1.0.0",
-      description: "API documentation for the Planeswalker's Primer MTG application",
+      description:
+        "API documentation for the Planeswalker's Primer MTG application",
       contact: {
         name: "API Support",
-        email: "support@plansewalkersprimer.com"
-      }
+        email: "support@plansewalkersprimer.com",
+      },
     },
     servers: [
       {
-        url: process.env.NODE_ENV === "production"
-          ? "https://plansewalkers-primer-api.railway.app"
-          : `http://localhost:${PORT}`,
-        description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
-      }
+        url:
+          process.env.NODE_ENV === "production"
+            ? "https://plansewalkers-primer-api.railway.app"
+            : `http://localhost:${PORT}`,
+        description:
+          process.env.NODE_ENV === "production"
+            ? "Production server"
+            : "Development server",
+      },
     ],
     tags: [
       { name: "Health", description: "Server health endpoints" },
       { name: "Users", description: "User management operations" },
       { name: "Messages", description: "Message CRUD operations" },
       { name: "Favourites", description: "User favourite cards management" },
-      { name: "Cards", description: "MTG card search via Scryfall API" }
-    ]
+      { name: "Cards", description: "MTG card search via Scryfall API" },
+    ],
   },
-  apis: ["./server.js"]
+  apis: ["./server.js"],
 };
 
 const swaggerSpecs = swaggerJsdoc(swaggerOptions);
@@ -47,10 +52,14 @@ app.use(cors());
 app.use(express.json());
 
 // Swagger UI
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
-  customCss: ".swagger-ui .topbar { display: none }",
-  customSiteTitle: "Planeswalker's Primer API Documentation"
-}));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpecs, {
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Planeswalker's Primer API Documentation",
+  }),
+);
 
 // Initialize database tables on startup
 initTables();
@@ -863,7 +872,7 @@ app.get("/api/cards/:id", async (req, res) => {
 
 /**
  * @swagger
- * /api/favorites:
+ * /api/favourites:
  *   post:
  *     summary: Add a card to user's favourites
  *     tags: [Favourites]
@@ -904,7 +913,7 @@ app.get("/api/cards/:id", async (req, res) => {
  *       500:
  *         description: Database error
  */
-app.post("/api/favorites", async (req, res) => {
+app.post("/api/favourites", async (req, res) => {
   const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
 
   if (!user_id || !card_name) {
@@ -927,7 +936,7 @@ app.post("/api/favorites", async (req, res) => {
 
 /**
  * @swagger
- * /api/favorites/{userId}:
+ * /api/favourites/{userId}:
  *   get:
  *     summary: Get all favourites for a user
  *     tags: [Favourites]
@@ -950,7 +959,7 @@ app.post("/api/favorites", async (req, res) => {
  *       500:
  *         description: Database error
  */
-app.get("/api/favorites/:userId", async (req, res) => {
+app.get("/api/favourites/:userId", async (req, res) => {
   const userId = parseInt(req.params.userId);
 
   try {
@@ -960,14 +969,14 @@ app.get("/api/favorites/:userId", async (req, res) => {
     );
     res.json(result.rows);
   } catch (error) {
-    console.error("Error fetching favorites:", error);
+    console.error("Error fetching favourites:", error);
     res.status(500).json({ error: "Database error" });
   }
 });
 
 /**
  * @swagger
- * /api/favorites/{id}:
+ * /api/favourites/{id}:
  *   put:
  *     summary: Update a favourite (mainly for notes)
  *     tags: [Favourites]
@@ -1003,7 +1012,7 @@ app.get("/api/favorites/:userId", async (req, res) => {
  *       500:
  *         description: Database error
  */
-app.put("/api/favorites/:id", async (req, res) => {
+app.put("/api/favourites/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { notes, ability_type } = req.body;
 
@@ -1026,7 +1035,7 @@ app.put("/api/favorites/:id", async (req, res) => {
 
 /**
  * @swagger
- * /api/favorites/{id}:
+ * /api/favourites/{id}:
  *   delete:
  *     summary: Remove a favourite
  *     tags: [Favourites]
@@ -1055,7 +1064,7 @@ app.put("/api/favorites/:id", async (req, res) => {
  *       500:
  *         description: Database error
  */
-app.delete("/api/favorites/:id", async (req, res) => {
+app.delete("/api/favourites/:id", async (req, res) => {
   const id = parseInt(req.params.id);
 
   try {
@@ -1071,6 +1080,84 @@ app.delete("/api/favorites/:id", async (req, res) => {
     res.json({ message: "Favorite removed", deleted: result.rows[0] });
   } catch (error) {
     console.error("Error deleting favorite:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// Backward compatibility aliases for US spelling
+app.post("/api/favourites", async (req, res) => {
+  const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
+
+  if (!user_id || !card_name) {
+    return res
+      .status(400)
+      .json({ error: "User ID and card name are required" });
+  }
+
+  try {
+    const result = await pool.query(
+      "INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [user_id, card_name, scryfall_id, ability_type, notes],
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.get("/api/favourites/:userId", async (req, res) => {
+  const userId = parseInt(req.params.userId);
+
+  try {
+    const result = await pool.query(
+      "SELECT * FROM favourites WHERE user_id = $1 ORDER BY created_at DESC",
+      [userId],
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching favourites:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.put("/api/favourites/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { notes, ability_type } = req.body;
+
+  try {
+    const result = await pool.query(
+      "UPDATE favourites SET notes = $1, ability_type = $2 WHERE id = $3 RETURNING *",
+      [notes, ability_type, id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Favorite not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating favorite:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.delete("/api/favourites/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    const result = await pool.query(
+      "DELETE FROM favourites WHERE id = $1 RETURNING *",
+      [id],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Favourite not found" });
+    }
+
+    res.json({ message: "Favourite removed", deleted: result.rows[0] });
+  } catch (error) {
+    console.error("Error deleting favourite:", error);
     res.status(500).json({ error: "Database error" });
   }
 });

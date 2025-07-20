@@ -146,25 +146,22 @@ async function runTests() {
   // Test 4: Favourites CRUD Operations
   logSection("Favourites System");
 
-  // Test favourites endpoint with spelling variations
-  const favoritesUS = await testRequest(
-    `${BACKEND_URL}/api/favorites/${TEST_USER_ID}`,
-  );
+  // Test favourites endpoint
   const favouritesUK = await testRequest(
     `${BACKEND_URL}/api/favourites/${TEST_USER_ID}`,
   );
 
-  if (favoritesUS.success && [200, 404].includes(favoritesUS.status)) {
+  if (favouritesUK.success && [200, 404].includes(favouritesUK.status)) {
     logTest(
-      "Favorites endpoint (US spelling)",
+      "Favourites endpoint (UK spelling)",
       "PASS",
-      `Status: ${favoritesUS.status}, Records: ${Array.isArray(favoritesUS.data) ? favoritesUS.data.length : 0}`,
+      `Status: ${favouritesUK.status}, Records: ${Array.isArray(favouritesUK.data) ? favouritesUK.data.length : 0}`,
     );
   } else {
     logTest(
-      "Favorites endpoint (US spelling)",
+      "Favourites endpoint (UK spelling)",
       "FAIL",
-      favoritesUS.error || `Status: ${favoritesUS.status}`,
+      favouritesUK.error || `Status: ${favouritesUK.status}`,
     );
   }
 
@@ -182,8 +179,8 @@ async function runTests() {
     );
   }
 
-  // Test adding a favorite
-  const addFavorite = await testRequest(`${BACKEND_URL}/api/favorites`, {
+  // Test adding a favourite
+  const addFavourite = await testRequest(`${BACKEND_URL}/api/favourites`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -229,7 +226,6 @@ async function runTests() {
   logSection("Frontend Route Analysis");
 
   const routeTests = [
-    { route: "/favorites", expected: "US spelling route" },
     { route: "/favourites", expected: "UK spelling route" },
     { route: "/profile", expected: "Profile route" },
   ];
@@ -266,7 +262,7 @@ async function runTests() {
   logSection("Recommendations");
 
   log(
-    "1. Fix spelling mismatch: Rename favorites.js to favourites.js OR update navigation links",
+    "1. All spelling has been updated to UK English (favourites) for consistency",
   );
   log("2. Create missing profile.js page");
   log(

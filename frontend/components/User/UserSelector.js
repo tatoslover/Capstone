@@ -95,7 +95,7 @@ export default function UserSelector({ onUserSelect, currentUser }) {
           lineHeight: "1.5",
         }}
       >
-        Choose an existing profile or create a new one to save your favorite
+        Choose an existing profile or create a new one to save your favourite
         cards
       </p>
 
@@ -113,7 +113,9 @@ export default function UserSelector({ onUserSelect, currentUser }) {
             boxShadow: "0 2px 4px var(--theme-shadowColor)",
           }}
         >
-          <p style={{ margin: 0, fontWeight: "500", color: "var(--theme-text)" }}>
+          <p
+            style={{ margin: 0, fontWeight: "500", color: "var(--theme-text)" }}
+          >
             Currently logged in as: <strong>{currentUser.username}</strong>
           </p>
           <button
@@ -166,7 +168,12 @@ export default function UserSelector({ onUserSelect, currentUser }) {
                     <div style={{ fontWeight: "500", marginBottom: "0.25rem" }}>
                       {user.username}
                     </div>
-                    <div style={{ fontSize: "0.875rem", color: "var(--theme-textLight)" }}>
+                    <div
+                      style={{
+                        fontSize: "0.875rem",
+                        color: "var(--theme-textLight)",
+                      }}
+                    >
                       Created {new Date(user.created_at).toLocaleDateString()}
                     </div>
                   </button>
@@ -178,7 +185,8 @@ export default function UserSelector({ onUserSelect, currentUser }) {
           {/* Create New User Section */}
           <div
             style={{
-              borderTop: users.length > 0 ? "1px solid var(--theme-border)" : "none",
+              borderTop:
+                users.length > 0 ? "1px solid var(--theme-border)" : "none",
               paddingTop: users.length > 0 ? "1.5rem" : "0",
             }}
           >
@@ -187,8 +195,13 @@ export default function UserSelector({ onUserSelect, currentUser }) {
                 <h4 style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
                   Create New Profile
                 </h4>
-                <p style={{ color: "var(--theme-textLight)", marginBottom: "1rem" }}>
-                  Start fresh with a new profile to track your favorite cards
+                <p
+                  style={{
+                    color: "var(--theme-textLight)",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  Start fresh with a new profile to track your favourite cards
                 </p>
                 <button
                   onClick={() => setShowCreateForm(true)}

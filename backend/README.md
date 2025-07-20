@@ -76,5 +76,5 @@ curl http://localhost:3001/api/messages
 
 - [ ] Add PostgreSQL database connection
 - [ ] Implement user management
-- [ ] Add favorites system
+- [ ] Add favourites system
 - [ ] Integrate Scryfall API

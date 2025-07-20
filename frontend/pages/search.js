@@ -18,14 +18,12 @@ export default function SearchPage() {
   const [totalResults, setTotalResults] = useState(0);
   const [currentQuery, setCurrentQuery] = useState("");
 
-  const [sortBy, setSortBy] = useState('relevance');
-  const [filterBy, setFilterBy] = useState('all');
-  const [searchFilter, setSearchFilter] = useState('');
+  const [sortBy, setSortBy] = useState("relevance");
+  const [filterBy, setFilterBy] = useState("all");
+  const [searchFilter, setSearchFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const resultsPerPage = 10;
-
-
 
   // Load user from localStorage on mount
   useEffect(() => {
@@ -50,25 +48,32 @@ export default function SearchPage() {
 
   // Extract unique card types for filtering
   const cardTypes = useMemo(() => {
-    const types = [...new Set(searchResults
-      .map(card => {
-        if (card.type_line) {
-          const mainType = card.type_line.split('—')[0].trim().split(' ')[0];
-          return mainType;
-        }
-        return null;
-      })
-      .filter(type => type)
-    )];
+    const types = [
+      ...new Set(
+        searchResults
+          .map((card) => {
+            if (card.type_line) {
+              const mainType = card.type_line
+                .split("—")[0]
+                .trim()
+                .split(" ")[0];
+              return mainType;
+            }
+            return null;
+          })
+          .filter((type) => type),
+      ),
+    ];
     return types.sort();
   }, [searchResults]);
 
   // Extract unique rarities for filtering
   const rarities = useMemo(() => {
-    const rarityList = [...new Set(searchResults
-      .map(card => card.rarity)
-      .filter(rarity => rarity)
-    )];
+    const rarityList = [
+      ...new Set(
+        searchResults.map((card) => card.rarity).filter((rarity) => rarity),
+      ),
+    ];
     return rarityList.sort();
   }, [searchResults]);
 
@@ -79,41 +84,45 @@ export default function SearchPage() {
     // Apply search filter
     if (searchFilter.trim()) {
       const search = searchFilter.toLowerCase();
-      filtered = filtered.filter(card =>
-        card.name.toLowerCase().includes(search) ||
-        (card.oracle_text && card.oracle_text.toLowerCase().includes(search)) ||
-        (card.type_line && card.type_line.toLowerCase().includes(search))
+      filtered = filtered.filter(
+        (card) =>
+          card.name.toLowerCase().includes(search) ||
+          (card.oracle_text &&
+            card.oracle_text.toLowerCase().includes(search)) ||
+          (card.type_line && card.type_line.toLowerCase().includes(search)),
       );
     }
 
     // Apply type filter
-    if (filterBy !== 'all') {
-      if (filterBy.startsWith('type-')) {
-        const type = filterBy.replace('type-', '');
-        filtered = filtered.filter(card =>
-          card.type_line && card.type_line.toLowerCase().includes(type.toLowerCase())
+    if (filterBy !== "all") {
+      if (filterBy.startsWith("type-")) {
+        const type = filterBy.replace("type-", "");
+        filtered = filtered.filter(
+          (card) =>
+            card.type_line &&
+            card.type_line.toLowerCase().includes(type.toLowerCase()),
         );
-      } else if (filterBy.startsWith('rarity-')) {
-        const rarity = filterBy.replace('rarity-', '');
-        filtered = filtered.filter(card => card.rarity === rarity);
+      } else if (filterBy.startsWith("rarity-")) {
+        const rarity = filterBy.replace("rarity-", "");
+        filtered = filtered.filter((card) => card.rarity === rarity);
       }
     }
 
     // Apply sorting
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case 'name':
+        case "name":
           return a.name.localeCompare(b.name);
-        case 'name-desc':
+        case "name-desc":
           return b.name.localeCompare(a.name);
-        case 'mana-cost':
+        case "mana-cost":
           const aCmc = a.cmc || 0;
           const bCmc = b.cmc || 0;
           return aCmc - bCmc;
-        case 'rarity':
+        case "rarity":
           const rarityOrder = { common: 1, uncommon: 2, rare: 3, mythic: 4 };
           return (rarityOrder[a.rarity] || 0) - (rarityOrder[b.rarity] || 0);
-        case 'relevance':
+        case "relevance":
         default:
           return 0;
       }
@@ -123,16 +132,19 @@ export default function SearchPage() {
   }, [searchResults, searchFilter, filterBy, sortBy]);
 
   // Pagination
-  const totalPages = Math.ceil(filteredAndSortedResults.length / resultsPerPage);
+  const totalPages = Math.ceil(
+    filteredAndSortedResults.length / resultsPerPage,
+  );
   const startIndex = (currentPage - 1) * resultsPerPage;
-  const paginatedResults = filteredAndSortedResults.slice(startIndex, startIndex + resultsPerPage);
+  const paginatedResults = filteredAndSortedResults.slice(
+    startIndex,
+    startIndex + resultsPerPage,
+  );
 
   // Reset to page 1 when filters change
   useMemo(() => {
     setCurrentPage(1);
   }, [searchFilter, filterBy, sortBy]);
-
-
 
   const performSearch = async (query) => {
     if (!query || !query.trim()) {
@@ -296,8 +308,6 @@ export default function SearchPage() {
           </div>
         </div>
 
-
-
         {/* Search Interface */}
         <CardSearch
           onSearch={handleSearch}
@@ -342,14 +352,22 @@ export default function SearchPage() {
                       🔍 Search Results - Found {searchResults.length} cards
                       {totalResults > searchResults.length && (
                         <span className="search-results-total">
-                          (showing first {searchResults.length} of {totalResults} total)
+                          (showing first {searchResults.length} of{" "}
+                          {totalResults} total)
                         </span>
                       )}
                     </h3>
-                    <p className="search-results-query">Search: "{currentQuery}"</p>
+                    <p className="search-results-query">
+                      Search: "{currentQuery}"
+                    </p>
                     {filteredAndSortedResults.length > resultsPerPage && (
                       <p className="pagination-info">
-                        Page {currentPage} of {totalPages} ({startIndex + 1}-{Math.min(startIndex + resultsPerPage, filteredAndSortedResults.length)} of {filteredAndSortedResults.length} results)
+                        Page {currentPage} of {totalPages} ({startIndex + 1}-
+                        {Math.min(
+                          startIndex + resultsPerPage,
+                          filteredAndSortedResults.length,
+                        )}{" "}
+                        of {filteredAndSortedResults.length} results)
                       </p>
                     )}
                     <label className="form-label">Filter results:</label>
@@ -367,9 +385,7 @@ export default function SearchPage() {
                 <div className="filters-grid">
                   {/* Sort By */}
                   <div className="form-group">
-                    <label className="form-label">
-                      📊 Sort By
-                    </label>
+                    <label className="form-label">📊 Sort By</label>
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
@@ -385,18 +401,22 @@ export default function SearchPage() {
 
                   {/* Filter By Type */}
                   <div className="form-group">
-                    <label className="form-label">
-                      🎯 Filter By
-                    </label>
+                    <label className="form-label">🎯 Filter By</label>
                     <select
                       value={filterBy}
                       onChange={(e) => setFilterBy(e.target.value)}
                       className="filter-select"
                     >
-                      <option value="all">All Results ({searchResults.length})</option>
-                      {cardTypes.map(type => {
-                        const count = searchResults.filter(card =>
-                          card.type_line && card.type_line.toLowerCase().includes(type.toLowerCase())
+                      <option value="all">
+                        All Results ({searchResults.length})
+                      </option>
+                      {cardTypes.map((type) => {
+                        const count = searchResults.filter(
+                          (card) =>
+                            card.type_line &&
+                            card.type_line
+                              .toLowerCase()
+                              .includes(type.toLowerCase()),
                         ).length;
                         return (
                           <option key={type} value={`type-${type}`}>
@@ -404,11 +424,14 @@ export default function SearchPage() {
                           </option>
                         );
                       })}
-                      {rarities.map(rarity => {
-                        const count = searchResults.filter(card => card.rarity === rarity).length;
+                      {rarities.map((rarity) => {
+                        const count = searchResults.filter(
+                          (card) => card.rarity === rarity,
+                        ).length;
                         return (
                           <option key={rarity} value={`rarity-${rarity}`}>
-                            {rarity.charAt(0).toUpperCase() + rarity.slice(1)} ({count})
+                            {rarity.charAt(0).toUpperCase() + rarity.slice(1)} (
+                            {count})
                           </option>
                         );
                       })}
@@ -417,13 +440,15 @@ export default function SearchPage() {
                 </div>
 
                 {/* Clear Filters */}
-                {(searchFilter || filterBy !== 'all' || sortBy !== 'relevance') && (
+                {(searchFilter ||
+                  filterBy !== "all" ||
+                  sortBy !== "relevance") && (
                   <div className="filter-clear-section">
                     <button
                       onClick={() => {
-                        setSearchFilter('');
-                        setFilterBy('all');
-                        setSortBy('relevance');
+                        setSearchFilter("");
+                        setFilterBy("all");
+                        setSortBy("relevance");
                       }}
                       className="btn btn-secondary"
                     >
@@ -457,7 +482,9 @@ export default function SearchPage() {
                   </p>
                   <ul className="search-tips-list">
                     <li>Check spelling of card names</li>
-                    <li>Try searching for abilities like "flying" or "trample"</li>
+                    <li>
+                      Try searching for abilities like "flying" or "trample"
+                    </li>
                     <li>Search for creature types like "dragon" or "angel"</li>
                     <li>Use the filters above to browse by colour or type</li>
                     <li>Try more general terms like "red" or "artifact"</li>
@@ -467,9 +494,7 @@ export default function SearchPage() {
             ) : filteredAndSortedResults.length === 0 ? (
               <div className="search-empty-state card">
                 <div className="search-empty-icon">🔍</div>
-                <h3 className="search-empty-title">
-                  No matches found
-                </h3>
+                <h3 className="search-empty-title">No matches found</h3>
                 <p className="search-empty-subtitle">
                   Try adjusting your search or filter settings.
                 </p>
@@ -486,8 +511,8 @@ export default function SearchPage() {
                       <SearchCard
                         card={card}
                         currentUser={currentUser}
-                        onFavoriteToggle={handleFavouriteToggle}
-                        showFavoriteButton={true}
+                        onFavouriteToggle={handleFavouriteToggle}
+                        showFavouriteButton={true}
                       />
                     </div>
                   ))}
@@ -514,28 +539,31 @@ export default function SearchPage() {
 
                       {/* Page numbers */}
                       <div className="page-numbers">
-                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                          let pageNum;
-                          if (totalPages <= 5) {
-                            pageNum = i + 1;
-                          } else if (currentPage <= 3) {
-                            pageNum = i + 1;
-                          } else if (currentPage >= totalPages - 2) {
-                            pageNum = totalPages - 4 + i;
-                          } else {
-                            pageNum = currentPage - 2 + i;
-                          }
+                        {Array.from(
+                          { length: Math.min(5, totalPages) },
+                          (_, i) => {
+                            let pageNum;
+                            if (totalPages <= 5) {
+                              pageNum = i + 1;
+                            } else if (currentPage <= 3) {
+                              pageNum = i + 1;
+                            } else if (currentPage >= totalPages - 2) {
+                              pageNum = totalPages - 4 + i;
+                            } else {
+                              pageNum = currentPage - 2 + i;
+                            }
 
-                          return (
-                            <button
-                              key={pageNum}
-                              onClick={() => setCurrentPage(pageNum)}
-                              className={`btn ${currentPage === pageNum ? 'btn-primary' : 'btn-secondary'} pagination-btn`}
-                            >
-                              {pageNum}
-                            </button>
-                          );
-                        })}
+                            return (
+                              <button
+                                key={pageNum}
+                                onClick={() => setCurrentPage(pageNum)}
+                                className={`btn ${currentPage === pageNum ? "btn-primary" : "btn-secondary"} pagination-btn`}
+                              >
+                                {pageNum}
+                              </button>
+                            );
+                          },
+                        )}
                       </div>
 
                       <button
@@ -555,12 +583,8 @@ export default function SearchPage() {
                     </div>
                   </div>
                 )}
-
-
               </div>
             )}
-
-
           </>
         )}
       </div>

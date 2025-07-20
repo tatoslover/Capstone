@@ -439,7 +439,7 @@ test('should handle bulk operations efficiently', async () => {
   
   // Perform bulk operations
   const promises = Array.from({ length: 10 }, (_, i) =>
-    request(app).post('/api/favorites').send(favouriteData)
+    request(app).post('/api/favourites').send(favouriteData)
   );
   
   await Promise.all(promises);

@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
-import { apiService, addConnectionListener, removeConnectionListener } from "../services/apiService";
+import {
+  apiService,
+  addConnectionListener,
+  removeConnectionListener,
+} from "../services/apiService";
 import PerformanceDashboard from "../components/PerformanceDashboard";
 import PerformanceOverview from "../components/PerformanceOverview";
 import PerformanceHealthIndicator from "../components/PerformanceHealthIndicator";
 import ClientOnly from "../components/ClientOnly";
-import { getPerformanceMetrics, logPerformanceSummary, exportPerformanceData } from "../utils/performance";
+import {
+  getPerformanceMetrics,
+  logPerformanceSummary,
+  exportPerformanceData,
+} from "../utils/performance";
 
 // API Configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export default function Documentation() {
   const [selectedSection, setSelectedSection] = useState(null);
@@ -64,18 +72,25 @@ export default function Documentation() {
   // Fetch backend metrics for performance monitoring
   const fetchBackendMetrics = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/monitoring/performance`);
+      const response = await fetch(
+        `${API_BASE_URL}/api/monitoring/performance`,
+      );
       if (response.ok) {
         const data = await response.json();
         return data;
       } else {
-        if (process.env.NODE_ENV === 'development') {
-          console.debug('Backend performance endpoint not available (this is optional)');
+        if (process.env.NODE_ENV === "development") {
+          console.debug(
+            "Backend performance endpoint not available (this is optional)",
+          );
         }
       }
     } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.debug('Backend performance monitoring unavailable:', error.message);
+      if (process.env.NODE_ENV === "development") {
+        console.debug(
+          "Backend performance monitoring unavailable:",
+          error.message,
+        );
       }
     }
     return null;
@@ -87,14 +102,14 @@ export default function Documentation() {
       timestamp: new Date().toISOString(),
       frontend: getPerformanceMetrics(),
       backend: performanceMetrics?.backend,
-      url: window.location.href
+      url: window.location.href,
     };
 
     const blob = new Blob([JSON.stringify(report, null, 2)], {
-      type: 'application/json'
+      type: "application/json",
     });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = `performance-report-${Date.now()}.json`;
     document.body.appendChild(a);
@@ -325,9 +340,12 @@ export default function Documentation() {
             <div className={`connection-indicator ${dbConnectionStatus}`}>
               <span className="connection-dot"></span>
               <span className="connection-text">
-                Database: {dbConnectionStatus === "connected" ? "Connected" :
-                          dbConnectionStatus === "disconnected" ? "Disconnected" :
-                          "Testing..."}
+                Database:{" "}
+                {dbConnectionStatus === "connected"
+                  ? "Connected"
+                  : dbConnectionStatus === "disconnected"
+                    ? "Disconnected"
+                    : "Testing..."}
               </span>
             </div>
             <button
@@ -341,13 +359,15 @@ export default function Documentation() {
 
           <h4 className="doc-heading">Interactive API Explorer</h4>
           <p className="doc-paragraph">
-            The API documentation provides interactive testing for all backend endpoints including users, favourites, messages, and MTG card search functionality.
+            The API documentation provides interactive testing for all backend
+            endpoints including users, favourites, messages, and MTG card search
+            functionality.
           </p>
 
           <div className="api-swagger-container">
             {dbConnectionStatus === "connected" && !swaggerError ? (
               <iframe
-                src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api-docs`}
+                src={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
                 className="swagger-iframe"
                 title="API Documentation"
                 onLoad={() => setSwaggerLoaded(true)}
@@ -357,17 +377,42 @@ export default function Documentation() {
               <div className="swagger-fallback">
                 <div className="swagger-fallback-content">
                   <h5>📋 API Documentation Unavailable</h5>
-                  <p>The interactive Swagger documentation requires the backend server to be running.</p>
+                  <p>
+                    The interactive Swagger documentation requires the backend
+                    server to be running.
+                  </p>
                   {dbConnectionStatus === "disconnected" && (
                     <div className="swagger-fallback-instructions">
-                      <p><strong>To view the interactive API documentation:</strong></p>
+                      <p>
+                        <strong>
+                          To view the interactive API documentation:
+                        </strong>
+                      </p>
                       <ol>
-                        <li>Start the backend server: <code>cd backend && npm start</code></li>
-                        <li>Ensure it's running on <code>http://localhost:3001</code></li>
-                        <li>Click "Test Connection" above to verify connectivity</li>
+                        <li>
+                          Start the backend server:{" "}
+                          <code>cd backend && npm start</code>
+                        </li>
+                        <li>
+                          Ensure it's running on{" "}
+                          <code>http://localhost:3001</code>
+                        </li>
+                        <li>
+                          Click "Test Connection" above to verify connectivity
+                        </li>
                         <li>Refresh this page once connected</li>
                       </ol>
-                      <p>Alternatively, visit <a href="http://localhost:3001/api-docs" target="_blank" rel="noopener noreferrer">http://localhost:3001/api-docs</a> directly when the server is running.</p>
+                      <p>
+                        Alternatively, visit{" "}
+                        <a
+                          href="http://localhost:3001/api-docs"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          http://localhost:3001/api-docs
+                        </a>{" "}
+                        directly when the server is running.
+                      </p>
                     </div>
                   )}
                 </div>
@@ -380,49 +425,84 @@ export default function Documentation() {
             <div className="api-endpoint-card">
               <h5>Health & Status</h5>
               <ul className="doc-list">
-                <li><code>GET /health</code> - Server health check</li>
-                <li><code>GET /</code> - Welcome message</li>
+                <li>
+                  <code>GET /health</code> - Server health check
+                </li>
+                <li>
+                  <code>GET /</code> - Welcome message
+                </li>
               </ul>
             </div>
 
             <div className="api-endpoint-card">
               <h5>User Management</h5>
               <ul className="doc-list">
-                <li><code>GET /api/users</code> - List all users</li>
-                <li><code>POST /api/users</code> - Create new user</li>
-                <li><code>PUT /api/users/:id</code> - Update user</li>
-                <li><code>DELETE /api/users/:id</code> - Delete user</li>
+                <li>
+                  <code>GET /api/users</code> - List all users
+                </li>
+                <li>
+                  <code>POST /api/users</code> - Create new user
+                </li>
+                <li>
+                  <code>PUT /api/users/:id</code> - Update user
+                </li>
+                <li>
+                  <code>DELETE /api/users/:id</code> - Delete user
+                </li>
               </ul>
             </div>
 
             <div className="api-endpoint-card">
               <h5>Favourites System</h5>
               <ul className="doc-list">
-                <li><code>GET /api/favorites/:userId</code> - User's favourites</li>
-                <li><code>POST /api/favorites</code> - Add favourite</li>
-                <li><code>PUT /api/favorites/:id</code> - Update favourite</li>
-                <li><code>DELETE /api/favorites/:id</code> - Remove favourite</li>
+                <li>
+                  <code>GET /api/favourites?user_id=:userId</code> - User's
+                  favourites
+                </li>
+                <li>
+                  <code>POST /api/favourites</code> - Add favourite
+                </li>
+                <li>
+                  <code>PUT /api/favourites/:id</code> - Update favourite
+                </li>
+                <li>
+                  <code>DELETE /api/favourites/:id</code> - Remove favourite
+                </li>
               </ul>
             </div>
 
             <div className="api-endpoint-card">
               <h5>MTG Cards (Scryfall)</h5>
               <ul className="doc-list">
-                <li><code>GET /api/cards/search</code> - Search cards</li>
-                <li><code>GET /api/cards/random</code> - Random cards</li>
-                <li><code>GET /api/cards/:id</code> - Get card by ID</li>
+                <li>
+                  <code>GET /api/cards/search</code> - Search cards
+                </li>
+                <li>
+                  <code>GET /api/cards/random</code> - Random cards
+                </li>
+                <li>
+                  <code>GET /api/cards/:id</code> - Get card by ID
+                </li>
               </ul>
             </div>
           </div>
 
           <h4 className="doc-heading">Database Schema</h4>
           <p className="doc-paragraph">
-            The application uses PostgreSQL hosted on Railway with the following main tables:
+            The application uses PostgreSQL hosted on Railway with the following
+            main tables:
           </p>
           <ul className="doc-list">
-            <li><strong>users</strong> - User account information</li>
-            <li><strong>favourites</strong> - User's favourite MTG cards with personal notes</li>
-            <li><strong>messages</strong> - System messages and notifications</li>
+            <li>
+              <strong>users</strong> - User account information
+            </li>
+            <li>
+              <strong>favourites</strong> - User's favourite MTG cards with
+              personal notes
+            </li>
+            <li>
+              <strong>messages</strong> - System messages and notifications
+            </li>
           </ul>
         </div>
       ),
@@ -454,21 +534,54 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Real-time Performance Dashboard</h4>
           <p className="doc-paragraph">
-            Monitor application performance including Web Vitals, API response times, memory usage, and system health in real-time.
+            Monitor application performance including Web Vitals, API response
+            times, memory usage, and system health in real-time.
           </p>
 
           {/* Performance Health Indicator */}
-          <ClientOnly fallback={<div style={{ height: '100px', background: 'var(--theme-cardBg)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--theme-textLight)' }}>Loading performance data...</div>}>
+          <ClientOnly
+            fallback={
+              <div
+                style={{
+                  height: "100px",
+                  background: "var(--theme-cardBg)",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--theme-textLight)",
+                }}
+              >
+                Loading performance data...
+              </div>
+            }
+          >
             {performanceMetrics && (
               <PerformanceHealthIndicator
                 metrics={performanceMetrics}
-                backendStatus={performanceMetrics.backend?.status || 'unknown'}
+                backendStatus={performanceMetrics.backend?.status || "unknown"}
               />
             )}
           </ClientOnly>
 
           {/* Performance Overview Cards */}
-          <ClientOnly fallback={<div style={{ height: '200px', background: 'var(--theme-cardBg)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--theme-textLight)' }}>Loading performance overview...</div>}>
+          <ClientOnly
+            fallback={
+              <div
+                style={{
+                  height: "200px",
+                  background: "var(--theme-cardBg)",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--theme-textLight)",
+                }}
+              >
+                Loading performance overview...
+              </div>
+            }
+          >
             <PerformanceOverview metrics={performanceMetrics} />
           </ClientOnly>
 
@@ -477,7 +590,7 @@ export default function Documentation() {
               className="btn btn-primary"
               onClick={() => setShowPerformancePanel(!showPerformancePanel)}
             >
-              {showPerformancePanel ? 'Hide' : 'Show'} Detailed Dashboard
+              {showPerformancePanel ? "Hide" : "Show"} Detailed Dashboard
             </button>
             <button
               className="btn btn-primary"
@@ -485,9 +598,12 @@ export default function Documentation() {
                 try {
                   const frontendMetrics = getPerformanceMetrics();
                   const backendMetrics = await fetchBackendMetrics();
-                  setPerformanceMetrics({ ...frontendMetrics, backend: backendMetrics });
+                  setPerformanceMetrics({
+                    ...frontendMetrics,
+                    backend: backendMetrics,
+                  });
                 } catch (error) {
-                  console.warn('Failed to refresh metrics:', error);
+                  console.warn("Failed to refresh metrics:", error);
                   // Still update with frontend metrics even if backend fails
                   const frontendMetrics = getPerformanceMetrics();
                   setPerformanceMetrics({ ...frontendMetrics, backend: null });
@@ -502,21 +618,21 @@ export default function Documentation() {
                 try {
                   exportPerformanceReport();
                 } catch (error) {
-                  console.warn('Failed to export report:', error);
+                  console.warn("Failed to export report:", error);
                   // Fallback: create a simple report with available data
                   const report = {
                     timestamp: new Date().toISOString(),
                     frontend: performanceMetrics || getPerformanceMetrics(),
                     backend: performanceMetrics?.backend || null,
                     url: window.location.href,
-                    note: 'Exported with limited data due to system constraints'
+                    note: "Exported with limited data due to system constraints",
                   };
 
                   const blob = new Blob([JSON.stringify(report, null, 2)], {
-                    type: 'application/json'
+                    type: "application/json",
                   });
                   const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
+                  const a = document.createElement("a");
                   a.href = url;
                   a.download = `performance-report-${Date.now()}.json`;
                   document.body.appendChild(a);
@@ -534,12 +650,14 @@ export default function Documentation() {
                 try {
                   logPerformanceSummary();
                 } catch (error) {
-                  console.warn('Performance summary failed:', error);
-                  console.log('📊 Basic Performance Info:', {
+                  console.warn("Performance summary failed:", error);
+                  console.log("📊 Basic Performance Info:", {
                     currentPage: window.location.pathname,
                     timestamp: new Date().toISOString(),
                     userAgent: navigator.userAgent,
-                    availableMetrics: performanceMetrics ? 'Available' : 'Loading...'
+                    availableMetrics: performanceMetrics
+                      ? "Available"
+                      : "Loading...",
                   });
                 }
               }}
@@ -551,37 +669,71 @@ export default function Documentation() {
           <ClientOnly>
             {showPerformancePanel && (
               <div className="performance-embedded">
-                <PerformanceDashboard
-                  isVisible={true}
-                  embedded={true}
-                />
+                <PerformanceDashboard isVisible={true} embedded={true} />
               </div>
             )}
           </ClientOnly>
 
-          <h4 className="doc-heading" style={{ marginTop: '30px' }}>Performance Features</h4>
+          <h4 className="doc-heading" style={{ marginTop: "30px" }}>
+            Performance Features
+          </h4>
           <ul className="doc-list">
-            <li><strong>Web Vitals Monitoring:</strong> Tracks LCP, FID, and CLS metrics following Google's Core Web Vitals standards</li>
-            <li><strong>API Performance:</strong> Monitors response times, success rates, and identifies slow endpoints</li>
-            <li><strong>User Interaction Tracking:</strong> Measures interaction response times and identifies performance bottlenecks</li>
-            <li><strong>Memory Monitoring:</strong> Tracks JavaScript heap usage and identifies potential memory leaks</li>
-            <li><strong>Error Tracking:</strong> Captures and reports JavaScript errors and unhandled promise rejections</li>
-            <li><strong>Real-time Updates:</strong> Automatically refreshes metrics every 5 seconds when dashboard is visible</li>
-            <li><strong>Export Functionality:</strong> Download detailed performance reports in JSON format</li>
+            <li>
+              <strong>Web Vitals Monitoring:</strong> Tracks LCP, FID, and CLS
+              metrics following Google's Core Web Vitals standards
+            </li>
+            <li>
+              <strong>API Performance:</strong> Monitors response times, success
+              rates, and identifies slow endpoints
+            </li>
+            <li>
+              <strong>User Interaction Tracking:</strong> Measures interaction
+              response times and identifies performance bottlenecks
+            </li>
+            <li>
+              <strong>Memory Monitoring:</strong> Tracks JavaScript heap usage
+              and identifies potential memory leaks
+            </li>
+            <li>
+              <strong>Error Tracking:</strong> Captures and reports JavaScript
+              errors and unhandled promise rejections
+            </li>
+            <li>
+              <strong>Real-time Updates:</strong> Automatically refreshes
+              metrics every 5 seconds when dashboard is visible
+            </li>
+            <li>
+              <strong>Export Functionality:</strong> Download detailed
+              performance reports in JSON format
+            </li>
           </ul>
 
-          <h4 className="doc-heading" style={{ marginTop: '20px' }}>Developer Tools</h4>
+          <h4 className="doc-heading" style={{ marginTop: "20px" }}>
+            Developer Tools
+          </h4>
           <p className="doc-paragraph">
-            Performance monitoring includes developer tools accessible via keyboard shortcuts and console commands:
+            Performance monitoring includes developer tools accessible via
+            keyboard shortcuts and console commands:
           </p>
           <ul className="doc-list">
-            <li><strong>Keyboard Shortcut:</strong> Press <kbd>Ctrl+Shift+P</kbd> to toggle floating performance dashboard</li>
-            <li><strong>Console Access:</strong> Use <code>window.performanceUtils</code> object for programmatic access</li>
-            <li><strong>Automatic Reporting:</strong> Metrics are automatically sent to backend monitoring endpoints</li>
-            <li><strong>Development Warnings:</strong> Console warnings for slow operations and high memory usage</li>
+            <li>
+              <strong>Keyboard Shortcut:</strong> Press <kbd>Ctrl+Shift+P</kbd>{" "}
+              to toggle floating performance dashboard
+            </li>
+            <li>
+              <strong>Console Access:</strong> Use{" "}
+              <code>window.performanceUtils</code> object for programmatic
+              access
+            </li>
+            <li>
+              <strong>Automatic Reporting:</strong> Metrics are automatically
+              sent to backend monitoring endpoints
+            </li>
+            <li>
+              <strong>Development Warnings:</strong> Console warnings for slow
+              operations and high memory usage
+            </li>
           </ul>
-
-
         </div>
       ),
     },

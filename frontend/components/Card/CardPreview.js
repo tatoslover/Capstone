@@ -4,8 +4,8 @@ export default function CardPreview({
   card,
   onClick,
   currentUser,
-  onFavoriteToggle,
-  showFavoriteButton = true,
+  onFavouriteToggle,
+  showFavouriteButton = true,
 }) {
   const [imageError, setImageError] = useState(false);
 
@@ -19,10 +19,10 @@ export default function CardPreview({
     }
   };
 
-  const handleFavoriteClick = (e) => {
+  const handleFavouriteClick = (e) => {
     e.stopPropagation();
-    if (onFavoriteToggle && currentUser) {
-      onFavoriteToggle(card);
+    if (onFavouriteToggle && currentUser) {
+      onFavouriteToggle(card);
     }
   };
 
@@ -91,12 +91,12 @@ export default function CardPreview({
       className={`card-preview ${onClick ? "" : ""}`}
       style={{ cursor: onClick ? "pointer" : "default", gap: "1rem" }}
     >
-      {/* Favorite Button */}
-      {showFavoriteButton && currentUser && (
+      {/* Favourite Button */}
+      {showFavouriteButton && currentUser && (
         <button
-          onClick={handleFavoriteClick}
-          className="favorite-btn-preview"
-          title="Add to favorites"
+          onClick={handleFavouriteClick}
+          className="favourite-btn-preview"
+          title="Add to favourites"
         >
           ⭐
         </button>

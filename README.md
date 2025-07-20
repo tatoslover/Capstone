@@ -1,6 +1,6 @@
 # Planeswalker's Primer
 
-A simple MTG rulebook for beginners with favorites system.
+A simple MTG rulebook for beginners with favourites system.
 
 ## Quick Start
 
@@ -71,5 +71,5 @@ Frontend runs on `http://localhost:3000`
 
 - [ ] Add PostgreSQL database
 - [ ] Implement user management
-- [ ] Add favorites system
+- [ ] Add favourites system
 - [ ] Integrate Scryfall API
