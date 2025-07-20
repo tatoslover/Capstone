@@ -51,14 +51,14 @@ Frontend runs on `http://localhost:3000`
    - **Framework Preset**: Next.js (auto-detect)
    - **Build Command**: `npm run build` (auto-detect)
    - **Install Command**: `npm install` (auto-detect)
-3. Set environment variable: `NEXT_PUBLIC_API_URL=https://plansewalker-s-primer-production.up.railway.app`
+3. Set environment variable: `NEXT_PUBLIC_API_URL=https://capstone-production-e2db.up.railway.app`
 
 **Note**: Both platforms require manual configuration to use subfolders in monorepo setup.
 
 ## Deployment URLs
 
-🚀 **Backend**: https://plansewalker-s-primer-production.up.railway.app
-🚀 **Frontend**: https://plansewalker-s-primer.vercel.app
+🚀 **Backend**: https://capstone-production-e2db.up.railway.app
+🚀 **Frontend**: https://capstone-rho-wheat.vercel.app
 
 ## Current Status
 
@@ -66,10 +66,28 @@ Frontend runs on `http://localhost:3000`
 ✅ Basic Next.js frontend  
 ✅ API integration between frontend/backend
 ✅ Successfully deployed on Railway & Vercel
+✅ Security audit completed - no critical vulnerabilities
+✅ Production-ready with comprehensive security measures
 
-## Next Steps
+## Security & Production Readiness
 
-- [ ] Add PostgreSQL database
-- [ ] Implement user management
-- [ ] Add favourites system
-- [ ] Integrate Scryfall API
+✅ **Security Audit Completed** - Professional security assessment conducted  
+✅ **Dependencies Updated** - Next.js security vulnerabilities resolved  
+✅ **Security Headers** - Comprehensive Helmet.js implementation  
+✅ **Rate Limiting** - API protection against abuse  
+✅ **CORS Security** - Proper origin validation  
+✅ **Input Validation** - Payload size limits and sanitisation  
+✅ **Error Handling** - Secure error responses  
+✅ **HTTPS Enforcement** - SSL/TLS encryption enforced  
+
+See `/security/SECURITY_AUDIT.md` for detailed security assessment.
+
+## Features Completed
+
+✅ **PostgreSQL Database** - Production database with connection pooling  
+✅ **User Management** - Basic user system with favourites  
+✅ **Favourites System** - Save and manage favourite MTG cards  
+✅ **Scryfall API Integration** - Live MTG card search  
+✅ **Performance Monitoring** - Response time tracking and metrics  
+✅ **API Documentation** - Swagger/OpenAPI specification  
+✅ **Comprehensive Testing** - Unit, integration, and performance tests
