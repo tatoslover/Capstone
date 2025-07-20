@@ -28,6 +28,15 @@ export default function FavouritesPage() {
 
   // Load user from localStorage on mount
   useEffect(() => {
+    // Check for reset query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reset') === 'true') {
+      localStorage.removeItem("currentUser");
+      window.history.replaceState({}, '', window.location.pathname);
+      setLoading(false);
+      return;
+    }
+
     // Listen for connection status changes first
     const handleConnectionChange = (online) => {
       setIsOnline(online);
@@ -78,6 +87,19 @@ export default function FavouritesPage() {
     try {
       setLoading(true);
       setError("");
+
+      // First verify that the user exists
+      try {
+        await apiService.users.getById(userId);
+      } catch (userError) {
+        console.warn(`User ID ${userId} not found, clearing stored user`);
+        localStorage.removeItem("currentUser");
+        setCurrentUser(null);
+        setFavourites([]);
+        setError("The selected user no longer exists. Please select a valid user.");
+        setLoading(false);
+        return;
+      }
 
       // Get favourites list from backend
       const favouritesData = await apiService.favourites.getByUserId(userId);
@@ -132,7 +154,15 @@ export default function FavouritesPage() {
       setFavourites(cardsWithFavouriteData);
     } catch (err) {
       console.error("Error fetching favourites:", err);
-      setError("Failed to load your favourites. Please try again.");
+
+      // Handle specific API errors
+      if (err.message && err.message.includes("404")) {
+        localStorage.removeItem("currentUser");
+        setCurrentUser(null);
+        setError("User not found. Please select a valid user.");
+      } else {
+        setError("Failed to load your favourites. Please try again.");
+      }
       setFavourites([]);
     } finally {
       setLoading(false);
@@ -357,6 +387,12 @@ export default function FavouritesPage() {
               <a href="/profile" className="btn-outline">
                 Create Profile
               </a>
+              <a href="/search" className="btn">
+                Browse Cards
+              </a>
+            </div>
+            <div style={{ marginTop: "1rem", fontSize: "0.9rem", color: "var(--theme-textMuted)" }}>
+              <p>Need to reset? <a href="/favourites?reset=true" style={{ color: "var(--theme-primary)" }}>Clear stored user data</a></p>
             </div>
           </div>
         </div>
