@@ -226,7 +226,6 @@ const favouritesOperations = {
     return await query(
       `INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes)
        VALUES ($1, $2, $3, $4, $5)
-       ON CONFLICT (user_id, scryfall_id) DO NOTHING
        RETURNING *`,
       [userId, cardName, scryfallId, abilityType, notes],
       'create_favourite'
