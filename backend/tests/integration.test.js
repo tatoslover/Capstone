@@ -469,4 +469,10 @@ describe("Integration Tests - End-to-End Workflows", () => {
       expect(maxTime - minTime).toBeLessThan(200); // Max variation of 200ms
     });
   });
+
+  // Cleanup database connections to prevent Jest open handles
+  afterAll(async () => {
+    const { pool } = require("../db");
+    await pool.end();
+  });
 });

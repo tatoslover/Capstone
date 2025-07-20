@@ -1,0 +1,127 @@
+e2e4c69c8d4629b83c61ea3981f4369a
+{
+  "white": {
+    "name": "White",
+    "description": "White represents order, peace, and structure. It values law, honour, and the greater good over individual desires.",
+    "philosophy": "White believes in creating a perfect world through order and organisation. It seeks to eliminate conflict through laws and moral codes.",
+    "strengths": [
+      "Life gain",
+      "Protection",
+      "Removal",
+      "Board wipes",
+      "Small efficient creatures"
+    ],
+    "mechanics": [
+      "First strike",
+      "Vigilance",
+      "Protection",
+      "Lifelink",
+      "Flying"
+    ],
+    "emoji": "⚪",
+    "symbol": "W"
+  },
+  "blue": {
+    "name": "Blue",
+    "description": "Blue represents knowledge, logic, and manipulation. It values intellect, technology, and the pursuit of perfection through understanding.",
+    "philosophy": "Blue believes that anything can be improved through knowledge and careful study. It seeks to control through information and preparation.",
+    "strengths": [
+      "Card draw",
+      "Counterspells",
+      "Bounce effects",
+      "Flying creatures",
+      "Instant-speed interaction"
+    ],
+    "mechanics": [
+      "Flying",
+      "Flash",
+      "Hexproof",
+      "Scry",
+      "Counter"
+    ],
+    "emoji": "🔵",
+    "symbol": "U"
+  },
+  "black": {
+    "name": "Black",
+    "description": "Black represents power, ambition, and self-interest. It values individual achievement and is willing to pay any price for power.",
+    "philosophy": "Black believes that power is the only thing that matters and that everyone should look out for themselves first.",
+    "strengths": [
+      "Removal",
+      "Discard",
+      "Life drain",
+      "Recursion",
+      "Tutoring"
+    ],
+    "mechanics": [
+      "Deathtouch",
+      "Menace",
+      "Lifelink",
+      "Fear",
+      "Regenerate"
+    ],
+    "emoji": "⚫",
+    "symbol": "B"
+  },
+  "red": {
+    "name": "Red",
+    "description": "Red represents emotion, freedom, and impulse. It values passion, chaos, and acting on instinct rather than careful planning.",
+    "philosophy": "Red believes in following your heart and living life to the fullest, even if it means taking risks.",
+    "strengths": [
+      "Direct damage",
+      "Aggressive creatures",
+      "Artifact destruction",
+      "Haste",
+      "Temporary effects"
+    ],
+    "mechanics": [
+      "Haste",
+      "First strike",
+      "Trample",
+      "Flying",
+      "Double strike"
+    ],
+    "emoji": "🔴",
+    "symbol": "R"
+  },
+  "green": {
+    "name": "Green",
+    "description": "Green represents nature, growth, and instinct. It values the natural order and believes in accepting what you are rather than trying to change.",
+    "philosophy": "Green believes that nature knows best and that trying to improve on natural systems only leads to problems.",
+    "strengths": [
+      "Large creatures",
+      "Mana acceleration",
+      "Artifact/enchantment destruction",
+      "Life gain",
+      "Creature buffs"
+    ],
+    "mechanics": [
+      "Trample",
+      "Reach",
+      "Vigilance",
+      "Hexproof",
+      "Regenerate"
+    ],
+    "emoji": "🟢",
+    "symbol": "G"
+  },
+  "colourless": {
+    "name": "Colourless",
+    "description": "In Magic: The Gathering, colourless has two in-game meanings. It is either a type of object or a type of mana. Note that colourless is not a colour, and is not represented in the colour wheel.",
+    "philosophy": "Colourless represents artifice, universal solutions, and mechanical efficiency. It transcends the limitations and philosophies of the five colours, offering neutral tools and effects that any deck can utilise.",
+    "strengths": [
+      "Universal utility",
+      "Artifact synergies",
+      "Mana fixing",
+      "Neutral effects"
+    ],
+    "mechanics": [
+      "Colorless mana costs",
+      "Artifact abilities",
+      "Generic effects",
+      "Devoid"
+    ],
+    "emoji": "🔘",
+    "symbol": "C"
+  }
+}

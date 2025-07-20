@@ -1,0 +1,346 @@
+cfb47925ef734d8014bde3dba9e1a82e
+"use strict";
+
+/* istanbul ignore next */
+function cov_19up8dytrw() {
+  var path = "/Users/samuellove/Documents/GitHub/Capstone/frontend/pages/api-test.js";
+  var hash = "f50c379ba736011c1f654ee20278823ffcc3cd07";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/samuellove/Documents/GitHub/Capstone/frontend/pages/api-test.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 27
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 12,
+          column: 29
+        },
+        end: {
+          line: 12,
+          column: 82
+        }
+      },
+      "5": {
+        start: {
+          line: 13,
+          column: 30
+        },
+        end: {
+          line: 13,
+          column: 94
+        }
+      },
+      "6": {
+        start: {
+          line: 14,
+          column: 31
+        },
+        end: {
+          line: 14,
+          column: 89
+        }
+      },
+      "7": {
+        start: {
+          line: 16,
+          column: 4
+        },
+        end: {
+          line: 18,
+          column: 6
+        }
+      },
+      "8": {
+        start: {
+          line: 21,
+          column: 4
+        },
+        end: {
+          line: 33,
+          column: 7
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "_interop_require_default",
+        decl: {
+          start: {
+            line: 15,
+            column: 9
+          },
+          end: {
+            line: 15,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 39
+          },
+          end: {
+            line: 19,
+            column: 1
+          }
+        },
+        line: 15
+      },
+      "2": {
+        name: "ApiTestPage",
+        decl: {
+          start: {
+            line: 20,
+            column: 9
+          },
+          end: {
+            line: 20,
+            column: 20
+          }
+        },
+        loc: {
+          start: {
+            line: 20,
+            column: 23
+          },
+          end: {
+            line: 34,
+            column: 1
+          }
+        },
+        line: 20
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 16,
+            column: 11
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 16,
+            column: 35
+          },
+          end: {
+            line: 16,
+            column: 38
+          }
+        }, {
+          start: {
+            line: 16,
+            column: 41
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        }],
+        line: 16
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 16,
+            column: 11
+          },
+          end: {
+            line: 16,
+            column: 32
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 16,
+            column: 11
+          },
+          end: {
+            line: 16,
+            column: 14
+          }
+        }, {
+          start: {
+            line: 16,
+            column: 18
+          },
+          end: {
+            line: 16,
+            column: 32
+          }
+        }],
+        line: 16
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["/Users/samuellove/Documents/GitHub/Capstone/frontend/pages/api-test.js"],
+      sourcesContent: ["import Layout from '../components/Layout/Layout';\nimport ApiTest from '../components/ApiTest';\n\nexport default function ApiTestPage() {\n  return (\n    <Layout title=\"API Testing - Planeswalker's Primer\">\n      <div className=\"page-container\">\n        <ApiTest />\n      </div>\n\n      <style jsx>{`\n        .page-container {\n          min-height: calc(100vh - 200px);\n          padding: 2rem 0;\n        }\n\n        @media (max-width: 640px) {\n          .page-container {\n            padding: 1rem 0;\n          }\n        }\n      `}</style>\n    </Layout>\n  );\n}\n"],
+      names: ["ApiTestPage", "Layout", "title", "div", "ApiTest"],
+      mappings: ";;;;+BAGA;;;eAAwBA;;;;;+DAHL;gEACC;;;;;;AAEL,SAASA;IACtB,qBACE,sBAACC,eAAM;QAACC,OAAM;;0BACZ,qBAACC;0DAAc;0BACb,cAAA,qBAACC,gBAAO;;;;;;;;AAiBhB"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f50c379ba736011c1f654ee20278823ffcc3cd07"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_19up8dytrw = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_19up8dytrw();
+cov_19up8dytrw().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_19up8dytrw().s[1]++;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_19up8dytrw().f[0]++;
+    cov_19up8dytrw().s[2]++;
+    return ApiTestPage;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_19up8dytrw().s[3]++, require("react/jsx-runtime"));
+const _style =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_19up8dytrw().s[4]++, _interop_require_default(require("styled-jsx/style")));
+const _Layout =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_19up8dytrw().s[5]++, _interop_require_default(require("../components/Layout/Layout")));
+const _ApiTest =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_19up8dytrw().s[6]++, _interop_require_default(require("../components/ApiTest")));
+function _interop_require_default(obj) {
+  /* istanbul ignore next */
+  cov_19up8dytrw().f[1]++;
+  cov_19up8dytrw().s[7]++;
+  return /* istanbul ignore next */(cov_19up8dytrw().b[1][0]++, obj) &&
+  /* istanbul ignore next */
+  (cov_19up8dytrw().b[1][1]++, obj.__esModule) ?
+  /* istanbul ignore next */
+  (cov_19up8dytrw().b[0][0]++, obj) :
+  /* istanbul ignore next */
+  (cov_19up8dytrw().b[0][1]++, {
+    default: obj
+  });
+}
+function ApiTestPage() {
+  /* istanbul ignore next */
+  cov_19up8dytrw().f[2]++;
+  cov_19up8dytrw().s[8]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsxs)(_Layout.default, {
+    title: "API Testing - Planeswalker's Primer",
+    children: [/*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+      className: "jsx-a7a56c36b53638c9" + " " + "page-container",
+      children: /*#__PURE__*/(0, _jsxruntime.jsx)(_ApiTest.default, {})
+    }), (0, _jsxruntime.jsx)(_style.default, {
+      id: "a7a56c36b53638c9",
+      children: ".page-container.jsx-a7a56c36b53638c9{min-height:-webkit-calc(100vh - 200px);min-height:-moz-calc(100vh - 200px);min-height:calc(100vh - 200px);padding:2rem 0}@media(max-width:640px){.page-container.jsx-a7a56c36b53638c9{padding:1rem 0}}"
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJBcGlUZXN0UGFnZSIsImNvdl8xOXVwOGR5dHJ3IiwiZiIsInMiLCJfanN4cnVudGltZSIsImpzeHMiLCJfTGF5b3V0IiwiZGVmYXVsdCIsInRpdGxlIiwianN4IiwiX0FwaVRlc3QiXSwic291cmNlcyI6WyIvVXNlcnMvc2FtdWVsbG92ZS9Eb2N1bWVudHMvR2l0SHViL0NhcHN0b25lL2Zyb250ZW5kL3BhZ2VzL2FwaS10ZXN0LmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBMYXlvdXQgZnJvbSAnLi4vY29tcG9uZW50cy9MYXlvdXQvTGF5b3V0JztcbmltcG9ydCBBcGlUZXN0IGZyb20gJy4uL2NvbXBvbmVudHMvQXBpVGVzdCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIEFwaVRlc3RQYWdlKCkge1xuICByZXR1cm4gKFxuICAgIDxMYXlvdXQgdGl0bGU9XCJBUEkgVGVzdGluZyAtIFBsYW5lc3dhbGtlcidzIFByaW1lclwiPlxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJwYWdlLWNvbnRhaW5lclwiPlxuICAgICAgICA8QXBpVGVzdCAvPlxuICAgICAgPC9kaXY+XG5cbiAgICAgIDxzdHlsZSBqc3g+e2BcbiAgICAgICAgLnBhZ2UtY29udGFpbmVyIHtcbiAgICAgICAgICBtaW4taGVpZ2h0OiBjYWxjKDEwMHZoIC0gMjAwcHgpO1xuICAgICAgICAgIHBhZGRpbmc6IDJyZW0gMDtcbiAgICAgICAgfVxuXG4gICAgICAgIEBtZWRpYSAobWF4LXdpZHRoOiA2NDBweCkge1xuICAgICAgICAgIC5wYWdlLWNvbnRhaW5lciB7XG4gICAgICAgICAgICBwYWRkaW5nOiAxcmVtIDA7XG4gICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICBgfTwvc3R5bGU+XG4gICAgPC9MYXlvdXQ+XG4gICk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzsrQkFHQTs7Ozs7O1dBQXdCQSxXQUFBOzs7Ozs7Ozs7Ozt3RUFITDs7O3dFQUNDOzs7Ozs7Ozs7Ozs7Ozs7QUFFTCxTQUFTQSxZQUFBO0VBQUE7RUFBQUMsY0FBQSxHQUFBQyxDQUFBO0VBQUFELGNBQUEsR0FBQUUsQ0FBQTtFQUN0QixvQkFDRSxJQUFBQyxXQUFBLENBQUFDLElBQUEsRUFBQ0MsT0FBQSxDQUFBQyxPQUFNO0lBQUNDLEtBQUEsRUFBTTs0QkFDWixJQUFBSixXQUFBLENBQUFLLEdBQUEsRUFBQztnREFBYztnQkFDYixpQkFBQUwsV0FBQSxDQUFBSyxHQUFBLEVBQUNDLFFBQUEsQ0FBQUgsT0FBTzs7Ozs7O0FBaUJoQiIsImlnbm9yZUxpc3QiOltdfQ==

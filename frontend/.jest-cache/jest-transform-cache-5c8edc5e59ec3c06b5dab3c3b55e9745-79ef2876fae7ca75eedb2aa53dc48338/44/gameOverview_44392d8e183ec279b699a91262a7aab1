@@ -1,0 +1,79 @@
+d24b6e66c11eb66e3e2d150194c09c37
+{
+  "lastUpdated": "2025-07-18T10:00:38.414Z",
+  "source": "MTG Wiki + Curated Content",
+  "introduction": {
+    "title": "What is Magic: The Gathering?",
+    "description": "Magic: The Gathering, also Magic or MTG, is a strategy card game created by Richard Garfield in 1993, and published by Wizards of the Coast.[1][2]",
+    "tagline": "The world's first and most popular trading card game"
+  },
+  "basics": {
+    "players": "Typically played between 2 players, though multiplayer formats exist",
+    "gameLength": "Games usually last 10-30 minutes",
+    "ageRange": "Recommended for ages 13+, though simpler formats work for younger players",
+    "skillTypes": "Combines strategy, deck building, resource management, and tactical decision-making"
+  },
+  "coreGameplay": {
+    "overview": "Players cast spells by paying mana - magical energy that comes from lands. Different colours of mana (White, Blue, Black, Red, Green) represent different types of magic, each with their own strengths and strategies.",
+    "gameFlow": "The game combines strategy, deck building, and a bit of luck as you draw cards from your library and adapt to your opponent's plays. Victory comes through reducing your opponent's life to zero, though alternative win conditions exist.",
+    "strategy": "Success requires understanding when to play cards, how to manage your resources, and predicting your opponent's moves. Each game presents unique decisions and interactions."
+  },
+  "whyPlay": {
+    "diversity": "With over 20,000 unique cards printed, every game feels different",
+    "community": "Join millions of players worldwide in local game stores, online, or at home",
+    "formats": "Multiple ways to play suit different preferences and budgets",
+    "creativity": "Express yourself through deck building and unique strategies",
+    "competitive": "From casual kitchen table games to professional tournaments",
+    "collectible": "Beautiful artwork and the thrill of opening new cards"
+  },
+  "gettingStarted": {
+    "step1": "Start with a preconstructed deck or Magic Arena (the digital version)",
+    "step2": "Learn the basic rules and phases of a turn",
+    "step3": "Practice with friends or at your local game store",
+    "step4": "Explore different colours and strategies",
+    "step5": "Build your own deck as you learn what you enjoy"
+  },
+  "keyTerms": {
+    "planeswalker": "What players are called in the Magic multiverse - powerful spellcasters who can travel between worlds",
+    "mana": "The magical energy used to cast spells, produced by lands",
+    "library": "Your deck of cards that you draw from during the game",
+    "battlefield": "The area where permanents (creatures, artefacts, etc.) exist and can interact",
+    "graveyard": "Where cards go when they're destroyed or used up",
+    "stack": "The area where spells wait to resolve, allowing players to respond to each other"
+  },
+  "quickFacts": {
+    "releaseYear": "1993",
+    "creator": "Richard Garfield",
+    "publisher": "Wizards of the Coast",
+    "totalCards": "20,000+",
+    "activeFormats": "10+",
+    "worldwideEvents": "Thousands annually"
+  },
+  "learningPath": [
+    {
+      "step": 1,
+      "title": "Learn the Basics",
+      "description": "Understand the fundamental rules and turn structure"
+    },
+    {
+      "step": 2,
+      "title": "Choose Your Colours",
+      "description": "Explore the five colours of magic and their philosophies"
+    },
+    {
+      "step": 3,
+      "title": "Practice Playing",
+      "description": "Start with simple games using preconstructed decks"
+    },
+    {
+      "step": 4,
+      "title": "Build Your First Deck",
+      "description": "Create a custom deck around strategies you enjoy"
+    },
+    {
+      "step": 5,
+      "title": "Join the Community",
+      "description": "Find local players or join online communities"
+    }
+  ]
+}

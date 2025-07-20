@@ -1,0 +1,329 @@
+8969585171b205fddb2f9f2593c3546f
+{
+  "lastUpdated": "2025-07-18T10:00:41.026Z",
+  "source": "MTG Wiki + Comprehensive Rules",
+  "overview": {
+    "title": "Turn Structure",
+    "description": "Every turn in Magic follows a structured sequence of phases and steps. Understanding this timing is crucial for knowing when you can cast spells and use abilities.",
+    "importance": "Turn structure determines when players can take actions, when abilities trigger, and how the game flows from one decision point to the next."
+  },
+  "turnOrder": {
+    "explanation": "Players take turns in a predetermined order, with each player being the 'active player' during their turn.",
+    "activePlayer": "The player whose turn it is. They make decisions first when multiple things happen simultaneously.",
+    "nonActivePlayer": "All other players. They respond to the active player's actions and make decisions in turn order."
+  },
+  "phases": {
+    "beginning": {
+      "name": "Beginning Phase",
+      "order": 1,
+      "description": "The start of your turn where you untap, handle upkeep effects, and draw your card for the turn.",
+      "purpose": "Resets your permanents and gives you new resources",
+      "steps": {
+        "untap": {
+          "name": "Untap Step",
+          "order": 1,
+          "description": "You untap all your tapped permanents. No player can cast spells or activate abilities during this step.",
+          "rules": [
+            "All permanents you control that are tapped become untapped",
+            "This happens automatically - you don't choose what to untap",
+            "No player receives priority during this step",
+            "No spells or abilities can be cast or activated"
+          ],
+          "strategicNotes": [
+            "Plan ahead - consider what you'll need tapped vs untapped",
+            "Some permanents enter tapped and won't untap this turn",
+            "Vigilance creatures don't tap when attacking"
+          ]
+        },
+        "upkeep": {
+          "name": "Upkeep Step",
+          "order": 2,
+          "description": "Triggered abilities that happen 'at the beginning of your upkeep' trigger. Players can cast spells and activate abilities.",
+          "rules": [
+            "Upkeep triggers go on the stack",
+            "Active player receives priority first",
+            "Players can cast instants and activate abilities",
+            "Good time for instant-speed setup"
+          ],
+          "commonTriggers": [
+            "Cumulative upkeep costs",
+            "Saga chapter abilities",
+            "Echo costs",
+            "Beneficial recurring effects"
+          ],
+          "strategicNotes": [
+            "Pay any required upkeep costs or sacrifice permanents",
+            "Good time to use instant-speed effects",
+            "Some players use this to bluff having instant responses"
+          ]
+        },
+        "draw": {
+          "name": "Draw Step",
+          "order": 3,
+          "description": "You draw one card from your library. This is not optional. Players can respond after the draw.",
+          "rules": [
+            "You must draw a card if able",
+            "If your library is empty, you lose the game",
+            "The draw uses the stack - players can respond",
+            "Some effects can replace or modify this draw"
+          ],
+          "strategicNotes": [
+            "This is guaranteed card advantage each turn",
+            "Plan your hand size for maximum hand size (usually 7)",
+            "Some cards care about the first card drawn each turn"
+          ]
+        }
+      }
+    },
+    "main1": {
+      "name": "First Main Phase",
+      "order": 2,
+      "description": "Your main opportunity to cast sorcery-speed spells before combat. You can play a land, cast creatures, and set up for combat.",
+      "purpose": "Deploy threats and resources before combat",
+      "whatYouCanDo": [
+        "Play a land (once per turn)",
+        "Cast sorcery-speed spells (creatures, sorceries, planeswalkers, artefacts, enchantments)",
+        "Activate sorcery-speed abilities",
+        "Cast instants and activate instant-speed abilities"
+      ],
+      "strategicConsiderations": [
+        "Deploy creatures that can attack this turn",
+        "Consider what you want to hold for post-combat",
+        "Think about instant-speed responses you might need",
+        "Evaluate whether to play lands now or save them"
+      ],
+      "timing": "Sorcery speed - stack must be empty and you must have priority"
+    },
+    "combat": {
+      "name": "Combat Phase",
+      "order": 3,
+      "description": "The phase where creatures attack and combat damage is dealt. Consists of five distinct steps with multiple opportunities for interaction.",
+      "purpose": "Primary method of reducing opponent's life total and pressuring planeswalkers",
+      "steps": {
+        "beginningOfCombat": {
+          "name": "Beginning of Combat Step",
+          "order": 1,
+          "description": "Combat officially begins. Triggered abilities that happen 'at the beginning of combat' trigger.",
+          "rules": [
+            "Combat begins - no attackers declared yet",
+            "Triggered abilities go on the stack",
+            "Last chance to act before attackers are declared",
+            "Both players can cast spells and activate abilities"
+          ],
+          "strategicUse": [
+            "Remove potential attackers",
+            "Cast instant-speed pump spells",
+            "Activate creature abilities",
+            "Tap creatures to prevent attacks"
+          ]
+        },
+        "declareAttackers": {
+          "name": "Declare Attackers Step",
+          "order": 2,
+          "description": "Active player chooses which creatures attack and what they're attacking (players or planeswalkers).",
+          "rules": [
+            "Declare all attackers simultaneously",
+            "Attacking creatures become tapped (unless vigilance)",
+            "Choose what each attacker is attacking",
+            "Attack triggers go on the stack"
+          ],
+          "restrictions": [
+            "Creatures with summoning sickness can't attack",
+            "Creatures with defender can't attack",
+            "Tapped creatures can't attack",
+            "Must be able to legally attack chosen target"
+          ],
+          "strategicNotes": [
+            "Consider opponent's possible blocks",
+            "Think about which creatures you need for defence",
+            "Attacking planeswalkers can be strategically important",
+            "Don't forget about triggered abilities"
+          ]
+        },
+        "declareBlockers": {
+          "name": "Declare Blockers Step",
+          "order": 3,
+          "description": "Defending player chooses which creatures block attacking creatures.",
+          "rules": [
+            "Declare all blockers simultaneously",
+            "Each blocker can block exactly one attacker",
+            "Multiple creatures can block the same attacker",
+            "Block triggers go on the stack"
+          ],
+          "restrictions": [
+            "Only untapped creatures can block",
+            "Flying creatures can only be blocked by flying/reach",
+            "Creatures with menace need 2+ blockers",
+            "Once blocked, attacker stays blocked even if blocker leaves"
+          ],
+          "strategicConsiderations": [
+            "Evaluate creature trades",
+            "Consider combat tricks from opponent",
+            "Sometimes taking damage is better than losing creatures",
+            "Multiple small blockers can take down large threats"
+          ]
+        },
+        "combatDamage": {
+          "name": "Combat Damage Step",
+          "order": 4,
+          "description": "Creatures deal damage simultaneously. This is when most creatures die in combat.",
+          "rules": [
+            "All combat damage assigned and dealt simultaneously",
+            "Creatures deal damage equal to their power",
+            "Unblocked attackers damage defending player/planeswalker",
+            "Lethal damage destroys creatures"
+          ],
+          "specialRules": [
+            "First strike creates additional damage step before this one",
+            "Double strike deals damage in both first strike and regular steps",
+            "Deathtouch makes any amount of damage lethal",
+            "Trample assigns excess damage to defending player"
+          ],
+          "damageAssignment": [
+            "Attacking player chooses damage assignment order for multiple blockers",
+            "Must assign lethal damage before assigning to next creature",
+            "Trample damage spills over to defending player",
+            "Lifelink causes damage to gain you life"
+          ]
+        },
+        "endOfCombat": {
+          "name": "End of Combat Step",
+          "order": 5,
+          "description": "Combat officially ends. Last chance for combat-related effects.",
+          "rules": [
+            "End of combat triggers go on the stack",
+            "Creatures stop being attacking and blocking",
+            "Players can cast spells and activate abilities",
+            "'Until end of combat' effects end"
+          ],
+          "strategicUse": [
+            "Some creatures have end of combat triggers",
+            "Last chance for combat-related instant effects",
+            "Good timing for some removal spells"
+          ]
+        }
+      }
+    },
+    "main2": {
+      "name": "Second Main Phase",
+      "order": 4,
+      "description": "Another main phase after combat. You can do anything you could do in the first main phase.",
+      "purpose": "Deploy threats that couldn't attack anyway, or hold up mana for instant responses",
+      "strategicDifferences": [
+        "Creatures played now have summoning sickness",
+        "You know the results of combat",
+        "Opponent knows what resources you have left",
+        "Good for playing cards you don't need immediately"
+      ],
+      "commonActions": [
+        "Play a land if you didn't earlier",
+        "Cast creatures that can't attack this turn anyway",
+        "Cast sorcery-speed spells you held back",
+        "Activate planeswalker abilities"
+      ]
+    },
+    "ending": {
+      "name": "Ending Phase",
+      "order": 5,
+      "description": "The conclusion of your turn where end-of-turn effects happen and cleanup occurs.",
+      "purpose": "Wrap up the turn and prepare for the next player",
+      "steps": {
+        "end": {
+          "name": "End Step",
+          "order": 1,
+          "description": "Triggered abilities that happen 'at the beginning of the end step' or 'at end of turn' trigger.",
+          "rules": [
+            "End of turn triggers go on the stack",
+            "Players can cast spells and activate abilities",
+            "Many temporary effects end here",
+            "Common time for opponent to act"
+          ],
+          "commonTriggers": [
+            "Creatures that must be sacrificed",
+            "Temporary token creation",
+            "End of turn card draw",
+            "Delayed triggered abilities"
+          ],
+          "strategicNotes": [
+            "Opponents often cast instants here",
+            "Good time to activate abilities before turn ends",
+            "Some effects specifically wait for this step"
+          ]
+        },
+        "cleanup": {
+          "name": "Cleanup Step",
+          "order": 2,
+          "description": "Automatic cleanup happens with no player interaction, unless triggered abilities are created.",
+          "automaticActions": [
+            "Discard down to maximum hand size (usually 7)",
+            "Remove all damage from creatures",
+            "End all 'until end of turn' effects",
+            "Remove all temporary modifications"
+          ],
+          "rules": [
+            "No player receives priority normally",
+            "If triggered abilities are created, players get priority",
+            "Additional cleanup steps occur if needed",
+            "Turn doesn't end until cleanup completes with no triggers"
+          ],
+          "specialCases": [
+            "Madness triggers can happen from discarding to hand size",
+            "Some permanents trigger when 'until end of turn' effects end",
+            "Multiple cleanup steps possible if triggers keep happening"
+          ]
+        }
+      }
+    }
+  },
+  "timingRules": {
+    "priority": {
+      "definition": "The right to cast spells or activate abilities",
+      "rules": [
+        "Active player receives priority first in each step/phase",
+        "Players must pass priority for game to advance",
+        "When all players pass priority in succession, top spell/ability resolves",
+        "Players can respond to spells and abilities before they resolve"
+      ]
+    },
+    "spellSpeeds": {
+      "sorcerySpeed": {
+        "when": "Main phases only, when stack is empty, when you have priority",
+        "includes": [
+          "Sorceries",
+          "Creatures",
+          "Planeswalkers",
+          "Artefacts",
+          "Enchantments",
+          "Most activated abilities"
+        ]
+      },
+      "instantSpeed": {
+        "when": "Any time you have priority",
+        "includes": [
+          "Instants",
+          "Flash creatures",
+          "Most activated abilities",
+          "Triggered abilities"
+        ]
+      }
+    },
+    "commonMistakes": [
+      "Trying to cast sorceries during opponent's turn",
+      "Forgetting about the cleanup step for hand size",
+      "Not understanding when creatures can attack",
+      "Missing triggered abilities during upkeep",
+      "Forgetting damage is removed during cleanup",
+      "Not realizing when you have/don't have priority"
+    ]
+  },
+  "practicalTips": [
+    "Always untap everything unless an effect says otherwise",
+    "Use your upkeep step for instant-speed setup",
+    "Plan your main phases - deploy threats in main 1, utility in main 2",
+    "Combat has five steps - each allows responses",
+    "Save instant-speed responses for opponent's end step when possible",
+    "Remember cleanup step removes damage and temporary effects",
+    "Don't rush - each phase has strategic importance",
+    "Priority passes are how the game advances - learn the timing"
+  ]
+}

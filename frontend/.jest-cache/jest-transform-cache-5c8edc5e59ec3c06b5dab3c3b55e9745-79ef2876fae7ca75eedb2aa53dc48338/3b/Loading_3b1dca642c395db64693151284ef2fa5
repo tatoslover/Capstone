@@ -1,0 +1,536 @@
+4cdb1003d29de8fd3c48eaec13af2765
+"use strict";
+
+/* istanbul ignore next */
+function cov_3qop748mp() {
+  var path = "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/Loading.js";
+  var hash = "4a61e4f97130b09f96dbfd8c8a5c0552dd1a7b35";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/Loading.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 23
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 13,
+          column: 25
+        },
+        end: {
+          line: 22,
+          column: 5
+        }
+      },
+      "5": {
+        start: {
+          line: 14,
+          column: 8
+        },
+        end: {
+          line: 21,
+          column: 9
+        }
+      },
+      "6": {
+        start: {
+          line: 16,
+          column: 16
+        },
+        end: {
+          line: 16,
+          column: 39
+        }
+      },
+      "7": {
+        start: {
+          line: 18,
+          column: 16
+        },
+        end: {
+          line: 18,
+          column: 39
+        }
+      },
+      "8": {
+        start: {
+          line: 20,
+          column: 16
+        },
+        end: {
+          line: 20,
+          column: 26
+        }
+      },
+      "9": {
+        start: {
+          line: 23,
+          column: 29
+        },
+        end: {
+          line: 32,
+          column: 5
+        }
+      },
+      "10": {
+        start: {
+          line: 24,
+          column: 8
+        },
+        end: {
+          line: 31,
+          column: 9
+        }
+      },
+      "11": {
+        start: {
+          line: 26,
+          column: 16
+        },
+        end: {
+          line: 26,
+          column: 44
+        }
+      },
+      "12": {
+        start: {
+          line: 28,
+          column: 16
+        },
+        end: {
+          line: 28,
+          column: 44
+        }
+      },
+      "13": {
+        start: {
+          line: 30,
+          column: 16
+        },
+        end: {
+          line: 30,
+          column: 45
+        }
+      },
+      "14": {
+        start: {
+          line: 33,
+          column: 4
+        },
+        end: {
+          line: 44,
+          column: 7
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "Loading",
+        decl: {
+          start: {
+            line: 12,
+            column: 9
+          },
+          end: {
+            line: 12,
+            column: 16
+          }
+        },
+        loc: {
+          start: {
+            line: 12,
+            column: 62
+          },
+          end: {
+            line: 45,
+            column: 1
+          }
+        },
+        line: 12
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 13,
+            column: 25
+          },
+          end: {
+            line: 13,
+            column: 26
+          }
+        },
+        loc: {
+          start: {
+            line: 13,
+            column: 29
+          },
+          end: {
+            line: 22,
+            column: 5
+          }
+        },
+        line: 13
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 23,
+            column: 29
+          },
+          end: {
+            line: 23,
+            column: 30
+          }
+        },
+        loc: {
+          start: {
+            line: 23,
+            column: 33
+          },
+          end: {
+            line: 32,
+            column: 5
+          }
+        },
+        line: 23
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 12,
+            column: 19
+          },
+          end: {
+            line: 12,
+            column: 41
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 12,
+            column: 29
+          },
+          end: {
+            line: 12,
+            column: 41
+          }
+        }],
+        line: 12
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 12,
+            column: 43
+          },
+          end: {
+            line: 12,
+            column: 58
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 12,
+            column: 50
+          },
+          end: {
+            line: 12,
+            column: 58
+          }
+        }],
+        line: 12
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 14,
+            column: 8
+          },
+          end: {
+            line: 21,
+            column: 9
+          }
+        },
+        type: "switch",
+        locations: [{
+          start: {
+            line: 15,
+            column: 12
+          },
+          end: {
+            line: 16,
+            column: 39
+          }
+        }, {
+          start: {
+            line: 17,
+            column: 12
+          },
+          end: {
+            line: 18,
+            column: 39
+          }
+        }, {
+          start: {
+            line: 19,
+            column: 12
+          },
+          end: {
+            line: 20,
+            column: 26
+          }
+        }],
+        line: 14
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 24,
+            column: 8
+          },
+          end: {
+            line: 31,
+            column: 9
+          }
+        },
+        type: "switch",
+        locations: [{
+          start: {
+            line: 25,
+            column: 12
+          },
+          end: {
+            line: 26,
+            column: 44
+          }
+        }, {
+          start: {
+            line: 27,
+            column: 12
+          },
+          end: {
+            line: 28,
+            column: 44
+          }
+        }, {
+          start: {
+            line: 29,
+            column: 12
+          },
+          end: {
+            line: 30,
+            column: 45
+          }
+        }],
+        line: 24
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    b: {
+      "0": [0],
+      "1": [0],
+      "2": [0, 0, 0],
+      "3": [0, 0, 0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/Loading.js"],
+      sourcesContent: ["export default function Loading({ message = \"Loading...\", size = \"normal\" }) {\n  const getSizeClass = () => {\n    switch (size) {\n      case \"small\":\n        return \"loading-small\";\n      case \"large\":\n        return \"loading-large\";\n      default:\n        return \"\";\n    }\n  };\n\n  const getTextSizeClass = () => {\n    switch (size) {\n      case \"small\":\n        return \"loading-text-small\";\n      case \"large\":\n        return \"loading-text-large\";\n      default:\n        return \"loading-text-normal\";\n    }\n  };\n\n  return (\n    <div className={`loading ${getSizeClass()}`}>\n      <div className=\"loading-spinner\"></div>\n      <span className={getTextSizeClass()}>{message}</span>\n    </div>\n  );\n}\n"],
+      names: ["Loading", "message", "size", "getSizeClass", "getTextSizeClass", "div", "className", "span"],
+      mappings: ";;;;+BAAA;;;eAAwBA;;;;AAAT,SAASA,QAAQ,EAAEC,UAAU,YAAY,EAAEC,OAAO,QAAQ,EAAE;IACzE,MAAMC,eAAe;QACnB,OAAQD;YACN,KAAK;gBACH,OAAO;YACT,KAAK;gBACH,OAAO;YACT;gBACE,OAAO;QACX;IACF;IAEA,MAAME,mBAAmB;QACvB,OAAQF;YACN,KAAK;gBACH,OAAO;YACT,KAAK;gBACH,OAAO;YACT;gBACE,OAAO;QACX;IACF;IAEA,qBACE,sBAACG;QAAIC,WAAW,CAAC,QAAQ,EAAEH,eAAe,CAAC;;0BACzC,qBAACE;gBAAIC,WAAU;;0BACf,qBAACC;gBAAKD,WAAWF;0BAAqBH;;;;AAG5C"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "4a61e4f97130b09f96dbfd8c8a5c0552dd1a7b35"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_3qop748mp = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_3qop748mp();
+cov_3qop748mp().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_3qop748mp().s[1]++;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_3qop748mp().f[0]++;
+    cov_3qop748mp().s[2]++;
+    return Loading;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_3qop748mp().s[3]++, require("react/jsx-runtime"));
+function Loading({
+  message =
+  /* istanbul ignore next */
+  (cov_3qop748mp().b[0][0]++, "Loading..."),
+  size =
+  /* istanbul ignore next */
+  (cov_3qop748mp().b[1][0]++, "normal")
+}) {
+  /* istanbul ignore next */
+  cov_3qop748mp().f[1]++;
+  cov_3qop748mp().s[4]++;
+  const getSizeClass = () => {
+    /* istanbul ignore next */
+    cov_3qop748mp().f[2]++;
+    cov_3qop748mp().s[5]++;
+    switch (size) {
+      case "small":
+        /* istanbul ignore next */
+        cov_3qop748mp().b[2][0]++;
+        cov_3qop748mp().s[6]++;
+        return "loading-small";
+      case "large":
+        /* istanbul ignore next */
+        cov_3qop748mp().b[2][1]++;
+        cov_3qop748mp().s[7]++;
+        return "loading-large";
+      default:
+        /* istanbul ignore next */
+        cov_3qop748mp().b[2][2]++;
+        cov_3qop748mp().s[8]++;
+        return "";
+    }
+  };
+  /* istanbul ignore next */
+  cov_3qop748mp().s[9]++;
+  const getTextSizeClass = () => {
+    /* istanbul ignore next */
+    cov_3qop748mp().f[3]++;
+    cov_3qop748mp().s[10]++;
+    switch (size) {
+      case "small":
+        /* istanbul ignore next */
+        cov_3qop748mp().b[3][0]++;
+        cov_3qop748mp().s[11]++;
+        return "loading-text-small";
+      case "large":
+        /* istanbul ignore next */
+        cov_3qop748mp().b[3][1]++;
+        cov_3qop748mp().s[12]++;
+        return "loading-text-large";
+      default:
+        /* istanbul ignore next */
+        cov_3qop748mp().b[3][2]++;
+        cov_3qop748mp().s[13]++;
+        return "loading-text-normal";
+    }
+  };
+  /* istanbul ignore next */
+  cov_3qop748mp().s[14]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+    className: `loading ${getSizeClass()}`,
+    children: [/*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+      className: "loading-spinner"
+    }), /*#__PURE__*/(0, _jsxruntime.jsx)("span", {
+      className: getTextSizeClass(),
+      children: message
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJMb2FkaW5nIiwibWVzc2FnZSIsImNvdl8zcW9wNzQ4bXAiLCJiIiwic2l6ZSIsImYiLCJzIiwiZ2V0U2l6ZUNsYXNzIiwiZ2V0VGV4dFNpemVDbGFzcyIsIl9qc3hydW50aW1lIiwianN4cyIsImNsYXNzTmFtZSIsImpzeCJdLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW11ZWxsb3ZlL0RvY3VtZW50cy9HaXRIdWIvQ2Fwc3RvbmUvZnJvbnRlbmQvY29tcG9uZW50cy9VSS9Mb2FkaW5nLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIExvYWRpbmcoeyBtZXNzYWdlID0gXCJMb2FkaW5nLi4uXCIsIHNpemUgPSBcIm5vcm1hbFwiIH0pIHtcbiAgY29uc3QgZ2V0U2l6ZUNsYXNzID0gKCkgPT4ge1xuICAgIHN3aXRjaCAoc2l6ZSkge1xuICAgICAgY2FzZSBcInNtYWxsXCI6XG4gICAgICAgIHJldHVybiBcImxvYWRpbmctc21hbGxcIjtcbiAgICAgIGNhc2UgXCJsYXJnZVwiOlxuICAgICAgICByZXR1cm4gXCJsb2FkaW5nLWxhcmdlXCI7XG4gICAgICBkZWZhdWx0OlxuICAgICAgICByZXR1cm4gXCJcIjtcbiAgICB9XG4gIH07XG5cbiAgY29uc3QgZ2V0VGV4dFNpemVDbGFzcyA9ICgpID0+IHtcbiAgICBzd2l0Y2ggKHNpemUpIHtcbiAgICAgIGNhc2UgXCJzbWFsbFwiOlxuICAgICAgICByZXR1cm4gXCJsb2FkaW5nLXRleHQtc21hbGxcIjtcbiAgICAgIGNhc2UgXCJsYXJnZVwiOlxuICAgICAgICByZXR1cm4gXCJsb2FkaW5nLXRleHQtbGFyZ2VcIjtcbiAgICAgIGRlZmF1bHQ6XG4gICAgICAgIHJldHVybiBcImxvYWRpbmctdGV4dC1ub3JtYWxcIjtcbiAgICB9XG4gIH07XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT17YGxvYWRpbmcgJHtnZXRTaXplQ2xhc3MoKX1gfT5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwibG9hZGluZy1zcGlubmVyXCI+PC9kaXY+XG4gICAgICA8c3BhbiBjbGFzc05hbWU9e2dldFRleHRTaXplQ2xhc3MoKX0+e21lc3NhZ2V9PC9zcGFuPlxuICAgIDwvZGl2PlxuICApO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7K0JBQUE7Ozs7OztXQUF3QkEsT0FBQTs7Ozs7O0FBQVQsU0FBU0EsUUFBUTtFQUFFQyxPQUFBO0VBQUE7RUFBQSxDQUFBQyxhQUFBLEdBQUFDLENBQUEsVUFBVSxZQUFZO0VBQUVDLElBQUE7RUFBQTtFQUFBLENBQUFGLGFBQUEsR0FBQUMsQ0FBQSxVQUFPLFFBQVE7QUFBQSxDQUFFO0VBQUE7RUFBQUQsYUFBQSxHQUFBRyxDQUFBO0VBQUFILGFBQUEsR0FBQUksQ0FBQTtFQUN6RSxNQUFNQyxZQUFBLEdBQWVBLENBQUE7SUFBQTtJQUFBTCxhQUFBLEdBQUFHLENBQUE7SUFBQUgsYUFBQSxHQUFBSSxDQUFBO0lBQ25CLFFBQVFGLElBQUE7TUFDTixLQUFLO1FBQUE7UUFBQUYsYUFBQSxHQUFBQyxDQUFBO1FBQUFELGFBQUEsR0FBQUksQ0FBQTtRQUNILE9BQU87TUFDVCxLQUFLO1FBQUE7UUFBQUosYUFBQSxHQUFBQyxDQUFBO1FBQUFELGFBQUEsR0FBQUksQ0FBQTtRQUNILE9BQU87TUFDVDtRQUFBO1FBQUFKLGFBQUEsR0FBQUMsQ0FBQTtRQUFBRCxhQUFBLEdBQUFJLENBQUE7UUFDRSxPQUFPO0lBQ1g7RUFDRjtFQUFBO0VBQUFKLGFBQUEsR0FBQUksQ0FBQTtFQUVBLE1BQU1FLGdCQUFBLEdBQW1CQSxDQUFBO0lBQUE7SUFBQU4sYUFBQSxHQUFBRyxDQUFBO0lBQUFILGFBQUEsR0FBQUksQ0FBQTtJQUN2QixRQUFRRixJQUFBO01BQ04sS0FBSztRQUFBO1FBQUFGLGFBQUEsR0FBQUMsQ0FBQTtRQUFBRCxhQUFBLEdBQUFJLENBQUE7UUFDSCxPQUFPO01BQ1QsS0FBSztRQUFBO1FBQUFKLGFBQUEsR0FBQUMsQ0FBQTtRQUFBRCxhQUFBLEdBQUFJLENBQUE7UUFDSCxPQUFPO01BQ1Q7UUFBQTtRQUFBSixhQUFBLEdBQUFDLENBQUE7UUFBQUQsYUFBQSxHQUFBSSxDQUFBO1FBQ0UsT0FBTztJQUNYO0VBQ0Y7RUFBQTtFQUFBSixhQUFBLEdBQUFJLENBQUE7RUFFQSxvQkFDRSxJQUFBRyxXQUFBLENBQUFDLElBQUEsRUFBQztJQUFJQyxTQUFBLEVBQVcsV0FBV0osWUFBQSxJQUFnQjs0QkFDekMsSUFBQUUsV0FBQSxDQUFBRyxHQUFBLEVBQUM7TUFBSUQsU0FBQSxFQUFVO3FCQUNmLElBQUFGLFdBQUEsQ0FBQUcsR0FBQSxFQUFDO01BQUtELFNBQUEsRUFBV0gsZ0JBQUE7Z0JBQXFCUDs7O0FBRzVDIiwiaWdub3JlTGlzdCI6W119
