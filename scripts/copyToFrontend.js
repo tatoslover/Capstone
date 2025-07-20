@@ -15,14 +15,14 @@ const copyToFrontend = async () => {
     // Define all data files to copy
     const dataFiles = [
       { name: "gameOverview", icon: "🎮", description: "game overview" },
-      { name: "colors", icon: "🎨", description: "colors" },
+      { name: "colours", icon: "🎨", description: "colours" },
       { name: "cardTypes", icon: "🃏", description: "card types" },
       { name: "turnPhases", icon: "🕒", description: "turn phases" },
       { name: "cardAnatomy", icon: "📋", description: "card anatomy" },
       { name: "winConditions", icon: "🏆", description: "win conditions" },
       { name: "deckBuilding", icon: "🏗️", description: "deck building" },
       { name: "combatBasics", icon: "⚔️", description: "combat basics" },
-      { name: "mechanics", icon: "⚡", description: "mechanics" },
+      { name: "mechanics-official-first", icon: "⚡", description: "mechanics", targetName: "mechanics" },
       { name: "gameModes", icon: "🎮", description: "game modes" },
     ];
 
@@ -30,17 +30,18 @@ const copyToFrontend = async () => {
     for (const file of dataFiles) {
       console.log(`${file.icon} Copying ${file.description} data...`);
       const sourceFile = path.join(scriptsDataDir, `${file.name}.json`);
-      const targetFile = path.join(frontendDataDir, `${file.name}.json`);
+      const targetName = file.targetName || file.name;
+      const targetFile = path.join(frontendDataDir, `${targetName}.json`);
 
       if (await fs.pathExists(sourceFile)) {
         await fs.copy(sourceFile, targetFile);
         console.log(`   ✅ ${targetFile}`);
       } else {
-        console.log(`   ⚠️  ${file.name}.json not found - run scraper first`);
+        console.log(`   ⚠️  ${file.name}.json not found - run create:official-first first`);
       }
     }
 
-    // Generate updated mechanics.js with new data
+    // Generate updated mechanics.js with fresh data
     console.log("📝 Updating mechanics.js with fresh data...");
     const mechanicsJsonPath = path.join(frontendDataDir, "mechanics.json");
     const mechanicsJsPath = path.join(frontendDataDir, "mechanics.js");
@@ -48,10 +49,11 @@ const copyToFrontend = async () => {
     if (await fs.pathExists(mechanicsJsonPath)) {
       const mechanicsData = await fs.readJson(mechanicsJsonPath);
 
-      // Create all mechanics list from categories
-      const allMechanicsList = mechanicsData.categories.keywordAbilities.concat(
-        mechanicsData.categories.abilityWords,
-      );
+      // Create all mechanics list from the mechanics object
+      const allMechanicsList = Object.values(mechanicsData.mechanics).map(mechanic => mechanic.name);
+
+      // Create beginner-friendly list from evergreen mechanics (they're inherently beginner-friendly)
+      const beginnerFriendlyList = mechanicsData.categories.evergreen;
 
       const mechanicsJsContent = `// MTG Mechanics Data - Updated from Scryfall API + MTG Wiki
 // Last updated: ${mechanicsData.lastUpdated}
@@ -60,12 +62,12 @@ const copyToFrontend = async () => {
 
 export const allMechanics = ${JSON.stringify(allMechanicsList, null, 2)};
 
-// Categorized lists for easier filtering
+// Categorised lists for easier filtering
 export const evergreenKeywords = ${JSON.stringify(mechanicsData.categories.evergreen, null, 2)};
 
-export const beginnerFriendly = ${JSON.stringify(mechanicsData.categories.beginnerFriendly, null, 2)};
+export const beginnerFriendly = ${JSON.stringify(beginnerFriendlyList, null, 2)};
 
-// Detailed mechanics data with descriptions
+// Detailed mechanics data with descriptions and wiki links
 export const mechanicsDetails = ${JSON.stringify(mechanicsData.mechanics, null, 2)};
 
 export const searchMechanics = (query) => {
@@ -89,8 +91,27 @@ export const getMechanicsByCategory = (category) => {
 };
 
 export const getMechanicDetails = (mechanicName) => {
-  const key = mechanicName.toLowerCase().replace(/\\s+/g, "_");
+  const key = mechanicName.toLowerCase().replace(/[^a-z0-9]/g, "_");
   return mechanicsDetails[key] || null;
+};
+
+export const getMechanicDescription = (mechanicName, preferFallback = false) => {
+  const details = getMechanicDetails(mechanicName);
+  if (!details) return null;
+
+  return preferFallback && details.fallbackDescription ?
+    details.fallbackDescription :
+    details.description;
+};
+
+export const isOfficialDescription = (mechanicName) => {
+  const details = getMechanicDetails(mechanicName);
+  return details ? details.source === "official" : false;
+};
+
+export const getMechanicWikiUrl = (mechanicName) => {
+  const details = getMechanicDetails(mechanicName);
+  return details ? details.wikiUrl : null;
 };
 
 // Total count: ${mechanicsData.stats.totalCount} unique mechanics
@@ -110,7 +131,7 @@ export const totalMechanics = allMechanics.length;
     console.log("   3. Update your components to use the new data structure");
     console.log("\n📖 Example usage:");
     console.log('   import gameOverview from "../data/gameOverview.json";');
-    console.log('   import colors from "../data/colors.json";');
+    console.log('   import colours from "../data/colours.json";');
     console.log('   import cardTypes from "../data/cardTypes.json";');
     console.log('   import turnPhases from "../data/turnPhases.json";');
     console.log('   import cardAnatomy from "../data/cardAnatomy.json";');
@@ -118,7 +139,7 @@ export const totalMechanics = allMechanics.length;
     console.log('   import deckBuilding from "../data/deckBuilding.json";');
     console.log('   import combatBasics from "../data/combatBasics.json";');
     console.log('   import gameModes from "../data/gameModes.json";');
-    console.log('   import { mechanicsDetails } from "../data/mechanics.js";');
+    console.log('   import { mechanicsDetails, getMechanicWikiUrl } from "../data/mechanics.js";');
   } catch (error) {
     console.error("❌ Error copying data:", error.message);
     throw error;

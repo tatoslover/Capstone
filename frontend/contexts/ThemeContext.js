@@ -97,6 +97,25 @@ const MTG_THEMES = {
     backgroundImage:
       "https://cards.scryfall.io/art_crop/front/f/b/fb62605c-a58e-4e53-8336-b2bee316b5a6.jpg?1751992298",
   },
+  colorless: {
+    name: "Colourless",
+    symbol: "🔘",
+    primary: "transparent",
+    secondary: "transparent",
+    accent: "#ffd700",
+    highlight: "#ffed4e",
+    text: "#ffffff",
+    textLight: "#b0b0b0",
+    border: "#404040",
+    success: "#28a745",
+    warning: "#ffc107",
+    error: "#dc3545",
+    background: "transparent",
+    cardBg: "#1a1a1a",
+    shadowColor: "rgba(0, 0, 0, 0.3)",
+    backgroundImage:
+      "https://cards.scryfall.io/art_crop/front/1/f/1fc2871b-c685-4951-b8e2-7370b9668f7e.jpg?1690002945",
+  },
 };
 
 const ThemeContext = createContext();
@@ -139,16 +158,31 @@ export const ThemeProvider = ({ children }) => {
 
     // Apply background image directly to body to avoid CSS parsing issues
     if (theme.backgroundImage) {
+      document.body.style.backgroundColor = "#000000";
       document.body.style.backgroundImage = `url("${theme.backgroundImage}")`;
       document.body.style.backgroundPosition = "center";
       document.body.style.backgroundSize = "cover";
       document.body.style.backgroundAttachment = "fixed";
       document.body.style.backgroundRepeat = "no-repeat";
+    } else {
+      document.body.style.backgroundColor = "#000000";
+      document.body.style.backgroundImage = "none";
     }
 
     // Apply additional computed properties
-    root.style.setProperty("--theme-primary-rgb", "26, 26, 26");
+    root.style.setProperty("--theme-primary-rgb", hexToRgb(theme.primary));
     root.style.setProperty("--theme-accent-rgb", hexToRgb(theme.accent));
+
+    // Add gold-specific CSS variables for colorless theme
+    if (currentTheme === "colorless") {
+      const accentRgb = hexToRgb(theme.accent);
+      const highlightRgb = hexToRgb(theme.highlight);
+      root.style.setProperty("--gold-accent", theme.accent);
+      root.style.setProperty("--gold-highlight", theme.highlight);
+      root.style.setProperty("--colourless-primary", theme.accent);
+      root.style.setProperty("--colourless-secondary", theme.highlight);
+      root.style.setProperty("--gold-shadow", `0 2px 4px rgba(${accentRgb}, 0.3)`);
+    }
 
     // Save to localStorage
     localStorage.setItem("mtgTheme", currentTheme);
@@ -181,7 +215,7 @@ const hexToRgb = (hex) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
-    : "26, 26, 26";
+    : "26, 26, 26"; // Default dark background RGB
 };
 
 export default ThemeContext;

@@ -110,7 +110,7 @@ button {
     gap: 0.5rem;
     text-decoration: none;
     background-color: var(--theme-highlight);
-    color: white;
+    color: #000000;
 }
 
 /* Override generic button styles for profile buttons */
@@ -153,7 +153,7 @@ button:disabled {
 
 .btn-outline:hover {
     background-color: var(--theme-highlight);
-    color: white;
+    color: #000000;
 }
 
 /* Success Button */
@@ -568,41 +568,41 @@ button.btn.profile-btn-blue,
 button.profile-btn-blue,
 .btn.profile-btn-blue,
 .profile-btn-blue {
-    background-color: #007bff !important;
-    background: #007bff !important;
-    border-color: #007bff !important;
-    color: white !important;
-    border: 2px solid #007bff !important;
+    background-color: var(--theme-primary) !important;
+    background: var(--theme-primary) !important;
+    border-color: var(--theme-primary) !important;
+    color: var(--theme-text) !important;
+    border: 2px solid var(--theme-primary) !important;
 }
 
 button.btn.profile-btn-blue:hover,
 button.profile-btn-blue:hover,
 .btn.profile-btn-blue:hover,
 .profile-btn-blue:hover {
-    background-color: #0056b3 !important;
-    background: #0056b3 !important;
-    border-color: #0056b3 !important;
+    background-color: var(--theme-accent) !important;
+    background: var(--theme-accent) !important;
+    border-color: var(--theme-accent) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
+    box-shadow: 0 4px 8px rgba(var(--theme-primary-rgb), 0.3) !important;
 }
 
 button.btn.profile-btn-blue:disabled,
 button.profile-btn-blue:disabled,
 .btn.profile-btn-blue:disabled,
 .profile-btn-blue:disabled {
-    background-color: #007bff !important;
-    background: #007bff !important;
-    border-color: #007bff !important;
+    background-color: var(--theme-textLight) !important;
+    background: var(--theme-textLight) !important;
+    border-color: var(--theme-textLight) !important;
     opacity: 0.5 !important;
     transform: none !important;
 }
 
 /* Additional fallback for any missed cases */
 [class*="profile-btn-blue"] {
-    background-color: #007bff !important;
-    background: #007bff !important;
-    border-color: #007bff !important;
-    color: white !important;
+    background-color: var(--theme-primary) !important;
+    background: var(--theme-primary) !important;
+    border-color: var(--theme-primary) !important;
+    color: var(--theme-text) !important;
 }
 
 .success {
@@ -2188,8 +2188,11 @@ button.profile-btn-blue:disabled,
 }
 
 .mtg-colour-colourless {
-  background-color: #6b7280;
-  color: #ffffff;
+  background: linear-gradient(145deg, var(--theme-accent), var(--theme-highlight));
+  color: #1a1a1a;
+  border: 1px solid var(--theme-accent);
+  box-shadow: 0 2px 4px rgba(var(--theme-accent-rgb), 0.3);
+  font-weight: 500;
 }
 
 .mtg-colour-multicolour {
@@ -3416,4 +3419,266 @@ button.pagination-btn:disabled,
     .search-card-name {
         font-size: 0.75rem;
     }
+}
+
+/* ===== MECHANICS-SPECIFIC STYLING (UK ENGLISH) ===== */
+
+/* Mechanics Guide Layout */
+.mechanics-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Mechanics Category Filters */
+.mechanics-categories {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: centre; /* UK spelling */
+    margin-bottom: 1.5rem;
+}
+
+.mechanics-category-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--theme-border);
+    border-radius: 0.5rem;
+    background: var(--theme-cardBg);
+    colour: var(--theme-text); /* UK spelling */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.mechanics-category-btn:hover {
+    border-colour: var(--theme-primary); /* UK spelling */
+    background: rgba(0, 123, 255, 0.1);
+}
+
+.mechanics-category-btn.active {
+    background: var(--theme-primary);
+    colour: white; /* UK spelling */
+    border-colour: var(--theme-primary); /* UK spelling */
+}
+
+/* Mechanic Cards */
+.mechanic-card {
+    background: var(--theme-cardBg);
+    border: 2px solid var(--theme-border);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mechanic-card:hover {
+    border-colour: var(--theme-primary); /* UK spelling */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+}
+
+.mechanic-card.selected {
+    border-colour: var(--theme-primary); /* UK spelling */
+    background: rgba(0, 123, 255, 0.1);
+}
+
+.mechanic-card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    colour: var(--theme-text); /* UK spelling */
+}
+
+.mechanic-card-badges {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+/* Mechanic Badges */
+.mechanic-badge {
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.mechanic-badge.evergreen {
+    background: var(--theme-success);
+    colour: white; /* UK spelling */
+}
+
+.mechanic-badge.beginner-friendly {
+    background: var(--theme-info);
+    colour: white; /* UK spelling */
+}
+
+.mechanic-badge.category {
+    background: var(--theme-secondary);
+    colour: white; /* UK spelling */
+}
+
+/* Category Colours (UK spelling) */
+.category-evasion { background: #0d6efd !important; }
+.category-combat { background: #dc3545 !important; }
+.category-protection { background: #198754 !important; }
+.category-utility { background: #ffc107 !important; colour: #000 !important; } /* UK spelling */
+.category-timing { background: #6f42c1 !important; }
+.category-cost-reduction { background: #20c997 !important; }
+.category-triggered { background: #fd7e14 !important; }
+
+/* Mechanic Details Panel */
+.mechanic-details {
+    background: var(--theme-cardBg);
+    border: 2px solid var(--theme-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.mechanic-details-header {
+    display: flex;
+    align-items: centre; /* UK spelling */
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.mechanic-details-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    colour: var(--theme-text); /* UK spelling */
+    margin: 0;
+}
+
+.mechanic-wiki-link {
+    display: inline-flex;
+    align-items: centre; /* UK spelling */
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 123, 255, 0.1);
+    colour: var(--theme-primary); /* UK spelling */
+    text-decoration: none;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.mechanic-wiki-link:hover {
+    background: rgba(0, 123, 255, 0.2);
+    transform: translateY(-1px);
+    text-decoration: none;
+    colour: var(--theme-primary); /* UK spelling */
+}
+
+/* Search and Filter Styling */
+.mechanics-search-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    background: rgba(26, 26, 26, 0.95);
+    colour: var(--theme-text); /* UK spelling */
+    border: 2px solid var(--theme-border);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    transition: border-colour 0.2s ease; /* UK spelling */
+}
+
+.mechanics-search-input:focus {
+    outline: none;
+    border-colour: var(--theme-primary); /* UK spelling */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.mechanics-search-input::placeholder {
+    colour: var(--theme-textLight); /* UK spelling */
+}
+
+/* Responsive Mechanics Grid */
+.mechanics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .mechanics-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .mechanics-categories {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .mechanics-category-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .mechanic-details-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Accessibility Enhancements */
+.mechanic-card:focus-visible {
+    outline: 2px solid var(--theme-primary);
+    outline-offset: 2px;
+}
+
+.mechanics-category-btn:focus-visible {
+    outline: 2px solid var(--theme-primary);
+    outline-offset: 2px;
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+    .mechanic-card {
+        border-width: 3px;
+    }
+
+    .mechanic-badge {
+        border: 1px solid currentColor;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .mechanic-card,
+    .mechanics-category-btn,
+    .mechanic-wiki-link {
+        transition: none;
+    }
+
+    .mechanic-card:hover {
+        transform: none;
+    }
+}
+
+/* Colourless Theme Utility Classes - Minimal Gold Accents */
+.colorless-themed {
+    background: rgba(26, 26, 26, 0.9) !important;
+    color: var(--theme-text) !important;
+    border: 1px solid var(--theme-accent) !important;
+}
+
+.gold-accent {
+    color: var(--theme-accent) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.gold-highlight {
+    color: var(--theme-highlight) !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
 }

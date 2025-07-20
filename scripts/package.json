@@ -6,7 +6,7 @@
   "scripts": {
     "scrape": "node scrapers/index.js",
     "scrape:overview": "node scrapers/gameOverview.js",
-    "scrape:colors": "node scrapers/colors.js",
+    "scrape:colours": "node scrapers/colours.js",
     "scrape:card-types": "node scrapers/cardTypes.js",
     "scrape:turn-phases": "node scrapers/turnPhases.js",
     "scrape:anatomy": "node scrapers/cardAnatomy.js",
@@ -15,7 +15,10 @@
     "scrape:combat": "node scrapers/combatBasics.js",
     "scrape:mechanics": "node scrapers/mechanics.js",
     "scrape:game-modes": "node scrapers/gameModes.js",
-    "scrape:fundamentals": "npm run scrape:overview && npm run scrape:colors && npm run scrape:card-types && npm run scrape:turn-phases && npm run scrape:anatomy && npm run scrape:win-conditions && npm run scrape:deck-building && npm run scrape:combat",
+    "test:wizards": "node scrapers/wizardsOfficial.js",
+    "test:wizards-10": "node scrapers/wizardsOfficial.js 10",
+    "create:official-first": "node scrapers/hybridDescriptionSystem.js",
+    "scrape:fundamentals": "npm run scrape:overview && npm run scrape:colours && npm run scrape:card-types && npm run scrape:turn-phases && npm run scrape:anatomy && npm run scrape:win-conditions && npm run scrape:deck-building && npm run scrape:combat",
     "scrape:all": "npm run scrape:fundamentals && npm run scrape:mechanics && npm run scrape:game-modes",
     "copy": "node copyToFrontend.js",
     "build": "npm run scrape:all && npm run copy"

@@ -103,5 +103,24 @@
     ],
     "emoji": "🟢",
     "symbol": "G"
+  },
+  "colourless": {
+    "name": "Colourless",
+    "description": "In Magic: The Gathering, colourless has two in-game meanings. It is either a type of object or a type of mana. Note that colourless is not a colour, and is not represented in the colour wheel.",
+    "philosophy": "Colourless represents artifice, universal solutions, and mechanical efficiency. It transcends the limitations and philosophies of the five colours, offering neutral tools and effects that any deck can utilise.",
+    "strengths": [
+      "Universal utility",
+      "Artifact synergies",
+      "Mana fixing",
+      "Neutral effects"
+    ],
+    "mechanics": [
+      "Colorless mana costs",
+      "Artifact abilities",
+      "Generic effects",
+      "Devoid"
+    ],
+    "emoji": "🔘",
+    "symbol": "C"
   }
 }

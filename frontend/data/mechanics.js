@@ -1,7 +1,7 @@
 // MTG Mechanics Data - Updated from Scryfall API + MTG Wiki
-// Last updated: 2025-07-18T09:58:44.616Z
+// Last updated: 2025-07-20T04:54:09.087Z
 // Total: 273 unique mechanics and abilities
-// Source: Scryfall API + MTG Wiki + Manual curation
+// Source: Official-First System (Wizards.com + Fallbacks)
 
 export const allMechanics = [
   "Living weapon",
@@ -174,7 +174,7 @@ export const allMechanics = [
   "More Than Meets the Eye",
   "Cleave",
   "Champion",
-  "Specialize",
+  "specialise",
   "Training",
   "Prototype",
   "Toxic",
@@ -196,7 +196,7 @@ export const allMechanics = [
   "Disguise",
   "Doctor's companion",
   "Landwalk",
-  "Umbra armor",
+  "Umbra armour",
   "Freerunning",
   "Spree",
   "Saddle",
@@ -279,7 +279,7 @@ export const allMechanics = [
   "Start your engines!"
 ];
 
-// Categorized lists for easier filtering
+// Categorised lists for easier filtering
 export const evergreenKeywords = [
   "Flying",
   "Trample",
@@ -307,4312 +307,4650 @@ export const beginnerFriendly = [
   "Lifelink",
   "Vigilance",
   "Haste",
+  "Hexproof",
   "Reach",
   "Menace",
   "Defender",
-  "Cycling"
+  "Double strike",
+  "Indestructible",
+  "Flash",
+  "Protection",
+  "Ward"
 ];
 
-// Detailed mechanics data with descriptions
+// Detailed mechanics data with descriptions and wiki links
 export const mechanicsDetails = {
-  "flying": {
-    "name": "Flying",
-    "description": "Flying is an evergreen evasion ability that makes creatures without flying unable to block creatures with flying. It has been in Magic since the original Alpha set. It was the first and most resonant mechanic that Richard Garfield designed for the game.",
-    "simpleDescription": "Flying is an evergreen evasion ability that makes creatures without flying unable to block creatures with flying.",
-    "rulesText": "",
-    "reminderText": "February 3, 2017",
-    "category": "evasion",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "simple",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Flying",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "So I’m curious what lands on a 1 for each of the major scales?"
-    ]
-  },
-  "trample": {
-    "name": "Trample",
-    "description": "An attacker with trample deals excess damage to the defending player, planeswalker or battle even if it is blocked. Trample is primary placed in green on the color wheel, but red's share has been growing over time. Any color is allowed access to trample if the creature is large enough and of a higher rarity.",
-    "simpleDescription": "An attacker with trample deals excess damage to the defending player, planeswalker or battle even if it is blocked.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "damage",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "simple",
-    "firstAppeared": "Alpha",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Trample",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "spell trample"
-    ]
-  },
-  "first_strike": {
-    "name": "First strike",
-    "description": "First strike is an evergreen keyword ability that changes the rules for combat by adding an additional combat damage step.",
-    "simpleDescription": "First strike is an evergreen keyword ability that changes the rules for combat by adding an additional combat damage step.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "combat",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/First_strike",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Evergreen Eggs & Ham"
-    ]
-  },
-  "deathtouch": {
-    "name": "Deathtouch",
-    "description": "Deathtouch is a static ability that causes any amount of damage dealt by the source to a creature to be lethal damage.",
-    "simpleDescription": "Deathtouch is a static ability that causes any amount of damage dealt by the source to a creature to be lethal damage.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "combat",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "medium",
-    "firstAppeared": "Future Sight",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Deathtouch",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t assign combat damage to one of those creatures unless each creature that precedes that creature in its order is assigned lethal damage. If a creature with deathtouch blocks or is blocked by multiple creatures, everything works the same way with one exception: assigning even 1 of that creature"
-    ]
-  },
-  "lifelink": {
-    "name": "Lifelink",
-    "description": "Lifelink is a keyword ability introduced in Future Sight. Damage dealt by a source with lifelink causes that source's controller to gain that much life.",
-    "simpleDescription": "Lifelink is a keyword ability introduced in Future Sight. Damage dealt by a source with lifelink causes that source's controller to gain that much life.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "lifegain",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "medium",
-    "firstAppeared": "Future Sight",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Lifelink",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Whenever this permanent deals damage, you gain that much life."
-    ]
-  },
-  "vigilance": {
-    "name": "Vigilance",
-    "description": "The keyword exists primary on white cards and secondary on green and blue; creatures with vigilance generally are depicted as guards or sentinels. White tends to get this on creatures where the power is equal to or less than the toughness, and seldom with a power greater than 3. Green tends to get this ability on larger creatures to differentiate it from white. R&D decided to also make blue secondary in vigilance because they were looking for more creature abilities to use in blue - the first instance of this was Haunting Figment in Dominaria United.",
-    "simpleDescription": "The keyword exists primary on white cards and secondary on green and blue; creatures with vigilance generally are depicted as guards or sentinels.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "combat",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "simple",
-    "firstAppeared": "Champions of Kamigawa",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Vigilance",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "pseudo-vigilance"
-    ]
-  },
-  "haste": {
-    "name": "Haste",
-    "description": "Haste is a keyword ability that allows a creature to circumvent summoning sickness. Creatures with haste can attack or use activated abilities with the or symbol in the activation cost even if they have not been continuously controlled by a player since the beginning of that player's most recent turn.",
-    "simpleDescription": "Haste is a keyword ability that allows a creature to circumvent summoning sickness.",
-    "rulesText": "",
-    "reminderText": "November 18, 2003",
-    "category": "timing",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "simple",
-    "firstAppeared": "Indominus Rex",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Haste",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "cannot attack"
-    ]
-  },
-  "hexproof": {
-    "name": "Hexproof",
-    "description": "Hexproof is an evergreen keyword ability that prevents a permanent or player from being the target of spells or abilities played by opponents.",
-    "simpleDescription": "Hexproof is an evergreen keyword ability that prevents a permanent or player from being the target of spells or abilities played by opponents.",
-    "rulesText": "",
-    "reminderText": "February 19, 2023",
-    "category": "protection",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Portal Three Kingdoms on two green creatures",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Hexproof",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s controller or that player"
-    ]
-  },
-  "reach": {
-    "name": "Reach",
-    "description": "Reach is an evergreen keyword ability that replaces the \"[This creature] can block as though it had flying\" ability seen on creatures such as Giant Spider.",
-    "simpleDescription": "Reach is an evergreen keyword ability that replaces the \"[This creature] can block as though it had flying\" ability seen on creatures such as Giant Spider.",
-    "rulesText": "",
-    "reminderText": "April 14, 2017",
-    "category": "combat",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "simple",
-    "firstAppeared": "Future Sight and was introduced into core sets with Tenth Edition",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Reach",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Secret"
-    ]
-  },
-  "menace": {
-    "name": "Menace",
-    "description": "Menace is an evergreen keyword ability. Creatures with menace can't be blocked except by two or more creatures.",
-    "simpleDescription": "Menace is an evergreen keyword ability. Creatures with menace can't be blocked except by two or more creatures.",
-    "rulesText": "",
-    "reminderText": "October 29, 2023",
-    "category": "evasion",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "simple",
-    "firstAppeared": "Magic Origins to replace Intimidate which had turned out to be too \"swingy\"—its strength varied too heavily based on the colors of the opponent's deck",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Menace",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Are you happy with menace, as it exists today?"
-    ]
-  },
-  "defender": {
-    "name": "Defender",
-    "description": "The keyword was introduced as a replacement for the baggage that the creature type Wall carried. Walls could not attack. Much later, the decision was made to keyword the \"cannot attack\" ability and make sure that all Walls had defender so that functionality wouldn't change. Defender was introduced with Champions of Kamigawa and was retroactively added to all Walls. Ninth Edition was the first core set after that change was made. Once the keyword existed, it allowed the ability to be put on non-Wall creatures.",
-    "simpleDescription": "The keyword was introduced as a replacement for the baggage that the creature type Wall carried.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "restriction",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": true,
-    "complexity": "simple",
-    "firstAppeared": "Champions of Kamigawa and was retroactively added to all Walls",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Defender",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s type no longer affects whether it can attack. A Wall that becomes a non-Wall will still have the defender ability. Likewise, a non-Wall that becomes a Wall won"
-    ]
-  },
-  "double_strike": {
-    "name": "Double strike",
-    "description": "Double strike is an evergreen keyword ability that allows a creature to deal combat damage twice per combat phase — once during the first combat damage step, along with any creatures that have first strike, and again during the second combat damage step along with creatures that have neither keyword.",
-    "simpleDescription": "Double strike is an evergreen keyword ability that allows a creature to deal combat damage twice per combat phase — once during the first combat da...",
-    "rulesText": "",
-    "reminderText": "October 22, 2003",
-    "category": "combat",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Double_strike",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t first strike. Effects that make a creature lose first strike won"
-    ]
-  },
-  "indestructible": {
-    "name": "Indestructible",
-    "description": "Indestructible is an evergreen keyword ability. Indestructible permanents can't be destroyed by rules or effects.",
-    "simpleDescription": "Indestructible is an evergreen keyword ability. Indestructible permanents can't be destroyed by rules or effects.",
-    "rulesText": "",
-    "reminderText": "September 21, 2017",
-    "category": "protection",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Indestructible",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s toughness. Even though an indestructible creature isn"
-    ]
-  },
-  "flash": {
-    "name": "Flash",
-    "description": "Flash is a keyword ability which allows the card it is printed on to be cast at any time you could cast an Instant.",
-    "simpleDescription": "Flash is a keyword ability which allows the card it is printed on to be cast at any time you could cast an Instant.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "timing",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "the Time Spiral expansion",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Flash",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Plenty of Time"
-    ]
-  },
-  "protection": {
-    "name": "Protection",
-    "description": "Protection from [quality] is a deciduous keyword ability that grants several different effects to the permanent or player it is affecting. The definition of protection, and the rules backing it, have changed over the course of the game's history.",
-    "simpleDescription": "Protection from [quality] is a deciduous keyword ability that grants several different effects to the permanent or player it is affecting.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "protection",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": false,
-    "complexity": "complex",
-    "firstAppeared": "types of magic",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Protection",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Deciduous"
-    ]
-  },
-  "ward": {
-    "name": "Ward",
-    "description": "Ward is an evergreen keyword ability introduced in Strixhaven: School of Mages. Ward is a triggered ability.",
-    "simpleDescription": "Ward is an evergreen keyword ability introduced in Strixhaven: School of Mages. Ward is a triggered ability.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "protection",
-    "type": "keyword_ability",
-    "isEvergreen": true,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Strixhaven: School of Mages",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Ward",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Can"
-    ]
-  },
-  "cycling": {
-    "name": "Cycling",
-    "description": "Cycling is a keyword ability that allows a player to pay a cost that includes discarding the card. When the activated ability resolves, that player draws a card.",
-    "simpleDescription": "Cycling is a keyword ability that allows a player to pay a cost that includes discarding the card. When the activated ability resolves, that player draws a card.",
-    "rulesText": "",
-    "reminderText": "May 9, 2017",
-    "category": "card_advantage",
-    "type": "keyword_ability",
-    "isEvergreen": false,
-    "isBeginnerFriendly": true,
-    "complexity": "medium",
-    "firstAppeared": "more blocks than any other non-evergreen keyword",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Cycling",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Cycling from the battlefield"
-    ]
-  },
-  "landfall": {
-    "name": "Landfall",
-    "description": "Landfall is an ability word which signals triggered abilities that respond to a Land entering the Battlefield under the control of the player with the Landfall card.",
-    "simpleDescription": "Landfall is an ability word which signals triggered abilities that respond to a Land entering the Battlefield under the control of the player with the Landfall card.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "triggered_ability",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Zendikar",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Landfall",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Storm Scale: Zendikar and Battle for Zendikar"
-    ]
-  },
-  "prowess": {
-    "name": "Prowess",
-    "description": "Prowess is a keyword ability that was introduced as the clan-specific mechanic for the Jeskai Way in Khans of Tarkir and Fate Reforged. Creatures with prowess get +1/+1 until end of turn whenever a noncreature spell is cast by their controller.",
-    "simpleDescription": "Prowess is a keyword ability that was introduced as the clan-specific mechanic for the Jeskai Way in Khans of Tarkir and Fate Reforged.",
-    "rulesText": "",
-    "reminderText": "January 13, 2019",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Khans of Tarkir[2][3] and Fate Reforged",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Prowess",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t have the type creature will cause prowess to trigger. If a spell has multiple types, and one of those types is creature (such as an artifact creature), casting it won"
-    ]
-  },
-  "flashback": {
-    "name": "Flashback",
-    "description": "Flashback is a keyword ability on instants and sorceries that allows the player to pay an alternative cost to cast the spell directly from their graveyard. The spell card is exiled when the spell leaves the stack. Flashback's equivalent for permanents is unearth.",
-    "simpleDescription": "Flashback is a keyword ability on instants and sorceries that allows the player to pay an alternative cost to cast the spell directly from their gr...",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "other",
-    "type": "keyword_ability",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Flashback",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Flashback [cost]"
-    ]
-  },
-  "convoke": {
-    "name": "Convoke",
-    "description": "Convoke is a keyword ability first associated with the Selesnya guild from Ravnica: City of Guilds. The mechanic was originally devised by Richard Garfield.",
-    "simpleDescription": "Convoke is a keyword ability first associated with the Selesnya guild from Ravnica: City of Guilds. The mechanic was originally devised by Richard Garfield.",
-    "rulesText": "",
-    "reminderText": "June 29, 2024",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "mana",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Convoke",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Storm Scale: Mirrodin and Scars of Mirrodin Blocks"
-    ]
-  },
-  "delve": {
-    "name": "Delve",
-    "description": "Delve is a keyword ability, introduced in Future Sight. Delve is a static ability that functions while the spell with delve is on the stack. “Delve” means “For each generic mana in this spell’s total cost, you may exile a card from your graveyard rather than pay that mana.”",
-    "simpleDescription": "Delve is a keyword ability, introduced in Future Sight.",
-    "rulesText": "",
-    "reminderText": "Each card you exile from your graveyard while casting this spell pays for .",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Future Sight",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Delve",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Storm Scale: Khans of Tarkir Block"
-    ]
-  },
-  "escape": {
-    "name": "Escape",
-    "description": "Escape is a keyword ability introduced in Theros Beyond Death, where it is connected to the Returned escaping from Nyx. Spells with escape can be cast from the graveyard for their escape cost. The cost includes exiling a number of other cards from the graveyard. If a creature escapes, it may receive an additional bonus.",
-    "simpleDescription": "Escape is a keyword ability introduced in Theros Beyond Death, where it is connected to the Returned escaping from Nyx.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Theros Beyond Death",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Escape",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s permission doesn"
-    ]
-  },
-  "kicker": {
-    "name": "Kicker",
-    "description": "Kicker is a keyword ability that allows the player to pay an optional cost when casting a spell to achieve an additional effect.",
-    "simpleDescription": "Kicker is a keyword ability that allows the player to pay an optional cost when casting a spell to achieve an additional effect.",
-    "rulesText": "",
-    "reminderText": "April 5, 2023",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "this block",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Kicker",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "re going to pay a kicker cost at the same time you"
-    ]
-  },
-  "morph": {
-    "name": "Morph",
-    "description": "Morph is a keyword ability on permanents that allows the player to pay to cast a card with the ability face down as a 2/2 colorless, typeless creature. The player can then turn that creature face-up at any time they could cast an instant by paying a variable Morph cost printed on each card. Many permanents with morph have additional triggered abilities that trigger when they are turned face-up (see Bane of the Living), and some other permanents trigger when a different card is turned face up. Morphing doesn't use the stack.",
-    "simpleDescription": "Morph is a keyword ability on permanents that allows the player to pay to cast a card with the ability face down as a 2/2 colorless, typeless creat...",
-    "rulesText": "",
-    "reminderText": "February 8, 2024",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "power and toughness",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Morph",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Borph"
-    ]
-  },
-  "mutate": {
-    "name": "Mutate",
-    "description": "Mutate is a keyword ability that is featured in Ikoria: Lair of Behemoths. It allows two or more permanents to merge.",
-    "simpleDescription": "Mutate is a keyword ability that is featured in Ikoria: Lair of Behemoths. It allows two or more permanents to merge.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Mutate",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Whenever the creature mutates"
-    ]
-  },
-  "cascade": {
-    "name": "Cascade",
-    "description": "When you cast a spell with Cascade, exile cards from the top of your library until you exile a nonland card whose mana value is less than the cascading spell. You may cast that card without paying its mana cost. Then put all cards exiled this way that weren't cast on the bottom of your library in a random order.",
-    "simpleDescription": "When you cast a spell with Cascade, exile cards from the top of your library until you exile a nonland card whose mana value is less than the casca...",
-    "rulesText": "In February 2021, Cascade received a rules update to change the interaction with MDFCs and Adventure cards. From that moment on, the spell that is cast off the triggered ability must also have lesser mana value than the cascading spell.",
-    "reminderText": "Video",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Alara Reborn",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Cascade",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s the timing for cascade:\n1) You cast a spell with cascade.\n2) The cascade ability triggers and goes on the stack on top of the original spell.\n3) The cascade ability resolves. If you find an applicable card that you"
-    ]
-  },
-  "storm": {
-    "name": "Storm",
-    "description": "Storm is a keyword ability that creates a copy of the spell when it's cast, for each spell cast before it in the current turn. It can become extremely powerful in decks that can arrange for many cheap spells to be cast in a turn. Storm is well known as the namesake of the Storm Scale, which measures the unlikelihood of a mechanic returning to the Standard format, because it is considered one of the most broken mechanics ever.",
-    "simpleDescription": "Storm is a keyword ability that creates a copy of the spell when it's cast, for each spell cast before it in the current turn.",
-    "rulesText": "",
-    "reminderText": "May 2, 2016",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "complex",
-    "firstAppeared": "Scourge",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Storm",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t cast. That means the copies don"
-    ]
-  },
-  "suspend": {
-    "name": "Suspend",
-    "description": "Suspend is a keyword that represents three abilities. The first is a static ability that allows you to exile the card from your hand with the specified number of time counters (the number before the dash) on it by paying its suspend cost (listed after the dash). The second is a triggered ability that removes a time counter from the suspended card at the beginning of each of your upkeeps. The third is a triggered ability that causes you to cast the card when the last time counter is removed. If you cast a creature spell this way, it gains haste until you lose control of that creature (or, in rare cases, you lose control of the creature spell while it's on the stack).",
-    "simpleDescription": "Suspend is a keyword that represents three abilities.",
-    "rulesText": "",
-    "reminderText": "January 27, 2024",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "complex",
-    "firstAppeared": "Time Spiral",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Suspend",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "if you could cast this card from your hand"
-    ]
-  },
-  "madness": {
-    "name": "Madness",
-    "description": "Madness is a keyword ability on spells that allows a player to cast that spell for an alternate cost if the card is discarded. It is primary in black and red, secondary in blue, and tertiary in white and green.",
-    "simpleDescription": "Madness is a keyword ability on spells that allows a player to cast that spell for an alternate cost if the card is discarded.",
-    "rulesText": "",
-    "reminderText": "March 11, 2016",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "the Odyssey block in Torment",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Madness",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s hand. Effects that put cards into a player"
-    ]
-  },
-  "threshold": {
-    "name": "Threshold",
-    "description": "Threshold is an ability word that gives a card different or additional characteristics if its controller has seven or more cards in their graveyard. It was introduced in Odyssey and featured as a draft archetype for Rats in Bloomburrow.",
-    "simpleDescription": "Threshold is an ability word that gives a card different or additional characteristics if its controller has seven or more cards in their graveyard.",
-    "rulesText": "",
-    "reminderText": "October 18, 2010",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "their graveyard",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Threshold",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "on"
-    ]
-  },
-  "affinity": {
-    "name": "Affinity",
-    "description": "Affinity is a keyword ability that reduces the mana cost of a spell by the number of permanents of a certain type that the player controls. It first appeared in the Mirrodin block.",
-    "simpleDescription": "Affinity is a keyword ability that reduces the mana cost of a spell by the number of permanents of a certain type that the player controls. It first appeared in the Mirrodin block.",
-    "rulesText": "",
-    "reminderText": "January 23, 2023",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "type that the player controls",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Affinity",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Affinity for creature tokens"
-    ]
-  },
-  "foretell": {
-    "name": "Foretell",
-    "description": "Foretell was designed as the combination of capturing a top-down omen flavor and a mechanic called \"layaway\" that Mark Rosewater had created many years ago based on a mechanic from the \"Star Wars Trading Card\" game.",
-    "simpleDescription": "Foretell was designed as the combination of capturing a top-down omen flavor and a mechanic called \"layaway\" that Mark Rosewater had created many y...",
-    "rulesText": "",
-    "reminderText": "Janauary 9, 2021",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Foretell",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s turn. In most cases, if you foretell a card that isn"
-    ]
-  },
-  "disturb": {
-    "name": "Disturb",
-    "description": "Disturb is a keyword ability introduced in Innistrad: Midnight Hunt, where it is connected to creatures resurrected in Spirit form. Disturb was also used in Innistrad: Crimson Vow.",
-    "simpleDescription": "Disturb is a keyword ability introduced in Innistrad: Midnight Hunt, where it is connected to creatures resurrected in Spirit form. Disturb was also used in Innistrad: Crimson Vow.",
-    "rulesText": "",
-    "reminderText": "October 28, 2021",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Innistrad: Midnight Hunt",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Disturb",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Disturb [cost]"
-    ]
-  },
-  "daybound": {
-    "name": "Daybound",
-    "description": "Daybound and Nightbound are a pair of keywords introduced in Innistrad: Midnight Hunt and also used in Innistrad: Crimson Vow.",
-    "simpleDescription": "Daybound and Nightbound are a pair of keywords introduced in Innistrad: Midnight Hunt and also used in Innistrad: Crimson Vow.",
-    "rulesText": "",
-    "reminderText": "November 9, 2024",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Innistrad: Midnight Hunt[2][3] and also used in Innistrad: Crimson Vow",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Daybound",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t transform via any means other than their daybound and nightbound abilities. Notably, older cards such as Moonmist that instruct a player to transform permanents don"
-    ]
-  },
-  "nightbound": {
-    "name": "Nightbound",
-    "description": "Daybound and Nightbound are a pair of keywords introduced in Innistrad: Midnight Hunt and also used in Innistrad: Crimson Vow.",
-    "simpleDescription": "Daybound and Nightbound are a pair of keywords introduced in Innistrad: Midnight Hunt and also used in Innistrad: Crimson Vow.",
-    "rulesText": "",
-    "reminderText": "November 9, 2024",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Innistrad: Midnight Hunt[2][3] and also used in Innistrad: Crimson Vow",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Nightbound",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t transform via any means other than their daybound and nightbound abilities. Notably, older cards such as Moonmist that instruct a player to transform permanents don"
-    ]
-  },
-  "cleave": {
-    "name": "Cleave",
-    "description": "Cleave is a keyword ability introduced in Innistrad: Crimson Vow. It can only be found on instants and sorceries, offering an alternative cost.",
-    "simpleDescription": "Cleave is a keyword ability introduced in Innistrad: Crimson Vow. It can only be found on instants and sorceries, offering an alternative cost.",
-    "rulesText": "",
-    "reminderText": "November 1, 2021",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Innistrad: Crimson Vow",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Cleave",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t have any of the text in square brackets while it"
-    ]
-  },
-  "training": {
-    "name": "Training",
-    "description": "Training is a keyword ability introduced in Innistrad: Crimson Vow for Humans of Innistrad. It can only be found on creatures.",
-    "simpleDescription": "Training is a keyword ability introduced in Innistrad: Crimson Vow for Humans of Innistrad. It can only be found on creatures.",
-    "rulesText": "",
-    "reminderText": "Whenever this creature attacks with another creature with greater power, put a +1/+1 counter on this creature.",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Innistrad: Crimson Vow for Humans of Innistrad",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Training",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s training ability triggers only when both that creature and a creature with greater power are declared as attackers. Increasing a creature"
-    ]
-  },
-  "channel": {
-    "name": "Channel",
-    "description": "Channel is an ability word indicating that a card may be discarded for an effect. It was introduced in Saviors of Kamigawa.",
-    "simpleDescription": "Channel is an ability word indicating that a card may be discarded for an effect. It was introduced in Saviors of Kamigawa.",
-    "rulesText": "",
-    "reminderText": "May 23, 2005",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Saviors of Kamigawa",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Channel",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s similar to the creature"
-    ]
-  },
-  "ninjutsu": {
-    "name": "Ninjutsu",
-    "description": "Ninjutsu (NIN-joot-soo) is a keyword ability designed by Mark Rosewater that was introduced in Betrayers of Kamigawa. It is exclusive to Ninja creatures.",
-    "simpleDescription": "Ninjutsu (NIN-joot-soo) is a keyword ability designed by Mark Rosewater that was introduced in Betrayers of Kamigawa. It is exclusive to Ninja creatures.",
-    "rulesText": "",
-    "reminderText": "September 17, 2018",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Betrayers of Kamigawa",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Ninjutsu",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Hey Mark! I was wondering where Ninjitsu was on the Storm Scale."
-    ]
-  },
-  "reconfigure": {
-    "name": "Reconfigure",
-    "description": "Reconfigure is a keyword ability found on artifact creatures with the subtype \"Equipment\". The first cards with reconfigure appeared in Kamigawa: Neon Dynasty.",
-    "simpleDescription": "Reconfigure is a keyword ability found on artifact creatures with the subtype \"Equipment\". The first cards with reconfigure appeared in Kamigawa: Neon Dynasty.",
-    "rulesText": "",
-    "reminderText": "2022-03-21",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Reconfigure",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "[Cost]: Attach this permanent to another target creature you control. Activate only as a sorcery,"
-    ]
-  },
-  "fear": {
-    "name": "Fear",
-    "description": "Fear is a keyword ability found primarily on black creatures. It is an evasion ability that allows a creature to only be blocked by black or artifact creatures.",
-    "simpleDescription": "Fear is a keyword ability found primarily on black creatures. It is an evasion ability that allows a creature to only be blocked by black or artifact creatures.",
-    "rulesText": "",
-    "reminderText": "Fear, Lifelink, Manifest Dread, Regenerate, and Vigilance respectively",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Fear",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Storm is a 10 on the Storm Scale, right?..."
-    ]
-  },
-  "intimidate": {
-    "name": "Intimidate",
-    "description": "Intimidate is a deprecated keyword ability. A creature with intimidate can't be blocked except by artifact creatures and/or creatures that share a color with it.",
-    "simpleDescription": "Intimidate is a deprecated keyword ability. A creature with intimidate can't be blocked except by artifact creatures and/or creatures that share a color with it.",
-    "rulesText": "",
-    "reminderText": "July 11, 2017",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "the Magic Comprehensive Rules revision for Magic 2010 even though no cards with that keyword were printed in that set",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Intimidate",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t be blocked except by artifact creatures and/or red creatures. If it"
-    ]
-  },
-  "shroud": {
-    "name": "Shroud",
-    "description": "Shroud is a keyword ability that prevents a permanent or player from being the target of spells or abilities.",
-    "simpleDescription": "Shroud is a keyword ability that prevents a permanent or player from being the target of spells or abilities.",
-    "rulesText": "",
-    "reminderText": "Video",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Legends",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Shroud",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "This creature can"
-    ]
-  },
-  "banding": {
-    "name": "Banding",
-    "description": "Banding is a keyword ability that lets a player form bands from their creatures and during combat takes the right to distribute damage from the opponent. It also changes the rules for attacking and blocking if a band is formed. It was introduced in Alpha, and is no longer used on regular cards.",
-    "simpleDescription": "Banding is a keyword ability that lets a player form bands from their creatures and during combat takes the right to distribute damage from the opp...",
-    "rulesText": "",
-    "reminderText": "November 26, 2014",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "complex",
-    "firstAppeared": "Alpha",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Banding",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "band."
-    ]
-  },
-  "flanking": {
-    "name": "Flanking",
-    "description": "Flanking is a keyword ability that gives creatures that block a creature with flanking -1/-1, unless the blocker also has flanking.",
-    "simpleDescription": "Flanking is a keyword ability that gives creatures that block a creature with flanking -1/-1, unless the blocker also has flanking.",
-    "rulesText": "",
-    "reminderText": "November 23, 2015",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Flanking",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Flanking was a 7 on the storm scale in 2016..."
-    ]
-  },
-  "echo": {
-    "name": "Echo",
-    "description": "Echo is a keyword ability on permanents that requires the permanent's controller to pay its echo cost at the beginning of their next upkeep after they gain control of it, or sacrifice it.",
-    "simpleDescription": "Echo is a keyword ability on permanents that requires the permanent's controller to pay its echo cost at the beginning of their next upkeep after they gain control of it, or sacrifice it.",
-    "rulesText": "",
-    "reminderText": "2015-11-26",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Urza's block",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Echo",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s echo ability will trigger during its controller"
-    ]
-  },
-  "buyback": {
-    "name": "Buyback",
-    "description": "Buyback is a keyword ability that appears on instants and sorceries. It provides an optional additional cost that the player casting the spell with buyback may pay as they cast it. If the player does, as the spell finishes resolving, the spell card is put back into its owner's hand rather than into their graveyard.",
-    "simpleDescription": "Buyback is a keyword ability that appears on instants and sorceries.",
-    "rulesText": "",
-    "reminderText": "2017-02-23",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Buyback",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "t count toward a spell"
-    ]
-  },
-  "shadow": {
-    "name": "Shadow",
-    "description": "Shadow is a keyword ability on creatures that serves as both an evasion ability and a blocking restriction, featured in the Tempest block.",
-    "simpleDescription": "Shadow is a keyword ability on creatures that serves as both an evasion ability and a blocking restriction, featured in the Tempest block.",
-    "rulesText": "",
-    "reminderText": "November 21, 2012",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Shadow",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Hi Mark! Where’s shadow on the storm scale?"
-    ]
-  },
-  "phasing": {
-    "name": "Phasing",
-    "description": "Phasing is a mechanic where permanents may phase out, causing them to be treated as if they don't exist until they automatically phase back in on their next untap step. This can be a protective action, or a means to temporarily disable an opponent's permanents. Phasing is primary in blue and secondary in white. Unlike similar concepts like flickering, a phased-out permanent remains the same object, and so retains counters, attachments, and choices made during the \"life\" of the object.",
-    "simpleDescription": "Phasing is a mechanic where permanents may phase out, causing them to be treated as if they don't exist until they automatically phase back in on t...",
-    "rulesText": "",
-    "reminderText": "July 1, 2021",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "complex",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Phasing",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "Phase out"
-    ]
-  },
-  "rampage": {
-    "name": "Rampage",
-    "description": "Rampage is a keyword ability that gives an attacking creature a bonus to its power and toughness when it is blocked by more than one creature.",
-    "simpleDescription": "Rampage is a keyword ability that gives an attacking creature a bonus to its power and toughness when it is blocked by more than one creature.",
-    "rulesText": "",
-    "reminderText": "December 6, 2024",
-    "category": "other",
-    "type": "ability_word",
-    "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Legends; the last tournament-legal set with it was Fifth Edition",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Rampage",
-    "exampleCards": [
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "s Spark\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tThe Multiverse\n\t\t\t\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tMagic Story\n\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\t\t\t\tBrothers",
-      "new rampage"
-    ]
-  },
   "living_weapon": {
     "name": "Living weapon",
-    "description": "Living weapon is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this Equipment enters, create a 0/0 black Phyrexian Germ creature token, then attach this Equipment to it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Living_weapon",
-    "exampleCards": []
+    "fallbackDescription": "When this Equipment enters, create a 0/0 black Phyrexian Germ creature token, then attach this Equipment to it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Living_weapon",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.079Z",
+      "qualityRating": "medium"
+    }
   },
-  "jump-start": {
+  "jump_start": {
     "name": "Jump-start",
-    "description": "Jump-start is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this card from your graveyard by discarding a card in addition to paying its other costs. Then exile this card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Jump-start",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this card from your graveyard by discarding a card in addition to paying its other costs. Then exile this card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Jump-start",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.080Z",
+      "qualityRating": "medium"
+    }
   },
   "commander_ninjutsu": {
     "name": "Commander ninjutsu",
-    "description": "Commander ninjutsu is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Commander_ninjutsu",
-    "exampleCards": []
+    "fallbackDescription": "Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Commander_ninjutsu",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.080Z",
+      "qualityRating": "medium"
+    }
   },
   "legendary_landwalk": {
     "name": "Legendary landwalk",
-    "description": "Legendary landwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Legendary landwalk is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Legendary_landwalk",
-    "exampleCards": []
+    "fallbackDescription": "Legendary landwalk is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Legendary_landwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.080Z",
+      "qualityRating": "medium"
+    }
   },
   "nonbasic_landwalk": {
     "name": "Nonbasic landwalk",
-    "description": "Nonbasic landwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Nonbasic landwalk is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Nonbasic_landwalk",
-    "exampleCards": []
+    "fallbackDescription": "Nonbasic landwalk is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Nonbasic_landwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "megamorph": {
     "name": "Megamorph",
-    "description": "Megamorph is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this face down as a 2/2 creature for . Turn it face up any time for its morph cost.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Megamorph",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this face down as a 2/2 creature for . Turn it face up any time for its morph cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Megamorph",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "haunt": {
     "name": "Haunt",
-    "description": "Haunt is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature dies, exile it haunting target creature.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Haunt",
-    "exampleCards": []
+    "fallbackDescription": "When this creature dies, exile it haunting target creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Haunt",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "forecast": {
     "name": "Forecast",
-    "description": "Forecast is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Activate this ability only during your upkeep and only once each turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Forecast",
-    "exampleCards": []
+    "fallbackDescription": "Activate this ability only during your upkeep and only once each turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Forecast",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "graft": {
     "name": "Graft",
-    "description": "Graft is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature enters the battlefield with N +1/+1 counters on it. Whenever another creature enters the battlefield, you may move a +1/+1 counter from this creature onto it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Graft",
-    "exampleCards": []
+    "fallbackDescription": "This creature enters the battlefield with N +1/+1 counters on it. Whenever another creature enters the battlefield, you may move a +1/+1 counter from this creature onto it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Graft",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "fortify": {
     "name": "Fortify",
-    "description": "Fortify is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost]: Attach this Fortification to target land you control. Activate only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Fortify",
-    "exampleCards": []
+    "fallbackDescription": "[Cost]: Attach this Fortification to target land you control. Activate only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Fortify",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "frenzy": {
     "name": "Frenzy",
-    "description": "Frenzy is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature attacks and isn't blocked, it gets +N/+0 until end of turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Frenzy",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature attacks and isn't blocked, it gets +N/+0 until end of turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Frenzy",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "gravestorm": {
     "name": "Gravestorm",
-    "description": "Gravestorm is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When you cast this spell, copy it for each permanent put into a graveyard this turn. You may choose new targets for the copies.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Gravestorm",
-    "exampleCards": []
+    "fallbackDescription": "When you cast this spell, copy it for each permanent put into a graveyard this turn. You may choose new targets for the copies.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Gravestorm",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "hideaway": {
     "name": "Hideaway",
-    "description": "Hideaway is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this permanent enters, look at the top N cards of your library, exile one face down, then put the rest on the bottom of your library.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Hideaway",
-    "exampleCards": []
+    "fallbackDescription": "When this permanent enters, look at the top N cards of your library, exile one face down, then put the rest on the bottom of your library.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Hideaway",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "level_up": {
     "name": "Level Up",
-    "description": "Level Up is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Level Up is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Level_Up",
-    "exampleCards": []
+    "fallbackDescription": "Level Up is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Level_Up",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
   },
   "infect": {
     "name": "Infect",
-    "description": "Infect is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Infect",
-    "exampleCards": []
+    "fallbackDescription": "This creature deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Infect",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
+  },
+  "reach": {
+    "name": "Reach",
+    "description": "A keyword ability found on creatures. A creature with reach can block a creature with flying. Note that a creature with reach can be blocked by any kind of creature.",
+    "category": "combat",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Reach",
+    "fallbackDescription": "Can block creatures with flying.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "high"
+    }
+  },
+  "rampage": {
+    "name": "Rampage",
+    "description": "Whenever this creature becomes blocked, it gets +N/+N until end of turn for each creature blocking it beyond the first.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Rampage",
+    "fallbackDescription": "Whenever this creature becomes blocked, it gets +N/+N until end of turn for each creature blocking it beyond the first.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Rampage",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.081Z",
+      "qualityRating": "medium"
+    }
+  },
+  "phasing": {
+    "name": "Phasing",
+    "description": "This phases in or out before you untap during each of your untap steps. While it's phased out, it's treated as though it doesn't exist.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Phasing",
+    "fallbackDescription": "This phases in or out before you untap during each of your untap steps. While it's phased out, it's treated as though it doesn't exist.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Phasing",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "multikicker": {
     "name": "Multikicker",
-    "description": "Multikicker is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may pay an additional [cost] as you cast this spell.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Multikicker",
-    "exampleCards": []
+    "fallbackDescription": "You may pay an additional [cost] as you cast this spell.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Multikicker",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
+  },
+  "morph": {
+    "name": "Morph",
+    "description": "You may cast this face down as a 2/2 creature for . Turn it face up any time for its morph cost.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Morph",
+    "fallbackDescription": "You may cast this face down as a 2/2 creature for . Turn it face up any time for its morph cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Morph",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "provoke": {
     "name": "Provoke",
-    "description": "Provoke is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature attacks, you may have target creature defending player controls untap and block it if able.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Provoke",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature attacks, you may have target creature defending player controls untap and block it if able.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Provoke",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "modular": {
     "name": "Modular",
-    "description": "Modular is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This enters with N +1/+1 counters on it. When it dies, you may put its +1/+1 counters on target artifact creature.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Modular",
-    "exampleCards": []
+    "fallbackDescription": "This enters with N +1/+1 counters on it. When it dies, you may put its +1/+1 counters on target artifact creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Modular",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
+  },
+  "ninjutsu": {
+    "name": "Ninjutsu",
+    "description": "Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Ninjutsu",
+    "fallbackDescription": "Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Ninjutsu",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "replicate": {
     "name": "Replicate",
-    "description": "Replicate is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When you cast this spell, copy it for each time you paid its replicate cost. You may choose new targets for the copies.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Replicate",
-    "exampleCards": []
+    "fallbackDescription": "When you cast this spell, copy it for each time you paid its replicate cost. You may choose new targets for the copies.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Replicate",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "recover": {
     "name": "Recover",
-    "description": "Recover is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When a creature is put into your graveyard from the battlefield, you may pay [cost]. If you do, return this card from your graveyard to your hand. Otherwise, exile this card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Recover",
-    "exampleCards": []
+    "fallbackDescription": "When a creature is put into your graveyard from the battlefield, you may pay [cost]. If you do, return this card from your graveyard to your hand. Otherwise, exile this card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Recover",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "poisonous": {
     "name": "Poisonous",
-    "description": "Poisonous is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature deals combat damage to a player, that player gets N poison counters.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Poisonous",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature deals combat damage to a player, that player gets N poison counters.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Poisonous",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "prowl": {
     "name": "Prowl",
-    "description": "Prowl is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this for its prowl cost if you dealt combat damage to a player this turn with a [subtype].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Prowl",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this for its prowl cost if you dealt combat damage to a player this turn with a [subtype].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Prowl",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "reinforce": {
     "name": "Reinforce",
-    "description": "Reinforce is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Put N +1/+1 counters on target creature.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Reinforce",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Put N +1/+1 counters on target creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Reinforce",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "persist": {
     "name": "Persist",
-    "description": "Persist is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner’s control with a -1/-1 counter on it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Persist",
-    "exampleCards": []
+    "fallbackDescription": "When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner’s control with a -1/-1 counter on it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Persist",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "retrace": {
     "name": "Retrace",
-    "description": "Retrace is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this card from your graveyard by discarding a land card as an additional cost to cast it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Retrace",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this card from your graveyard by discarding a land card as an additional cost to cast it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Retrace",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "rebound": {
     "name": "Rebound",
-    "description": "Rebound is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If this spell was cast from your hand, instead of putting it into your graveyard as it resolves, exile it and, at the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Rebound",
-    "exampleCards": []
+    "fallbackDescription": "If this spell was cast from your hand, instead of putting it into your graveyard as it resolves, exile it and, at the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Rebound",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "miracle": {
     "name": "Miracle",
-    "description": "Miracle is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this card for its Miracle cost when you draw it if it's the first card you drew this turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Miracle",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this card for its Miracle cost when you draw it if it's the first card you drew this turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Miracle",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "overload": {
     "name": "Overload",
-    "description": "Overload is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this spell for its overload cost. If you do, change its text by replacing all instances of 'target' with 'each'.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Overload",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this spell for its overload cost. If you do, change its text by replacing all instances of 'target' with 'each'.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Overload",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "outlast": {
     "name": "Outlast",
-    "description": "Outlast is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], : Put a +1/+1 counter on this creature. Activate only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Outlast",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], : Put a +1/+1 counter on this creature. Activate only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Outlast",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
+  },
+  "prowess": {
+    "name": "Prowess",
+    "description": "Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.",
+    "category": "triggered",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Prowess",
+    "fallbackDescription": "Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Prowess",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "renown": {
     "name": "Renown",
-    "description": "Renown is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature deals combat damage to a player, if it isn't renowned, put N +1/+1 counter on it and it becomes renowned.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Renown",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature deals combat damage to a player, if it isn't renowned, put N +1/+1 counter on it and it becomes renowned.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Renown",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "myriad": {
     "name": "Myriad",
-    "description": "Myriad is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature attacks, for each opponent other than defending player, you may create a token that's a copy of this creature that's tapped and attacking that player or a planeswalker they control. If one or more tokens are created this way, exile the tokens at end of combat.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Myriad",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature attacks, for each opponent other than defending player, you may create a token that's a copy of this creature that's tapped and attacking that player or a planeswalker they control. If one or more tokens are created this way, exile the tokens at end of combat.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Myriad",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
+  },
+  "shroud": {
+    "name": "Shroud",
+    "description": "This permanent or player can’t be the target of spells or abilities.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Shroud",
+    "fallbackDescription": "This permanent or player can’t be the target of spells or abilities.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Shroud",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
+  },
+  "trample": {
+    "name": "Trample",
+    "description": "When a creature with trample attacks and is blocked, you only need to assign lethal damage to blockers. The rest goes to the defending player or planeswalker.",
+    "category": "combat",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Trample",
+    "fallbackDescription": "Excess combat damage can be dealt to the defending player.",
+    "source": "enhanced_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Trample",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium-high"
+    }
+  },
+  "vigilance": {
+    "name": "Vigilance",
+    "description": "A keyword ability found on creatures. A creature with vigilance doesn't tap to attack. Vigilance doesn't allow a tapped creature or a creature that entered the battlefield this turn to attack.",
+    "category": "combat",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Vigilance",
+    "fallbackDescription": "Doesn't tap when attacking.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "high"
+    }
+  },
+  "storm": {
+    "name": "Storm",
+    "description": "When you cast this spell, copy it for each spell cast before it this turn. You may choose new targets for the copies.",
+    "category": "triggered",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Storm",
+    "fallbackDescription": "When you cast this spell, copy it for each spell cast before it this turn. You may choose new targets for the copies.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Storm",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "soulshift": {
     "name": "Soulshift",
-    "description": "Soulshift is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature dies, you may return target Spirit card with mana value N or less from your graveyard to your hand.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Soulshift",
-    "exampleCards": []
+    "fallbackDescription": "When this creature dies, you may return target Spirit card with mana value N or less from your graveyard to your hand.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Soulshift",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "splice": {
     "name": "Splice",
-    "description": "Splice is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As you cast a(n",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Splice",
-    "exampleCards": []
+    "fallbackDescription": "As you cast a(n",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Splice",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "transmute": {
     "name": "Transmute",
-    "description": "Transmute is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[cost], Discard this card: Search your library for a card with the same mana value as this card, reveal it, put it into your hand, then shuffle. Transmute only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Transmute",
-    "exampleCards": []
+    "fallbackDescription": "[cost], Discard this card: Search your library for a card with the same mana value as this card, reveal it, put it into your hand, then shuffle. Transmute only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Transmute",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "ripple": {
     "name": "Ripple",
-    "description": "Ripple is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When you cast this spell, you may reveal the top N cards of your library. You may cast any revealed cards with the same name as this spell without paying their mana costs. Put the rest on the bottom of your library.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Ripple",
-    "exampleCards": []
+    "fallbackDescription": "When you cast this spell, you may reveal the top N cards of your library. You may cast any revealed cards with the same name as this spell without paying their mana costs. Put the rest on the bottom of your library.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Ripple",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
+  },
+  "suspend": {
+    "name": "Suspend",
+    "description": "Rather than cast this card from your hand, you may pay [cost] and exile it with N time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. If it's a creature, it has haste.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Suspend",
+    "fallbackDescription": "Rather than cast this card from your hand, you may pay [cost] and exile it with N time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. If it's a creature, it has haste.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Suspend",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "vanishing": {
     "name": "Vanishing",
-    "description": "Vanishing is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This permanent enters with N time counters on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Vanishing",
-    "exampleCards": []
+    "fallbackDescription": "This permanent enters with N time counters on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Vanishing",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.082Z",
+      "qualityRating": "medium"
+    }
   },
   "transfigure": {
     "name": "Transfigure",
-    "description": "Transfigure is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Sacrifice this permanent: Search your library for a creature card with the same mana value as this permanent, put that card onto the battlefield, then shuffle. Transfigure only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Transfigure",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Sacrifice this permanent: Search your library for a creature card with the same mana value as this permanent, put that card onto the battlefield, then shuffle. Transfigure only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Transfigure",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "wither": {
     "name": "Wither",
-    "description": "Wither is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This deals damage to creatures in the form of -1/-1 counters.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Wither",
-    "exampleCards": []
+    "fallbackDescription": "This deals damage to creatures in the form of -1/-1 counters.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Wither",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "undying": {
     "name": "Undying",
-    "description": "Undying is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature dies, if it had no +1/+1 counters on it, return it to the battlefield under its owner's control with a +1/+1 counter on it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Undying",
-    "exampleCards": []
+    "fallbackDescription": "When this creature dies, if it had no +1/+1 counters on it, return it to the battlefield under its owner's control with a +1/+1 counter on it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Undying",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "soulbond": {
     "name": "Soulbond",
-    "description": "Soulbond is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may pair this creature with another unpaired creature when either enters. They remain paired for as long as you control both of them.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Soulbond",
-    "exampleCards": []
+    "fallbackDescription": "You may pair this creature with another unpaired creature when either enters. They remain paired for as long as you control both of them.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Soulbond",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "unleash": {
     "name": "Unleash",
-    "description": "Unleash is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may have this creature enter with a +1/+1 counter on it. It can't block as long as it has a +1/+1 counter on it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Unleash",
-    "exampleCards": []
+    "fallbackDescription": "You may have this creature enter with a +1/+1 counter on it. It can't block as long as it has a +1/+1 counter on it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Unleash",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "ascend": {
     "name": "Ascend",
-    "description": "Ascend is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If you control ten or more permanents, you get the city’s blessing for the rest of the game.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Ascend",
-    "exampleCards": []
+    "fallbackDescription": "If you control ten or more permanents, you get the city’s blessing for the rest of the game.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Ascend",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "assist": {
     "name": "Assist",
-    "description": "Assist is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Another player can pay up to of this spell's cost.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Assist",
-    "exampleCards": []
+    "fallbackDescription": "Another player can pay up to of this spell's cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Assist",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "afterlife": {
     "name": "Afterlife",
-    "description": "Afterlife is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature dies, create N 1/1 white and black Spirit creature token(s",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Afterlife",
-    "exampleCards": []
+    "fallbackDescription": "When this creature dies, create N 1/1 white and black Spirit creature token(s",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Afterlife",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "companion": {
     "name": "Companion",
-    "description": "Companion is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If this card is your chosen companion, you may put it into your hand from outside the game for any time you could cast a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Companion",
-    "exampleCards": []
+    "fallbackDescription": "If this card is your chosen companion, you may put it into your hand from outside the game for any time you could cast a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Companion",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "fabricate": {
     "name": "Fabricate",
-    "description": "Fabricate is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this permanent enters the battlefield, you may put N +1/+1 counters on it. If you don't, create N 1/1 colorless Servo artifact creature tokens.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Fabricate",
-    "exampleCards": []
+    "fallbackDescription": "When this permanent enters the battlefield, you may put N +1/+1 counters on it. If you don't, create N 1/1 colorless Servo artifact creature tokens.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Fabricate",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "embalm": {
     "name": "Embalm",
-    "description": "Embalm is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Exile this card from your graveyard: Create a token that's a copy of it, except it's a white Zombie ... with no mana cost. Embalm only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Embalm",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Exile this card from your graveyard: Create a token that's a copy of it, except it's a white Zombie ... with no mana cost. Embalm only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Embalm",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "escape": {
+    "name": "Escape",
+    "description": "You may cast this card from your graveyard for its escape cost",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Escape",
+    "fallbackDescription": "You may cast this card from your graveyard for its escape cost",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Escape",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "fuse": {
     "name": "Fuse",
-    "description": "Fuse is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast one or both halves of this card from your hand.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Fuse",
-    "exampleCards": []
+    "fallbackDescription": "You may cast one or both halves of this card from your hand.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Fuse",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "menace": {
+    "name": "Menace",
+    "description": "A keyword ability found on creatures. A creature with menace can't be blocked except by two or more creatures.",
+    "category": "evasion",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Menace",
+    "fallbackDescription": "Can't be blocked except by two or more creatures.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "high"
+    }
   },
   "ingest": {
     "name": "Ingest",
-    "description": "Ingest is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature deals combat damage to a player, that player exiles the top card of their library",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Ingest",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature deals combat damage to a player, that player exiles the top card of their library",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Ingest",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "melee": {
     "name": "Melee",
-    "description": "Melee is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature attacks, it gets +1/+1 until end of turn for each opponent you attacked with a creature this combat.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Melee",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature attacks, it gets +1/+1 until end of turn for each opponent you attacked with a creature this combat.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Melee",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "improvise": {
     "name": "Improvise",
-    "description": "Improvise is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for .",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Improvise",
-    "exampleCards": []
+    "fallbackDescription": "Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for .",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Improvise",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "mentor": {
     "name": "Mentor",
-    "description": "Mentor is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature attacks, put a +1/+1 counter on target attacking creature with lesser power.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Mentor",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature attacks, put a +1/+1 counter on target attacking creature with lesser power.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Mentor",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "partner": {
     "name": "Partner",
-    "description": "Partner is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You can have two commanders if both have partner.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Partner",
-    "exampleCards": []
+    "fallbackDescription": "You can have two commanders if both have partner.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Partner",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "mutate": {
+    "name": "Mutate",
+    "description": "If you cast this spell for its mutate cost, put it over or under target non-Human creature you own. They mutate into the creature on top plus all abilities from under it.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Mutate",
+    "fallbackDescription": "If you cast this spell for its mutate cost, put it over or under target non-Human creature you own. They mutate into the creature on top plus all abilities from under it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Mutate",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "tribute": {
     "name": "Tribute",
-    "description": "Tribute is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As this creature enters, an opponent of your choice may place N +1/+1 counters on it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Tribute",
-    "exampleCards": []
+    "fallbackDescription": "As this creature enters, an opponent of your choice may place N +1/+1 counters on it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Tribute",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "surge": {
     "name": "Surge",
-    "description": "Surge is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast a spell for its surge cost if you or a teammate have cast another spell in the same turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Surge",
-    "exampleCards": []
+    "fallbackDescription": "You may cast a spell for its surge cost if you or a teammate have cast another spell in the same turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Surge",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "skulk": {
     "name": "Skulk",
-    "description": "Skulk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked by creatures with greater power.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Skulk",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked by creatures with greater power.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Skulk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "undaunted": {
     "name": "Undaunted",
-    "description": "Undaunted is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This spell costs less to cast for each opponent.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Undaunted",
-    "exampleCards": []
+    "fallbackDescription": "This spell costs less to cast for each opponent.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Undaunted",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "riot": {
     "name": "Riot",
-    "description": "Riot is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature enters with your choice of a +1/+1 counter or haste.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Riot",
-    "exampleCards": []
+    "fallbackDescription": "This creature enters with your choice of a +1/+1 counter or haste.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Riot",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "spectacle": {
     "name": "Spectacle",
-    "description": "Spectacle is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this spell for its spectacle cost rather than its mana cost if an opponent lost life this turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Spectacle",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this spell for its spectacle cost rather than its mana cost if an opponent lost life this turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Spectacle",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "forestwalk": {
     "name": "Forestwalk",
-    "description": "Forestwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked as long as defending player controls a [type].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Forestwalk",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked as long as defending player controls a [type].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Forestwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "islandwalk": {
     "name": "Islandwalk",
-    "description": "Islandwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked as long as defending player controls a [type].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Islandwalk",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked as long as defending player controls a [type].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Islandwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "mountainwalk": {
     "name": "Mountainwalk",
-    "description": "Mountainwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked as long as defending player controls a [type].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Mountainwalk",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked as long as defending player controls a [type].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Mountainwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "double_strike": {
+    "name": "Double strike",
+    "description": "A keyword ability found on creatures. Creatures with double strike deal combat damage twice - once during first strike and once during regular damage.",
+    "category": "combat",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Double_strike",
+    "fallbackDescription": "Deals first strike and regular combat damage.",
+    "source": "enhanced_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Double_strike",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium-high"
+    }
   },
   "cumulative_upkeep": {
     "name": "Cumulative upkeep",
-    "description": "Cumulative upkeep is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "At the beginning of your upkeep, if this permanent is on the battlefield, put an age counter on this permanent. Then you may pay [cost] for each age counter on it. If you don’t, sacrifice it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Cumulative_upkeep",
-    "exampleCards": []
+    "fallbackDescription": "At the beginning of your upkeep, if this permanent is on the battlefield, put an age counter on this permanent. Then you may pay [cost] for each age counter on it. If you don’t, sacrifice it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Cumulative_upkeep",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "first_strike": {
+    "name": "First strike",
+    "description": "A keyword ability found on creatures. Creatures with first strike deal all of their combat damage before creatures without first strike or double strike. When you reach the combat damage step, check to see if any attacking or blocking creatures have first strike or double strike. If so, an extra combat damage step is created just for them.",
+    "category": "combat",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/First_strike",
+    "fallbackDescription": "Deals combat damage before creatures without first strike.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "high"
+    }
   },
   "scavenge": {
     "name": "Scavenge",
-    "description": "Scavenge is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Exile this card from your graveyard: Put a number of +1/+1 counters equal to this card's power on target creature. Scavenge only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Scavenge",
-    "exampleCards": []
+    "fallbackDescription": "Exile this card from your graveyard: Put a number of +1/+1 counters equal to this card's power on target creature. Scavenge only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Scavenge",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "encore": {
     "name": "Encore",
-    "description": "Encore is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Encore",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Exile this card from your graveyard: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Encore",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "deathtouch": {
+    "name": "Deathtouch",
+    "description": "A keyword ability found on creatures. A creature dealt any amount of damage by a creature with deathtouch is destroyed. Deathtouch has no effect on players or planeswalkers.",
+    "category": "combat",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Deathtouch",
+    "fallbackDescription": "Any amount of damage from this creature is lethal.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "high"
+    }
+  },
+  "defender": {
+    "name": "Defender",
+    "description": "A keyword ability found on creatures. A creature with defender can't attack.",
+    "category": "restriction",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Defender",
+    "fallbackDescription": "Can't attack.",
+    "source": "enhanced_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Defender",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium-high"
+    }
   },
   "amplify": {
     "name": "Amplify",
-    "description": "Amplify is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As this creature enters the battlefield, put N +1/+1 counters on it for each [creature type] card you reveal in your hand.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Amplify",
-    "exampleCards": []
+    "fallbackDescription": "As this creature enters the battlefield, put N +1/+1 counters on it for each [creature type] card you reveal in your hand.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Amplify",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "affinity": {
+    "name": "Affinity",
+    "description": "This spell costs less to cast for each [text] you control.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Affinity",
+    "fallbackDescription": "This spell costs less to cast for each [text] you control.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Affinity",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "bushido": {
     "name": "Bushido",
-    "description": "Bushido is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature blocks or becomes blocked, it gets +N/+N until end of turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Bushido",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature blocks or becomes blocked, it gets +N/+N until end of turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Bushido",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "convoke": {
+    "name": "Convoke",
+    "description": "Your creatures can help cast this spell. Each creature you tap while casting this spell pays for or one mana of that creature's colour.",
+    "category": "cost_reduction",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Convoke",
+    "fallbackDescription": "Your creatures can help cast this spell. Each creature you tap while casting this spell pays for or one mana of that creature's colour.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Convoke",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "bloodthirst": {
     "name": "Bloodthirst",
-    "description": "Bloodthirst is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If an opponent was dealt damage this turn, this permanent enters with N +1/+1 counters on it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Bloodthirst",
-    "exampleCards": []
+    "fallbackDescription": "If an opponent was dealt damage this turn, this permanent enters with N +1/+1 counters on it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Bloodthirst",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "absorb": {
     "name": "Absorb",
-    "description": "Absorb is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If a source would deal damage to this creature, prevent N of that damage.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Absorb",
-    "exampleCards": []
+    "fallbackDescription": "If a source would deal damage to this creature, prevent N of that damage.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Absorb",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "aura_swap": {
     "name": "Aura Swap",
-    "description": "Aura Swap is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost]: Exchange this Aura with an Aura card in your hand.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Aura_Swap",
-    "exampleCards": []
+    "fallbackDescription": "[Cost]: Exchange this Aura with an Aura card in your hand.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Aura_Swap",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "changeling": {
     "name": "Changeling",
-    "description": "Changeling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This card is every creature type.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Changeling",
-    "exampleCards": []
+    "fallbackDescription": "This card is every creature type.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Changeling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "conspire": {
     "name": "Conspire",
-    "description": "Conspire is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As you cast this spell, you may tap two untapped creatures you control that share a colour with it. When you do, copy it and you may choose a new target for the copy.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Conspire",
-    "exampleCards": []
+    "fallbackDescription": "As you cast this spell, you may tap two untapped creatures you control that share a colour with it. When you do, copy it and you may choose a new target for the copy.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Conspire",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
+  },
+  "cascade": {
+    "name": "Cascade",
+    "description": "When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.",
+    "category": "triggered",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Cascade",
+    "fallbackDescription": "When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Cascade",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "annihilator": {
     "name": "Annihilator",
-    "description": "Annihilator is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature attacks, defending player sacrifices N permanents.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Annihilator",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature attacks, defending player sacrifices N permanents.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Annihilator",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "battle_cry": {
     "name": "Battle Cry",
-    "description": "Battle Cry is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Battle Cry is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Battle_Cry",
-    "exampleCards": []
+    "fallbackDescription": "Battle Cry is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Battle_Cry",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.083Z",
+      "qualityRating": "medium"
+    }
   },
   "cipher": {
     "name": "Cipher",
-    "description": "Cipher is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Then you may exile this spell card encoded on a creature you control. Whenever that creature deals combat damage to a player, its controller may cast a copy of this card without paying its mana cost.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Cipher",
-    "exampleCards": []
+    "fallbackDescription": "Then you may exile this spell card encoded on a creature you control. Whenever that creature deals combat damage to a player, its controller may cast a copy of this card without paying its mana cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Cipher",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "bestow": {
     "name": "Bestow",
-    "description": "Bestow is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If you cast this card for its bestow cost, it's an Aura spell with enchant creature. It becomes a creature again if it's not attached to a creature.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Bestow",
-    "exampleCards": []
+    "fallbackDescription": "If you cast this card for its bestow cost, it's an Aura spell with enchant creature. It becomes a creature again if it's not attached to a creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Bestow",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "dash": {
     "name": "Dash",
-    "description": "Dash is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Dash",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Dash",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "awaken": {
     "name": "Awaken",
-    "description": "Awaken is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If you cast this card for [cost], also put N +1/+1 counters on target land you control and it becomes a 0/0 Elemental creature with haste. It's still a land.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Awaken",
-    "exampleCards": []
+    "fallbackDescription": "If you cast this card for [cost], also put N +1/+1 counters on target land you control and it becomes a 0/0 Elemental creature with haste. It's still a land.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Awaken",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "crew": {
     "name": "Crew",
-    "description": "Crew is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Tap any number of other untapped creatures you control with total power N or greater: This permanent becomes an artifact creature until end of turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Crew",
-    "exampleCards": []
+    "fallbackDescription": "Tap any number of other untapped creatures you control with total power N or greater: This permanent becomes an artifact creature until end of turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Crew",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "aftermath": {
     "name": "Aftermath",
-    "description": "Aftermath is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Cast this spell only from your graveyard. Then exile it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Aftermath",
-    "exampleCards": []
+    "fallbackDescription": "Cast this spell only from your graveyard. Then exile it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Aftermath",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "afflict": {
     "name": "Afflict",
-    "description": "Afflict is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature becomes blocked, defending player loses N life.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Afflict",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature becomes blocked, defending player loses N life.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Afflict",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "flanking": {
+    "name": "Flanking",
+    "description": "Whenever a creature without flanking blocks this creature, the blocking creature gets -1/-1 until end of turn.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Flanking",
+    "fallbackDescription": "Whenever a creature without flanking blocks this creature, the blocking creature gets -1/-1 until end of turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Flanking",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "foretell": {
+    "name": "Foretell",
+    "description": "During your turn, you may pay and exile this card from your hand face down. Cast it on a later turn for its foretell cost.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Foretell",
+    "fallbackDescription": "During your turn, you may pay and exile this card from your hand face down. Cast it on a later turn for its foretell cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Foretell",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "fading": {
     "name": "Fading",
-    "description": "Fading is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This [permanent type] enters with N fade counters on it. At the beginning of your upkeep, remove a fade counter from it. If you can't, sacrifice it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Fading",
-    "exampleCards": []
+    "fallbackDescription": "This [permanent type] enters with N fade counters on it. At the beginning of your upkeep, remove a fade counter from it. If you can't, sacrifice it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Fading",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "eternalize": {
     "name": "Eternalize",
-    "description": "Eternalize is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Exile this card from your graveyard: Create a token that's a copy of it, except it's a 4/4 black Zombie ... with no mana cost. Eternalize only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Eternalize",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Exile this card from your graveyard: Create a token that's a copy of it, except it's a 4/4 black Zombie ... with no mana cost. Eternalize only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Eternalize",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "entwine": {
     "name": "Entwine",
-    "description": "Entwine is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Choose all if you pay the entwine cost.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Entwine",
-    "exampleCards": []
+    "fallbackDescription": "Choose all if you pay the entwine cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Entwine",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "epic": {
     "name": "Epic",
-    "description": "Epic is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "For the rest of the game, you can't cast spells. At the beginning of each of your upkeeps, copy this spell except for its epic ability. You may choose new targets for the copy.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Epic",
-    "exampleCards": []
+    "fallbackDescription": "For the rest of the game, you can't cast spells. At the beginning of each of your upkeeps, copy this spell except for its epic ability. You may choose new targets for the copy.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Epic",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "dredge": {
     "name": "Dredge",
-    "description": "Dredge is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If you would draw a card, instead you may mill N cards. If you do, return this card from your graveyard to your hand.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Dredge",
-    "exampleCards": []
+    "fallbackDescription": "If you would draw a card, instead you may mill N cards. If you do, return this card from your graveyard to your hand.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Dredge",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "delve": {
+    "name": "Delve",
+    "description": "Each card you exile from your graveyard while casting this spell pays for .",
+    "category": "cost_reduction",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Delve",
+    "fallbackDescription": "Each card you exile from your graveyard while casting this spell pays for .",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Delve",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "evoke": {
     "name": "Evoke",
-    "description": "Evoke is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Evoke",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Evoke",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "exalted": {
     "name": "Exalted",
-    "description": "Exalted is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever a creature you control attacks alone, it gets +1/+1 until end of turn for each instance of exalted among permanents you control.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Exalted",
-    "exampleCards": []
+    "fallbackDescription": "Whenever a creature you control attacks alone, it gets +1/+1 until end of turn for each instance of exalted among permanents you control.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Exalted",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "evolve": {
     "name": "Evolve",
-    "description": "Evolve is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Evolve",
-    "exampleCards": []
+    "fallbackDescription": "Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Evolve",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "extort": {
     "name": "Extort",
-    "description": "Extort is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever you cast a spell, you may pay . If you do, each opponent loses 1 life and you gain that much life.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Extort",
-    "exampleCards": []
+    "fallbackDescription": "Whenever you cast a spell, you may pay . If you do, each opponent loses 1 life and you gain that much life.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Extort",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "dethrone": {
     "name": "Dethrone",
-    "description": "Dethrone is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Whenever this creature attacks the player with the most life or tied for most life, put a +1/+1 counter on it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Dethrone",
-    "exampleCards": []
+    "fallbackDescription": "Whenever this creature attacks the player with the most life or tied for most life, put a +1/+1 counter on it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Dethrone",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "exploit": {
     "name": "Exploit",
-    "description": "Exploit is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature enters, you may sacrifice a creature.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Exploit",
-    "exampleCards": []
+    "fallbackDescription": "When this creature enters, you may sacrifice a creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Exploit",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "devoid": {
     "name": "Devoid",
-    "description": "Devoid is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This card has no colour.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Devoid",
-    "exampleCards": []
+    "fallbackDescription": "This card has no colour.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Devoid",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "emerge": {
     "name": "Emerge",
-    "description": "Emerge is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this spell by sacrificing a creature and paying the emerge cost reduced by that creature's mana value.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Emerge",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this spell by sacrificing a creature and paying the emerge cost reduced by that creature's mana value.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Emerge",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "escalate": {
     "name": "Escalate",
-    "description": "Escalate is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Pay this cost for each mode chosen beyond the first.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Escalate",
-    "exampleCards": []
+    "fallbackDescription": "Pay this cost for each mode chosen beyond the first.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Escalate",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "flying": {
+    "name": "Flying",
+    "description": "A keyword ability found on creatures. A creature with flying can be blocked only by creatures with flying or reach.",
+    "category": "evasion",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Flying",
+    "fallbackDescription": "Can only be blocked by creatures with flying or reach.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "high"
+    }
+  },
+  "haste": {
+    "name": "Haste",
+    "description": "A keyword ability found on creatures. A creature with haste isn't affected by summoning sickness. It can attack as soon as it comes under your control. You can also activate its activated abilities with in the cost right away.",
+    "category": "utility",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Haste",
+    "fallbackDescription": "Can attack and use abilities immediately when it enters.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "high"
+    }
+  },
+  "hexproof": {
+    "name": "Hexproof",
+    "description": "A keyword ability that prevents a permanent or player from being the target of spells or abilities an opponent controls.",
+    "category": "protection",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Hexproof",
+    "fallbackDescription": "Can't be targeted by opponents' spells or abilities.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "high"
+    }
+  },
+  "indestructible": {
+    "name": "Indestructible",
+    "description": "A keyword ability. Permanents with indestructible can't be destroyed by damage or by effects that say 'destroy'.",
+    "category": "protection",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Indestructible",
+    "fallbackDescription": "Can't be destroyed by damage or effects that say 'destroy'.",
+    "source": "enhanced_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Indestructible",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium-high"
+    }
+  },
+  "intimidate": {
+    "name": "Intimidate",
+    "description": "This creature can't be blocked except by artifact creatures and/or creatures that share a colour with it.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Intimidate",
+    "fallbackDescription": "This creature can't be blocked except by artifact creatures and/or creatures that share a colour with it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Intimidate",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "lifelink": {
+    "name": "Lifelink",
+    "description": "A keyword ability found on creatures. When a creature you control has lifelink and deals damage, you simultaneously gain that much life.",
+    "category": "lifegain",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Lifelink",
+    "fallbackDescription": "Damage dealt by this creature causes you to gain that much life.",
+    "source": "official",
+    "confidence": "high",
+    "metadata": {
+      "hasOfficialContent": true,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "high"
+    }
   },
   "horsemanship": {
     "name": "Horsemanship",
-    "description": "Horsemanship is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked except by creatures with horsemanship.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Horsemanship",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked except by creatures with horsemanship.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Horsemanship",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "kicker": {
+    "name": "Kicker",
+    "description": "You may pay an additional [cost] as you cast this spell.",
+    "category": "cost_modification",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Kicker",
+    "fallbackDescription": "You may pay an additional [cost] as you cast this spell.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Kicker",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "madness": {
+    "name": "Madness",
+    "description": "If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Madness",
+    "fallbackDescription": "If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Madness",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "swampwalk": {
     "name": "Swampwalk",
-    "description": "Swampwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked as long as defending player controls a [type].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Swampwalk",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked as long as defending player controls a [type].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Swampwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "desertwalk": {
     "name": "Desertwalk",
-    "description": "Desertwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Desertwalk is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Desertwalk",
-    "exampleCards": []
+    "fallbackDescription": "Desertwalk is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Desertwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "craft": {
     "name": "Craft",
-    "description": "Craft is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Craft Ability WordIntroduced The Lost Caverns of IxalanLast used Lost Caverns CommanderTypical Text Craft — with [.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Craft",
-    "exampleCards": []
+    "fallbackDescription": "Craft Ability WordIntroduced The Lost Caverns of IxalanLast used Lost Caverns CommanderTypical Text Craft — with [.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Craft",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "plainswalk": {
     "name": "Plainswalk",
-    "description": "Plainswalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked as long as defending player controls a [type].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Plainswalk",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked as long as defending player controls a [type].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Plainswalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "split_second": {
     "name": "Split second",
-    "description": "Split second is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Split_second",
-    "exampleCards": []
+    "fallbackDescription": "As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Split_second",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "augment": {
     "name": "Augment",
-    "description": "Augment is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "cost, Reveal this card from your hand: Combine it with target host. Augment only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Augment",
-    "exampleCards": []
+    "fallbackDescription": "cost, Reveal this card from your hand: Combine it with target host. Augment only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Augment",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "double_agenda": {
     "name": "Double agenda",
-    "description": "Double agenda is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Start the game with this conspiracy face down in the command zone and secretly name a card. You may turn this conspiracy face up any time and reveal the chosen name.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Double_agenda",
-    "exampleCards": []
+    "fallbackDescription": "Start the game with this conspiracy face down in the command zone and secretly name a card. You may turn this conspiracy face up any time and reveal the chosen name.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Double_agenda",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "reconfigure": {
+    "name": "Reconfigure",
+    "description": "[Cost]: Attach to target creature you control; or unattach from a creature. Reconfigure only as a sorcery. While attached this isn't a creature.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Reconfigure",
+    "fallbackDescription": "[Cost]: Attach to target creature you control; or unattach from a creature. Reconfigure only as a sorcery. While attached this isn't a creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Reconfigure",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "ward": {
+    "name": "Ward",
+    "description": "A keyword ability. Whenever this permanent becomes the target of a spell or ability an opponent controls, counter it unless that player pays the ward cost.",
+    "category": "protection",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Ward",
+    "fallbackDescription": "Spells and abilities that target this cost additional mana.",
+    "source": "enhanced_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Ward",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium-high"
+    }
   },
   "partner_with": {
     "name": "Partner with",
-    "description": "Partner with is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You can have two commanders if both have partner.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Partner_with",
-    "exampleCards": []
+    "fallbackDescription": "You can have two commanders if both have partner.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Partner_with",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "daybound": {
+    "name": "Daybound",
+    "description": "If a player cast no spells during their own turn, it becomes night next turn.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Daybound",
+    "fallbackDescription": "If a player cast no spells during their own turn, it becomes night next turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Daybound",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "nightbound": {
+    "name": "Nightbound",
+    "description": "If a player cast no spells during their own turn, it becomes night next turn.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Nightbound",
+    "fallbackDescription": "If a player cast no spells during their own turn, it becomes night next turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Nightbound",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "decayed": {
     "name": "Decayed",
-    "description": "Decayed is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't block. When it attacks, sacrifice it at the end of combat.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Decayed",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't block. When it attacks, sacrifice it at the end of combat.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Decayed",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
+  },
+  "disturb": {
+    "name": "Disturb",
+    "description": "You may cast this card from your graveyard transformed for its disturb cost.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Disturb",
+    "fallbackDescription": "You may cast this card from your graveyard transformed for its disturb cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Disturb",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "squad": {
     "name": "Squad",
-    "description": "Squad is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As an additional cost to cast this spell, you may pay [cost] any number of times. When this creature enters the battlefield, create that many tokens that are copies of it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Squad",
-    "exampleCards": []
+    "fallbackDescription": "As an additional cost to cast this spell, you may pay [cost] any number of times. When this creature enters the battlefield, create that many tokens that are copies of it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Squad",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "enlist": {
     "name": "Enlist",
-    "description": "Enlist is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As this creature attacks, you may tap a nonattacking creature you control without summoning sickness. When you do, add its power to this creature's until end of turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Enlist",
-    "exampleCards": []
+    "fallbackDescription": "As this creature attacks, you may tap a nonattacking creature you control without summoning sickness. When you do, add its power to this creature's until end of turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Enlist",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.084Z",
+      "qualityRating": "medium"
+    }
   },
   "read_ahead": {
     "name": "Read Ahead",
-    "description": "Read Ahead is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Read Ahead is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Read_Ahead",
-    "exampleCards": []
+    "fallbackDescription": "Read Ahead is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Read_Ahead",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "ravenous": {
     "name": "Ravenous",
-    "description": "Ravenous is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature enters with X +1/+1 counters on it. If X is 5 or more, draw a card when it enters.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Ravenous",
-    "exampleCards": []
+    "fallbackDescription": "This creature enters with X +1/+1 counters on it. If X is 5 or more, draw a card when it enters.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Ravenous",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "blitz": {
     "name": "Blitz",
-    "description": "Blitz is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If you cast this spell for its blitz cost, it gains haste and \"When this creature dies, draw a card\". Sacrifice it at the beginning of the next end step.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Blitz",
-    "exampleCards": []
+    "fallbackDescription": "If you cast this spell for its blitz cost, it gains haste and \"When this creature dies, draw a card\". Sacrifice it at the beginning of the next end step.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Blitz",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "offering": {
     "name": "Offering",
-    "description": "Offering is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this card any time you could cast an instant by sacrificing a [Subtype] and paying the difference in mana costs between this and the sacrificed [Subtype]. Mana cost includes colour.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Offering",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this card any time you could cast an instant by sacrificing a [Subtype] and paying the difference in mana costs between this and the sacrificed [Subtype]. Mana cost includes colour.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Offering",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "living_metal": {
     "name": "Living metal",
-    "description": "Living metal is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As long as it’s your turn, this Vehicle is also a creature.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Living_metal",
-    "exampleCards": []
+    "fallbackDescription": "As long as it’s your turn, this Vehicle is also a creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Living_metal",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "backup": {
     "name": "Backup",
-    "description": "Backup is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature enters, put N +1/+1 counters on target creature. If that’s another creature, it gains the following abilities until end of turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Backup",
-    "exampleCards": []
+    "fallbackDescription": "When this creature enters, put N +1/+1 counters on target creature. If that’s another creature, it gains the following abilities until end of turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Backup",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "banding": {
+    "name": "Banding",
+    "description": "Any creatures with banding, and up to one without, can attack in a band. Bands are blocked as a group. If any creatures with banding you control are blocking or being blocked by a creature, you divide that creature's combat damage, not its controller, among any of the creatures it's being blocked by or is blocking.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Banding",
+    "fallbackDescription": "Any creatures with banding, and up to one without, can attack in a band. Bands are blocked as a group. If any creatures with banding you control are blocking or being blocked by a creature, you divide that creature's combat damage, not its controller, among any of the creatures it's being blocked by or is blocking.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Banding",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "hidden_agenda": {
     "name": "Hidden agenda",
-    "description": "Hidden agenda is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Start the game with this conspiracy face down in the command zone and secretly name a card. You may turn this conspiracy face up any time and reveal the chosen name.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Hidden_agenda",
-    "exampleCards": []
+    "fallbackDescription": "Start the game with this conspiracy face down in the command zone and secretly name a card. You may turn this conspiracy face up any time and reveal the chosen name.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Hidden_agenda",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
-  "for_mirrodin!": {
+  "for_mirrodin_": {
     "name": "For Mirrodin!",
-    "description": "For Mirrodin! is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this Equipment enters, create a 2/2 red Rebel creature token, then attach this to it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/For_Mirrodin!",
-    "exampleCards": []
+    "fallbackDescription": "When this Equipment enters, create a 2/2 red Rebel creature token, then attach this to it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/For_Mirrodin!",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "friends_forever": {
     "name": "Friends forever",
-    "description": "Friends forever is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You can have two commanders if both have friends forever.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Friends_forever",
-    "exampleCards": []
+    "fallbackDescription": "You can have two commanders if both have friends forever.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Friends_forever",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "casualty": {
     "name": "Casualty",
-    "description": "Casualty is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As you cast this spell, you may sacrifice a creature with power N or greater. When you do, copy this spell.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Casualty",
-    "exampleCards": []
+    "fallbackDescription": "As you cast this spell, you may sacrifice a creature with power N or greater. When you do, copy this spell.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Casualty",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "protection": {
+    "name": "Protection",
+    "description": "A keyword ability that grants immunity from being damaged, enchanted, blocked, or targeted by sources with the specified quality.",
+    "category": "protection",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Protection",
+    "fallbackDescription": "Can't be damaged, enchanted, blocked, or targeted by the specified quality.",
+    "source": "enhanced_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Protection",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium-high"
+    }
   },
   "compleated": {
     "name": "Compleated",
-    "description": "Compleated is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Phyrexian hybrid mana] can be paid with M, N, or 2 life. For each [Phyrexian hybrid mana] paid with life, this planeswalker enters with two fewer loyalty counters.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Compleated",
-    "exampleCards": []
+    "fallbackDescription": "[Phyrexian hybrid mana] can be paid with M, N, or 2 life. For each [Phyrexian hybrid mana] paid with life, this planeswalker enters with two fewer loyalty counters.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Compleated",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "enchant": {
     "name": "Enchant",
-    "description": "Enchant is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This card can only be attached to an [object or player].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Enchant",
-    "exampleCards": []
+    "fallbackDescription": "This card can only be attached to an [object or player].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Enchant",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "flash": {
+    "name": "Flash",
+    "description": "A keyword ability that allows you to cast this spell any time you could cast an instant.",
+    "category": "timing",
+    "isEvergreen": true,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Flash",
+    "fallbackDescription": "Can be cast at instant speed.",
+    "source": "enhanced_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Flash",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium-high"
+    }
   },
   "boast": {
     "name": "Boast",
-    "description": "Boast is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Activate this ability only if this creature attacked this turn and only once each turn.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Boast",
-    "exampleCards": []
+    "fallbackDescription": "Activate this ability only if this creature attacked this turn and only once each turn.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Boast",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "demonstrate": {
     "name": "Demonstrate",
-    "description": "Demonstrate is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When you cast this spell, you may copy it. If you do, choose an opponent to also copy it. Players may choose new targets for their copies.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Demonstrate",
-    "exampleCards": []
+    "fallbackDescription": "When you cast this spell, you may copy it. If you do, choose an opponent to also copy it. Players may choose new targets for their copies.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Demonstrate",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "sunburst": {
     "name": "Sunburst",
-    "description": "Sunburst is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This enters with a [+1/+1 or charge] counter on it for each colour of mana spent to cast it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Sunburst",
-    "exampleCards": []
+    "fallbackDescription": "This enters with a [+1/+1 or charge] counter on it for each colour of mana spent to cast it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Sunburst",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "flashback": {
+    "name": "Flashback",
+    "description": "You may cast this card from your graveyard for its flashback cost. Then exile it.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Flashback",
+    "fallbackDescription": "You may cast this card from your graveyard for its flashback cost. Then exile it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Flashback",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "cycling": {
+    "name": "Cycling",
+    "description": "[Cost], Discard this card: Draw a card.",
+    "category": "cost_reduction",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Cycling",
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Cycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "equip": {
     "name": "Equip",
-    "description": "Equip is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost]: Attach this permanent to target [quality] creature you control. Activate this ability only any time you could cast a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Equip",
-    "exampleCards": []
+    "fallbackDescription": "[Cost]: Attach this permanent to target [quality] creature you control. Activate this ability only any time you could cast a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Equip",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "buyback": {
+    "name": "Buyback",
+    "description": "You may pay an additional [cost] as you cast this spell. If the buyback cost was paid, put this spell into its owner’s hand instead of into that player’s graveyard as it resolves.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Buyback",
+    "fallbackDescription": "You may pay an additional [cost] as you cast this spell. If the buyback cost was paid, put this spell into its owner’s hand instead of into that player’s graveyard as it resolves.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Buyback",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "hexproof_from": {
     "name": "Hexproof from",
-    "description": "Hexproof from is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This permanent can't be the target of spells or abilities your opponents control.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Hexproof_from",
-    "exampleCards": []
+    "fallbackDescription": "This permanent can't be the target of spells or abilities your opponents control.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Hexproof_from",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "more_than_meets_the_eye": {
     "name": "More Than Meets the Eye",
-    "description": "More Than Meets the Eye is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this card converted for [cost]",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/More_Than_Meets_the_Eye",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this card converted for [cost]",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/More_Than_Meets_the_Eye",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "cleave": {
+    "name": "Cleave",
+    "description": "You may cast this spell for its cleave cost. If you do, remove the words in square brackets.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Cleave",
+    "fallbackDescription": "You may cast this spell for its cleave cost. If you do, remove the words in square brackets.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Cleave",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "champion": {
     "name": "Champion",
-    "description": "Champion is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this enters the battlefield, sacrifice it unless you exile another creature you control. When this leaves the battlefield, that card returns to the battlefield.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Champion",
-    "exampleCards": []
+    "fallbackDescription": "When this enters the battlefield, sacrifice it unless you exile another creature you control. When this leaves the battlefield, that card returns to the battlefield.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Champion",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
-  "specialize": {
-    "name": "Specialize",
-    "description": "Specialize is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+  "specialise": {
+    "name": "specialise",
+    "description": "Pay [cost], choose a colour, discard a card of that colour or associated basic land type: This creature perpetually specialises into that colour. Activate only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Specialize",
-    "exampleCards": []
+    "fallbackDescription": "Pay [cost], choose a colour, discard a card of that colour or associated basic land type: This creature perpetually specialises into that colour. Activate only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/specialise",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "training": {
+    "name": "Training",
+    "description": "Whenever this creature attacks with another creature with greater power, put a +1/+1 counter on this creature.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Training",
+    "fallbackDescription": "Whenever this creature attacks with another creature with greater power, put a +1/+1 counter on this creature.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Training",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "prototype": {
     "name": "Prototype",
-    "description": "Prototype is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this spell with different mana cost, colour, and size. It keeps its abilities and types.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Prototype",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this spell with different mana cost, colour, and size. It keeps its abilities and types.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Prototype",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "toxic": {
     "name": "Toxic",
-    "description": "Toxic is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Players dealt combat damage by this creature also get N poison counter(s",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Toxic",
-    "exampleCards": []
+    "fallbackDescription": "Players dealt combat damage by this creature also get N poison counter(s",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Toxic",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "unearth": {
     "name": "Unearth",
-    "description": "Unearth is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the next end step or if it would leave the battlefield. Unearth only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Unearth",
-    "exampleCards": []
+    "fallbackDescription": "Return this card from your graveyard to the battlefield. It gains haste. Exile it at the beginning of the next end step or if it would leave the battlefield. Unearth only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Unearth",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "intensity": {
     "name": "Intensity",
-    "description": "Intensity is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "8% Scryfall Search fulloracle:\"Intensity\".",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Intensity",
-    "exampleCards": []
+    "fallbackDescription": "8% Scryfall Search fulloracle:\"Intensity\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Intensity",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "plainscycling": {
     "name": "Plainscycling",
-    "description": "Plainscycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Plainscycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Plainscycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "swampcycling": {
     "name": "Swampcycling",
-    "description": "Swampcycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Swampcycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Swampcycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "typecycling": {
     "name": "Typecycling",
-    "description": "Typecycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Typecycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Typecycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "wizardcycling": {
     "name": "Wizardcycling",
-    "description": "Wizardcycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Wizardcycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Wizardcycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "mountaincycling": {
     "name": "Mountaincycling",
-    "description": "Mountaincycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Mountaincycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Mountaincycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "basic_landcycling": {
     "name": "Basic landcycling",
-    "description": "Basic landcycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Basic_landcycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Basic_landcycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "islandcycling": {
     "name": "Islandcycling",
-    "description": "Islandcycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Islandcycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Islandcycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "forestcycling": {
     "name": "Forestcycling",
-    "description": "Forestcycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Forestcycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Forestcycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "slivercycling": {
     "name": "Slivercycling",
-    "description": "Slivercycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Slivercycling is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Slivercycling",
-    "exampleCards": []
+    "fallbackDescription": "Slivercycling is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Slivercycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "landcycling": {
     "name": "Landcycling",
-    "description": "Landcycling is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "[Cost], Discard this card: Draw a card.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Landcycling",
-    "exampleCards": []
+    "fallbackDescription": "[Cost], Discard this card: Draw a card.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Landcycling",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "bargain": {
     "name": "Bargain",
-    "description": "Bargain is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may sacrifice an artifact, enchantment, or token as you cast this spell.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Bargain",
-    "exampleCards": []
+    "fallbackDescription": "You may sacrifice an artifact, enchantment, or token as you cast this spell.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Bargain",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "choose_a_background": {
     "name": "Choose a background",
-    "description": "Choose a background is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You can have a Background as a second commander.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Choose_a_background",
-    "exampleCards": []
+    "wikiUrl": "https://mtg.fandom.com/wiki/Choose_a_Background",
+    "fallbackDescription": "You can have a Background as a second commander.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Choose_a_Background",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
+  },
+  "echo": {
+    "name": "Echo",
+    "description": "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Echo",
+    "fallbackDescription": "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Echo",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "disguise": {
     "name": "Disguise",
-    "description": "Disguise is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast this face down for as a 2/2 creature with ward . Turn it face up any time for its disguise cost.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Disguise",
-    "exampleCards": []
+    "fallbackDescription": "You may cast this face down for as a 2/2 creature with ward . Turn it face up any time for its disguise cost.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Disguise",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
-  "doctor's_companion": {
+  "doctor_s_companion": {
     "name": "Doctor's companion",
-    "description": "Doctor's companion is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Doctor's companion is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Doctor's_companion",
-    "exampleCards": []
+    "wikiUrl": "https://mtg.fandom.com/wiki/Doctor%27s_companion",
+    "fallbackDescription": "Doctor's companion is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Doctor%27s_companion",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.085Z",
+      "qualityRating": "medium"
+    }
   },
   "landwalk": {
     "name": "Landwalk",
-    "description": "Landwalk is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "This creature can't be blocked as long as defending player controls a [type].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Landwalk",
-    "exampleCards": []
+    "fallbackDescription": "This creature can't be blocked as long as defending player controls a [type].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Landwalk",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
-  "umbra_armor": {
-    "name": "Umbra armor",
-    "description": "Umbra armor is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+  "umbra_armour": {
+    "name": "Umbra armour",
+    "description": "If enchanted permanent would be destroyed, instead remove all damage marked on it and destroy this Aura.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Umbra_armor",
-    "exampleCards": []
+    "fallbackDescription": "If enchanted permanent would be destroyed, instead remove all damage marked on it and destroy this Aura.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Umbra_armor",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "freerunning": {
     "name": "Freerunning",
-    "description": "Freerunning is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may cast a spell for its freerunning cost if you dealt combat damage to a player this turn with an Assassin or commander.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Freerunning",
-    "exampleCards": []
+    "fallbackDescription": "You may cast a spell for its freerunning cost if you dealt combat damage to a player this turn with an Assassin or commander.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Freerunning",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "spree": {
     "name": "Spree",
-    "description": "Spree is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Choose one or more additional costs.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Spree",
-    "exampleCards": []
+    "fallbackDescription": "Choose one or more additional costs.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Spree",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "saddle": {
     "name": "Saddle",
-    "description": "Saddle is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Tap any number of other creatures you control with total power N or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Saddle",
-    "exampleCards": []
+    "fallbackDescription": "Tap any number of other creatures you control with total power N or more: This Mount becomes saddled until end of turn. Saddle only as a sorcery.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Saddle",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
+  },
+  "shadow": {
+    "name": "Shadow",
+    "description": "This creature can block or be blocked by only creatures with shadow.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Shadow",
+    "fallbackDescription": "This creature can block or be blocked by only creatures with shadow.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Shadow",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "warp": {
     "name": "Warp",
-    "description": "Warp is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Warp is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Warp",
-    "exampleCards": []
+    "fallbackDescription": "Warp is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Warp",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "station": {
     "name": "Station",
-    "description": "Station is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Station is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Station",
-    "exampleCards": []
+    "fallbackDescription": "Station is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Station",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "devour": {
     "name": "Devour",
-    "description": "Devour is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "As this enters, you may sacrifice any number of creatures. This creature enters the battlefield with N times that many +1/+1 counters on it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Devour",
-    "exampleCards": []
+    "fallbackDescription": "As this enters, you may sacrifice any number of creatures. This creature enters the battlefield with N times that many +1/+1 counters on it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Devour",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "offspring": {
     "name": "Offspring",
-    "description": "Offspring is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may pay an additional [cost] as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Offspring",
-    "exampleCards": []
+    "fallbackDescription": "You may pay an additional [cost] as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Offspring",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "impending": {
     "name": "Impending",
-    "description": "Impending is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If you cast this spell for its impending cost, it enters with N time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Impending",
-    "exampleCards": []
+    "fallbackDescription": "If you cast this spell for its impending cost, it enters with N time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Impending",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "gift": {
     "name": "Gift",
-    "description": "Gift is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "You may promise an opponent a gift as you cast this spell. If you do, they [get whatever you're gifting them].",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Gift",
-    "exampleCards": []
+    "fallbackDescription": "You may promise an opponent a gift as you cast this spell. If you do, they [get whatever you're gifting them].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Gift",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "harmonize": {
     "name": "Harmonize",
-    "description": "Harmonize is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Harmonize is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Harmonize",
-    "exampleCards": []
+    "fallbackDescription": "Harmonize is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Harmonize",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "exhaust": {
     "name": "Exhaust",
-    "description": "Exhaust is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Activate each exhaust ability only once.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Exhaust",
-    "exampleCards": []
+    "fallbackDescription": "Activate each exhaust ability only once.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Exhaust",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "max_speed": {
     "name": "Max speed",
-    "description": "Max speed is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Speed is a trait that players can have.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Max_speed",
-    "exampleCards": []
+    "fallbackDescription": "Speed is a trait that players can have.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Max_speed",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
+  },
+  "fear": {
+    "name": "Fear",
+    "description": "This creature can't be blocked except by artifact creatures and/or black creatures.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Fear",
+    "fallbackDescription": "This creature can't be blocked except by artifact creatures and/or black creatures.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Fear",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "mobilize": {
     "name": "Mobilize",
-    "description": "Mobilize is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Mobilize is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Mobilize",
-    "exampleCards": []
+    "fallbackDescription": "Mobilize is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Mobilize",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "double_team": {
     "name": "Double team",
-    "description": "Double team is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "When this creature attacks, if it's not a token, conjure a duplicate of it into your hand. Then both cards perpetually lose double team.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Double_team",
-    "exampleCards": []
+    "fallbackDescription": "When this creature attacks, if it's not a token, conjure a duplicate of it into your hand. Then both cards perpetually lose double team.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Double_team",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "job_select": {
     "name": "Job select",
-    "description": "Job select is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A keyword ability in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Job select is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "keyword_ability",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Job_select",
-    "exampleCards": []
+    "fallbackDescription": "Job select is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Job_select",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "eerie": {
     "name": "Eerie",
-    "description": "Eerie is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "9% Scryfall Search keyword:\"Eerie\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Eerie",
-    "exampleCards": []
+    "fallbackDescription": "9% Scryfall Search keyword:\"Eerie\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Eerie",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "battalion": {
     "name": "Battalion",
-    "description": "Battalion is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "6% Scryfall Search keyword:\"Battalion\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Battalion",
-    "exampleCards": []
+    "fallbackDescription": "6% Scryfall Search keyword:\"Battalion\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Battalion",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "bloodrush": {
     "name": "Bloodrush",
-    "description": "Bloodrush is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "BloodrushAbility WordIntroduced GatecrashLast used Dragon's MazeTypical Text Bloodrush — [cost], Discard this card: Target attacking creature gets.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Bloodrush",
-    "exampleCards": []
+    "fallbackDescription": "BloodrushAbility WordIntroduced GatecrashLast used Dragon's MazeTypical Text Bloodrush — [cost], Discard this card: Target attacking creature gets.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Bloodrush",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
+  },
+  "channel": {
+    "name": "Channel",
+    "description": "Channel Ability WordIntroduced Saviors of KamigawaLast used Alchemy: KamigawaTypical Text Channel — [cost], Discard this card:.",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Channel",
+    "fallbackDescription": "Channel Ability WordIntroduced Saviors of KamigawaLast used Alchemy: KamigawaTypical Text Channel — [cost], Discard this card:.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Channel",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "chroma": {
     "name": "Chroma",
-    "description": "Chroma is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "ChromaAbility WordIntroduced EventideLast used EventideTypical Text Chroma — … for each … mana symbol in those cards' mana costs.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Chroma",
-    "exampleCards": []
+    "fallbackDescription": "ChromaAbility WordIntroduced EventideLast used EventideTypical Text Chroma — … for each … mana symbol in those cards' mana costs.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Chroma",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "cohort": {
     "name": "Cohort",
-    "description": "Cohort is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Cohort Ability WordIntroduced Oath of the GatewatchLast used Oath of the GatewatchTypical Text Cohort — , Tap an untapped Ally you control:.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Cohort",
-    "exampleCards": []
+    "fallbackDescription": "Cohort Ability WordIntroduced Oath of the GatewatchLast used Oath of the GatewatchTypical Text Cohort — , Tap an untapped Ally you control:.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Cohort",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "constellation": {
     "name": "Constellation",
-    "description": "Constellation is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "9% Scryfall Search keyword:\"Constellation\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Constellation",
-    "exampleCards": []
+    "fallbackDescription": "9% Scryfall Search keyword:\"Constellation\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Constellation",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "converge": {
     "name": "Converge",
-    "description": "Converge is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "ConvergeAbility WordIntroduced Battle for ZendikarLast used New Capenna CommanderTypical Text Converge —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Converge",
-    "exampleCards": []
+    "fallbackDescription": "ConvergeAbility WordIntroduced Battle for ZendikarLast used New Capenna CommanderTypical Text Converge —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Converge",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "delirium": {
     "name": "Delirium",
-    "description": "Delirium is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "3% Scryfall Search keyword:\"Delirium\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Delirium",
-    "exampleCards": []
+    "fallbackDescription": "3% Scryfall Search keyword:\"Delirium\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Delirium",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "domain": {
     "name": "Domain",
-    "description": "Domain is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Domain Ability WordIntroduced InvasionLast used Alchemy: DominariaTypical Text Domain —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Domain",
-    "exampleCards": []
+    "fallbackDescription": "Domain Ability WordIntroduced InvasionLast used Alchemy: DominariaTypical Text Domain —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Domain",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "fateful_hour": {
     "name": "Fateful hour",
-    "description": "Fateful hour is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Fateful HourAbility WordIntroduced Dark AscensionLast used Lord of the Rings Holiday ReleaseTypical Text Fateful hour — If you have 5 or less life,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Fateful_hour",
-    "exampleCards": []
+    "fallbackDescription": "Fateful HourAbility WordIntroduced Dark AscensionLast used Lord of the Rings Holiday ReleaseTypical Text Fateful hour — If you have 5 or less life,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Fateful_hour",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "ferocious": {
     "name": "Ferocious",
-    "description": "Ferocious is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Ferocious Ability WordIntroduced Khans of TarkirLast used Modern Horizons 3Typical Text Ferocious —...",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Ferocious",
-    "exampleCards": []
+    "fallbackDescription": "Ferocious Ability WordIntroduced Khans of TarkirLast used Modern Horizons 3Typical Text Ferocious —...",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Ferocious",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "formidable": {
     "name": "Formidable",
-    "description": "Formidable is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "FormidableAbility WordIntroduced Dragons of TarkirLast used Lord of the Rings Holiday ReleaseTypical Text Formidable —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Formidable",
-    "exampleCards": []
+    "fallbackDescription": "FormidableAbility WordIntroduced Dragons of TarkirLast used Lord of the Rings Holiday ReleaseTypical Text Formidable —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Formidable",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "grandeur": {
     "name": "Grandeur",
-    "description": "Grandeur is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "GrandeurAbility WordIntroduced Future SightLast used Modern Horizons 3Typical Text Grandeur — Discard another card named CARDNAME:.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Grandeur",
-    "exampleCards": []
+    "fallbackDescription": "GrandeurAbility WordIntroduced Future SightLast used Modern Horizons 3Typical Text Grandeur — Discard another card named CARDNAME:.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Grandeur",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "hellbent": {
     "name": "Hellbent",
-    "description": "Hellbent is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "HellbentAbility WordIntroduced DissensionLast used UnfinityTypical Text Hellbent —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Hellbent",
-    "exampleCards": []
+    "fallbackDescription": "HellbentAbility WordIntroduced DissensionLast used UnfinityTypical Text Hellbent —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Hellbent",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "heroic": {
     "name": "Heroic",
-    "description": "Heroic is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "HeroicAbility WordIntroduced TherosLast used Foundations JumpstartTypical Text Heroic — Whenever you cast a spell that targets this card,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Heroic",
-    "exampleCards": []
+    "fallbackDescription": "HeroicAbility WordIntroduced TherosLast used Foundations JumpstartTypical Text Heroic — Whenever you cast a spell that targets this card,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Heroic",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "imprint": {
     "name": "Imprint",
-    "description": "Imprint is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "ImprintAbility WordIntroduced MirrodinLast used Modern Horizons 3Typical Text Imprint —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Imprint",
-    "exampleCards": []
+    "fallbackDescription": "ImprintAbility WordIntroduced MirrodinLast used Modern Horizons 3Typical Text Imprint —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Imprint",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "inspired": {
     "name": "Inspired",
-    "description": "Inspired is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "5% Scryfall Search keyword:\"Inspired\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Inspired",
-    "exampleCards": []
+    "fallbackDescription": "5% Scryfall Search keyword:\"Inspired\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Inspired",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "join_forces": {
     "name": "Join forces",
-    "description": "Join forces is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Join ForcesAbility WordIntroduced CommanderLast used CommanderTypical Text Join forces — Starting with you, each player may pay any amount of mana.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Join_forces",
-    "exampleCards": []
+    "fallbackDescription": "Join ForcesAbility WordIntroduced CommanderLast used CommanderTypical Text Join forces — Starting with you, each player may pay any amount of mana.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Join_forces",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "kinship": {
     "name": "Kinship",
-    "description": "Kinship is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "KinshipAbility WordIntroduced MorningtideLast used MorningtideTypical Text Kinship — At the beginning of your upkeep, you may look at the top card of your library.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Kinship",
-    "exampleCards": []
+    "fallbackDescription": "KinshipAbility WordIntroduced MorningtideLast used MorningtideTypical Text Kinship — At the beginning of your upkeep, you may look at the top card of your library.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Kinship",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
+  },
+  "landfall": {
+    "name": "Landfall",
+    "description": "2% 4% Scryfall Search keyword:\"Landfall\".",
+    "category": "triggered",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Landfall",
+    "fallbackDescription": "2% 4% Scryfall Search keyword:\"Landfall\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Landfall",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "lieutenant": {
     "name": "Lieutenant",
-    "description": "Lieutenant is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "LieutenantAbility WordIntroduced Commander 2014Last used MH3 CommanderTypical Text Lieutenant — As long as you control your commander,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Lieutenant",
-    "exampleCards": []
+    "fallbackDescription": "LieutenantAbility WordIntroduced Commander 2014Last used MH3 CommanderTypical Text Lieutenant — As long as you control your commander,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Lieutenant",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "metalcraft": {
     "name": "Metalcraft",
-    "description": "Metalcraft is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "MetalcraftAbility WordIntroduced Scars of MirrodinLast used The Brothers' War CommanderTypical Text Metalcraft —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Metalcraft",
-    "exampleCards": []
+    "fallbackDescription": "MetalcraftAbility WordIntroduced Scars of MirrodinLast used The Brothers' War CommanderTypical Text Metalcraft —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Metalcraft",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "morbid": {
     "name": "Morbid",
-    "description": "Morbid is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "4% Scryfall Search keyword:\"Morbid\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Morbid",
-    "exampleCards": []
+    "fallbackDescription": "4% Scryfall Search keyword:\"Morbid\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Morbid",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "parley": {
     "name": "Parley",
-    "description": "Parley is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "ParleyAbility WordIntroduced ConspiracyLast used Murders at Karlov Manor CommanderTypical Text Parley — Each player reveals the top card of their library.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Parley",
-    "exampleCards": []
+    "fallbackDescription": "ParleyAbility WordIntroduced ConspiracyLast used Murders at Karlov Manor CommanderTypical Text Parley — Each player reveals the top card of their library.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Parley",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "radiance": {
     "name": "Radiance",
-    "description": "Radiance is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "RadianceAbility WordIntroduced Ravnica: City of GuildsLast used Ravnica: City of GuildsTypical Text...",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Radiance",
-    "exampleCards": []
+    "fallbackDescription": "RadianceAbility WordIntroduced Ravnica: City of GuildsLast used Ravnica: City of GuildsTypical Text...",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Radiance",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "raid": {
     "name": "Raid",
-    "description": "Raid is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "4% Scryfall Search keyword:\"Raid\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Raid",
-    "exampleCards": []
+    "fallbackDescription": "4% Scryfall Search keyword:\"Raid\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Raid",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "rally": {
     "name": "Rally",
-    "description": "Rally is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Rally Ability WordIntroduced Battle for ZendikarLast used Battle for ZendikarTypical Text Rally — Whenever CARDNAME or another Ally enters the battlefield under your control, ….",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Rally",
-    "exampleCards": []
+    "fallbackDescription": "Rally Ability WordIntroduced Battle for ZendikarLast used Battle for ZendikarTypical Text Rally — Whenever CARDNAME or another Ally enters the battlefield under your control, ….",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Rally",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "spell_mastery": {
     "name": "Spell mastery",
-    "description": "Spell mastery is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Spell masteryAbility WordIntroduced Magic OriginsLast used Lord of the Rings Holiday ReleaseTypical Text Spell mastery — If there are two or more instant and/or sorcery cards in your graveyard,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Spell_mastery",
-    "exampleCards": []
+    "fallbackDescription": "Spell masteryAbility WordIntroduced Magic OriginsLast used Lord of the Rings Holiday ReleaseTypical Text Spell mastery — If there are two or more instant and/or sorcery cards in your graveyard,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Spell_mastery",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "strive": {
     "name": "Strive",
-    "description": "Strive is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "StriveAbility WordIntroduced Journey into NyxLast used Commander 2020Typical Text Strive — CARDNAME costs [mana] more to cast for each target beyond the first.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Strive",
-    "exampleCards": []
+    "fallbackDescription": "StriveAbility WordIntroduced Journey into NyxLast used Commander 2020Typical Text Strive — CARDNAME costs [mana] more to cast for each target beyond the first.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Strive",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.086Z",
+      "qualityRating": "medium"
+    }
   },
   "sweep": {
     "name": "Sweep",
-    "description": "Sweep is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "SweepAbility WordIntroduced Saviors of KamigawaLast used Saviors of KamigawaTypical Text Sweep — Return any number of [basic land] you control to their owner's hand.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Sweep",
-    "exampleCards": []
+    "fallbackDescription": "SweepAbility WordIntroduced Saviors of KamigawaLast used Saviors of KamigawaTypical Text Sweep — Return any number of [basic land] you control to their owner's hand.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Sweep",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "tempting_offer": {
     "name": "Tempting offer",
-    "description": "Tempting offer is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Tempting offerAbility WordIntroduced Commander 2013Last used Bloomburrow CommanderTypical Text Tempting offer — [do something].",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Tempting_offer",
-    "exampleCards": []
+    "fallbackDescription": "Tempting offerAbility WordIntroduced Commander 2013Last used Bloomburrow CommanderTypical Text Tempting offer — [do something].",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Tempting_offer",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
+  },
+  "threshold": {
+    "name": "Threshold",
+    "description": "3% Scryfall Search keyword:\"Threshold\".",
+    "category": "other",
+    "isEvergreen": false,
+    "wikiUrl": "https://mtg.fandom.com/wiki/Threshold",
+    "fallbackDescription": "3% Scryfall Search keyword:\"Threshold\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Threshold",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "will_of_the_council": {
     "name": "Will of the council",
-    "description": "Will of the council is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Will of the CouncilAbility WordIntroduced ConspiracyLast used Lord of the Rings CommanderTypical Text Will of the council —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Will_of_the_council",
-    "exampleCards": []
+    "fallbackDescription": "Will of the CouncilAbility WordIntroduced ConspiracyLast used Lord of the Rings CommanderTypical Text Will of the council —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Will_of_the_council",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "adamant": {
     "name": "Adamant",
-    "description": "Adamant is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Adamant Ability WordIntroduced Throne of EldraineLast used Commander MastersTypical Text Adamant — If at least three [colour] mana was spent to cast this spell,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Adamant",
-    "exampleCards": []
+    "fallbackDescription": "Adamant Ability WordIntroduced Throne of EldraineLast used Commander MastersTypical Text Adamant — If at least three [colour] mana was spent to cast this spell,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Adamant",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "addendum": {
     "name": "Addendum",
-    "description": "Addendum is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Addendum Ability WordIntroduced Ravnica AllegianceLast used New Capenna CommanderTypical Text Addendum — If you cast this spell during your main phase,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Addendum",
-    "exampleCards": []
+    "fallbackDescription": "Addendum Ability WordIntroduced Ravnica AllegianceLast used New Capenna CommanderTypical Text Addendum — If you cast this spell during your main phase,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Addendum",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
-  "council's_dilemma": {
+  "council_s_dilemma": {
     "name": "Council's dilemma",
-    "description": "Council's dilemma is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Council's DilemmaAbility WordIntroduced Conspiracy: Take the CrownLast used Lord of the Rings CommanderTypical Text Council's dilemma —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
-    "wikiUrl": "https://mtg.fandom.com/wiki/Council's_dilemma",
-    "exampleCards": []
+    "wikiUrl": "https://mtg.fandom.com/wiki/Council%27s_dilemma",
+    "fallbackDescription": "Council's DilemmaAbility WordIntroduced Conspiracy: Take the CrownLast used Lord of the Rings CommanderTypical Text Council's dilemma —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Council%27s_dilemma",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "eminence": {
     "name": "Eminence",
-    "description": "Eminence is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "EminenceAbility WordIntroduced Commander 2017Last used March of the Machine/Commander decksTypical Text Eminence — (.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Eminence",
-    "exampleCards": []
+    "fallbackDescription": "EminenceAbility WordIntroduced Commander 2017Last used March of the Machine/Commander decksTypical Text Eminence — (.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Eminence",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "enrage": {
     "name": "Enrage",
-    "description": "Enrage is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "8% Scryfall Search keyword:\"Enrage\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Enrage",
-    "exampleCards": []
+    "fallbackDescription": "8% Scryfall Search keyword:\"Enrage\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Enrage",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
-  "hero's_reward": {
+  "hero_s_reward": {
     "name": "Hero's Reward",
-    "description": "Hero's Reward is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Hero's RewardAbility WordIntroduced Face the HydraLast used Defeat a GodTypical Text Hero's reward — When ~ leaves the battlefield,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Hero's_Reward",
-    "exampleCards": []
+    "fallbackDescription": "Hero's RewardAbility WordIntroduced Face the HydraLast used Defeat a GodTypical Text Hero's reward — When ~ leaves the battlefield,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Hero's_Reward",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "kinfall": {
     "name": "Kinfall",
-    "description": "Kinfall is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "KinfallAbility WordIntroduced Mystery BoosterLast used Mystery BoosterTypical Text Kinfall — Whenever a creature enters the battlefield under your control, if it shares a creature type with [cardname],.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Kinfall",
-    "exampleCards": []
+    "fallbackDescription": "KinfallAbility WordIntroduced Mystery BoosterLast used Mystery BoosterTypical Text Kinfall — Whenever a creature enters the battlefield under your control, if it shares a creature type with [cardname],.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Kinfall",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "landship": {
     "name": "Landship",
-    "description": "Landship is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "LandshipAbility WordIntroduced Mystery BoosterLast used Mystery BoosterTypical Text Landship — At the beginning of your upkeep, you may look at the top card of your library.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Landship",
-    "exampleCards": []
+    "fallbackDescription": "LandshipAbility WordIntroduced Mystery BoosterLast used Mystery BoosterTypical Text Landship — At the beginning of your upkeep, you may look at the top card of your library.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Landship",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "legacy": {
     "name": "Legacy",
-    "description": "Legacy is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "LegacyDCI SanctionedPaper Magic Online Magic Arena RulesType ConstructedMultiplayer Scryfall Search format:\"Legacy\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Legacy",
-    "exampleCards": []
+    "fallbackDescription": "LegacyDCI SanctionedPaper Magic Online Magic Arena RulesType ConstructedMultiplayer Scryfall Search format:\"Legacy\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Legacy",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "revolt": {
     "name": "Revolt",
-    "description": "Revolt is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Revolt Ability WordIntroduced Aether RevoltLast used Modern Horizons 3Typical Text Revolt —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Revolt",
-    "exampleCards": []
+    "fallbackDescription": "Revolt Ability WordIntroduced Aether RevoltLast used Modern Horizons 3Typical Text Revolt —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Revolt",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "underdog": {
     "name": "Underdog",
-    "description": "Underdog is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "UnderdogAbility WordIntroduced Mystery BoosterLast used Mystery BoosterTypical Text Underdog — If yo...",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Underdog",
-    "exampleCards": []
+    "fallbackDescription": "UnderdogAbility WordIntroduced Mystery BoosterLast used Mystery BoosterTypical Text Underdog — If yo...",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Underdog",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "undergrowth": {
     "name": "Undergrowth",
-    "description": "Undergrowth is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Undergrowth Ability WordIntroduced Guilds of RavnicaLast used March of the Machine: The AftermathTypical Text Undergrowth —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Undergrowth",
-    "exampleCards": []
+    "fallbackDescription": "Undergrowth Ability WordIntroduced Guilds of RavnicaLast used March of the Machine: The AftermathTypical Text Undergrowth —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Undergrowth",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "void": {
     "name": "Void",
-    "description": "Void is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Void is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Void",
-    "exampleCards": []
+    "fallbackDescription": "Void is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Void",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "descend": {
     "name": "Descend",
-    "description": "Descend is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "3% 10 Descend 4 cards 30% 30% 30% 10% 9 Descend 8 cards 22.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Descend",
-    "exampleCards": []
+    "fallbackDescription": "3% 10 Descend 4 cards 30% 30% 30% 10% 9 Descend 8 cards 22.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Descend",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "fathomless_descent": {
     "name": "Fathomless descent",
-    "description": "Fathomless descent is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "3% 10 Descend 4 cards 30% 30% 30% 10% 9 Descend 8 cards 22.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Fathomless_descent",
-    "exampleCards": []
+    "fallbackDescription": "3% 10 Descend 4 cards 30% 30% 30% 10% 9 Descend 8 cards 22.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Fathomless_descent",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "magecraft": {
     "name": "Magecraft",
-    "description": "Magecraft is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Magecraft Ability WordIntroduced Strixhaven: School of MagesLast used Modern Horizons 3Typical Text Magecraft — Whenever you cast or copy an instant or sorcery spell,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Magecraft",
-    "exampleCards": []
+    "fallbackDescription": "Magecraft Ability WordIntroduced Strixhaven: School of MagesLast used Modern Horizons 3Typical Text Magecraft — Whenever you cast or copy an instant or sorcery spell,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Magecraft",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "teamwork": {
     "name": "Teamwork",
-    "description": "Teamwork is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Teamwork is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Teamwork",
-    "exampleCards": []
+    "fallbackDescription": "Teamwork is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Teamwork",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "pack_tactics": {
     "name": "Pack tactics",
-    "description": "Pack tactics is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Pack TacticsAbility WordIntroduced Dungeons & Dragons: Adventures in the Forgotten RealmsLast used Alchemy Horizons: Baldur's GateTypical Text Pack tactics — Whenever CARDNAME attacks, if you attacked with creatures with total power 6 or greater this combat,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Pack_tactics",
-    "exampleCards": []
+    "fallbackDescription": "Pack TacticsAbility WordIntroduced Dungeons & Dragons: Adventures in the Forgotten RealmsLast used Alchemy Horizons: Baldur's GateTypical Text Pack tactics — Whenever CARDNAME attacks, if you attacked with creatures with total power 6 or greater this combat,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Pack_tactics",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "coven": {
     "name": "Coven",
-    "description": "Coven is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "8% Scryfall Search keyword:\"Coven\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Coven",
-    "exampleCards": []
+    "fallbackDescription": "8% Scryfall Search keyword:\"Coven\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Coven",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "alliance": {
     "name": "Alliance",
-    "description": "Alliance is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "3% Scryfall Search keyword:\"Alliance\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Alliance",
-    "exampleCards": []
+    "fallbackDescription": "3% Scryfall Search keyword:\"Alliance\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Alliance",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "corrupted": {
     "name": "Corrupted",
-    "description": "Corrupted is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "8% Scryfall Search keyword:\"Corrupted\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Corrupted",
-    "exampleCards": []
+    "fallbackDescription": "8% Scryfall Search keyword:\"Corrupted\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Corrupted",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "secret_council": {
     "name": "Secret council",
-    "description": "Secret council is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Secret CouncilAbility WordIntroduced Lord of the Rings CommanderLast used Murders at Karlov Manor CommanderTypical Text Secret council —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Secret_council",
-    "exampleCards": []
+    "fallbackDescription": "Secret CouncilAbility WordIntroduced Lord of the Rings CommanderLast used Murders at Karlov Manor CommanderTypical Text Secret council —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Secret_council",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "celebration": {
     "name": "Celebration",
-    "description": "Celebration is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Celebration Ability WordIntroduced Wilds of EldraineLast used Alchemy: EldraineTypical Text Celebration — If two or more nonland permanents entered the battlefield under your turn,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Celebration",
-    "exampleCards": []
+    "fallbackDescription": "Celebration Ability WordIntroduced Wilds of EldraineLast used Alchemy: EldraineTypical Text Celebration — If two or more nonland permanents entered the battlefield under your turn,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Celebration",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "paradox": {
     "name": "Paradox",
-    "description": "Paradox is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "ParadoxAbility WordIntroduced Doctor WhoLast used Doctor WhoTypical Text Paradox — Whenever you cast a spell from anywhere but your hand.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Paradox",
-    "exampleCards": []
+    "fallbackDescription": "ParadoxAbility WordIntroduced Doctor WhoLast used Doctor WhoTypical Text Paradox — Whenever you cast a spell from anywhere but your hand.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Paradox",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "will_of_the_planeswalkers": {
     "name": "Will of the Planeswalkers",
-    "description": "Will of the Planeswalkers is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Will of the PlaneswalkersAbility WordIntroduced March of the Machine CommanderLast used March of the Machine CommanderTypical Text Will of the planeswalkers —.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Will_of_the_Planeswalkers",
-    "exampleCards": []
+    "fallbackDescription": "Will of the PlaneswalkersAbility WordIntroduced March of the Machine CommanderLast used March of the Machine CommanderTypical Text Will of the planeswalkers —.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Will_of_the_Planeswalkers",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "survival": {
     "name": "Survival",
-    "description": "Survival is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "6% Scryfall Search keyword:\"Survival\".",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Survival",
-    "exampleCards": []
+    "fallbackDescription": "6% Scryfall Search keyword:\"Survival\".",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Survival",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "flurry": {
     "name": "Flurry",
-    "description": "Flurry is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Flurry is a Magic: The Gathering mechanic.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Flurry",
-    "exampleCards": []
+    "fallbackDescription": "Flurry is a Magic: The Gathering mechanic.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Flurry",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
   "valiant": {
     "name": "Valiant",
-    "description": "Valiant is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "Valiant Ability WordIntroduced BloomburrowLast used Alchemy: BloomburrowTypical Text Valiant — Whenever [this card] becomes the target of a spell or ability you control for the first time each turn,.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Valiant",
-    "exampleCards": []
+    "fallbackDescription": "Valiant Ability WordIntroduced BloomburrowLast used Alchemy: BloomburrowTypical Text Valiant — Whenever [this card] becomes the target of a spell or ability you control for the first time each turn,.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Valiant",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   },
-  "start_your_engines!": {
+  "start_your_engines_": {
     "name": "Start your engines!",
-    "description": "Start your engines! is a Magic: The Gathering mechanic. See the MTG Wiki for detailed information.",
-    "simpleDescription": "A ability word in Magic: The Gathering.",
-    "rulesText": "",
-    "reminderText": "",
+    "description": "If you have no speed, it starts at 1. It increases once on each of your turns when an opponent loses life. Max speed is 4.",
     "category": "other",
-    "type": "ability_word",
     "isEvergreen": false,
-    "isBeginnerFriendly": false,
-    "complexity": "medium",
-    "firstAppeared": "Unknown",
     "wikiUrl": "https://mtg.fandom.com/wiki/Start_your_engines!",
-    "exampleCards": []
+    "fallbackDescription": "If you have no speed, it starts at 1. It increases once on each of your turns when an opponent loses life. Max speed is 4.",
+    "source": "basic_fallback",
+    "sourceUrl": "https://mtg.fandom.com/wiki/Start_your_engines!",
+    "confidence": "medium",
+    "metadata": {
+      "hasOfficialContent": false,
+      "hasFallback": true,
+      "lastUpdated": "2025-07-20T04:54:09.087Z",
+      "qualityRating": "medium"
+    }
   }
 };
 
@@ -4637,8 +4975,27 @@ export const getMechanicsByCategory = (category) => {
 };
 
 export const getMechanicDetails = (mechanicName) => {
-  const key = mechanicName.toLowerCase().replace(/\s+/g, "_");
+  const key = mechanicName.toLowerCase().replace(/[^a-z0-9]/g, "_");
   return mechanicsDetails[key] || null;
+};
+
+export const getMechanicDescription = (mechanicName, preferFallback = false) => {
+  const details = getMechanicDetails(mechanicName);
+  if (!details) return null;
+
+  return preferFallback && details.fallbackDescription ?
+    details.fallbackDescription :
+    details.description;
+};
+
+export const isOfficialDescription = (mechanicName) => {
+  const details = getMechanicDetails(mechanicName);
+  return details ? details.source === "official" : false;
+};
+
+export const getMechanicWikiUrl = (mechanicName) => {
+  const details = getMechanicDetails(mechanicName);
+  return details ? details.wikiUrl : null;
 };
 
 // Total count: 273 unique mechanics

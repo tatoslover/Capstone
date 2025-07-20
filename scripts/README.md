@@ -15,10 +15,10 @@ Scrapes comprehensive MTG introduction and learning guide.
 
 **Output:** `data/gameOverview.json`
 
-### 🎨 Colors Scraper (`scrapers/colors.js`)
-Scrapes the five MTG colors with their philosophies, strengths, and associated mechanics.
+### 🎨 Colours Scraper (`scrapers/colours.js`)
+Scrapes the six MTG colours (including colourless) with their philosophies, strengths, and associated mechanics.
 
-**Output:** `data/colors.json`
+**Output:** `data/colours.json`
 
 ### 🃏 Card Types Scraper (`scrapers/cardTypes.js`)
 Scrapes card type information including descriptions, rules, usage, and timing.
@@ -151,7 +151,7 @@ The scrapers include built-in rate limiting to be respectful to the MTG Wiki:
 }
 ```
 
-### Colors (`colors.json`)
+### Colours (`colours.json`)
 ```json
 {
   "white": {
@@ -336,7 +336,7 @@ After running the scrapers, the data is automatically copied to `frontend/data/`
 ```javascript
 // Import the data
 import gameOverview from "../data/gameOverview.json";
-import colors from "../data/colors.json";
+import colours from "../data/colours.json";
 import cardTypes from "../data/cardTypes.json";
 import turnPhases from "../data/turnPhases.json";
 import cardAnatomy from "../data/cardAnatomy.json";
@@ -373,14 +373,14 @@ Run individual scrapers to isolate issues:
 ```bash
 # Test specific scraper
 npm run scrape:overview
-npm run scrape:colors
+npm run scrape:colours
 npm run scrape:turn-phases
 npm run scrape:win-conditions
 
 # Check output
 cat data/gameOverview.json | jq
 cat data/turnPhases.json | jq
-cat data/colors.json | jq
+cat data/colours.json | jq
 ```
 
 ## Contributing
