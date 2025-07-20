@@ -857,6 +857,313 @@ app.delete("/api/users/:id", async (req, res) => {
   }
 });
 
+// CRUD Operations for Favourites
+
+/**
+ * @swagger
+ * /api/favourites:
+ *   get:
+ *     summary: Get all favourites for a user
+ *     tags: [Favourites]
+ *     parameters:
+ *       - in: query
+ *         name: user_id
+ *         schema:
+ *           type: integer
+ *         description: User ID to get favourites for
+ *       - in: query
+ *         name: ability_type
+ *         schema:
+ *           type: string
+ *         description: Filter by ability type
+ *     responses:
+ *       200:
+ *         description: List of favourites
+ *       400:
+ *         description: Invalid user ID
+ */
+app.get("/api/favourites", async (req, res) => {
+  try {
+    const { user_id, ability_type } = req.query;
+
+    if (!user_id) {
+      return res.status(400).json({
+        error: "user_id parameter is required",
+        requestId: req.id
+      });
+    }
+
+    const userId = parseInt(user_id);
+    if (isNaN(userId)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
+
+    let result;
+    if (ability_type) {
+      result = await favouritesOperations.getByAbilityType(userId, ability_type);
+    } else {
+      result = await favouritesOperations.getByUserId(userId);
+    }
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching favourites:", error);
+    res.status(500).json({
+      error: "Failed to fetch favourites",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/favourites/{id}:
+ *   get:
+ *     summary: Get a favourite by ID
+ *     tags: [Favourites]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Favourite found
+ *       404:
+ *         description: Favourite not found
+ */
+app.get("/api/favourites/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid favourite ID",
+        requestId: req.id
+      });
+    }
+
+    const result = await favouritesOperations.getById(id);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "Favourite not found",
+        requestId: req.id
+      });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching favourite:", error);
+    res.status(500).json({
+      error: "Failed to fetch favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/favourites:
+ *   post:
+ *     summary: Create a new favourite
+ *     tags: [Favourites]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - user_id
+ *               - card_name
+ *             properties:
+ *               user_id:
+ *                 type: integer
+ *               card_name:
+ *                 type: string
+ *               scryfall_id:
+ *                 type: string
+ *               ability_type:
+ *                 type: string
+ *               notes:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Favourite created successfully
+ *       400:
+ *         description: Invalid input
+ */
+app.post("/api/favourites", async (req, res) => {
+  try {
+    const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
+
+    if (!user_id || !card_name) {
+      return res.status(400).json({
+        error: "user_id and card_name are required",
+        requestId: req.id
+      });
+    }
+
+    if (typeof user_id !== 'number' || user_id <= 0) {
+      return res.status(400).json({
+        error: "user_id must be a positive number",
+        requestId: req.id
+      });
+    }
+
+    if (!card_name.trim()) {
+      return res.status(400).json({
+        error: "card_name cannot be empty",
+        requestId: req.id
+      });
+    }
+
+    const result = await favouritesOperations.create(
+      user_id,
+      card_name.trim(),
+      scryfall_id,
+      ability_type,
+      notes
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error creating favourite:", error);
+    res.status(500).json({
+      error: "Failed to create favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/favourites/{id}:
+ *   put:
+ *     summary: Update a favourite's notes
+ *     tags: [Favourites]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - notes
+ *             properties:
+ *               notes:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Favourite updated successfully
+ *       404:
+ *         description: Favourite not found
+ */
+app.put("/api/favourites/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { notes } = req.body;
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid favourite ID",
+        requestId: req.id
+      });
+    }
+
+    if (notes === undefined) {
+      return res.status(400).json({
+        error: "notes field is required",
+        requestId: req.id
+      });
+    }
+
+    const result = await favouritesOperations.update(id, notes);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "Favourite not found",
+        requestId: req.id
+      });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating favourite:", error);
+    res.status(500).json({
+      error: "Failed to update favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/favourites/{id}:
+ *   delete:
+ *     summary: Delete a favourite by ID
+ *     tags: [Favourites]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Favourite deleted successfully
+ *       404:
+ *         description: Favourite not found
+ */
+app.delete("/api/favourites/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid favourite ID",
+        requestId: req.id
+      });
+    }
+
+    const result = await favouritesOperations.delete(id);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "Favourite not found",
+        requestId: req.id
+      });
+    }
+
+    res.json({
+      message: "Favourite deleted successfully",
+      favourite: result.rows[0],
+      requestId: req.id
+    });
+  } catch (error) {
+    console.error("Error deleting favourite:", error);
+    res.status(500).json({
+      error: "Failed to delete favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Client metrics endpoint for frontend performance monitoring
 app.post("/api/monitoring/client-metrics", (req, res) => {
   try {
