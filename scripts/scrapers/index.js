@@ -1,4 +1,4 @@
-const { scrapeColors } = require("./colors");
+const { scrapeColours } = require("./colours");
 const { scrapeCardTypes } = require("./cardTypes");
 const { scrapeMechanics } = require("./mechanics");
 const { scrapeGameModes } = require("./gameModes");
@@ -25,9 +25,9 @@ const runAllScrapers = async () => {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    console.log("2️⃣  Starting Colors scraper...");
-    results.colors = await scrapeColors();
-    console.log("✅ Colors complete\n");
+    console.log("2️⃣  Starting Colours scraper...");
+    results.colours = await scrapeColours();
+    console.log("✅ Colours complete\n");
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -85,7 +85,7 @@ const runAllScrapers = async () => {
     console.log(`⏱️  Total time: ${duration} seconds`);
     console.log("\n📊 Results summary:");
     console.log(`   🎮 Game Overview: Complete introduction guide`);
-    console.log(`   🎨 Colors: ${Object.keys(results.colors).length}`);
+    console.log(`   🎨 Colours: ${Object.keys(results.colours).length}`);
     console.log(`   🃏 Card Types: ${Object.keys(results.cardTypes).length}`);
     console.log(
       `   🕒 Turn Phases: ${Object.keys(results.turnPhases.phases).length} phases with detailed steps`,
@@ -109,7 +109,7 @@ const runAllScrapers = async () => {
 
     console.log("\n📁 Data files saved to:");
     console.log(`   ${path.join(__dirname, "../data/gameOverview.json")}`);
-    console.log(`   ${path.join(__dirname, "../data/colors.json")}`);
+    console.log(`   ${path.join(__dirname, "../data/colours.json")}`);
     console.log(`   ${path.join(__dirname, "../data/cardTypes.json")}`);
     console.log(`   ${path.join(__dirname, "../data/turnPhases.json")}`);
     console.log(`   ${path.join(__dirname, "../data/cardAnatomy.json")}`);
@@ -145,14 +145,14 @@ const runGameOverviewScraper = async () => {
   }
 };
 
-const runColorsScraper = async () => {
-  console.log("🎨 Running Colors scraper only...");
+const runColoursScraper = async () => {
+  console.log("🎨 Running Colours scraper only...");
   try {
-    const results = await scrapeColors();
-    console.log("✅ Colors scraping complete");
+    const results = await scrapeColours();
+    console.log("✅ Colours scraping complete");
     return results;
   } catch (error) {
-    console.error("❌ Colors scraping failed:", error.message);
+    console.error("❌ Colours scraping failed:", error.message);
     throw error;
   }
 };
@@ -253,6 +253,8 @@ const runMechanicsScraper = async () => {
   }
 };
 
+
+
 // CLI interface
 if (require.main === module) {
   const command = process.argv[2];
@@ -263,7 +265,8 @@ if (require.main === module) {
       runGameOverviewScraper().catch(console.error);
       break;
     case "colors":
-      runColorsScraper().catch(console.error);
+    case "colours":
+      runColoursScraper().catch(console.error);
       break;
     case "card-types":
       runCardTypesScraper().catch(console.error);
@@ -305,7 +308,7 @@ if (require.main === module) {
 module.exports = {
   runAllScrapers,
   runGameOverviewScraper,
-  runColorsScraper,
+  runColoursScraper,
   runCardTypesScraper,
   runTurnPhasesScraper,
   runCardAnatomyScraper,

@@ -1,0 +1,65 @@
+{
+  "testInfo": {
+    "timestamp": "2025-07-20T04:53:41.962Z",
+    "testMechanics": [
+      "Flying",
+      "Trample",
+      "First Strike",
+      "Deathtouch",
+      "Lifelink"
+    ],
+    "totalTested": 5,
+    "successCount": 4,
+    "errorCount": 1,
+    "successRate": "80%"
+  },
+  "scrapedData": {
+    "flying": {
+      "name": "Flying",
+      "description": "A keyword ability found on creatures. A creature with flying can be blocked only by creatures with flying or reach.",
+      "source": "Wizards Keyword Glossary",
+      "sourceUrl": "https://magic.wizards.com/en/keyword-glossary",
+      "confidence": "high",
+      "timestamp": "2025-07-20T04:53:31.117Z"
+    },
+    "first_strike": {
+      "name": "First Strike",
+      "description": "A keyword ability found on creatures. Creatures with first strike deal all of their combat damage before creatures without first strike or double strike. When you reach the combat damage step, check to see if any attacking or blocking creatures have first strike or double strike. If so, an extra combat damage step is created just for them.",
+      "source": "Wizards Keyword Glossary",
+      "sourceUrl": "https://magic.wizards.com/en/keyword-glossary",
+      "confidence": "high",
+      "timestamp": "2025-07-20T04:53:35.835Z"
+    },
+    "deathtouch": {
+      "name": "Deathtouch",
+      "description": "A keyword ability found on creatures. A creature dealt any amount of damage by a creature with deathtouch is destroyed. Deathtouch has no effect on players or planeswalkers.",
+      "source": "Wizards Keyword Glossary",
+      "sourceUrl": "https://magic.wizards.com/en/keyword-glossary",
+      "confidence": "high",
+      "timestamp": "2025-07-20T04:53:37.897Z"
+    },
+    "lifelink": {
+      "name": "Lifelink",
+      "description": "A keyword ability found on creatures. When a creature you control has lifelink and deals damage, you simultaneously gain that much life.",
+      "source": "Wizards Keyword Glossary",
+      "sourceUrl": "https://magic.wizards.com/en/keyword-glossary",
+      "confidence": "high",
+      "timestamp": "2025-07-20T04:53:39.961Z"
+    }
+  },
+  "dataQuality": {
+    "totalDescriptions": 4,
+    "averageLength": 191,
+    "highConfidence": 4,
+    "mediumConfidence": 0,
+    "lowConfidence": 0,
+    "sourceBreakdown": {
+      "Wizards Keyword Glossary": 4
+    }
+  },
+  "recommendations": [
+    "⚠️  Moderate success rate. Consider hybrid approach with fallbacks.",
+    "📝 Description length is appropriate for beginners.",
+    "💡 Next steps: Expand test to more mechanics and compare with current fallbacks."
+  ]
+}

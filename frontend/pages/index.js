@@ -8,7 +8,7 @@ import { FilteredMechanicsList } from "../components/Mechanics";
 import { CardAnatomySection } from "../components/CardAnatomy";
 import { GameModesList } from "../components/GameModes";
 import gameOverview from "../data/gameOverview.json";
-import colors from "../data/colors.json";
+import colours from "../data/colours.json";
 import cardTypes from "../data/cardTypes.json";
 import turnPhases from "../data/turnPhases.json";
 import winConditions from "../data/winConditions.json";
@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   const [selectedPhase, setSelectedPhase] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedColour, setSelectedColour] = useState(null);
   const [selectedCardType, setSelectedCardType] = useState(null);
 
   const [selectedWinCondition, setSelectedWinCondition] = useState(null);
@@ -423,21 +423,21 @@ export default function Home() {
               margin: "0 auto 2rem auto",
             }}
           >
-            {Object.entries(colors).map(([colorKey, colorData]) => (
+            {Object.entries(colours).map(([colourKey, colourData]) => (
               <button
-                key={colorKey}
+                key={colourKey}
                 onClick={() =>
-                  setSelectedColor(selectedColor === colorKey ? null : colorKey)
+                  setSelectedColour(selectedColour === colourKey ? null : colourKey)
                 }
-                className={`section-button ${selectedColor === colorKey ? "active" : ""}`}
+                className={`section-button ${selectedColour === colourKey ? "active" : ""}`}
               >
-                <span style={{ fontSize: "1.5rem" }}>{colorData.emoji}</span>
-                <span>{colorData.name}</span>
+                <span style={{ fontSize: "1.5rem" }}>{colourData.emoji}</span>
+                <span>{colourData.name}</span>
               </button>
             ))}
           </div>
 
-          {selectedColor && (
+          {selectedColour && (
             <div className="section-content">
               <h3
                 style={{
@@ -446,25 +446,25 @@ export default function Home() {
                   textAlign: "center",
                 }}
               >
-                {colors[selectedColor].name}
+                {colours[selectedColour].name}
               </h3>
               <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
                 <p style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
-                  {colors[selectedColor].description}
+                  {colours[selectedColour].description}
                 </p>
                 <div style={{ marginBottom: "1rem" }}>
                   <strong style={{ color: "#ffffff" }}>Philosophy: </strong>
                   <em style={{ color: "#adb5bd" }}>
-                    {colors[selectedColor].philosophy}
+                    {colours[selectedColour].philosophy}
                   </em>
                 </div>
                 <div style={{ marginBottom: "1rem" }}>
                   <strong style={{ color: "#ffffff" }}>Strengths: </strong>
-                  {colors[selectedColor].strengths.join(", ")}
+                  {colours[selectedColour].strengths.join(", ")}
                 </div>
                 <div>
                   <strong style={{ color: "#ffffff" }}>Key Mechanics: </strong>
-                  {colors[selectedColor].mechanics.join(", ")}
+                  {colours[selectedColour].mechanics.join(", ")}
                 </div>
               </div>
             </div>

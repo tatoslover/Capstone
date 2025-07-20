@@ -105,14 +105,15 @@ export default function UserSelector({ onUserSelect, currentUser }) {
       {currentUser && (
         <div
           style={{
-            background: "#e3f2fd",
+            background: "var(--theme-cardBg)",
             padding: "1rem",
             borderRadius: "0.5rem",
             marginBottom: "1.5rem",
-            border: "1px solid #bbdefb",
+            border: "1px solid var(--theme-border)",
+            boxShadow: "0 2px 4px var(--theme-shadowColor)",
           }}
         >
-          <p style={{ margin: 0, fontWeight: "500" }}>
+          <p style={{ margin: 0, fontWeight: "500", color: "var(--theme-text)" }}>
             Currently logged in as: <strong>{currentUser.username}</strong>
           </p>
           <button
@@ -141,27 +142,31 @@ export default function UserSelector({ onUserSelect, currentUser }) {
                     onClick={() => selectUser(user)}
                     style={{
                       padding: "1rem",
-                      border: "1px solid #dee2e6",
+                      border: "1px solid var(--theme-border)",
                       borderRadius: "0.5rem",
-                      background: "white",
+                      background: "var(--theme-cardBg)",
                       textAlign: "left",
                       cursor: "pointer",
                       transition: "all 0.2s ease",
                       fontSize: "1rem",
+                      color: "var(--theme-text)",
+                      boxShadow: "0 1px 3px var(--theme-shadowColor)",
                     }}
                     onMouseOver={(e) => {
-                      e.target.style.borderColor = "#007bff";
-                      e.target.style.background = "#f8f9fa";
+                      e.target.style.borderColor = "var(--theme-accent)";
+                      e.target.style.background = "var(--theme-secondary)";
+                      e.target.style.color = "var(--theme-text)";
                     }}
                     onMouseOut={(e) => {
-                      e.target.style.borderColor = "#dee2e6";
-                      e.target.style.background = "white";
+                      e.target.style.borderColor = "var(--theme-border)";
+                      e.target.style.background = "var(--theme-cardBg)";
+                      e.target.style.color = "var(--theme-text)";
                     }}
                   >
                     <div style={{ fontWeight: "500", marginBottom: "0.25rem" }}>
                       {user.username}
                     </div>
-                    <div style={{ fontSize: "0.875rem", color: "#6c757d" }}>
+                    <div style={{ fontSize: "0.875rem", color: "var(--theme-textLight)" }}>
                       Created {new Date(user.created_at).toLocaleDateString()}
                     </div>
                   </button>
@@ -173,7 +178,7 @@ export default function UserSelector({ onUserSelect, currentUser }) {
           {/* Create New User Section */}
           <div
             style={{
-              borderTop: users.length > 0 ? "1px solid #e9ecef" : "none",
+              borderTop: users.length > 0 ? "1px solid var(--theme-border)" : "none",
               paddingTop: users.length > 0 ? "1.5rem" : "0",
             }}
           >
@@ -182,7 +187,7 @@ export default function UserSelector({ onUserSelect, currentUser }) {
                 <h4 style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
                   Create New Profile
                 </h4>
-                <p style={{ color: "#6c757d", marginBottom: "1rem" }}>
+                <p style={{ color: "var(--theme-textLight)", marginBottom: "1rem" }}>
                   Start fresh with a new profile to track your favorite cards
                 </p>
                 <button

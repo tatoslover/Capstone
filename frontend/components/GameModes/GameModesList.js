@@ -2,7 +2,8 @@ import { useState } from "react";
 import gameModes from "../../data/gameModes.json";
 
 export default function GameModesList() {
-  const [selectedCategory, setSelectedCategory] = useState("rotating");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [clickCount, setClickCount] = useState({});
 
   // Remove citation markers like [1], [2][3], etc. from descriptions
   const removeCitations = (text) => {
@@ -22,6 +23,15 @@ export default function GameModesList() {
     return iconMap[categoryKey] || "🎮";
   };
 
+  const handleCategoryClick = (categoryKey) => {
+    // Single click to toggle
+    if (selectedCategory === categoryKey) {
+      setSelectedCategory(null);
+    } else {
+      setSelectedCategory(categoryKey);
+    }
+  };
+
   return (
     <div>
       {/* Category Selection Grid */}
@@ -38,7 +48,7 @@ export default function GameModesList() {
         {Object.entries(gameModes.categories).map(([categoryKey, category]) => (
           <button
             key={categoryKey}
-            onClick={() => setSelectedCategory(categoryKey)}
+            onClick={() => handleCategoryClick(categoryKey)}
             className={`section-button ${selectedCategory === categoryKey ? "active" : ""}`}
           >
             <span style={{ fontSize: "1.5rem" }}>
@@ -50,6 +60,7 @@ export default function GameModesList() {
                 "",
               )}
             </span>
+
           </button>
         ))}
       </div>
@@ -114,6 +125,24 @@ export default function GameModesList() {
           </div>
         </div>
       )}
+
+      {/* Mobile Responsive Styles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .section-grid {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .section-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          .section-button {
+            font-size: 0.8rem !important;
+            padding: 0.75rem 0.5rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
