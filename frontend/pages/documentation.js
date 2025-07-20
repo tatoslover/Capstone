@@ -421,23 +421,34 @@ export default function Documentation() {
 
           <div className="api-swagger-container">
             {dbConnectionStatus === "connected" ? (
-              <div className="swagger-fallback">
-                <div className="swagger-fallback-content">
-                  <h5>📋 API Documentation Available</h5>
-                  <p>
-                    The interactive Swagger documentation is available in a separate window to avoid browser security restrictions.
-                  </p>
-                  <div className="text-center mb-3">
-                    <a
-                      href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn profile-btn-blue"
-                    >
-                      🚀 Open API Documentation
-                    </a>
+              <div>
+                <iframe
+                  src={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
+                  className="swagger-iframe"
+                  title="API Documentation"
+                  onLoad={() => setSwaggerLoaded(true)}
+                  onError={() => setSwaggerError(true)}
+                />
+                {swaggerError && (
+                  <div className="swagger-fallback mt-3">
+                    <div className="swagger-fallback-content">
+                      <h5>⚠️ Iframe Loading Issues</h5>
+                      <p>
+                        If the documentation doesn't load above, open it in a new window:
+                      </p>
+                      <div className="text-center">
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn profile-btn-blue btn-size-small"
+                        >
+                          🚀 Open in New Window
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             ) : (
               <div className="swagger-fallback">
