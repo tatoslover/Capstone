@@ -188,8 +188,27 @@ export default function SearchPage() {
         total = data.total_cards || cards.length;
       }
 
-      setSearchResults(cards);
-      setTotalResults(total);
+      // Filter out cards with incomplete essential data
+      const validCards = cards.filter(card => {
+        // Ensure card has essential properties for good UX
+        const isValid = card &&
+               card.name &&
+               card.id &&
+               (card.type_line || card.oracle_text || card.mana_cost);
+
+        if (!isValid && card) {
+          console.warn(`Filtering out incomplete card: ${card.name || 'Unknown'} - missing essential data`);
+        }
+
+        return isValid;
+      });
+
+      if (validCards.length < cards.length) {
+        console.log(`Filtered search results: ${validCards.length}/${cards.length} cards had complete data`);
+      }
+
+      setSearchResults(validCards);
+      setTotalResults(validCards.length);
       setCurrentQuery(displayQuery);
 
       // Scroll to results on mobile
@@ -231,6 +250,8 @@ export default function SearchPage() {
         card_name: card.name,
         scryfall_id: card.id,
         ability_type: extractAbilityType(card),
+        mana_cost: card.mana_cost || null,
+        color_identity: card.color_identity ? card.color_identity.join('') : null,
         notes: "",
       });
 

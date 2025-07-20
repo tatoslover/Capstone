@@ -2540,7 +2540,7 @@ button.search-btn-primary:hover,
 }
 
 .search-empty-state {
-    background: var(--theme-secondary);
+    background: var(--theme-cardBg);
     padding: 2rem;
     border-radius: 0.5rem;
     border: 1px solid var(--theme-border);

@@ -222,12 +222,12 @@ const userOperations = {
 // Optimised favourites operations
 const favouritesOperations = {
   // Create favourite with duplicate prevention
-  create: async (userId, cardName, scryfallId, abilityType, notes) => {
+  create: async (userId, cardName, scryfallId, abilityType, manaCost, colorIdentity, notes) => {
     return await query(
-      `INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes)
-       VALUES ($1, $2, $3, $4, $5)
+      `INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING *`,
-      [userId, cardName, scryfallId, abilityType, notes],
+      [userId, cardName, scryfallId, abilityType, manaCost, colorIdentity, notes],
       'create_favourite'
     );
   },

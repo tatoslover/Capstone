@@ -1012,7 +1012,7 @@ app.get("/api/favourites/:id", async (req, res) => {
  */
 app.post("/api/favourites", async (req, res) => {
   try {
-    const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
+    const { user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes } = req.body;
 
     if (!user_id || !card_name) {
       return res.status(400).json({
@@ -1040,6 +1040,8 @@ app.post("/api/favourites", async (req, res) => {
       card_name.trim(),
       scryfall_id,
       ability_type,
+      mana_cost,
+      color_identity,
       notes
     );
 

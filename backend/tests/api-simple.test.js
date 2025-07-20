@@ -209,7 +209,7 @@ const createTestApp = () => {
 
     const favouriteIndex = favourites.findIndex((f) => f.id === id);
     if (favouriteIndex === -1) {
-      return res.status(404).json({ error: "Favorite not found" });
+      return res.status(404).json({ error: "Favourite not found" });
     }
 
     if (notes !== undefined) favourites[favouriteIndex].notes = notes;
@@ -224,11 +224,11 @@ const createTestApp = () => {
     const favouriteIndex = favourites.findIndex((f) => f.id === id);
 
     if (favouriteIndex === -1) {
-      return res.status(404).json({ error: "Favorite not found" });
+      return res.status(404).json({ error: "Favourite not found" });
     }
 
     const deletedFavourite = favourites.splice(favouriteIndex, 1)[0];
-    res.json({ message: "Favorite removed", deleted: deletedFavourite });
+    res.json({ message: "Favourite removed", deleted: deletedFavourite });
   });
 
   // Mock Scryfall API endpoints

@@ -89,6 +89,8 @@ const ApiTest = () => {
         user_id: 1,
         card_name: "Test Card",
         ability_type: "Test Ability",
+        mana_cost: "{2}{R}",
+        color_identity: "R",
         notes: "This is a test favourite",
       });
       addResult("Create Favourite", "PASS", `Added: ${newFavourite.card_name}`);
