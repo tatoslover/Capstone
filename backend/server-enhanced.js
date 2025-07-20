@@ -82,7 +82,7 @@ app.use(performanceLogger);
 // CORS and JSON parsing (MUST come before rate limiting to set headers)
 app.use(cors({
   origin: process.env.NODE_ENV === "production"
-    ? ["https://plansewalkers-primer.vercel.app"]
+    ? ["https://plansewalker-s-primer.vercel.app"]
     : ["http://localhost:3000"],
   credentials: true
 }));
