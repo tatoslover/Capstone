@@ -79,11 +79,7 @@ app.use(compression());
 app.use(responseTimeMiddleware);
 app.use(performanceLogger);
 
-// Rate limiting
-app.use("/api/cards", scryfallLimiter); // Specific rate limiting for Scryfall API
-app.use(limiter); // General rate limiting
-
-// CORS and JSON parsing
+// CORS and JSON parsing (MUST come before rate limiting to set headers)
 app.use(cors({
   origin: process.env.NODE_ENV === "production"
     ? ["https://plansewalkers-primer.vercel.app"]
@@ -91,6 +87,10 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
+
+// Rate limiting (after CORS to ensure proper headers)
+app.use("/api/cards", scryfallLimiter); // Specific rate limiting for Scryfall API
+app.use(limiter); // General rate limiting
 
 // Request ID middleware for tracking
 app.use((req, res, next) => {
@@ -621,6 +621,236 @@ app.post("/api/users", async (req, res) => {
     console.error("Error creating user:", error);
     res.status(500).json({
       error: "Failed to create user",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Users]
+ *     description: Retrieve all users ordered by creation date (newest first)
+ *     responses:
+ *       200:
+ *         description: List of users retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   username:
+ *                     type: string
+ *                   created_at:
+ *                     type: string
+ *                     format: date-time
+ */
+app.get("/api/users", async (req, res) => {
+  try {
+    const result = await userOperations.getAll();
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({
+      error: "Failed to fetch users",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: User ID
+ *     responses:
+ *       200:
+ *         description: User retrieved successfully
+ *       404:
+ *         description: User not found
+ */
+app.get("/api/users/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
+
+    const result = await userOperations.getById(id);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "User not found",
+        requestId: req.id
+      });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({
+      error: "Failed to fetch user",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     summary: Update a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 minLength: 3
+ *                 maxLength: 50
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *       400:
+ *         description: Invalid input
+ *       404:
+ *         description: User not found
+ */
+app.put("/api/users/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { username } = req.body;
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
+
+    if (!username || username.trim().length < 3) {
+      return res.status(400).json({
+        error: "Username must be at least 3 characters long",
+        requestId: req.id
+      });
+    }
+
+    if (username.length > 50) {
+      return res.status(400).json({
+        error: "Username too long (max 50 characters)",
+        requestId: req.id
+      });
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      return res.status(400).json({
+        error: "Username can only contain letters, numbers, and underscores",
+        requestId: req.id
+      });
+    }
+
+    const result = await userOperations.update(id, username.trim());
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "User not found",
+        requestId: req.id
+      });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({
+      error: "Failed to update user",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   delete:
+ *     summary: Delete a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: User ID
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *       404:
+ *         description: User not found
+ */
+app.delete("/api/users/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
+
+    const result = await userOperations.delete(id);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "User not found",
+        requestId: req.id
+      });
+    }
+
+    res.json({
+      message: "User deleted successfully",
+      user: result.rows[0],
+      requestId: req.id
+    });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({
+      error: "Failed to delete user",
       requestId: req.id,
       timestamp: new Date().toISOString()
     });

@@ -18,16 +18,22 @@ const performanceMetrics = {
 // Cache instance for API responses (TTL: 5 minutes)
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 
-// Rate limiting configuration
+// Rate limiting configuration (more lenient in development)
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: process.env.NODE_ENV === 'production' ? 100 : 1000, // More requests allowed in development
   message: {
     error: 'Too many requests from this IP, please try again later.',
     retryAfter: '15 minutes'
   },
   standardHeaders: true,
   legacyHeaders: false,
+  // Skip rate limiting for monitoring endpoints
+  skip: (req) => {
+    return req.path.startsWith('/api/monitoring') ||
+           req.path.startsWith('/health') ||
+           (process.env.NODE_ENV === 'development' && req.path.includes('monitoring'));
+  }
 });
 
 // Scryfall API rate limiting (more restrictive)

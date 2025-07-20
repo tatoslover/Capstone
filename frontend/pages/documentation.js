@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import { apiService, addConnectionListener, removeConnectionListener } from "../services/apiService";
+import PerformanceDashboard from "../components/PerformanceDashboard";
+import PerformanceOverview from "../components/PerformanceOverview";
+import PerformanceHealthIndicator from "../components/PerformanceHealthIndicator";
+import ClientOnly from "../components/ClientOnly";
+import { getPerformanceMetrics, logPerformanceSummary, exportPerformanceData } from "../utils/performance";
+
+// API Configuration
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
 export default function Documentation() {
   const [selectedSection, setSelectedSection] = useState(null);
@@ -8,6 +16,8 @@ export default function Documentation() {
   const [isTestingConnection, setIsTestingConnection] = useState(false);
   const [swaggerLoaded, setSwaggerLoaded] = useState(false);
   const [swaggerError, setSwaggerError] = useState(false);
+  const [showPerformancePanel, setShowPerformancePanel] = useState(false);
+  const [performanceMetrics, setPerformanceMetrics] = useState(null);
 
   const handleSectionClick = (section) => {
     setSelectedSection(selectedSection === section ? null : section);
@@ -50,6 +60,66 @@ export default function Documentation() {
       removeConnectionListener(checkConnection);
     };
   }, []);
+
+  // Fetch backend metrics for performance monitoring
+  const fetchBackendMetrics = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/monitoring/performance`);
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        if (process.env.NODE_ENV === 'development') {
+          console.debug('Backend performance endpoint not available (this is optional)');
+        }
+      }
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('Backend performance monitoring unavailable:', error.message);
+      }
+    }
+    return null;
+  };
+
+  // Export performance report
+  const exportPerformanceReport = () => {
+    const report = {
+      timestamp: new Date().toISOString(),
+      frontend: getPerformanceMetrics(),
+      backend: performanceMetrics?.backend,
+      url: window.location.href
+    };
+
+    const blob = new Blob([JSON.stringify(report, null, 2)], {
+      type: 'application/json'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `performance-report-${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Real-time performance updates
+  useEffect(() => {
+    const updateMetrics = async () => {
+      const frontendMetrics = getPerformanceMetrics();
+      const backendMetrics = await fetchBackendMetrics();
+      setPerformanceMetrics({ ...frontendMetrics, backend: backendMetrics });
+    };
+
+    // Initial load
+    updateMetrics();
+
+    // Set up interval only if performance panel is shown
+    if (showPerformancePanel) {
+      const interval = setInterval(updateMetrics, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [showPerformancePanel]);
 
   const sectionInfo = {
     introduction: {
@@ -378,6 +448,143 @@ export default function Documentation() {
         </div>
       ),
     },
+    performance: {
+      title: "Performance Monitoring",
+      content: (
+        <div>
+          <h4 className="doc-heading">Real-time Performance Dashboard</h4>
+          <p className="doc-paragraph">
+            Monitor application performance including Web Vitals, API response times, memory usage, and system health in real-time.
+          </p>
+
+          {/* Performance Health Indicator */}
+          <ClientOnly fallback={<div style={{ height: '100px', background: 'var(--theme-cardBg)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--theme-textLight)' }}>Loading performance data...</div>}>
+            {performanceMetrics && (
+              <PerformanceHealthIndicator
+                metrics={performanceMetrics}
+                backendStatus={performanceMetrics.backend?.status || 'unknown'}
+              />
+            )}
+          </ClientOnly>
+
+          {/* Performance Overview Cards */}
+          <ClientOnly fallback={<div style={{ height: '200px', background: 'var(--theme-cardBg)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--theme-textLight)' }}>Loading performance overview...</div>}>
+            <PerformanceOverview metrics={performanceMetrics} />
+          </ClientOnly>
+
+          <div className="performance-controls">
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowPerformancePanel(!showPerformancePanel)}
+            >
+              {showPerformancePanel ? 'Hide' : 'Show'} Detailed Dashboard
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={async () => {
+                try {
+                  const frontendMetrics = getPerformanceMetrics();
+                  const backendMetrics = await fetchBackendMetrics();
+                  setPerformanceMetrics({ ...frontendMetrics, backend: backendMetrics });
+                } catch (error) {
+                  console.warn('Failed to refresh metrics:', error);
+                  // Still update with frontend metrics even if backend fails
+                  const frontendMetrics = getPerformanceMetrics();
+                  setPerformanceMetrics({ ...frontendMetrics, backend: null });
+                }
+              }}
+            >
+              Refresh Metrics
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                try {
+                  exportPerformanceReport();
+                } catch (error) {
+                  console.warn('Failed to export report:', error);
+                  // Fallback: create a simple report with available data
+                  const report = {
+                    timestamp: new Date().toISOString(),
+                    frontend: performanceMetrics || getPerformanceMetrics(),
+                    backend: performanceMetrics?.backend || null,
+                    url: window.location.href,
+                    note: 'Exported with limited data due to system constraints'
+                  };
+
+                  const blob = new Blob([JSON.stringify(report, null, 2)], {
+                    type: 'application/json'
+                  });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `performance-report-${Date.now()}.json`;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                }
+              }}
+            >
+              Export Report
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                try {
+                  logPerformanceSummary();
+                } catch (error) {
+                  console.warn('Performance summary failed:', error);
+                  console.log('📊 Basic Performance Info:', {
+                    currentPage: window.location.pathname,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    availableMetrics: performanceMetrics ? 'Available' : 'Loading...'
+                  });
+                }
+              }}
+            >
+              Log to Console
+            </button>
+          </div>
+
+          <ClientOnly>
+            {showPerformancePanel && (
+              <div className="performance-embedded">
+                <PerformanceDashboard
+                  isVisible={true}
+                  embedded={true}
+                />
+              </div>
+            )}
+          </ClientOnly>
+
+          <h4 className="doc-heading" style={{ marginTop: '30px' }}>Performance Features</h4>
+          <ul className="doc-list">
+            <li><strong>Web Vitals Monitoring:</strong> Tracks LCP, FID, and CLS metrics following Google's Core Web Vitals standards</li>
+            <li><strong>API Performance:</strong> Monitors response times, success rates, and identifies slow endpoints</li>
+            <li><strong>User Interaction Tracking:</strong> Measures interaction response times and identifies performance bottlenecks</li>
+            <li><strong>Memory Monitoring:</strong> Tracks JavaScript heap usage and identifies potential memory leaks</li>
+            <li><strong>Error Tracking:</strong> Captures and reports JavaScript errors and unhandled promise rejections</li>
+            <li><strong>Real-time Updates:</strong> Automatically refreshes metrics every 5 seconds when dashboard is visible</li>
+            <li><strong>Export Functionality:</strong> Download detailed performance reports in JSON format</li>
+          </ul>
+
+          <h4 className="doc-heading" style={{ marginTop: '20px' }}>Developer Tools</h4>
+          <p className="doc-paragraph">
+            Performance monitoring includes developer tools accessible via keyboard shortcuts and console commands:
+          </p>
+          <ul className="doc-list">
+            <li><strong>Keyboard Shortcut:</strong> Press <kbd>Ctrl+Shift+P</kbd> to toggle floating performance dashboard</li>
+            <li><strong>Console Access:</strong> Use <code>window.performanceUtils</code> object for programmatic access</li>
+            <li><strong>Automatic Reporting:</strong> Metrics are automatically sent to backend monitoring endpoints</li>
+            <li><strong>Development Warnings:</strong> Console warnings for slow operations and high memory usage</li>
+          </ul>
+
+
+        </div>
+      ),
+    },
   };
 
   return (
@@ -461,6 +668,12 @@ export default function Documentation() {
               className={`doc-section-btn ${selectedSection === "api" ? "active" : ""}`}
             >
               🔌 API Documentation
+            </button>
+            <button
+              onClick={() => handleSectionClick("performance")}
+              className={`doc-section-btn ${selectedSection === "performance" ? "active" : ""}`}
+            >
+              🚀 Performance Monitoring
             </button>
             <button
               onClick={() => handleSectionClick("references")}

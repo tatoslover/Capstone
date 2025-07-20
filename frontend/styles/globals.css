@@ -568,22 +568,23 @@ button.btn.profile-btn-blue,
 button.profile-btn-blue,
 .btn.profile-btn-blue,
 .profile-btn-blue {
-    background-color: var(--theme-primary) !important;
-    background: var(--theme-primary) !important;
-    border-color: var(--theme-primary) !important;
-    color: var(--theme-text) !important;
-    border: 2px solid var(--theme-primary) !important;
+    background-color: #007bff !important;
+    background: #007bff !important;
+    border-color: #007bff !important;
+    color: white !important;
+    border: 2px solid #007bff !important;
 }
 
 button.btn.profile-btn-blue:hover,
 button.profile-btn-blue:hover,
 .btn.profile-btn-blue:hover,
 .profile-btn-blue:hover {
-    background-color: var(--theme-accent) !important;
-    background: var(--theme-accent) !important;
-    border-color: var(--theme-accent) !important;
+    background-color: #0056b3 !important;
+    background: #0056b3 !important;
+    border-color: #0056b3 !important;
+    color: white !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 8px rgba(var(--theme-primary-rgb), 0.3) !important;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
 }
 
 button.btn.profile-btn-blue:disabled,
@@ -3681,4 +3682,303 @@ button.pagination-btn:disabled,
 .gold-highlight {
     color: var(--theme-highlight) !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Performance Monitoring Styles */
+.performance-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.performance-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.metric-card {
+    background: var(--theme-cardBg);
+    border: 1px solid var(--theme-border);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+    border-color: var(--theme-primary);
+    box-shadow: 0 2px 8px var(--theme-shadowColor);
+}
+
+.metric-card h5 {
+    margin: 0 0 10px 0;
+    color: var(--theme-textLight);
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.metric-card .metric-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--theme-text);
+}
+
+.performance-health-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.health-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--theme-success);
+    animation: pulse 2s infinite;
+}
+
+.health-indicator.degraded .health-dot {
+    background: var(--theme-warning);
+}
+
+.health-indicator.unhealthy .health-dot {
+    background: var(--theme-error);
+}
+
+.health-text {
+    font-weight: 500;
+    color: var(--theme-text);
+}
+
+.quick-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.quick-actions button {
+    font-size: 0.8em;
+    padding: 6px 12px;
+}
+
+.performance-embedded {
+    background: var(--theme-cardBg);
+    border: 1px solid var(--theme-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.performance-embedded .performance-dashboard {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-height: none !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+}
+
+/* Performance Dashboard Responsive Design */
+@media (max-width: 768px) {
+    .performance-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .performance-controls button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .performance-overview {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+    }
+
+    .metric-card {
+        padding: 12px;
+    }
+
+    .metric-card h5 {
+        font-size: 0.8em;
+    }
+
+    .metric-card .metric-value {
+        font-size: 1.2em;
+    }
+
+    .quick-actions {
+        flex-direction: column;
+    }
+
+    .quick-actions button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .performance-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .performance-controls {
+        gap: 5px;
+    }
+}
+
+/* Performance Animations */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .metric-card {
+        border-width: 2px;
+    }
+
+    .health-dot {
+        border: 2px solid var(--theme-text);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .metric-card {
+        transition: none;
+    }
+
+    .health-dot {
+        animation: none;
+    }
+}
+
+/* Performance Dashboard Theme Integration */
+.performance-dashboard-embedded {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    background: var(--theme-cardBg);
+    color: var(--theme-text);
+    border: 1px solid var(--theme-border);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.performance-dashboard-embedded h3,
+.performance-dashboard-embedded h4 {
+    color: var(--theme-primary);
+}
+
+.performance-dashboard-embedded .success-text {
+    color: var(--theme-success);
+}
+
+.performance-dashboard-embedded .warning-text {
+    color: var(--theme-warning);
+}
+
+.performance-dashboard-embedded .error-text {
+    color: var(--theme-error);
+}
+
+.performance-dashboard-embedded select {
+    background: var(--theme-cardBg);
+    color: var(--theme-text);
+    border: 1px solid var(--theme-border);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.performance-dashboard-embedded button {
+    background: var(--theme-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.performance-dashboard-embedded button:hover {
+    background: var(--theme-primary);
+    filter: brightness(1.1);
+}
+
+.performance-dashboard-embedded button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Performance Controls Blue Button Override */
+.performance-controls .btn-primary,
+.performance-controls button {
+    background-color: #007bff !important;
+    background: #007bff !important;
+    border-color: #007bff !important;
+    color: white !important;
+    border: 2px solid #007bff !important;
+}
+
+.performance-controls .btn-primary:hover,
+.performance-controls button:hover {
+    background-color: #0056b3 !important;
+    background: #0056b3 !important;
+    border-color: #0056b3 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
+}
+
+/* Performance Dashboard Embedded Blue Button Override */
+.performance-dashboard-embedded button {
+    background: #007bff !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.performance-dashboard-embedded button:hover {
+    background: #0056b3 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
+    filter: none !important;
+}
+
+/* Additional profile button overrides for maximum specificity */
+.container .card button.profile-btn-blue,
+.page-content button.profile-btn-blue {
+    background-color: #007bff !important;
+    background: #007bff !important;
+    border-color: #007bff !important;
+    color: white !important;
+}
+
+.container .card button.profile-btn-blue:hover,
+.page-content button.profile-btn-blue:hover {
+    background-color: #0056b3 !important;
+    background: #0056b3 !important;
+    border-color: #0056b3 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
 }

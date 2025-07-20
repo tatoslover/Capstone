@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getPerformanceMetrics, logPerformanceSummary, exportPerformanceData } from '../utils/performance';
 
-const PerformanceDashboard = ({ isVisible = false }) => {
+// API Configuration
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
+const PerformanceDashboard = ({ isVisible = false, embedded = false }) => {
   const [metrics, setMetrics] = useState(null);
   const [backendMetrics, setBackendMetrics] = useState(null);
   const [refreshInterval, setRefreshInterval] = useState(5000);
@@ -16,13 +19,16 @@ const PerformanceDashboard = ({ isVisible = false }) => {
   // Fetch backend metrics
   const fetchBackendMetrics = async () => {
     try {
-      const response = await fetch('/api/monitoring/performance');
+      const response = await fetch(`${API_BASE_URL}/api/monitoring/performance`);
       if (response.ok) {
         const data = await response.json();
         setBackendMetrics(data);
       }
     } catch (error) {
-      console.warn('Failed to fetch backend metrics:', error);
+      // Silently handle backend unavailability - this is optional functionality
+      if (process.env.NODE_ENV === 'development') {
+        console.debug('Backend metrics unavailable (this is optional):', error.message);
+      }
     }
   };
 
@@ -81,35 +87,46 @@ const PerformanceDashboard = ({ isVisible = false }) => {
 
   return (
     <div style={{
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      width: '400px',
-      maxHeight: '80vh',
-      backgroundColor: '#1f2937',
-      color: '#f9fafb',
-      border: '1px solid #374151',
+      position: embedded ? 'relative' : 'fixed',
+      top: embedded ? 'auto' : '20px',
+      right: embedded ? 'auto' : '20px',
+      width: embedded ? '100%' : '400px',
+      maxHeight: embedded ? 'none' : '80vh',
+      backgroundColor: embedded ? 'var(--theme-cardBg)' : '#1f2937',
+      color: embedded ? 'var(--theme-text)' : '#f9fafb',
+      border: embedded ? '1px solid var(--theme-border)' : '1px solid #374151',
       borderRadius: '8px',
       padding: '20px',
       fontSize: '14px',
       fontFamily: 'monospace',
-      overflowY: 'auto',
-      zIndex: 9999,
-      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)'
+      overflowY: embedded ? 'visible' : 'auto',
+      zIndex: embedded ? 'auto' : 9999,
+      boxShadow: embedded ? 'none' : '0 10px 25px rgba(0, 0, 0, 0.5)'
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h3 style={{ margin: 0, color: '#3b82f6' }}>⚡ Performance Dashboard</h3>
+        <h3 style={{ margin: 0, color: embedded ? 'var(--theme-primary)' : '#3b82f6' }}>⚡ Performance Dashboard</h3>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button
             onClick={refreshMetrics}
             style={{
               padding: '4px 8px',
-              backgroundColor: '#3b82f6',
+              backgroundColor: '#007bff',
               color: 'white',
               border: 'none',
               borderRadius: '4px',
               cursor: 'pointer',
-              fontSize: '12px'
+              fontSize: '12px',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#0056b3';
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#007bff';
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = 'none';
             }}
           >
             🔄
@@ -132,12 +149,23 @@ const PerformanceDashboard = ({ isVisible = false }) => {
             onClick={exportPerformanceData}
             style={{
               padding: '4px 8px',
-              backgroundColor: '#8b5cf6',
+              backgroundColor: '#007bff',
               color: 'white',
               border: 'none',
               borderRadius: '4px',
               cursor: 'pointer',
-              fontSize: '12px'
+              fontSize: '12px',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#0056b3';
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#007bff';
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = 'none';
             }}
           >
             📁
@@ -147,7 +175,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
 
       {/* Session Info */}
       <div style={{ marginBottom: '20px' }}>
-        <h4 style={{ margin: '0 0 10px 0', color: '#10b981' }}>📊 Session</h4>
+        <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-success)' : '#10b981' }}>📊 Session</h4>
         <div style={{ marginLeft: '10px' }}>
           <div>Duration: {formatDuration(metrics.session.duration)}</div>
           <div>Page: {window.location.pathname}</div>
@@ -156,7 +184,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
 
       {/* Web Vitals */}
       <div style={{ marginBottom: '20px' }}>
-        <h4 style={{ margin: '0 0 10px 0', color: '#10b981' }}>🎯 Web Vitals</h4>
+        <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-success)' : '#10b981' }}>🎯 Web Vitals</h4>
         <div style={{ marginLeft: '10px' }}>
           {metrics.webVitals.lcp && (
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -187,7 +215,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
 
       {/* API Calls */}
       <div style={{ marginBottom: '20px' }}>
-        <h4 style={{ margin: '0 0 10px 0', color: '#10b981' }}>🌐 API Calls</h4>
+        <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-success)' : '#10b981' }}>🌐 API Calls</h4>
         <div style={{ marginLeft: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Total:</span>
@@ -216,7 +244,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
 
       {/* User Interactions */}
       <div style={{ marginBottom: '20px' }}>
-        <h4 style={{ margin: '0 0 10px 0', color: '#10b981' }}>👆 Interactions</h4>
+        <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-success)' : '#10b981' }}>👆 Interactions</h4>
         <div style={{ marginLeft: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Total:</span>
@@ -238,7 +266,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
       {/* Memory Usage */}
       {metrics.memory && (
         <div style={{ marginBottom: '20px' }}>
-          <h4 style={{ margin: '0 0 10px 0', color: '#10b981' }}>🧠 Memory</h4>
+          <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-success)' : '#10b981' }}>🧠 Memory</h4>
           <div style={{ marginLeft: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>Used:</span>
@@ -264,7 +292,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
       {/* Connection Info */}
       {metrics.connection && (
         <div style={{ marginBottom: '20px' }}>
-          <h4 style={{ margin: '0 0 10px 0', color: '#10b981' }}>📶 Connection</h4>
+          <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-success)' : '#10b981' }}>📶 Connection</h4>
           <div style={{ marginLeft: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>Type:</span>
@@ -285,7 +313,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
       {/* Backend Metrics */}
       {backendMetrics && (
         <div style={{ marginBottom: '20px' }}>
-          <h4 style={{ margin: '0 0 10px 0', color: '#10b981' }}>🖥️ Backend</h4>
+          <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-success)' : '#10b981' }}>🖥️ Backend</h4>
           <div style={{ marginLeft: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>Status:</span>
@@ -317,7 +345,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
       {/* Errors */}
       {metrics.errors.total > 0 && (
         <div style={{ marginBottom: '20px' }}>
-          <h4 style={{ margin: '0 0 10px 0', color: '#ef4444' }}>🚨 Errors</h4>
+          <h4 style={{ margin: '0 0 10px 0', color: embedded ? 'var(--theme-error)' : '#ef4444' }}>🚨 Errors</h4>
           <div style={{ marginLeft: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>Total:</span>
@@ -338,7 +366,7 @@ const PerformanceDashboard = ({ isVisible = false }) => {
       )}
 
       {/* Controls */}
-      <div style={{ marginTop: '20px', paddingTop: '10px', borderTop: '1px solid #374151' }}>
+      <div style={{ marginTop: '20px', paddingTop: '10px', borderTop: embedded ? '1px solid var(--theme-border)' : '1px solid #374151' }}>
         <div style={{ marginBottom: '10px' }}>
           <label style={{ display: 'block', marginBottom: '5px', fontSize: '12px' }}>
             Refresh Interval:
@@ -349,9 +377,9 @@ const PerformanceDashboard = ({ isVisible = false }) => {
             style={{
               width: '100%',
               padding: '4px',
-              backgroundColor: '#374151',
-              color: '#f9fafb',
-              border: '1px solid #4b5563',
+              backgroundColor: embedded ? 'var(--theme-cardBg)' : '#374151',
+              color: embedded ? 'var(--theme-text)' : '#f9fafb',
+              border: embedded ? '1px solid var(--theme-border)' : '1px solid #4b5563',
               borderRadius: '4px'
             }}
           >
@@ -367,12 +395,23 @@ const PerformanceDashboard = ({ isVisible = false }) => {
           style={{
             width: '100%',
             padding: '8px',
-            backgroundColor: '#6366f1',
+            backgroundColor: '#007bff',
             color: 'white',
             border: 'none',
             borderRadius: '4px',
             cursor: 'pointer',
-            fontSize: '12px'
+            fontSize: '12px',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#0056b3';
+            e.target.style.transform = 'translateY(-2px)';
+            e.target.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = '#007bff';
+            e.target.style.transform = 'translateY(0)';
+            e.target.style.boxShadow = 'none';
           }}
         >
           📋 Log Summary to Console

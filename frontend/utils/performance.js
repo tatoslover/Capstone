@@ -3,6 +3,14 @@
  * Tracks client-side performance metrics for the Planeswalker's Primer application
  */
 
+// API Configuration
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
+// Backend availability tracking
+let backendAvailable = null; // null = unknown, true = available, false = unavailable
+let backendCheckTime = 0;
+const BACKEND_CHECK_INTERVAL = 300000; // Check every 5 minutes
+
 // Performance metrics storage
 let performanceMetrics = {
   pageLoads: [],
@@ -23,12 +31,65 @@ const VITALS_THRESHOLDS = {
 };
 
 /**
+ * Check if backend monitoring is available
+ */
+const checkBackendAvailability = async () => {
+  const now = Date.now();
+
+  // Use cached result if recent
+  if (backendAvailable !== null && (now - backendCheckTime) < BACKEND_CHECK_INTERVAL) {
+    return backendAvailable;
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout for availability check
+
+    const response = await fetch(`${API_BASE_URL}/api/monitoring/health`, {
+      method: 'GET',
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+    backendAvailable = response.ok;
+    backendCheckTime = now;
+
+    if (backendAvailable && process.env.NODE_ENV === 'development') {
+      console.log('✅ Backend monitoring available');
+    }
+
+    return backendAvailable;
+
+  } catch (error) {
+    backendAvailable = false;
+    backendCheckTime = now;
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('ℹ️ Backend monitoring unavailable (this is optional)');
+    }
+
+    return false;
+  }
+};
+
+/**
  * Initialize performance monitoring
  */
-export const initPerformanceMonitoring = () => {
+export const initPerformanceMonitoring = async () => {
   if (typeof window === 'undefined') return;
 
   console.log('🚀 Initialising frontend performance monitoring...');
+
+  // Check backend availability and show status
+  const isBackendAvailable = await checkBackendAvailability();
+
+  if (process.env.NODE_ENV === 'development') {
+    if (isBackendAvailable) {
+      console.log('✅ Backend monitoring connected - full metrics available');
+    } else {
+      console.log('ℹ️ Backend monitoring unavailable - UI-only mode (this is normal)');
+    }
+  }
 
   // Track page load performance
   trackPageLoad();
@@ -55,7 +116,11 @@ export const initPerformanceMonitoring = () => {
  * Track page load performance
  */
 const trackPageLoad = () => {
+  if (typeof window === 'undefined') return;
+
   window.addEventListener('load', () => {
+    if (!window.performance) return;
+
     const navigation = performance.getEntriesByType('navigation')[0];
     const paint = performance.getEntriesByType('paint');
 
@@ -87,7 +152,7 @@ const trackPageLoad = () => {
  * Track Web Vitals using Performance Observer
  */
 const trackWebVitals = () => {
-  if (!window.PerformanceObserver) return;
+  if (typeof window === 'undefined' || !window.PerformanceObserver) return;
 
   // Largest Contentful Paint
   new PerformanceObserver((entryList) => {
@@ -131,7 +196,11 @@ const trackWebVitals = () => {
  * Track user interactions performance
  */
 const trackUserInteractions = () => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
   const trackInteraction = (type, target) => {
+    if (!window.performance) return;
+
     const startTime = performance.now();
 
     // Track interaction after next frame
@@ -182,10 +251,14 @@ const trackUserInteractions = () => {
  * Monitor API call performance
  */
 const setupAPIMonitoring = () => {
+  if (typeof window === 'undefined' || !window.fetch) return;
+
   // Override fetch to monitor API calls
   const originalFetch = window.fetch;
 
   window.fetch = async function(...args) {
+    if (!window.performance) return originalFetch.apply(this, args);
+
     const startTime = performance.now();
     const url = args[0];
 
@@ -241,7 +314,10 @@ const setupAPIMonitoring = () => {
  * Track JavaScript errors and performance issues
  */
 const trackErrors = () => {
+  if (typeof window === 'undefined') return;
+
   // Track unhandled errors
+  // Track JavaScript errors
   window.addEventListener('error', (event) => {
     const error = {
       type: 'javascript_error',
@@ -254,7 +330,11 @@ const trackErrors = () => {
     };
 
     performanceMetrics.errors.push(error);
-    console.error('🚨 JavaScript error tracked:', error);
+
+    // Only log errors in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.error('🚨 JavaScript error tracked:', error);
+    }
   });
 
   // Track unhandled promise rejections
@@ -267,7 +347,11 @@ const trackErrors = () => {
     };
 
     performanceMetrics.errors.push(error);
-    console.error('🚨 Unhandled promise rejection tracked:', error);
+
+    // Only log errors in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.error('🚨 Unhandled promise rejection tracked:', error);
+    }
   });
 };
 
@@ -275,10 +359,18 @@ const trackErrors = () => {
  * Set up periodic performance reporting
  */
 const setupPeriodicReporting = () => {
-  // Report metrics every 30 seconds
-  setInterval(() => {
-    reportPerformanceMetrics();
-  }, 30000);
+  if (typeof window === 'undefined') return;
+
+  // Report metrics every 60 seconds in development or when explicitly enabled
+  if (process.env.NODE_ENV === 'development' || localStorage.getItem('enablePerformanceReporting') === 'true') {
+    // Report metrics every 60 seconds (reduced frequency)
+    setInterval(async () => {
+      const isBackendAvailable = await checkBackendAvailability();
+      if (isBackendAvailable) {
+        reportPerformanceMetrics();
+      }
+    }, 60000);
+  }
 
   // Report metrics before page unload
   window.addEventListener('beforeunload', () => {
@@ -355,7 +447,7 @@ const calculateAverageInteractionTime = () => {
  * Get memory usage information
  */
 const getMemoryUsage = () => {
-  if (!performance.memory) return null;
+  if (typeof window === 'undefined' || !window.performance || !performance.memory) return null;
 
   return {
     usedJSHeapSize: performance.memory.usedJSHeapSize,
@@ -369,7 +461,7 @@ const getMemoryUsage = () => {
  * Get connection information
  */
 const getConnectionInfo = () => {
-  if (!navigator.connection) return null;
+  if (typeof window === 'undefined' || typeof navigator === 'undefined' || !navigator.connection) return null;
 
   return {
     effectiveType: navigator.connection.effectiveType,
@@ -383,6 +475,13 @@ const getConnectionInfo = () => {
  * Report performance metrics to backend
  */
 const reportPerformanceMetrics = async () => {
+  if (typeof window === 'undefined') return;
+
+  // Skip if backend is known to be unavailable
+  if (backendAvailable === false) {
+    return;
+  }
+
   try {
     const metrics = getPerformanceMetrics();
 
@@ -391,8 +490,11 @@ const reportPerformanceMetrics = async () => {
       return;
     }
 
-    // Send metrics to backend monitoring endpoint
-    await fetch('/api/monitoring/client-metrics', {
+    // Send metrics to backend monitoring endpoint with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
+    const response = await fetch(`${API_BASE_URL}/api/monitoring/client-metrics`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -402,11 +504,46 @@ const reportPerformanceMetrics = async () => {
         userAgent: navigator.userAgent,
         timestamp: Date.now(),
         metrics
-      })
+      }),
+      signal: controller.signal
     });
 
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    // Mark backend as available if successful
+    backendAvailable = true;
+    backendCheckTime = Date.now();
+
   } catch (error) {
-    console.warn('Failed to report performance metrics:', error);
+    // Handle backend unavailability silently - this is optional functionality
+    if (error.name === 'AbortError') {
+      // Timeout - mark backend as potentially unavailable
+      backendAvailable = false;
+      backendCheckTime = Date.now();
+    } else if (error.message.includes('404') || error.message.includes('fetch')) {
+      // 404 or network error - mark backend as unavailable
+      backendAvailable = false;
+      backendCheckTime = Date.now();
+    } else {
+      // Other errors - don't update availability status
+    }
+
+    // Only log in development mode
+    if (process.env.NODE_ENV === 'development') {
+      if (error.name === 'AbortError') {
+        console.debug('Performance metrics reporting timed out (backend may be unavailable)');
+      } else if (error.message.includes('404')) {
+        console.debug('Performance metrics endpoint not available (this is optional)');
+      } else if (error.message.includes('fetch')) {
+        console.debug('Backend unavailable for performance metrics');
+      } else {
+        console.debug('Performance metrics reporting issue:', error.message);
+      }
+    }
   }
 };
 
@@ -414,32 +551,42 @@ const reportPerformanceMetrics = async () => {
  * Log performance summary to console
  */
 export const logPerformanceSummary = () => {
-  const metrics = getPerformanceMetrics();
+  try {
+    const metrics = getPerformanceMetrics();
 
-  console.group('📊 Performance Summary');
-  console.log('Session Duration:', Math.round(metrics.session.duration / 1000) + 's');
+    console.group('📊 Performance Summary');
+    console.log('Session Duration:', Math.round(metrics.session.duration / 1000) + 's');
 
-  if (metrics.webVitals.lcp) {
-    console.log('LCP:', metrics.webVitals.lcp.value + 'ms', `(${metrics.webVitals.lcp.rating})`);
+    if (metrics.webVitals.lcp) {
+      console.log('LCP:', metrics.webVitals.lcp.value + 'ms', `(${metrics.webVitals.lcp.rating})`);
+    }
+
+    if (metrics.webVitals.fid) {
+      console.log('FID:', metrics.webVitals.fid.value + 'ms', `(${metrics.webVitals.fid.rating})`);
+    }
+
+    if (metrics.webVitals.cls) {
+      console.log('CLS:', metrics.webVitals.cls.value, `(${metrics.webVitals.cls.rating})`);
+    }
+
+    console.log('API Calls:', metrics.apiCalls.total, 'avg:', metrics.apiCalls.averageResponseTime + 'ms');
+    console.log('User Interactions:', metrics.userInteractions.total, 'avg:', metrics.userInteractions.averageResponseTime + 'ms');
+    console.log('Errors:', metrics.errors.total);
+
+    if (metrics.memory) {
+      console.log('Memory Usage:', metrics.memory.usedPercentage + '%');
+    }
+
+    console.log('Current Page:', window.location.pathname);
+    console.log('Timestamp:', new Date().toISOString());
+
+    console.groupEnd();
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Failed to generate performance summary:', error);
+    }
+    console.log('📊 Basic Performance Info Available - check window.performanceUtils for debugging');
   }
-
-  if (metrics.webVitals.fid) {
-    console.log('FID:', metrics.webVitals.fid.value + 'ms', `(${metrics.webVitals.fid.rating})`);
-  }
-
-  if (metrics.webVitals.cls) {
-    console.log('CLS:', metrics.webVitals.cls.value, `(${metrics.webVitals.cls.rating})`);
-  }
-
-  console.log('API Calls:', metrics.apiCalls.total, 'avg:', metrics.apiCalls.averageResponseTime + 'ms');
-  console.log('User Interactions:', metrics.userInteractions.total, 'avg:', metrics.userInteractions.averageResponseTime + 'ms');
-  console.log('Errors:', metrics.errors.total);
-
-  if (metrics.memory) {
-    console.log('Memory Usage:', metrics.memory.usedPercentage + '%');
-  }
-
-  console.groupEnd();
 };
 
 /**
@@ -460,22 +607,51 @@ export const clearPerformanceMetrics = () => {
  * Export performance data for analysis
  */
 export const exportPerformanceData = () => {
-  const data = {
-    exportTime: new Date().toISOString(),
-    url: window.location.href,
-    userAgent: navigator.userAgent,
-    metrics: getPerformanceMetrics()
-  };
+  if (typeof window === 'undefined') return;
 
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `performance-metrics-${Date.now()}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  try {
+    const data = {
+      exportTime: new Date().toISOString(),
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      metrics: getPerformanceMetrics(),
+      browserInfo: {
+        platform: navigator.platform,
+        language: navigator.language,
+        cookieEnabled: navigator.cookieEnabled,
+        onLine: navigator.onLine
+      }
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `performance-metrics-${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    console.log('📁 Performance report exported successfully');
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Failed to export performance data:', error);
+    }
+    // Fallback: log data to console
+    console.log('📊 Performance Data (export failed, logging to console):', getPerformanceMetrics());
+  }
+};
+
+/**
+ * Get backend monitoring status for UI components
+ */
+export const getBackendMonitoringStatus = () => {
+  return {
+    available: backendAvailable,
+    lastChecked: backendCheckTime,
+    nextCheck: backendCheckTime + BACKEND_CHECK_INTERVAL
+  };
 };
 
 // Development helpers
@@ -484,6 +660,19 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
     getMetrics: getPerformanceMetrics,
     logSummary: logPerformanceSummary,
     exportData: exportPerformanceData,
-    clearMetrics: clearPerformanceMetrics
+    clearMetrics: clearPerformanceMetrics,
+    reportMetrics: reportPerformanceMetrics,
+    getBackendStatus: getBackendMonitoringStatus,
+    // Additional debugging helpers
+    debugInfo: () => {
+      console.log('📊 Performance Monitoring Debug Info:', {
+        isInitialised: !!performanceMetrics,
+        sessionStart: new Date(performanceMetrics.sessionStart).toISOString(),
+        totalApiCalls: performanceMetrics.apiCalls.length,
+        totalInteractions: performanceMetrics.userInteractions.length,
+        totalErrors: performanceMetrics.errors.length,
+        webVitalsCollected: Object.keys(performanceMetrics.vitals).length
+      });
+    }
   };
 }
