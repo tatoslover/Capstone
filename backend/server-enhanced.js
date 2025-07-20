@@ -86,10 +86,8 @@ app.use(cors({
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
 
-        // Allow any Vercel deployment URL that contains 'capstone' and 'samuel-loves-projects'
-        if (origin.includes('vercel.app') &&
-            origin.includes('capstone') &&
-            origin.includes('samuel-loves-projects')) {
+        // Allow any Vercel deployment URL that contains 'capstone'
+        if (origin.includes('vercel.app') && origin.includes('capstone')) {
           return callback(null, true);
         }
 
