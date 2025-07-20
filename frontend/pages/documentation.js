@@ -566,7 +566,7 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Code Repository</h4>
           <p className="doc-paragraph">
-            Source code available on GitHub: <a href="https://github.com/samuellove/Capstone" target="_blank" rel="noopener noreferrer">github.com/samuellove/Capstone</a>
+            Source code available on GitHub: <a href="https://github.com/tatoslover/Capstone" target="_blank" rel="noopener noreferrer">github.com/tatoslover/Capstone</a>
           </p>
 
           <h4 className="doc-heading">External Resources</h4>
