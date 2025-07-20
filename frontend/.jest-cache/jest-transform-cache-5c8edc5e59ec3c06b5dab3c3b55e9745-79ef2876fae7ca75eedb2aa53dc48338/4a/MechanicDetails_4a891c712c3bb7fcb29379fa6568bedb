@@ -1,0 +1,446 @@
+86d632b7c5104b9c3bf407598141f668
+"use strict";
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+Object.defineProperty(exports, "default", {
+    enumerable: true,
+    get: function() {
+        return MechanicDetails;
+    }
+});
+const _jsxruntime = require("react/jsx-runtime");
+const _react = require("react");
+const _mechanics = require("../../data/mechanics");
+function MechanicDetails({ mechanic }) {
+    if (!mechanic) {
+        return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+            style: {
+                textAlign: "center",
+                padding: "3rem 1rem",
+                color: "#6c757d",
+                background: "#f8f9fa",
+                borderRadius: "0.5rem"
+            },
+            children: [
+                /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                    style: {
+                        fontSize: "3rem",
+                        marginBottom: "1rem"
+                    },
+                    children: "\uD83D\uDCD6"
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                    children: "Select a Mechanic"
+                }),
+                /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                    children: "Search for and select any mechanic above to learn more about it."
+                })
+            ]
+        });
+    }
+    const mechanicDetails = (0, _mechanics.getMechanicDetails)(mechanic.name);
+    const wikiUrl = (0, _mechanics.getMechanicWikiUrl)(mechanic.name);
+    const isEvergreen = mechanicDetails?.isEvergreen || _mechanics.evergreenKeywords.includes(mechanic.name);
+    const isBeginnerFriendly = mechanicDetails?.isEvergreen || _mechanics.beginnerFriendly.includes(mechanic.name);
+    // Get category colour
+    const getCategoryColor = (category)=>{
+        switch(category){
+            case "evasion":
+                return "#0d6efd";
+            case "combat":
+                return "#dc3545";
+            case "protection":
+                return "#198754";
+            case "utility":
+                return "#ffc107";
+            case "timing":
+                return "#6f42c1";
+            case "cost_reduction":
+                return "#20c997";
+            case "triggered":
+                return "#fd7e14";
+            default:
+                return "#6c757d";
+        }
+    };
+    // Get category emoji
+    const getCategoryEmoji = (category)=>{
+        const emojiMap = {
+            evasion: "\uD83E\uDD85",
+            combat: "⚔️",
+            protection: "\uD83D\uDEE1️",
+            damage: "\uD83D\uDCA5",
+            lifegain: "❤️",
+            timing: "⏰",
+            card_advantage: "\uD83D\uDCDA",
+            card_selection: "\uD83D\uDD0D",
+            triggered_ability: "⚡",
+            restriction: "\uD83D\uDEAB",
+            other: "⭐"
+        };
+        return emojiMap[category] || "⭐";
+    };
+    return /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+        className: "mechanic-details",
+        children: [
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                style: {
+                    background: "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)",
+                    color: "white",
+                    padding: "2rem",
+                    borderRadius: "0.75rem",
+                    marginBottom: "2rem",
+                    border: "1px solid #444"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("h1", {
+                        style: {
+                            margin: "0 0 1rem 0",
+                            fontSize: "2.5rem",
+                            fontWeight: "700"
+                        },
+                        children: mechanic.name
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        style: {
+                            display: "flex",
+                            gap: "0.75rem",
+                            flexWrap: "wrap",
+                            marginBottom: "1rem"
+                        },
+                        children: [
+                            isEvergreen && /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                style: {
+                                    background: "rgba(40, 167, 69, 0.9)",
+                                    padding: "0.25rem 0.75rem",
+                                    borderRadius: "1rem",
+                                    fontSize: "0.9rem",
+                                    fontWeight: "600"
+                                },
+                                children: "♾️ Evergreen"
+                            }),
+                            isBeginnerFriendly && /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                style: {
+                                    background: "rgba(212, 237, 218, 0.9)",
+                                    color: "#155724",
+                                    padding: "0.25rem 0.75rem",
+                                    borderRadius: "1rem",
+                                    fontSize: "0.9rem",
+                                    fontWeight: "600"
+                                },
+                                children: "✨ Beginner-Friendly"
+                            }),
+                            mechanicDetails?.category && /*#__PURE__*/ (0, _jsxruntime.jsxs)("span", {
+                                style: {
+                                    background: getCategoryColor(mechanicDetails.category),
+                                    color: "white",
+                                    padding: "0.25rem 0.75rem",
+                                    borderRadius: "1rem",
+                                    fontSize: "0.9rem",
+                                    fontWeight: "600"
+                                },
+                                children: [
+                                    getCategoryEmoji(mechanicDetails.category),
+                                    " ",
+                                    mechanicDetails.category.replace("_", " ").replace(/\b\w/g, (l)=>l.toUpperCase())
+                                ]
+                            })
+                        ]
+                    }),
+                    mechanicDetails?.description && /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                        style: {
+                            fontSize: "1.2rem",
+                            margin: 0,
+                            lineHeight: "1.6",
+                            opacity: 0.95,
+                            background: "rgba(0, 0, 0, 0.3)",
+                            padding: "1rem",
+                            borderRadius: "0.5rem",
+                            border: "1px solid rgba(255, 255, 255, 0.1)"
+                        },
+                        children: mechanicDetails.description.length > 200 ? mechanicDetails.description.substring(0, 200) + "..." : mechanicDetails.description
+                    })
+                ]
+            }),
+            mechanicDetails?.description && mechanicDetails.description.length > 200 && /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                className: "card",
+                style: {
+                    marginBottom: "2rem"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                        style: {
+                            color: "#ffc107",
+                            marginBottom: "1rem"
+                        },
+                        children: "\uD83D\uDCCB Full Description"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("div", {
+                        style: {
+                            background: "#1a1a1a",
+                            padding: "1.5rem",
+                            borderRadius: "0.5rem",
+                            border: "1px solid #444"
+                        },
+                        children: /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                            style: {
+                                margin: 0,
+                                lineHeight: "1.6",
+                                fontSize: "1rem",
+                                color: "#e0e0e0"
+                            },
+                            children: mechanicDetails.description
+                        })
+                    })
+                ]
+            }),
+            wikiUrl && /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                className: "card",
+                style: {
+                    marginBottom: "2rem"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsx)("h3", {
+                        style: {
+                            color: "#ffc107",
+                            marginBottom: "1rem"
+                        },
+                        children: "\uD83D\uDD17 Learn More"
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        style: {
+                            background: "#1a1a1a",
+                            padding: "1.5rem",
+                            borderRadius: "0.5rem",
+                            border: "1px solid #444"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("a", {
+                                href: wikiUrl,
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                                style: {
+                                    color: "#0070f3",
+                                    textDecoration: "none",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                    fontSize: "1.1rem",
+                                    fontWeight: "500",
+                                    padding: "0.75rem 1rem",
+                                    background: "rgba(0, 112, 243, 0.1)",
+                                    borderRadius: "0.5rem",
+                                    border: "1px solid rgba(0, 112, 243, 0.3)",
+                                    transition: "all 0.2s ease"
+                                },
+                                onMouseEnter: (e)=>{
+                                    e.target.style.background = "rgba(0, 112, 243, 0.2)";
+                                    e.target.style.transform = "translateY(-1px)";
+                                },
+                                onMouseLeave: (e)=>{
+                                    e.target.style.background = "rgba(0, 112, 243, 0.1)";
+                                    e.target.style.transform = "translateY(0)";
+                                },
+                                children: "\uD83D\uDCD6 View on MTG Wiki ↗"
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("p", {
+                                style: {
+                                    margin: "0.75rem 0 0 0",
+                                    color: "#ccc",
+                                    fontSize: "0.9rem"
+                                },
+                                children: "Visit the MTG Wiki for comprehensive rules details, card examples, and rulings."
+                            })
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                style: {
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                    gap: "1rem",
+                    marginBottom: "2rem"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        className: "card",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("h4", {
+                                style: {
+                                    color: "#ffc107",
+                                    marginBottom: "0.75rem"
+                                },
+                                children: "\uD83C\uDFF7️ Classification"
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                style: {
+                                    fontSize: "0.9rem",
+                                    color: "#e0e0e0"
+                                },
+                                children: [
+                                    mechanicDetails?.category && /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                        style: {
+                                            margin: "0 0 0.5rem 0"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                children: "Category:"
+                                            }),
+                                            " ",
+                                            /*#__PURE__*/ (0, _jsxruntime.jsxs)("span", {
+                                                style: {
+                                                    color: getCategoryColor(mechanicDetails.category),
+                                                    fontWeight: "500"
+                                                },
+                                                children: [
+                                                    getCategoryEmoji(mechanicDetails.category),
+                                                    " ",
+                                                    mechanicDetails.category.replace("_", " ").replace(/\b\w/g, (l)=>l.toUpperCase())
+                                                ]
+                                            })
+                                        ]
+                                    }),
+                                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                        style: {
+                                            margin: "0 0 0.5rem 0"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                children: "Type:"
+                                            }),
+                                            " ",
+                                            isEvergreen ? "Evergreen Keyword" : "Non-Evergreen Mechanic"
+                                        ]
+                                    }),
+                                    isBeginnerFriendly && /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                        style: {
+                                            margin: 0,
+                                            color: "#28a745"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                children: "✨ Beginner-Friendly:"
+                                            }),
+                                            " Great for new players"
+                                        ]
+                                    })
+                                ]
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        className: "card",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsx)("h4", {
+                                style: {
+                                    color: "#ffc107",
+                                    marginBottom: "0.75rem"
+                                },
+                                children: "\uD83D\uDCCA Quick Facts"
+                            }),
+                            /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                                style: {
+                                    fontSize: "0.9rem",
+                                    color: "#e0e0e0"
+                                },
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                        style: {
+                                            margin: "0 0 0.5rem 0"
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                children: "Status:"
+                                            }),
+                                            " ",
+                                            /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                style: {
+                                                    color: isEvergreen ? "#28a745" : "#6c757d",
+                                                    fontWeight: "500"
+                                                },
+                                                children: isEvergreen ? "♾️ Always available" : "\uD83D\uDCE6 Set-specific"
+                                            })
+                                        ]
+                                    }),
+                                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                        style: {
+                                            margin: 0
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxruntime.jsx)("strong", {
+                                                children: "Complexity:"
+                                            }),
+                                            " ",
+                                            /*#__PURE__*/ (0, _jsxruntime.jsx)("span", {
+                                                style: {
+                                                    color: isBeginnerFriendly ? "#28a745" : "#ffc107"
+                                                },
+                                                children: isBeginnerFriendly ? "\uD83D\uDFE2 Simple" : "\uD83D\uDFE1 Intermediate"
+                                            })
+                                        ]
+                                    })
+                                ]
+                            })
+                        ]
+                    })
+                ]
+            }),
+            !mechanicDetails && /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                className: "card",
+                children: [
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("h3", {
+                        style: {
+                            color: "#ffc107",
+                            marginBottom: "1rem"
+                        },
+                        children: [
+                            "\uD83D\uDCCB About ",
+                            mechanic.name
+                        ]
+                    }),
+                    /*#__PURE__*/ (0, _jsxruntime.jsxs)("div", {
+                        style: {
+                            background: "#1a1a1a",
+                            padding: "1.5rem",
+                            borderRadius: "0.5rem",
+                            border: "1px solid #444"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, _jsxruntime.jsxs)("p", {
+                                style: {
+                                    margin: "0 0 1rem 0",
+                                    lineHeight: "1.6",
+                                    fontSize: "1rem",
+                                    color: "#e0e0e0"
+                                },
+                                children: [
+                                    mechanic.name,
+                                    " is a Magic: The Gathering mechanic."
+                                ]
+                            }),
+                            wikiUrl && /*#__PURE__*/ (0, _jsxruntime.jsx)("a", {
+                                href: wikiUrl,
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                                style: {
+                                    color: "#0070f3",
+                                    textDecoration: "none",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                    fontSize: "1rem",
+                                    fontWeight: "500"
+                                },
+                                children: "\uD83D\uDCD6 Learn more on MTG Wiki ↗"
+                            })
+                        ]
+                    })
+                ]
+            })
+        ]
+    });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW11ZWxsb3ZlL0RvY3VtZW50cy9HaXRIdWIvQ2Fwc3RvbmUvZnJvbnRlbmQvY29tcG9uZW50cy9NZWNoYW5pY3MvTWVjaGFuaWNEZXRhaWxzLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCB7XG4gIGV2ZXJncmVlbktleXdvcmRzLFxuICBiZWdpbm5lckZyaWVuZGx5LFxuICBnZXRNZWNoYW5pY0RldGFpbHMsXG4gIGdldE1lY2hhbmljV2lraVVybCxcbn0gZnJvbSBcIi4uLy4uL2RhdGEvbWVjaGFuaWNzXCI7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIE1lY2hhbmljRGV0YWlscyh7IG1lY2hhbmljIH0pIHtcbiAgaWYgKCFtZWNoYW5pYykge1xuICAgIHJldHVybiAoXG4gICAgICA8ZGl2XG4gICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgdGV4dEFsaWduOiBcImNlbnRlclwiLFxuICAgICAgICAgIHBhZGRpbmc6IFwiM3JlbSAxcmVtXCIsXG4gICAgICAgICAgY29sb3I6IFwiIzZjNzU3ZFwiLFxuICAgICAgICAgIGJhY2tncm91bmQ6IFwiI2Y4ZjlmYVwiLFxuICAgICAgICAgIGJvcmRlclJhZGl1czogXCIwLjVyZW1cIixcbiAgICAgICAgfX1cbiAgICAgID5cbiAgICAgICAgPGRpdiBzdHlsZT17eyBmb250U2l6ZTogXCIzcmVtXCIsIG1hcmdpbkJvdHRvbTogXCIxcmVtXCIgfX0+8J+TljwvZGl2PlxuICAgICAgICA8aDM+U2VsZWN0IGEgTWVjaGFuaWM8L2gzPlxuICAgICAgICA8cD5TZWFyY2ggZm9yIGFuZCBzZWxlY3QgYW55IG1lY2hhbmljIGFib3ZlIHRvIGxlYXJuIG1vcmUgYWJvdXQgaXQuPC9wPlxuICAgICAgPC9kaXY+XG4gICAgKTtcbiAgfVxuXG4gIGNvbnN0IG1lY2hhbmljRGV0YWlscyA9IGdldE1lY2hhbmljRGV0YWlscyhtZWNoYW5pYy5uYW1lKTtcbiAgY29uc3Qgd2lraVVybCA9IGdldE1lY2hhbmljV2lraVVybChtZWNoYW5pYy5uYW1lKTtcbiAgY29uc3QgaXNFdmVyZ3JlZW4gPSBtZWNoYW5pY0RldGFpbHM/LmlzRXZlcmdyZWVuIHx8IGV2ZXJncmVlbktleXdvcmRzLmluY2x1ZGVzKG1lY2hhbmljLm5hbWUpO1xuICBjb25zdCBpc0JlZ2lubmVyRnJpZW5kbHkgPSBtZWNoYW5pY0RldGFpbHM/LmlzRXZlcmdyZWVuIHx8IGJlZ2lubmVyRnJpZW5kbHkuaW5jbHVkZXMobWVjaGFuaWMubmFtZSk7XG5cbiAgLy8gR2V0IGNhdGVnb3J5IGNvbG91clxuICBjb25zdCBnZXRDYXRlZ29yeUNvbG9yID0gKGNhdGVnb3J5KSA9PiB7XG4gICAgc3dpdGNoIChjYXRlZ29yeSkge1xuICAgICAgY2FzZSBcImV2YXNpb25cIjpcbiAgICAgICAgcmV0dXJuIFwiIzBkNmVmZFwiO1xuICAgICAgY2FzZSBcImNvbWJhdFwiOlxuICAgICAgICByZXR1cm4gXCIjZGMzNTQ1XCI7XG4gICAgICBjYXNlIFwicHJvdGVjdGlvblwiOlxuICAgICAgICByZXR1cm4gXCIjMTk4NzU0XCI7XG4gICAgICBjYXNlIFwidXRpbGl0eVwiOlxuICAgICAgICByZXR1cm4gXCIjZmZjMTA3XCI7XG4gICAgICBjYXNlIFwidGltaW5nXCI6XG4gICAgICAgIHJldHVybiBcIiM2ZjQyYzFcIjtcbiAgICAgIGNhc2UgXCJjb3N0X3JlZHVjdGlvblwiOlxuICAgICAgICByZXR1cm4gXCIjMjBjOTk3XCI7XG4gICAgICBjYXNlIFwidHJpZ2dlcmVkXCI6XG4gICAgICAgIHJldHVybiBcIiNmZDdlMTRcIjtcbiAgICAgIGRlZmF1bHQ6XG4gICAgICAgIHJldHVybiBcIiM2Yzc1N2RcIjtcbiAgICB9XG4gIH07XG5cbiAgLy8gR2V0IGNhdGVnb3J5IGVtb2ppXG4gIGNvbnN0IGdldENhdGVnb3J5RW1vamkgPSAoY2F0ZWdvcnkpID0+IHtcbiAgICBjb25zdCBlbW9qaU1hcCA9IHtcbiAgICAgIGV2YXNpb246IFwi8J+mhVwiLFxuICAgICAgY29tYmF0OiBcIuKalO+4j1wiLFxuICAgICAgcHJvdGVjdGlvbjogXCLwn5uh77iPXCIsXG4gICAgICBkYW1hZ2U6IFwi8J+SpVwiLFxuICAgICAgbGlmZWdhaW46IFwi4p2k77iPXCIsXG4gICAgICB0aW1pbmc6IFwi4o+wXCIsXG4gICAgICBjYXJkX2FkdmFudGFnZTogXCLwn5OaXCIsXG4gICAgICBjYXJkX3NlbGVjdGlvbjogXCLwn5SNXCIsXG4gICAgICB0cmlnZ2VyZWRfYWJpbGl0eTogXCLimqFcIixcbiAgICAgIHJlc3RyaWN0aW9uOiBcIvCfmqtcIixcbiAgICAgIG90aGVyOiBcIuKtkFwiLFxuICAgIH07XG4gICAgcmV0dXJuIGVtb2ppTWFwW2NhdGVnb3J5XSB8fCBcIuKtkFwiO1xuICB9O1xuXG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJtZWNoYW5pYy1kZXRhaWxzXCI+XG4gICAgICB7LyogSGVhZGVyICovfVxuICAgICAgPGRpdlxuICAgICAgICBzdHlsZT17e1xuICAgICAgICAgIGJhY2tncm91bmQ6IFwibGluZWFyLWdyYWRpZW50KDEzNWRlZywgIzFhMWExYSAwJSwgIzJkMmQyZCAxMDAlKVwiLFxuICAgICAgICAgIGNvbG9yOiBcIndoaXRlXCIsXG4gICAgICAgICAgcGFkZGluZzogXCIycmVtXCIsXG4gICAgICAgICAgYm9yZGVyUmFkaXVzOiBcIjAuNzVyZW1cIixcbiAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMnJlbVwiLFxuICAgICAgICAgIGJvcmRlcjogXCIxcHggc29saWQgIzQ0NFwiLFxuICAgICAgICB9fVxuICAgICAgPlxuICAgICAgICA8aDFcbiAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgbWFyZ2luOiBcIjAgMCAxcmVtIDBcIixcbiAgICAgICAgICAgIGZvbnRTaXplOiBcIjIuNXJlbVwiLFxuICAgICAgICAgICAgZm9udFdlaWdodDogXCI3MDBcIixcbiAgICAgICAgICB9fVxuICAgICAgICA+XG4gICAgICAgICAge21lY2hhbmljLm5hbWV9XG4gICAgICAgIDwvaDE+XG5cbiAgICAgICAgPGRpdlxuICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICBkaXNwbGF5OiBcImZsZXhcIixcbiAgICAgICAgICAgIGdhcDogXCIwLjc1cmVtXCIsXG4gICAgICAgICAgICBmbGV4V3JhcDogXCJ3cmFwXCIsXG4gICAgICAgICAgICBtYXJnaW5Cb3R0b206IFwiMXJlbVwiLFxuICAgICAgICAgIH19XG4gICAgICAgID5cbiAgICAgICAgICB7aXNFdmVyZ3JlZW4gJiYgKFxuICAgICAgICAgICAgPHNwYW5cbiAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiBcInJnYmEoNDAsIDE2NywgNjksIDAuOSlcIixcbiAgICAgICAgICAgICAgICBwYWRkaW5nOiBcIjAuMjVyZW0gMC43NXJlbVwiLFxuICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogXCIxcmVtXCIsXG4gICAgICAgICAgICAgICAgZm9udFNpemU6IFwiMC45cmVtXCIsXG4gICAgICAgICAgICAgICAgZm9udFdlaWdodDogXCI2MDBcIixcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAg4pm+77iPIEV2ZXJncmVlblxuICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICl9XG5cbiAgICAgICAgICB7aXNCZWdpbm5lckZyaWVuZGx5ICYmIChcbiAgICAgICAgICAgIDxzcGFuXG4gICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgYmFja2dyb3VuZDogXCJyZ2JhKDIxMiwgMjM3LCAyMTgsIDAuOSlcIixcbiAgICAgICAgICAgICAgICBjb2xvcjogXCIjMTU1NzI0XCIsXG4gICAgICAgICAgICAgICAgcGFkZGluZzogXCIwLjI1cmVtIDAuNzVyZW1cIixcbiAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6IFwiMXJlbVwiLFxuICAgICAgICAgICAgICAgIGZvbnRTaXplOiBcIjAuOXJlbVwiLFxuICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IFwiNjAwXCIsXG4gICAgICAgICAgICAgIH19XG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIOKcqCBCZWdpbm5lci1GcmllbmRseVxuICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICl9XG5cbiAgICAgICAgICB7bWVjaGFuaWNEZXRhaWxzPy5jYXRlZ29yeSAmJiAoXG4gICAgICAgICAgICA8c3BhblxuICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6IGdldENhdGVnb3J5Q29sb3IobWVjaGFuaWNEZXRhaWxzLmNhdGVnb3J5KSxcbiAgICAgICAgICAgICAgICBjb2xvcjogXCJ3aGl0ZVwiLFxuICAgICAgICAgICAgICAgIHBhZGRpbmc6IFwiMC4yNXJlbSAwLjc1cmVtXCIsXG4gICAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBcIjFyZW1cIixcbiAgICAgICAgICAgICAgICBmb250U2l6ZTogXCIwLjlyZW1cIixcbiAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiBcIjYwMFwiLFxuICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICB7Z2V0Q2F0ZWdvcnlFbW9qaShtZWNoYW5pY0RldGFpbHMuY2F0ZWdvcnkpfXtcIiBcIn1cbiAgICAgICAgICAgICAge21lY2hhbmljRGV0YWlscy5jYXRlZ29yeS5yZXBsYWNlKFwiX1wiLCBcIiBcIikucmVwbGFjZSgvXFxiXFx3L2csIGwgPT4gbC50b1VwcGVyQ2FzZSgpKX1cbiAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICApfVxuXG5cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAge21lY2hhbmljRGV0YWlscz8uZGVzY3JpcHRpb24gJiYgKFxuICAgICAgICAgIDxwXG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBmb250U2l6ZTogXCIxLjJyZW1cIixcbiAgICAgICAgICAgICAgbWFyZ2luOiAwLFxuICAgICAgICAgICAgICBsaW5lSGVpZ2h0OiBcIjEuNlwiLFxuICAgICAgICAgICAgICBvcGFjaXR5OiAwLjk1LFxuICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiBcInJnYmEoMCwgMCwgMCwgMC4zKVwiLFxuICAgICAgICAgICAgICBwYWRkaW5nOiBcIjFyZW1cIixcbiAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBcIjAuNXJlbVwiLFxuICAgICAgICAgICAgICBib3JkZXI6IFwiMXB4IHNvbGlkIHJnYmEoMjU1LCAyNTUsIDI1NSwgMC4xKVwiLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICA+XG4gICAgICAgICAgICB7bWVjaGFuaWNEZXRhaWxzLmRlc2NyaXB0aW9uLmxlbmd0aCA+IDIwMFxuICAgICAgICAgICAgICA/IG1lY2hhbmljRGV0YWlscy5kZXNjcmlwdGlvbi5zdWJzdHJpbmcoMCwgMjAwKSArIFwiLi4uXCJcbiAgICAgICAgICAgICAgOiBtZWNoYW5pY0RldGFpbHMuZGVzY3JpcHRpb259XG4gICAgICAgICAgPC9wPlxuICAgICAgICApfVxuICAgICAgPC9kaXY+XG5cbiAgICAgIHsvKiBGdWxsIERlc2NyaXB0aW9uICovfVxuICAgICAge21lY2hhbmljRGV0YWlscz8uZGVzY3JpcHRpb24gJiYgbWVjaGFuaWNEZXRhaWxzLmRlc2NyaXB0aW9uLmxlbmd0aCA+IDIwMCAmJiAoXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY2FyZFwiIHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogXCIycmVtXCIgfX0+XG4gICAgICAgICAgPGgzIHN0eWxlPXt7IGNvbG9yOiBcIiNmZmMxMDdcIiwgbWFyZ2luQm90dG9tOiBcIjFyZW1cIiB9fT5cbiAgICAgICAgICAgIPCfk4sgRnVsbCBEZXNjcmlwdGlvblxuICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgPGRpdlxuICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgYmFja2dyb3VuZDogXCIjMWExYTFhXCIsXG4gICAgICAgICAgICAgIHBhZGRpbmc6IFwiMS41cmVtXCIsXG4gICAgICAgICAgICAgIGJvcmRlclJhZGl1czogXCIwLjVyZW1cIixcbiAgICAgICAgICAgICAgYm9yZGVyOiBcIjFweCBzb2xpZCAjNDQ0XCIsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxwXG4gICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgbWFyZ2luOiAwLFxuICAgICAgICAgICAgICAgIGxpbmVIZWlnaHQ6IFwiMS42XCIsXG4gICAgICAgICAgICAgICAgZm9udFNpemU6IFwiMXJlbVwiLFxuICAgICAgICAgICAgICAgIGNvbG9yOiBcIiNlMGUwZTBcIixcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAge21lY2hhbmljRGV0YWlscy5kZXNjcmlwdGlvbn1cbiAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICApfVxuXG4gICAgICB7LyogV2lraSBMaW5rIFNlY3Rpb24gKi99XG4gICAgICB7d2lraVVybCAmJiAoXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY2FyZFwiIHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogXCIycmVtXCIgfX0+XG4gICAgICAgICAgPGgzIHN0eWxlPXt7IGNvbG9yOiBcIiNmZmMxMDdcIiwgbWFyZ2luQm90dG9tOiBcIjFyZW1cIiB9fT5cbiAgICAgICAgICAgIPCflJcgTGVhcm4gTW9yZVxuICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgPGRpdlxuICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgYmFja2dyb3VuZDogXCIjMWExYTFhXCIsXG4gICAgICAgICAgICAgIHBhZGRpbmc6IFwiMS41cmVtXCIsXG4gICAgICAgICAgICAgIGJvcmRlclJhZGl1czogXCIwLjVyZW1cIixcbiAgICAgICAgICAgICAgYm9yZGVyOiBcIjFweCBzb2xpZCAjNDQ0XCIsXG4gICAgICAgICAgICB9fVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhXG4gICAgICAgICAgICAgIGhyZWY9e3dpa2lVcmx9XG4gICAgICAgICAgICAgIHRhcmdldD1cIl9ibGFua1wiXG4gICAgICAgICAgICAgIHJlbD1cIm5vb3BlbmVyIG5vcmVmZXJyZXJcIlxuICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgIGNvbG9yOiBcIiMwMDcwZjNcIixcbiAgICAgICAgICAgICAgICB0ZXh0RGVjb3JhdGlvbjogXCJub25lXCIsXG4gICAgICAgICAgICAgICAgZGlzcGxheTogXCJpbmxpbmUtZmxleFwiLFxuICAgICAgICAgICAgICAgIGFsaWduSXRlbXM6IFwiY2VudGVyXCIsXG4gICAgICAgICAgICAgICAgZ2FwOiBcIjAuNXJlbVwiLFxuICAgICAgICAgICAgICAgIGZvbnRTaXplOiBcIjEuMXJlbVwiLFxuICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IFwiNTAwXCIsXG4gICAgICAgICAgICAgICAgcGFkZGluZzogXCIwLjc1cmVtIDFyZW1cIixcbiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiBcInJnYmEoMCwgMTEyLCAyNDMsIDAuMSlcIixcbiAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6IFwiMC41cmVtXCIsXG4gICAgICAgICAgICAgICAgYm9yZGVyOiBcIjFweCBzb2xpZCByZ2JhKDAsIDExMiwgMjQzLCAwLjMpXCIsXG4gICAgICAgICAgICAgICAgdHJhbnNpdGlvbjogXCJhbGwgMC4ycyBlYXNlXCIsXG4gICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgIG9uTW91c2VFbnRlcj17KGUpID0+IHtcbiAgICAgICAgICAgICAgICBlLnRhcmdldC5zdHlsZS5iYWNrZ3JvdW5kID0gXCJyZ2JhKDAsIDExMiwgMjQzLCAwLjIpXCI7XG4gICAgICAgICAgICAgICAgZS50YXJnZXQuc3R5bGUudHJhbnNmb3JtID0gXCJ0cmFuc2xhdGVZKC0xcHgpXCI7XG4gICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgIG9uTW91c2VMZWF2ZT17KGUpID0+IHtcbiAgICAgICAgICAgICAgICBlLnRhcmdldC5zdHlsZS5iYWNrZ3JvdW5kID0gXCJyZ2JhKDAsIDExMiwgMjQzLCAwLjEpXCI7XG4gICAgICAgICAgICAgICAgZS50YXJnZXQuc3R5bGUudHJhbnNmb3JtID0gXCJ0cmFuc2xhdGVZKDApXCI7XG4gICAgICAgICAgICAgIH19XG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIPCfk5YgVmlldyBvbiBNVEcgV2lraSDihpdcbiAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCIwLjc1cmVtIDAgMCAwXCIsIGNvbG9yOiBcIiNjY2NcIiwgZm9udFNpemU6IFwiMC45cmVtXCIgfX0+XG4gICAgICAgICAgICAgIFZpc2l0IHRoZSBNVEcgV2lraSBmb3IgY29tcHJlaGVuc2l2ZSBydWxlcyBkZXRhaWxzLCBjYXJkIGV4YW1wbGVzLCBhbmQgcnVsaW5ncy5cbiAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICApfVxuXG4gICAgICB7LyogQWRkaXRpb25hbCBJbmZvIEdyaWQgKi99XG4gICAgICA8ZGl2XG4gICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgZGlzcGxheTogXCJncmlkXCIsXG4gICAgICAgICAgZ3JpZFRlbXBsYXRlQ29sdW1uczogXCJyZXBlYXQoYXV0by1maXQsIG1pbm1heCgyNTBweCwgMWZyKSlcIixcbiAgICAgICAgICBnYXA6IFwiMXJlbVwiLFxuICAgICAgICAgIG1hcmdpbkJvdHRvbTogXCIycmVtXCIsXG4gICAgICAgIH19XG4gICAgICA+XG4gICAgICAgIHsvKiBDbGFzc2lmaWNhdGlvbiAqL31cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJjYXJkXCI+XG4gICAgICAgICAgPGg0IHN0eWxlPXt7IGNvbG9yOiBcIiNmZmMxMDdcIiwgbWFyZ2luQm90dG9tOiBcIjAuNzVyZW1cIiB9fT5cbiAgICAgICAgICAgIPCfj7fvuI8gQ2xhc3NpZmljYXRpb25cbiAgICAgICAgICA8L2g0PlxuICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZm9udFNpemU6IFwiMC45cmVtXCIsIGNvbG9yOiBcIiNlMGUwZTBcIiB9fT5cbiAgICAgICAgICAgIHttZWNoYW5pY0RldGFpbHM/LmNhdGVnb3J5ICYmIChcbiAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiBcIjAgMCAwLjVyZW0gMFwiIH19PlxuICAgICAgICAgICAgICAgIDxzdHJvbmc+Q2F0ZWdvcnk6PC9zdHJvbmc+e1wiIFwifVxuICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBjb2xvcjogZ2V0Q2F0ZWdvcnlDb2xvcihtZWNoYW5pY0RldGFpbHMuY2F0ZWdvcnkpLFxuICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogXCI1MDBcIlxuICAgICAgICAgICAgICAgIH19PlxuICAgICAgICAgICAgICAgICAge2dldENhdGVnb3J5RW1vamkobWVjaGFuaWNEZXRhaWxzLmNhdGVnb3J5KX17XCIgXCJ9XG4gICAgICAgICAgICAgICAgICB7bWVjaGFuaWNEZXRhaWxzLmNhdGVnb3J5LnJlcGxhY2UoXCJfXCIsIFwiIFwiKS5yZXBsYWNlKC9cXGJcXHcvZywgbCA9PiBsLnRvVXBwZXJDYXNlKCkpfVxuICAgICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICAgPC9wPlxuICAgICAgICAgICAgKX1cbiAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCIwIDAgMC41cmVtIDBcIiB9fT5cbiAgICAgICAgICAgICAgPHN0cm9uZz5UeXBlOjwvc3Ryb25nPntcIiBcIn1cbiAgICAgICAgICAgICAge2lzRXZlcmdyZWVuID8gXCJFdmVyZ3JlZW4gS2V5d29yZFwiIDogXCJOb24tRXZlcmdyZWVuIE1lY2hhbmljXCJ9XG4gICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICB7aXNCZWdpbm5lckZyaWVuZGx5ICYmIChcbiAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiAwLCBjb2xvcjogXCIjMjhhNzQ1XCIgfX0+XG4gICAgICAgICAgICAgICAgPHN0cm9uZz7inKggQmVnaW5uZXItRnJpZW5kbHk6PC9zdHJvbmc+IEdyZWF0IGZvciBuZXcgcGxheWVyc1xuICAgICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cblxuICAgICAgICB7LyogU3RhdGlzdGljcyAqL31cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJjYXJkXCI+XG4gICAgICAgICAgPGg0IHN0eWxlPXt7IGNvbG9yOiBcIiNmZmMxMDdcIiwgbWFyZ2luQm90dG9tOiBcIjAuNzVyZW1cIiB9fT5cbiAgICAgICAgICAgIPCfk4ogUXVpY2sgRmFjdHNcbiAgICAgICAgICA8L2g0PlxuICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZm9udFNpemU6IFwiMC45cmVtXCIsIGNvbG9yOiBcIiNlMGUwZTBcIiB9fT5cbiAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogXCIwIDAgMC41cmVtIDBcIiB9fT5cbiAgICAgICAgICAgICAgPHN0cm9uZz5TdGF0dXM6PC9zdHJvbmc+e1wiIFwifVxuICAgICAgICAgICAgICA8c3BhbiBzdHlsZT17e1xuICAgICAgICAgICAgICAgIGNvbG9yOiBpc0V2ZXJncmVlbiA/IFwiIzI4YTc0NVwiIDogXCIjNmM3NTdkXCIsXG4gICAgICAgICAgICAgICAgZm9udFdlaWdodDogXCI1MDBcIlxuICAgICAgICAgICAgICB9fT5cbiAgICAgICAgICAgICAgICB7aXNFdmVyZ3JlZW4gPyBcIuKZvu+4jyBBbHdheXMgYXZhaWxhYmxlXCIgOiBcIvCfk6YgU2V0LXNwZWNpZmljXCJ9XG4gICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDxwIHN0eWxlPXt7IG1hcmdpbjogMCB9fT5cbiAgICAgICAgICAgICAgPHN0cm9uZz5Db21wbGV4aXR5Ojwvc3Ryb25nPntcIiBcIn1cbiAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9e3sgY29sb3I6IGlzQmVnaW5uZXJGcmllbmRseSA/IFwiIzI4YTc0NVwiIDogXCIjZmZjMTA3XCIgfX0+XG4gICAgICAgICAgICAgICAge2lzQmVnaW5uZXJGcmllbmRseSA/IFwi8J+foiBTaW1wbGVcIiA6IFwi8J+foSBJbnRlcm1lZGlhdGVcIn1cbiAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgPC9wPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuXG4gICAgICB7LyogRmFsbGJhY2sgZm9yIGJhc2ljIG1lY2hhbmljcyAqL31cbiAgICAgIHshbWVjaGFuaWNEZXRhaWxzICYmIChcbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJjYXJkXCI+XG4gICAgICAgICAgPGgzIHN0eWxlPXt7IGNvbG9yOiBcIiNmZmMxMDdcIiwgbWFyZ2luQm90dG9tOiBcIjFyZW1cIiB9fT5cbiAgICAgICAgICAgIPCfk4sgQWJvdXQge21lY2hhbmljLm5hbWV9XG4gICAgICAgICAgPC9oMz5cbiAgICAgICAgICA8ZGl2XG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiBcIiMxYTFhMWFcIixcbiAgICAgICAgICAgICAgcGFkZGluZzogXCIxLjVyZW1cIixcbiAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBcIjAuNXJlbVwiLFxuICAgICAgICAgICAgICBib3JkZXI6IFwiMXB4IHNvbGlkICM0NDRcIixcbiAgICAgICAgICAgIH19XG4gICAgICAgICAgPlxuICAgICAgICAgICAgPHBcbiAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICBtYXJnaW46IFwiMCAwIDFyZW0gMFwiLFxuICAgICAgICAgICAgICAgIGxpbmVIZWlnaHQ6IFwiMS42XCIsXG4gICAgICAgICAgICAgICAgZm9udFNpemU6IFwiMXJlbVwiLFxuICAgICAgICAgICAgICAgIGNvbG9yOiBcIiNlMGUwZTBcIixcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAge21lY2hhbmljLm5hbWV9IGlzIGEgTWFnaWM6IFRoZSBHYXRoZXJpbmcgbWVjaGFuaWMuXG4gICAgICAgICAgICA8L3A+XG4gICAgICAgICAgICB7d2lraVVybCAmJiAoXG4gICAgICAgICAgICAgIDxhXG4gICAgICAgICAgICAgICAgaHJlZj17d2lraVVybH1cbiAgICAgICAgICAgICAgICB0YXJnZXQ9XCJfYmxhbmtcIlxuICAgICAgICAgICAgICAgIHJlbD1cIm5vb3BlbmVyIG5vcmVmZXJyZXJcIlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBjb2xvcjogXCIjMDA3MGYzXCIsXG4gICAgICAgICAgICAgICAgICB0ZXh0RGVjb3JhdGlvbjogXCJub25lXCIsXG4gICAgICAgICAgICAgICAgICBkaXNwbGF5OiBcImlubGluZS1mbGV4XCIsXG4gICAgICAgICAgICAgICAgICBhbGlnbkl0ZW1zOiBcImNlbnRlclwiLFxuICAgICAgICAgICAgICAgICAgZ2FwOiBcIjAuNXJlbVwiLFxuICAgICAgICAgICAgICAgICAgZm9udFNpemU6IFwiMXJlbVwiLFxuICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogXCI1MDBcIixcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAg8J+TliBMZWFybiBtb3JlIG9uIE1URyBXaWtpIOKGl1xuICAgICAgICAgICAgICA8L2E+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgICl9XG4gICAgPC9kaXY+XG4gICk7XG59XG4iXSwibmFtZXMiOlsiTWVjaGFuaWNEZXRhaWxzIiwibWVjaGFuaWMiLCJkaXYiLCJzdHlsZSIsInRleHRBbGlnbiIsInBhZGRpbmciLCJjb2xvciIsImJhY2tncm91bmQiLCJib3JkZXJSYWRpdXMiLCJmb250U2l6ZSIsIm1hcmdpbkJvdHRvbSIsImgzIiwicCIsIm1lY2hhbmljRGV0YWlscyIsImdldE1lY2hhbmljRGV0YWlscyIsIm5hbWUiLCJ3aWtpVXJsIiwiZ2V0TWVjaGFuaWNXaWtpVXJsIiwiaXNFdmVyZ3JlZW4iLCJldmVyZ3JlZW5LZXl3b3JkcyIsImluY2x1ZGVzIiwiaXNCZWdpbm5lckZyaWVuZGx5IiwiYmVnaW5uZXJGcmllbmRseSIsImdldENhdGVnb3J5Q29sb3IiLCJjYXRlZ29yeSIsImdldENhdGVnb3J5RW1vamkiLCJlbW9qaU1hcCIsImV2YXNpb24iLCJjb21iYXQiLCJwcm90ZWN0aW9uIiwiZGFtYWdlIiwibGlmZWdhaW4iLCJ0aW1pbmciLCJjYXJkX2FkdmFudGFnZSIsImNhcmRfc2VsZWN0aW9uIiwidHJpZ2dlcmVkX2FiaWxpdHkiLCJyZXN0cmljdGlvbiIsIm90aGVyIiwiY2xhc3NOYW1lIiwiYm9yZGVyIiwiaDEiLCJtYXJnaW4iLCJmb250V2VpZ2h0IiwiZGlzcGxheSIsImdhcCIsImZsZXhXcmFwIiwic3BhbiIsInJlcGxhY2UiLCJsIiwidG9VcHBlckNhc2UiLCJkZXNjcmlwdGlvbiIsImxpbmVIZWlnaHQiLCJvcGFjaXR5IiwibGVuZ3RoIiwic3Vic3RyaW5nIiwiYSIsImhyZWYiLCJ0YXJnZXQiLCJyZWwiLCJ0ZXh0RGVjb3JhdGlvbiIsImFsaWduSXRlbXMiLCJ0cmFuc2l0aW9uIiwib25Nb3VzZUVudGVyIiwiZSIsInRyYW5zZm9ybSIsIm9uTW91c2VMZWF2ZSIsImdyaWRUZW1wbGF0ZUNvbHVtbnMiLCJoNCIsInN0cm9uZyJdLCJtYXBwaW5ncyI6Ijs7OzsrQkFRQTs7O2VBQXdC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

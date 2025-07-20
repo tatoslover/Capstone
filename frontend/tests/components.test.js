@@ -83,8 +83,8 @@ describe('UserSelector Component', () => {
       render(<UserSelector onUserSelect={mockOnUserSelect} />);
 
       await waitFor(() => {
-        expect(screen.getByText('Created 01/01/2023')).toBeInTheDocument();
-        expect(screen.getByText('Created 02/01/2023')).toBeInTheDocument();
+        expect(screen.getByText('Created 1/1/2023')).toBeInTheDocument();
+        expect(screen.getByText('Created 1/2/2023')).toBeInTheDocument();
       });
     });
 

@@ -327,4 +327,10 @@ describe("Planeswalker's Primer API Tests", () => {
       await request(app).delete("/api/favourites/99999").expect(404);
     });
   });
+
+  // Cleanup database connections to prevent Jest open handles
+  afterAll(async () => {
+    const { pool } = require("../db");
+    await pool.end();
+  });
 });
