@@ -60,7 +60,7 @@ const swaggerSpecs = swaggerJsdoc(swaggerOptions);
 // Security and Performance Middleware (order matters!)
 console.log("🔧 Initialising performance middleware...");
 
-// Security headers
+// Security headers with iframe-friendly configuration
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
