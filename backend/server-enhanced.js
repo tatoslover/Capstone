@@ -38,7 +38,7 @@ const swaggerOptions = {
     servers: [
       {
         url: process.env.NODE_ENV === "production"
-          ? "https://capstone-api.up.railway.app"
+          ? "https://capstone-production-e2db.up.railway.app"
           : `http://localhost:${PORT}`,
         description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
       }
