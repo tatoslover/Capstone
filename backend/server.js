@@ -3,7 +3,21 @@ const cors = require("cors");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
-const { pool, initTables } = require("./db");
+
+// Import enhanced modules
+const { initTables, healthCheck } = require("./db-enhanced");
+const {
+  helmet,
+  compression,
+  limiter,
+  scryfallLimiter,
+  responseTimeMiddleware,
+  performanceLogger,
+  errorTracker,
+  cacheMiddleware,
+  getPerformanceMetrics
+} = require("./middleware/performance");
+const monitoringRoutes = require("./routes/monitoring");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,66 +27,126 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Planeswalker's Primer API",
+      title: "Capstone API",
       version: "1.0.0",
-      description:
-        "API documentation for the Planeswalker's Primer MTG application",
+      description: "Enhanced API with performance monitoring for the Capstone MTG application",
       contact: {
         name: "API Support",
-        email: "support@plansewalkersprimer.com",
-      },
+        email: "support@capstone.com"
+      }
     },
     servers: [
       {
-        url:
-          process.env.NODE_ENV === "production"
-            ? "https://plansewalkers-primer-api.railway.app"
-            : `http://localhost:${PORT}`,
-        description:
-          process.env.NODE_ENV === "production"
-            ? "Production server"
-            : "Development server",
-      },
+        url: process.env.NODE_ENV === "production"
+          ? "https://capstone-production-e2db.up.railway.app"
+          : `http://localhost:${PORT}`,
+        description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
+      }
     ],
     tags: [
       { name: "Health", description: "Server health endpoints" },
+      { name: "Monitoring", description: "Performance monitoring and metrics" },
       { name: "Users", description: "User management operations" },
       { name: "Messages", description: "Message CRUD operations" },
       { name: "Favourites", description: "User favourite cards management" },
-      { name: "Cards", description: "MTG card search via Scryfall API" },
-    ],
+      { name: "Cards", description: "MTG card search via Scryfall API" }
+    ]
   },
-  apis: ["./server.js"],
+  apis: ["./server.js", "./routes/*.js"]
 };
 
 const swaggerSpecs = swaggerJsdoc(swaggerOptions);
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// Security and Performance Middleware (order matters!)
+console.log("🔧 Initialising performance middleware...");
+
+// Security headers
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "data:"],
+      connectSrc: ["'self'"],
+      frameAncestors: ["'self'", "http://localhost:3000", "https://localhost:3000"],
+    },
+  },
+  hsts: process.env.NODE_ENV === 'production' ? {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  } : false,
+}));
+
+// Compression for better performance
+app.use(compression());
+
+// Performance tracking
+app.use(responseTimeMiddleware);
+app.use(performanceLogger);
+
+// CORS and JSON parsing (MUST come before rate limiting to set headers)
+app.use(cors({
+  origin: process.env.NODE_ENV === "production"
+    ? (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        // Allow any Vercel deployment URL that contains 'capstone'
+        if (origin.includes('vercel.app') && origin.includes('capstone')) {
+          return callback(null, true);
+        }
+
+        // Reject other origins
+        callback(new Error('Not allowed by CORS'));
+      }
+    : ["http://localhost:3000"],
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+
+// Rate limiting (after CORS to ensure proper headers)
+app.use("/api/cards", scryfallLimiter); // Specific rate limiting for Scryfall API
+app.use(limiter); // General rate limiting
+
+// Request ID middleware for tracking
+app.use((req, res, next) => {
+  req.id = Math.random().toString(36).substr(2, 9);
+  res.set('X-Request-ID', req.id);
+  next();
+});
+
+// Cache middleware for GET requests
+app.use(cacheMiddleware(300)); // 5 minutes cache
 
 // Swagger UI
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpecs, {
-    customCss: ".swagger-ui .topbar { display: none }",
-    customSiteTitle: "Planeswalker's Primer API Documentation",
-  }),
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
+  customCss: ".swagger-ui .topbar { display: none }",
+  customSiteTitle: "Planeswalker's Primer API Documentation",
+  customfavIcon: "/favicon.ico"
+}));
 
 // Initialize database tables on startup
-initTables();
+initTables().then(() => {
+  console.log("✅ Enhanced database initialisation complete");
+}).catch(err => {
+  console.error("❌ Database initialisation failed:", err);
+});
 
-// Routes
+// Monitoring Routes
+app.use("/api/monitoring", monitoringRoutes);
+
+// Enhanced Health Check Routes
 
 /**
  * @swagger
  * /:
  *   get:
- *     summary: Server welcome message
+ *     summary: Server welcome message with performance info
  *     tags: [Health]
- *     description: Returns a welcome message and server status
+ *     description: Returns a welcome message, server status, and basic performance metrics
  *     responses:
  *       200:
  *         description: Server is running successfully
@@ -90,12 +164,31 @@ initTables();
  *                 timestamp:
  *                   type: string
  *                   format: date-time
+ *                 performance:
+ *                   type: object
+ *                   properties:
+ *                     uptime:
+ *                       type: string
+ *                     totalRequests:
+ *                       type: number
+ *                     averageResponseTime:
+ *                       type: number
  */
 app.get("/", (req, res) => {
+  const metrics = getPerformanceMetrics();
+
   res.json({
-    message: "Hello World from Planeswalker's Primer Backend!",
-    status: "Server is running",
+    message: "Hello World from Planeswalker's Primer Backend! 🎴⚡",
+    status: "Server is running with performance monitoring",
     timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || "development",
+    version: "1.0.0-enhanced",
+    performance: {
+      uptime: metrics.server.uptime.human,
+      totalRequests: metrics.server.requests.total,
+      averageResponseTime: metrics.server.requests.averageResponseTime,
+      errorRate: metrics.server.requests.errorRate
+    }
   });
 });
 
@@ -103,9 +196,9 @@ app.get("/", (req, res) => {
  * @swagger
  * /health:
  *   get:
- *     summary: Health check endpoint
+ *     summary: Basic health check endpoint
  *     tags: [Health]
- *     description: Returns server health status
+ *     description: Returns basic server health status
  *     responses:
  *       200:
  *         description: Server is healthy
@@ -121,8 +214,23 @@ app.get("/", (req, res) => {
  *                   type: string
  *                   format: date-time
  */
-app.get("/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date().toISOString() });
+app.get("/health", async (req, res) => {
+  try {
+    const dbHealth = await healthCheck();
+
+    res.json({
+      status: dbHealth.status === 'healthy' ? "OK" : "DEGRADED",
+      timestamp: new Date().toISOString(),
+      database: dbHealth.status,
+      responseTime: dbHealth.responseTime
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: "ERROR",
+      timestamp: new Date().toISOString(),
+      error: "Health check failed"
+    });
+  }
 });
 
 // CRUD Operations for Messages
@@ -159,7 +267,6 @@ app.get("/health", (req, res) => {
  *         username:
  *           type: string
  *           description: Unique username
- *           minLength: 1
  *           maxLength: 50
  *         created_at:
  *           type: string
@@ -181,10 +288,10 @@ app.get("/health", (req, res) => {
  *           description: Name of the MTG card
  *         scryfall_id:
  *           type: string
- *           description: Scryfall UUID for the card
+ *           description: Scryfall API card ID
  *         ability_type:
  *           type: string
- *           description: Type of ability or card category
+ *           description: Type of ability or keyword
  *         notes:
  *           type: string
  *           description: User's personal notes about the card
@@ -192,6 +299,55 @@ app.get("/health", (req, res) => {
  *           type: string
  *           format: date-time
  */
+
+// Import enhanced database operations
+const { messageOperations, userOperations, favouritesOperations } = require("./db-enhanced");
+
+/**
+ * @swagger
+ * /api/messages:
+ *   get:
+ *     summary: Get all messages with pagination
+ *     tags: [Messages]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 50
+ *         description: Number of messages to return
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *           default: 0
+ *         description: Number of messages to skip
+ *     responses:
+ *       200:
+ *         description: Messages retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Message'
+ */
+app.get("/api/messages", async (req, res) => {
+  try {
+    const limit = Math.min(parseInt(req.query.limit) || 50, 100); // Max 100 items
+    const offset = parseInt(req.query.offset) || 0;
+
+    const result = await messageOperations.getAll(limit, offset);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    res.status(500).json({
+      error: "Failed to fetch messages",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
 
 /**
  * @swagger
@@ -211,65 +367,40 @@ app.get("/health", (req, res) => {
  *               text:
  *                 type: string
  *                 description: Message content
+ *                 maxLength: 1000
  *     responses:
  *       201:
  *         description: Message created successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Message'
  *       400:
- *         description: Bad request - missing text
- *       500:
- *         description: Database error
+ *         description: Invalid input
  */
 app.post("/api/messages", async (req, res) => {
-  const { text } = req.body;
-
-  if (!text) {
-    return res.status(400).json({ error: "Text is required" });
-  }
-
   try {
-    const result = await pool.query(
-      "INSERT INTO messages (text) VALUES ($1) RETURNING *",
-      [text],
-    );
+    const { text } = req.body;
+
+    if (!text || text.trim().length === 0) {
+      return res.status(400).json({
+        error: "Message text is required",
+        requestId: req.id
+      });
+    }
+
+    if (text.length > 1000) {
+      return res.status(400).json({
+        error: "Message text too long (max 1000 characters)",
+        requestId: req.id
+      });
+    }
+
+    const result = await messageOperations.create(text.trim());
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error("Error creating message:", error);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-/**
- * @swagger
- * /api/messages:
- *   get:
- *     summary: Get all messages
- *     tags: [Messages]
- *     description: Retrieve all messages ordered by creation date (newest first)
- *     responses:
- *       200:
- *         description: List of messages
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Message'
- *       500:
- *         description: Database error
- */
-app.get("/api/messages", async (req, res) => {
-  try {
-    const result = await pool.query(
-      "SELECT * FROM messages ORDER BY created_at DESC",
-    );
-    res.json(result.rows);
-  } catch (error) {
-    console.error("Error fetching messages:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to create message",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -283,37 +414,41 @@ app.get("/api/messages", async (req, res) => {
  *       - in: path
  *         name: id
  *         required: true
- *         description: Message ID
  *         schema:
  *           type: integer
  *     responses:
  *       200:
  *         description: Message found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Message'
  *       404:
  *         description: Message not found
- *       500:
- *         description: Database error
  */
 app.get("/api/messages/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-
   try {
-    const result = await pool.query("SELECT * FROM messages WHERE id = $1", [
-      id,
-    ]);
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid message ID",
+        requestId: req.id
+      });
+    }
+
+    const result = await messageOperations.getById(id);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Message not found" });
+      return res.status(404).json({
+        error: "Message not found",
+        requestId: req.id
+      });
     }
 
     res.json(result.rows[0]);
   } catch (error) {
     console.error("Error fetching message:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to fetch message",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -321,13 +456,12 @@ app.get("/api/messages/:id", async (req, res) => {
  * @swagger
  * /api/messages/{id}:
  *   put:
- *     summary: Update a message by ID
+ *     summary: Update a message
  *     tags: [Messages]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Message ID
  *         schema:
  *           type: integer
  *     requestBody:
@@ -341,43 +475,48 @@ app.get("/api/messages/:id", async (req, res) => {
  *             properties:
  *               text:
  *                 type: string
- *                 description: Updated message content
  *     responses:
  *       200:
  *         description: Message updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Message'
- *       400:
- *         description: Bad request - missing text
  *       404:
  *         description: Message not found
- *       500:
- *         description: Database error
  */
 app.put("/api/messages/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { text } = req.body;
-
-  if (!text) {
-    return res.status(400).json({ error: "Text is required" });
-  }
-
   try {
-    const result = await pool.query(
-      "UPDATE messages SET text = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *",
-      [text, id],
-    );
+    const id = parseInt(req.params.id);
+    const { text } = req.body;
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid message ID",
+        requestId: req.id
+      });
+    }
+
+    if (!text || text.trim().length === 0) {
+      return res.status(400).json({
+        error: "Message text is required",
+        requestId: req.id
+      });
+    }
+
+    const result = await messageOperations.update(id, text.trim());
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Message not found" });
+      return res.status(404).json({
+        error: "Message not found",
+        requestId: req.id
+      });
     }
 
     res.json(result.rows[0]);
   } catch (error) {
     console.error("Error updating message:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to update message",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -385,54 +524,56 @@ app.put("/api/messages/:id", async (req, res) => {
  * @swagger
  * /api/messages/{id}:
  *   delete:
- *     summary: Delete a message by ID
+ *     summary: Delete a message
  *     tags: [Messages]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Message ID
  *         schema:
  *           type: integer
  *     responses:
  *       200:
  *         description: Message deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Message deleted"
- *                 deleted:
- *                   $ref: '#/components/schemas/Message'
  *       404:
  *         description: Message not found
- *       500:
- *         description: Database error
  */
 app.delete("/api/messages/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-
   try {
-    const result = await pool.query(
-      "DELETE FROM messages WHERE id = $1 RETURNING *",
-      [id],
-    );
+    const id = parseInt(req.params.id);
 
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Message not found" });
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid message ID",
+        requestId: req.id
+      });
     }
 
-    res.json({ message: "Message deleted", deleted: result.rows[0] });
+    const result = await messageOperations.delete(id);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "Message not found",
+        requestId: req.id
+      });
+    }
+
+    res.json({
+      message: "Message deleted successfully",
+      deletedMessage: result.rows[0],
+      requestId: req.id
+    });
   } catch (error) {
     console.error("Error deleting message:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to delete message",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
-// User CRUD Operations
+// User Management Routes (Enhanced with validation)
 
 /**
  * @swagger
@@ -451,41 +592,57 @@ app.delete("/api/messages/:id", async (req, res) => {
  *             properties:
  *               username:
  *                 type: string
- *                 description: Unique username (1-50 characters)
- *                 minLength: 1
+ *                 minLength: 3
  *                 maxLength: 50
  *     responses:
  *       201:
  *         description: User created successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
  *       400:
- *         description: Bad request - missing username or username already exists
- *       500:
- *         description: Database error
+ *         description: Invalid input or username already exists
  */
 app.post("/api/users", async (req, res) => {
-  const { username } = req.body;
-
-  if (!username) {
-    return res.status(400).json({ error: "Username is required" });
-  }
-
   try {
-    const result = await pool.query(
-      "INSERT INTO users (username) VALUES ($1) RETURNING *",
-      [username],
-    );
+    const { username } = req.body;
+
+    if (!username || username.trim().length < 3) {
+      return res.status(400).json({
+        error: "Username must be at least 3 characters long",
+        requestId: req.id
+      });
+    }
+
+    if (username.length > 50) {
+      return res.status(400).json({
+        error: "Username too long (max 50 characters)",
+        requestId: req.id
+      });
+    }
+
+    // Check for alphanumeric username
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      return res.status(400).json({
+        error: "Username can only contain letters, numbers, and underscores",
+        requestId: req.id
+      });
+    }
+
+    const result = await userOperations.create(username.trim());
+
+    if (result.rows.length === 0) {
+      return res.status(400).json({
+        error: "Username already exists",
+        requestId: req.id
+      });
+    }
+
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    if (error.code === "23505") {
-      // Unique constraint violation
-      return res.status(400).json({ error: "Username already exists" });
-    }
     console.error("Error creating user:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to create user",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -498,25 +655,33 @@ app.post("/api/users", async (req, res) => {
  *     description: Retrieve all users ordered by creation date (newest first)
  *     responses:
  *       200:
- *         description: List of users
+ *         description: List of users retrieved successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/User'
- *       500:
- *         description: Database error
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   username:
+ *                     type: string
+ *                   created_at:
+ *                     type: string
+ *                     format: date-time
  */
 app.get("/api/users", async (req, res) => {
   try {
-    const result = await pool.query(
-      "SELECT id, username, created_at FROM users ORDER BY created_at DESC",
-    );
+    const result = await userOperations.getAll();
     res.json(result.rows);
   } catch (error) {
     console.error("Error fetching users:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to fetch users",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -530,38 +695,43 @@ app.get("/api/users", async (req, res) => {
  *       - in: path
  *         name: id
  *         required: true
- *         description: User ID
  *         schema:
  *           type: integer
+ *         description: User ID
  *     responses:
  *       200:
- *         description: User found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
+ *         description: User retrieved successfully
  *       404:
  *         description: User not found
- *       500:
- *         description: Database error
  */
 app.get("/api/users/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-
   try {
-    const result = await pool.query(
-      "SELECT id, username, created_at FROM users WHERE id = $1",
-      [id],
-    );
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
+
+    const result = await userOperations.getById(id);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({
+        error: "User not found",
+        requestId: req.id
+      });
     }
 
     res.json(result.rows[0]);
   } catch (error) {
     console.error("Error fetching user:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to fetch user",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -575,9 +745,9 @@ app.get("/api/users/:id", async (req, res) => {
  *       - in: path
  *         name: id
  *         required: true
- *         description: User ID
  *         schema:
  *           type: integer
+ *         description: User ID
  *     requestBody:
  *       required: true
  *       content:
@@ -589,48 +759,66 @@ app.get("/api/users/:id", async (req, res) => {
  *             properties:
  *               username:
  *                 type: string
- *                 description: Updated username (1-50 characters)
- *                 minLength: 1
+ *                 minLength: 3
  *                 maxLength: 50
  *     responses:
  *       200:
  *         description: User updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
  *       400:
- *         description: Bad request - missing username or username already exists
+ *         description: Invalid input
  *       404:
  *         description: User not found
- *       500:
- *         description: Database error
  */
 app.put("/api/users/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { username } = req.body;
-
-  if (!username) {
-    return res.status(400).json({ error: "Username is required" });
-  }
-
   try {
-    const result = await pool.query(
-      "UPDATE users SET username = $1 WHERE id = $2 RETURNING id, username, created_at",
-      [username, id],
-    );
+    const id = parseInt(req.params.id);
+    const { username } = req.body;
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
+
+    if (!username || username.trim().length < 3) {
+      return res.status(400).json({
+        error: "Username must be at least 3 characters long",
+        requestId: req.id
+      });
+    }
+
+    if (username.length > 50) {
+      return res.status(400).json({
+        error: "Username too long (max 50 characters)",
+        requestId: req.id
+      });
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      return res.status(400).json({
+        error: "Username can only contain letters, numbers, and underscores",
+        requestId: req.id
+      });
+    }
+
+    const result = await userOperations.update(id, username.trim());
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({
+        error: "User not found",
+        requestId: req.id
+      });
     }
 
     res.json(result.rows[0]);
   } catch (error) {
-    if (error.code === "23505") {
-      return res.status(400).json({ error: "Username already exists" });
-    }
     console.error("Error updating user:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to update user",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -644,237 +832,165 @@ app.put("/api/users/:id", async (req, res) => {
  *       - in: path
  *         name: id
  *         required: true
- *         description: User ID
  *         schema:
  *           type: integer
+ *         description: User ID
  *     responses:
  *       200:
  *         description: User deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "User deleted"
- *                 deleted:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                     username:
- *                       type: string
  *       404:
  *         description: User not found
- *       500:
- *         description: Database error
  */
 app.delete("/api/users/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-
   try {
-    const result = await pool.query(
-      "DELETE FROM users WHERE id = $1 RETURNING id, username",
-      [id],
-    );
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
+
+    const result = await userOperations.delete(id);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({
+        error: "User not found",
+        requestId: req.id
+      });
     }
 
-    res.json({ message: "User deleted", deleted: result.rows[0] });
+    res.json({
+      message: "User deleted successfully",
+      user: result.rows[0],
+      requestId: req.id
+    });
   } catch (error) {
     console.error("Error deleting user:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to delete user",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
-// Scryfall API Integration
+// CRUD Operations for Favourites
 
 /**
  * @swagger
- * /api/cards/search:
+ * /api/favourites:
  *   get:
- *     summary: Search MTG cards via Scryfall API
- *     tags: [Cards]
+ *     summary: Get all favourites for a user
+ *     tags: [Favourites]
  *     parameters:
  *       - in: query
- *         name: q
- *         required: true
- *         description: Search query for cards
+ *         name: user_id
+ *         schema:
+ *           type: integer
+ *         description: User ID to get favourites for
+ *       - in: query
+ *         name: ability_type
  *         schema:
  *           type: string
- *           example: "lightning bolt"
- *     responses:
- *       200:
- *         description: Search results from Scryfall
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                 has_more:
- *                   type: boolean
- *                 total_cards:
- *                   type: integer
- *       400:
- *         description: Bad request - missing search query
- *       500:
- *         description: Failed to search cards
- */
-app.get("/api/cards/search", async (req, res) => {
-  const { q } = req.query;
-
-  if (!q) {
-    return res.status(400).json({ error: "Search query (q) is required" });
-  }
-
-  try {
-    const response = await fetch(
-      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(q)}`,
-    );
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        return res.json({ data: [], has_more: false, total_cards: 0 });
-      }
-      throw new Error(`Scryfall API error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Error searching cards:", error);
-    res.status(500).json({ error: "Failed to search cards" });
-  }
-});
-
-/**
- * @swagger
- * /api/cards/random:
- *   get:
- *     summary: Get random MTG cards
- *     tags: [Cards]
- *     parameters:
- *       - in: query
- *         name: ability
- *         required: false
  *         description: Filter by ability type
- *         schema:
- *           type: string
- *           example: "flying"
  *     responses:
  *       200:
- *         description: Random cards from Scryfall (max 10)
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                 has_more:
- *                   type: boolean
- *                 total_cards:
- *                   type: integer
- *       500:
- *         description: Failed to get random cards
+ *         description: List of favourites
+ *       400:
+ *         description: Invalid user ID
  */
-app.get("/api/cards/random", async (req, res) => {
-  const { ability } = req.query;
-
-  let query = "is:permanent";
-  if (ability) {
-    query += ` o:${ability}`;
-  }
-
+app.get("/api/favourites", async (req, res) => {
   try {
-    const response = await fetch(
-      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(query)}&order=random`,
-    );
+    const { user_id, ability_type } = req.query;
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        return res.json({ data: [], has_more: false, total_cards: 0 });
-      }
-      throw new Error(`Scryfall API error: ${response.status}`);
+    if (!user_id) {
+      return res.status(400).json({
+        error: "user_id parameter is required",
+        requestId: req.id
+      });
     }
 
-    const data = await response.json();
+    const userId = parseInt(user_id);
+    if (isNaN(userId)) {
+      return res.status(400).json({
+        error: "Invalid user ID",
+        requestId: req.id
+      });
+    }
 
-    // Return only first 10 random cards
-    const limitedData = {
-      ...data,
-      data: data.data ? data.data.slice(0, 10) : [],
-    };
+    let result;
+    if (ability_type) {
+      result = await favouritesOperations.getByAbilityType(userId, ability_type);
+    } else {
+      result = await favouritesOperations.getByUserId(userId);
+    }
 
-    res.json(limitedData);
+    res.json(result.rows);
   } catch (error) {
-    console.error("Error getting random cards:", error);
-    res.status(500).json({ error: "Failed to get random cards" });
+    console.error("Error fetching favourites:", error);
+    res.status(500).json({
+      error: "Failed to fetch favourites",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
 /**
  * @swagger
- * /api/cards/{id}:
+ * /api/favourites/{id}:
  *   get:
- *     summary: Get a specific MTG card by Scryfall ID
- *     tags: [Cards]
+ *     summary: Get a favourite by ID
+ *     tags: [Favourites]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Scryfall card ID
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
- *         description: Card details from Scryfall
- *         content:
- *           application/json:
- *             schema:
- *               type: object
+ *         description: Favourite found
  *       404:
- *         description: Card not found
- *       500:
- *         description: Failed to fetch card
+ *         description: Favourite not found
  */
-app.get("/api/cards/:id", async (req, res) => {
-  const { id } = req.params;
-
+app.get("/api/favourites/:id", async (req, res) => {
   try {
-    const response = await fetch(`https://api.scryfall.com/cards/${id}`);
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        return res.status(404).json({ error: "Card not found" });
-      }
-      throw new Error(`Scryfall API error: ${response.status}`);
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid favourite ID",
+        requestId: req.id
+      });
     }
 
-    const data = await response.json();
-    res.json(data);
+    const result = await favouritesOperations.getById(id);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "Favourite not found",
+        requestId: req.id
+      });
+    }
+
+    res.json(result.rows[0]);
   } catch (error) {
-    console.error("Error fetching card:", error);
-    res.status(500).json({ error: "Failed to fetch card" });
+    console.error("Error fetching favourite:", error);
+    res.status(500).json({
+      error: "Failed to fetch favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
-
-// Favourites CRUD Operations
 
 /**
  * @swagger
  * /api/favourites:
  *   post:
- *     summary: Add a card to user's favourites
+ *     summary: Create a new favourite
  *     tags: [Favourites]
  *     requestBody:
  *       required: true
@@ -888,89 +1004,63 @@ app.get("/api/cards/:id", async (req, res) => {
  *             properties:
  *               user_id:
  *                 type: integer
- *                 description: ID of the user
  *               card_name:
  *                 type: string
- *                 description: Name of the MTG card
  *               scryfall_id:
  *                 type: string
- *                 description: Scryfall UUID for the card
  *               ability_type:
  *                 type: string
- *                 description: Type of ability or card category
  *               notes:
  *                 type: string
- *                 description: User's personal notes
  *     responses:
  *       201:
- *         description: Favourite added successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Favourite'
+ *         description: Favourite created successfully
  *       400:
- *         description: Bad request - missing required fields
- *       500:
- *         description: Database error
+ *         description: Invalid input
  */
 app.post("/api/favourites", async (req, res) => {
-  const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
-
-  if (!user_id || !card_name) {
-    return res
-      .status(400)
-      .json({ error: "User ID and card name are required" });
-  }
-
   try {
-    const result = await pool.query(
-      "INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [user_id, card_name, scryfall_id, ability_type, notes],
+    const { user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes } = req.body;
+
+    if (!user_id || !card_name) {
+      return res.status(400).json({
+        error: "user_id and card_name are required",
+        requestId: req.id
+      });
+    }
+
+    if (typeof user_id !== 'number' || user_id <= 0) {
+      return res.status(400).json({
+        error: "user_id must be a positive number",
+        requestId: req.id
+      });
+    }
+
+    if (!card_name.trim()) {
+      return res.status(400).json({
+        error: "card_name cannot be empty",
+        requestId: req.id
+      });
+    }
+
+    const result = await favouritesOperations.create(
+      user_id,
+      card_name.trim(),
+      scryfall_id,
+      ability_type,
+      mana_cost,
+      color_identity,
+      notes
     );
+
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    console.error("Error adding favourite:", error);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-/**
- * @swagger
- * /api/favourites/{userId}:
- *   get:
- *     summary: Get all favourites for a user
- *     tags: [Favourites]
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         description: User ID
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: User's favourite cards
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Favourite'
- *       500:
- *         description: Database error
- */
-app.get("/api/favourites/:userId", async (req, res) => {
-  const userId = parseInt(req.params.userId);
-
-  try {
-    const result = await pool.query(
-      "SELECT * FROM favourites WHERE user_id = $1 ORDER BY created_at DESC",
-      [userId],
-    );
-    res.json(result.rows);
-  } catch (error) {
-    console.error("Error fetching favourites:", error);
-    res.status(500).json({ error: "Database error" });
+    console.error("Error creating favourite:", error);
+    res.status(500).json({
+      error: "Failed to create favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -978,58 +1068,67 @@ app.get("/api/favourites/:userId", async (req, res) => {
  * @swagger
  * /api/favourites/{id}:
  *   put:
- *     summary: Update a favourite (mainly for notes)
+ *     summary: Update a favourite's notes
  *     tags: [Favourites]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Favourite ID
  *         schema:
  *           type: integer
  *     requestBody:
- *       required: false
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - notes
  *             properties:
  *               notes:
  *                 type: string
- *                 description: Updated notes
- *               ability_type:
- *                 type: string
- *                 description: Updated ability type
  *     responses:
  *       200:
  *         description: Favourite updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Favourite'
  *       404:
  *         description: Favourite not found
- *       500:
- *         description: Database error
  */
 app.put("/api/favourites/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { notes, ability_type } = req.body;
-
   try {
-    const result = await pool.query(
-      "UPDATE favourites SET notes = $1, ability_type = $2 WHERE id = $3 RETURNING *",
-      [notes, ability_type, id],
-    );
+    const id = parseInt(req.params.id);
+    const { notes } = req.body;
+
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid favourite ID",
+        requestId: req.id
+      });
+    }
+
+    if (notes === undefined) {
+      return res.status(400).json({
+        error: "notes field is required",
+        requestId: req.id
+      });
+    }
+
+    const result = await favouritesOperations.update(id, notes);
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Favourite not found" });
+      return res.status(404).json({
+        error: "Favourite not found",
+        requestId: req.id
+      });
     }
 
     res.json(result.rows[0]);
   } catch (error) {
     console.error("Error updating favourite:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to update favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
@@ -1037,78 +1136,123 @@ app.put("/api/favourites/:id", async (req, res) => {
  * @swagger
  * /api/favourites/{id}:
  *   delete:
- *     summary: Remove a favourite
+ *     summary: Delete a favourite by ID
  *     tags: [Favourites]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Favourite ID
  *         schema:
  *           type: integer
  *     responses:
  *       200:
- *         description: Favourite removed successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Favourite removed"
- *                 deleted:
- *                   $ref: '#/components/schemas/Favourite'
+ *         description: Favourite deleted successfully
  *       404:
  *         description: Favourite not found
- *       500:
- *         description: Database error
  */
 app.delete("/api/favourites/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-
   try {
-    const result = await pool.query(
-      "DELETE FROM favourites WHERE id = $1 RETURNING *",
-      [id],
-    );
+    const id = parseInt(req.params.id);
 
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Favourite not found" });
+    if (isNaN(id)) {
+      return res.status(400).json({
+        error: "Invalid favourite ID",
+        requestId: req.id
+      });
     }
 
-    res.json({ message: "Favourite removed", deleted: result.rows[0] });
+    const result = await favouritesOperations.delete(id);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: "Favourite not found",
+        requestId: req.id
+      });
+    }
+
+    res.json({
+      message: "Favourite deleted successfully",
+      favourite: result.rows[0],
+      requestId: req.id
+    });
   } catch (error) {
     console.error("Error deleting favourite:", error);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({
+      error: "Failed to delete favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
+// Client metrics endpoint for frontend performance monitoring
+app.post("/api/monitoring/client-metrics", (req, res) => {
+  try {
+    const { url, userAgent, timestamp, metrics } = req.body;
 
+    // Log client metrics (in production, you'd save these to a metrics database)
+    console.log("📊 Client metrics received:", {
+      url,
+      userAgent: userAgent?.substring(0, 100),
+      timestamp,
+      sessionDuration: metrics.session?.duration,
+      apiCalls: metrics.apiCalls?.total,
+      errors: metrics.errors?.total
+    });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-
-  // Handle JSON parsing errors
-  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-    return res.status(400).json({ error: "Invalid JSON format" });
+    res.json({
+      message: "Client metrics received",
+      timestamp: new Date().toISOString(),
+      requestId: req.id
+    });
+  } catch (error) {
+    console.error("Error processing client metrics:", error);
+    res.status(500).json({
+      error: "Failed to process client metrics",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
   }
-
-  res.status(500).json({ error: "Something went wrong!" });
 });
+
+// Error handling middleware (must be last)
+app.use(errorTracker);
 
 // 404 handler
-app.use("*", (req, res) => {
-  res.status(404).json({ error: "Route not found" });
+app.use((req, res) => {
+  res.status(404).json({
+    error: "Endpoint not found",
+    path: req.path,
+    method: req.method,
+    timestamp: new Date().toISOString(),
+    requestId: req.id
+  });
 });
 
-// Only start server if not being imported for testing
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📝 API available at http://localhost:${PORT}/api/messages`);
+// Graceful shutdown handling
+const server = app.listen(PORT, () => {
+  console.log(`🚀 Enhanced server running on port ${PORT}`);
+  console.log(`📚 API Documentation: http://localhost:${PORT}/api-docs`);
+  console.log(`🔍 Health Check: http://localhost:${PORT}/health`);
+  console.log(`📊 Monitoring: http://localhost:${PORT}/api/monitoring/health`);
+  console.log(`⚡ Performance optimisations enabled`);
+});
+
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('🔄 SIGTERM received, shutting down gracefully...');
+  server.close(() => {
+    console.log('✅ Server closed');
+    process.exit(0);
   });
-}
+});
+
+process.on('SIGINT', () => {
+  console.log('🔄 SIGINT received, shutting down gracefully...');
+  server.close(() => {
+    console.log('✅ Server closed');
+    process.exit(0);
+  });
+});
 
 module.exports = app;

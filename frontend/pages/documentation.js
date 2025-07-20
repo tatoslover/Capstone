@@ -144,41 +144,37 @@ export default function Documentation() {
           <h4 className="doc-heading">Purpose</h4>
           <ul className="doc-list">
             <li>
-              TBC - What is the problem or opportunity that the project is
-              investigating?
+              Magic: The Gathering has a notoriously steep learning curve, with new players often overwhelmed by complex rules, terminology, and strategic concepts
             </li>
-            <li>TBC - Why is this problem valuable to address?</li>
+            <li>Existing learning resources are fragmented across wikis, rulebooks, and community sites, making systematic learning difficult</li>
             <li>
-              TBC - What is the current state (e.g. unsatisfied users, lost
-              revenue)?
+              Current state: New players frequently abandon the game due to feeling lost or intimidated by the complexity
             </li>
-            <li>TBC - What is the desired state?</li>
+            <li>Desired state: A centralised, beginner-friendly platform that guides new players through MTG fundamentals systematically</li>
             <li>
-              TBC - Has this problem been addressed by other projects? What were
-              the outcomes?
+              Similar projects exist (MTG Wiki, EDHRec) but focus on advanced players; this project specifically targets beginners with structured learning paths
             </li>
           </ul>
 
           <h4 className="doc-heading">Industry/Domain</h4>
           <ul className="doc-list">
-            <li>TBC - What is the industry/domain?</li>
+            <li>Trading card game industry, specifically Magic: The Gathering (30+ year established game)</li>
             <li>
-              TBC - What is the current state of this industry? (e.g. challenges
-              from startups)
+              Industry challenges include player retention, accessibility for new players, and digital transformation
             </li>
-            <li>TBC - What is the overall industry value-chain?</li>
-            <li>TBC - What are the key concepts in the industry?</li>
-            <li>TBC - Is the project relevant to other industries?</li>
+            <li>Value chain: Game publisher (Wizards of the Coast) → Local game stores → Players → Secondary market</li>
+            <li>Key concepts: Mana system, card types, phases/steps, stack, priority, deck construction rules</li>
+            <li>Principles are applicable to other complex games requiring structured learning approaches</li>
           </ul>
 
           <h4 className="doc-heading">Stakeholders</h4>
           <ul>
             <li>
-              TBC - Who are the stakeholders? (be as specific as possible as to
-              who would have access to the software)
+              Primary: New MTG players seeking to learn game fundamentals systematically
             </li>
-            <li>TBC - Why do they care about this software?</li>
-            <li>TBC - What are the stakeholders' expectations?</li>
+            <li>Secondary: Local game store owners wanting to support new player onboarding</li>
+            <li>Tertiary: Experienced players mentoring newcomers who need structured teaching resources</li>
+            <li>Expectations: Clear, accurate information; progressive difficulty; mobile-friendly interface; up-to-date content</li>
           </ul>
         </div>
       ),
@@ -187,35 +183,55 @@ export default function Documentation() {
       title: "Product Description",
       content: (
         <div>
-          <h4 className="doc-heading">Architecture Diagram</h4>
+          <h4 className="doc-heading">System Architecture</h4>
           <p className="doc-paragraph">
-            TBC - Include a diagram of the building blocks of the design
-            including users and how they interact with the product.
+            <strong>Frontend:</strong> Next.js React application with responsive design, dark theme, and component-based architecture
+          </p>
+          <p className="doc-paragraph">
+            <strong>Backend:</strong> Express.js REST API with PostgreSQL database, rate limiting, and comprehensive security headers
+          </p>
+          <p className="doc-paragraph">
+            <strong>External APIs:</strong> Scryfall API for MTG card data and images
+          </p>
+          <p className="doc-paragraph">
+            <strong>Deployment:</strong> Frontend on Vercel, Backend on Railway with automated CI/CD
           </p>
 
-          <h4 className="doc-heading">User Stories</h4>
+          <h4 className="doc-heading">Core User Stories</h4>
           <div className="doc-paragraph">
             <table className="doc-table">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>User Story Title</th>
+                  <th>User Story</th>
                   <th>Description</th>
-                  <th>Priority</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>TBC</td>
-                  <td>TBC</td>
-                  <td>TBC</td>
+                  <td>Learn MTG Basics</td>
+                  <td>As a new player, I want to learn MTG fundamentals through structured guides</td>
+                  <td>✅ Complete</td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>TBC</td>
-                  <td>TBC</td>
-                  <td>TBC</td>
+                  <td>Search MTG Cards</td>
+                  <td>As a user, I want to search for cards and view detailed information</td>
+                  <td>✅ Complete</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Save Favourites</td>
+                  <td>As a user, I want to save my favourite cards for quick access</td>
+                  <td>✅ Complete</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Browse Mechanics</td>
+                  <td>As a player, I want to explore MTG mechanics with detailed explanations</td>
+                  <td>✅ Complete</td>
                 </tr>
               </tbody>
             </table>
@@ -223,18 +239,21 @@ export default function Documentation() {
 
           <h4 className="doc-heading">User Flow</h4>
           <p className="doc-paragraph">
-            TBC - Present as a flow diagram the steps a user may make in
-            interacting with the software.
+            1. User selects/creates profile → 2. Navigates learning sections (Colours, Card Types, etc.) → 3. Searches for specific cards → 4. Saves interesting cards to favourites → 5. References quick guide panel as needed
           </p>
 
-          <h4 className="doc-heading">Wireframe Design</h4>
-          <p className="doc-paragraph">
-            TBC - Show elements of the user interface, either manually or via a
-            tool such as Figma.
-          </p>
+          <h4 className="doc-heading">Key Features</h4>
+          <ul className="doc-list">
+            <li>Interactive learning modules covering all MTG fundamentals</li>
+            <li>Dark theme optimised for extended reading sessions</li>
+            <li>Mobile-responsive design for on-the-go learning</li>
+            <li>Real-time card search with high-quality images</li>
+            <li>Personal favourites system with user management</li>
+            <li>Quick reference panel with essential game information</li>
+          </ul>
 
-          <h4 className="doc-heading">Open Questions/Out of Scope</h4>
-          <p>TBC - What features are considered out of scope?</p>
+          <h4 className="doc-heading">Out of Scope</h4>
+          <p className="doc-paragraph">Advanced strategy guides, deck building tools, multiplayer features, tournament tracking, and real-time gameplay simulation</p>
         </div>
       ),
     },
@@ -242,24 +261,38 @@ export default function Documentation() {
       title: "Non-functional Requirements",
       content: (
         <div>
-          <ul>
-            <li>
-              TBC - What are the key security requirements? (e.g. login, storage
-              of personal details, inactivity timeout, data encryption)
-            </li>
-            <li>TBC - How many transactions should be enabled at peak time?</li>
-            <li>TBC - How easy to use does the software need to be?</li>
-            <li>
-              TBC - How quickly should the application respond to user requests?
-            </li>
-            <li>
-              TBC - How reliable must the application be? (e.g. mean time
-              between failures)
-            </li>
-            <li>
-              TBC - Does the software conform to any technical standards to ease
-              maintainability?
-            </li>
+          <h4 className="doc-heading">Security</h4>
+          <ul className="doc-list">
+            <li>Comprehensive security headers including CSP, HSTS, and X-Frame-Options</li>
+            <li>Rate limiting to prevent API abuse (1000 requests per 15 minutes)</li>
+            <li>Input validation and payload size limits</li>
+            <li>CORS configuration for secure cross-origin requests</li>
+            <li>Secure error handling without information leakage</li>
+          </ul>
+
+          <h4 className="doc-heading">Performance</h4>
+          <ul className="doc-list">
+            <li>Response times under 500ms for API endpoints</li>
+            <li>Caching middleware for static content (5-minute cache)</li>
+            <li>Compression middleware for reduced payload sizes</li>
+            <li>Performance monitoring with response time tracking</li>
+            <li>Database connection pooling for efficient resource usage</li>
+          </ul>
+
+          <h4 className="doc-heading">Usability</h4>
+          <ul className="doc-list">
+            <li>Mobile-first responsive design for all screen sizes</li>
+            <li>Dark theme optimised for extended reading sessions</li>
+            <li>Intuitive navigation with clear visual hierarchy</li>
+            <li>Loading states and error handling for better user experience</li>
+          </ul>
+
+          <h4 className="doc-heading">Reliability & Standards</h4>
+          <ul className="doc-list">
+            <li>RESTful API design following OpenAPI 3.0 specification</li>
+            <li>Comprehensive error handling and graceful degradation</li>
+            <li>Health check endpoints for monitoring system status</li>
+            <li>Modern web standards compliance (ES6+, React best practices)</li>
           </ul>
         </div>
       ),
@@ -268,19 +301,27 @@ export default function Documentation() {
       title: "Project Planning",
       content: (
         <div>
+          <h4 className="doc-heading">Development Methodology</h4>
           <p className="doc-paragraph">
-            TBC - Include a Gantt chart or screenshot of a Trello board showing
-            key milestones (with dates) to complete the project.
+            Agile development approach with iterative feature delivery, continuous testing, and regular deployment cycles.
           </p>
 
-          <h4 className="doc-heading">Key Milestones</h4>
-          <ul>
-            <li>TBC - Project initiation and requirements gathering</li>
-            <li>TBC - Design and architecture phase</li>
-            <li>TBC - Core development sprints</li>
-            <li>TBC - Testing and quality assurance</li>
-            <li>TBC - Deployment and documentation</li>
-            <li>TBC - Final presentation and delivery</li>
+          <h4 className="doc-heading">Key Milestones Achieved</h4>
+          <ul className="doc-list">
+            <li>✅ Project setup and initial architecture (Frontend + Backend + Database)</li>
+            <li>✅ Core learning modules implementation (Colours, Card Types, Turn Phases)</li>
+            <li>✅ Scryfall API integration and card search functionality</li>
+            <li>✅ User management and favourites system</li>
+            <li>✅ Comprehensive testing suite and security implementation</li>
+            <li>✅ Production deployment on Vercel and Railway</li>
+            <li>✅ Documentation and API specification completion</li>
+          </ul>
+
+          <h4 className="doc-heading">Future Enhancements</h4>
+          <ul className="doc-list">
+            <li>Advanced deck building tools and validation</li>
+            <li>Interactive gameplay simulation</li>
+            <li>Community features and user-generated content</li>
           </ul>
         </div>
       ),
@@ -289,21 +330,30 @@ export default function Documentation() {
       title: "Testing Strategy",
       content: (
         <div>
-          <ul>
-            <li>
-              TBC - What were steps undertaken to achieve product quality?
-            </li>
-            <li>TBC - How was each feature of the application tested?</li>
-            <li>TBC - How did you handle edge cases?</li>
+          <h4 className="doc-heading">Quality Assurance Approach</h4>
+          <ul className="doc-list">
+            <li>Comprehensive test coverage across frontend and backend components</li>
+            <li>Automated testing with Jest framework for both React components and API endpoints</li>
+            <li>Manual testing for user experience and accessibility validation</li>
+            <li>Security testing including rate limiting and input validation</li>
           </ul>
 
-          <h4 className="doc-heading-spaced">Testing Approaches</h4>
-          <ul>
-            <li>TBC - Unit testing strategy</li>
-            <li>TBC - Integration testing</li>
-            <li>TBC - User acceptance testing</li>
-            <li>TBC - Performance testing</li>
-            <li>TBC - Security testing</li>
+          <h4 className="doc-heading-spaced">Testing Types Implemented</h4>
+          <ul className="doc-list">
+            <li><strong>Unit Testing:</strong> Component rendering, user interactions, utility functions</li>
+            <li><strong>Integration Testing:</strong> API endpoints, database operations, external service connections</li>
+            <li><strong>Performance Testing:</strong> Response times, memory usage, concurrent user simulation</li>
+            <li><strong>User Interface Testing:</strong> Component behaviour, state management, responsive design</li>
+            <li><strong>API Testing:</strong> CRUD operations, error handling, authentication flows</li>
+          </ul>
+
+          <h4 className="doc-heading">Edge Cases Handled</h4>
+          <ul className="doc-list">
+            <li>Network connectivity issues with graceful degradation</li>
+            <li>Invalid user input validation and sanitisation</li>
+            <li>Rate limiting scenarios and appropriate error responses</li>
+            <li>Database connection failures with proper error messaging</li>
+            <li>Mobile responsiveness across various screen sizes</li>
           </ul>
         </div>
       ),
@@ -312,22 +362,27 @@ export default function Documentation() {
       title: "Implementation",
       content: (
         <div>
-          <h4 className="doc-heading">Deployment Considerations</h4>
-          <p className="doc-paragraph">
-            TBC - What were the considerations for deploying the software?
-          </p>
-
           <h4 className="doc-heading">Technology Stack</h4>
           <ul className="doc-list">
-            <li>TBC - Frontend technologies (Next.js, React, etc.)</li>
-            <li>TBC - Backend technologies (Node.js, Express, etc.)</li>
-            <li>TBC - Database and storage solutions</li>
-            <li>TBC - External APIs and services</li>
-            <li>TBC - Deployment and hosting platform</li>
+            <li><strong>Frontend:</strong> Next.js 13+, React 18, CSS-in-JS with custom global styles</li>
+            <li><strong>Backend:</strong> Node.js with Express.js, Helmet security middleware, compression</li>
+            <li><strong>Database:</strong> PostgreSQL with connection pooling and automated migrations</li>
+            <li><strong>External APIs:</strong> Scryfall API for MTG card data and high-resolution images</li>
+            <li><strong>Testing:</strong> Jest framework with comprehensive unit and integration tests</li>
           </ul>
 
-          <h4 className="doc-heading">End-to-end Solution</h4>
-          <p>TBC - How well did the software meet its objectives?</p>
+          <h4 className="doc-heading">Deployment Architecture</h4>
+          <ul className="doc-list">
+            <li><strong>Frontend:</strong> Vercel with automatic CI/CD from GitHub integration</li>
+            <li><strong>Backend:</strong> Railway with PostgreSQL database and environment management</li>
+            <li><strong>Security:</strong> HTTPS enforcement, rate limiting, and comprehensive security headers</li>
+            <li><strong>Performance:</strong> Response time monitoring, caching middleware, and compression</li>
+          </ul>
+
+          <h4 className="doc-heading">Project Outcomes</h4>
+          <p className="doc-paragraph">
+            The software successfully meets its objective of providing a comprehensive, beginner-friendly MTG learning platform. Key achievements include complete coverage of fundamental concepts, intuitive user interface, robust card search functionality, and scalable architecture ready for future enhancements.
+          </p>
         </div>
       ),
     },
@@ -349,7 +404,7 @@ export default function Documentation() {
               </span>
             </div>
             <button
-              className="btn btn-secondary btn-size-small"
+              className="btn profile-btn-blue btn-size-small"
               onClick={testDatabaseConnection}
               disabled={isTestingConnection}
             >
@@ -365,14 +420,25 @@ export default function Documentation() {
           </p>
 
           <div className="api-swagger-container">
-            {dbConnectionStatus === "connected" && !swaggerError ? (
-              <iframe
-                src={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
-                className="swagger-iframe"
-                title="API Documentation"
-                onLoad={() => setSwaggerLoaded(true)}
-                onError={() => setSwaggerError(true)}
-              />
+            {dbConnectionStatus === "connected" ? (
+              <div className="swagger-fallback">
+                <div className="swagger-fallback-content">
+                  <h5>📋 API Documentation Available</h5>
+                  <p>
+                    The interactive Swagger documentation is available in a separate window to avoid browser security restrictions.
+                  </p>
+                  <div className="text-center mb-3">
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn profile-btn-blue"
+                    >
+                      🚀 Open API Documentation
+                    </a>
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="swagger-fallback">
                 <div className="swagger-fallback-content">
@@ -381,40 +447,27 @@ export default function Documentation() {
                     The interactive Swagger documentation requires the backend
                     server to be running.
                   </p>
-                  {dbConnectionStatus === "disconnected" && (
-                    <div className="swagger-fallback-instructions">
-                      <p>
-                        <strong>
-                          To view the interactive API documentation:
-                        </strong>
-                      </p>
-                      <ol>
-                        <li>
-                          Start the backend server:{" "}
-                          <code>cd backend && npm start</code>
-                        </li>
-                        <li>
-                          Ensure it's running on{" "}
-                          <code>http://localhost:3001</code>
-                        </li>
-                        <li>
-                          Click "Test Connection" above to verify connectivity
-                        </li>
-                        <li>Refresh this page once connected</li>
-                      </ol>
-                      <p>
-                        Alternatively, visit{" "}
-                        <a
-                          href="http://localhost:3001/api-docs"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          http://localhost:3001/api-docs
-                        </a>{" "}
-                        directly when the server is running.
-                      </p>
-                    </div>
-                  )}
+                  <div className="swagger-fallback-instructions">
+                    <p>
+                      <strong>
+                        To view the interactive API documentation:
+                      </strong>
+                    </p>
+                    <ol>
+                      <li>
+                        Start the backend server:{" "}
+                        <code>cd backend && npm start</code>
+                      </li>
+                      <li>
+                        Ensure it's running on{" "}
+                        <code>http://localhost:3001</code>
+                      </li>
+                      <li>
+                        Click "Test Connection" above to verify connectivity
+                      </li>
+                      <li>Refresh this page once connected</li>
+                    </ol>
+                  </div>
                 </div>
               </div>
             )}
@@ -513,17 +566,24 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Code Repository</h4>
           <p className="doc-paragraph">
-            TBC - Where is the code used in the project? (link to GitHub)
+            Source code available on GitHub: <a href="https://github.com/tatoslover/Capstone" target="_blank" rel="noopener noreferrer">github.com/tatoslover/Capstone</a>
           </p>
 
-          <h4 className="doc-heading">Resources Used</h4>
-          <ul>
-            <li>TBC - Libraries and frameworks</li>
-            <li>TBC - APIs and external services</li>
-            <li>TBC - Databases and storage</li>
-            <li>TBC - Development tools</li>
-            <li>TBC - Design resources</li>
-            <li>TBC - Documentation and references</li>
+          <h4 className="doc-heading">External Resources</h4>
+          <ul className="doc-list">
+            <li><strong>Scryfall API:</strong> Comprehensive MTG card database and high-resolution images</li>
+            <li><strong>MTG Wiki:</strong> Authoritative source for game mechanics and rules explanations</li>
+            <li><strong>Wizards of the Coast:</strong> Official MTG comprehensive rules and tournament regulations</li>
+          </ul>
+
+          <h4 className="doc-heading">Technology Documentation</h4>
+          <ul className="doc-list">
+            <li><strong>Next.js:</strong> React framework for production applications</li>
+            <li><strong>Express.js:</strong> Fast, unopinionated web framework for Node.js</li>
+            <li><strong>PostgreSQL:</strong> Advanced open-source relational database</li>
+            <li><strong>Jest:</strong> JavaScript testing framework with focus on simplicity</li>
+            <li><strong>Vercel:</strong> Frontend deployment and hosting platform</li>
+            <li><strong>Railway:</strong> Backend deployment and database hosting platform</li>
           </ul>
         </div>
       ),
@@ -758,18 +818,16 @@ export default function Documentation() {
           <h2 className="doc-section-title">Project Overview</h2>
           <div className="doc-overview-text">
             <p className="doc-overview-paragraph">
-              TBC - Planeswalker's Primer is a beginner-friendly web application
-              designed to help new Magic: The Gathering players understand the
-              game's mechanics, rules, and concepts.
+              Planeswalker's Primer is a comprehensive Magic: The Gathering learning platform designed to help new players understand the game's fundamentals through interactive guides and structured learning paths.
             </p>
             <p className="doc-overview-paragraph">
-              TBC - The project addresses the steep learning curve that new MTG
-              players face by providing an accessible, mobile-first interface
-              with interactive learning sections.
+              The application features a dark-themed interface with comprehensive coverage of MTG basics including the six colour system, card anatomy, turn phases, combat mechanics, deck building principles, and over 270 gameplay mechanics with detailed explanations.
+            </p>
+            <p className="doc-overview-paragraph">
+              Built as a full-stack web application with Next.js frontend and Express.js backend, the project includes user management, a favourites system for MTG cards via Scryfall API integration, and comprehensive API documentation.
             </p>
             <p>
-              TBC - This capstone project demonstrates full-stack development
-              skills, user experience design, and educational content creation.
+              The project demonstrates modern web development practices including responsive design, API integration, database management, security implementation, and comprehensive testing strategies.
             </p>
           </div>
         </div>
