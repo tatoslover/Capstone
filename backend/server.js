@@ -70,7 +70,7 @@ app.use(helmet({
       imgSrc: ["'self'", "data:", "https:"],
       fontSrc: ["'self'", "data:"],
       connectSrc: ["'self'"],
-      frameAncestors: ["'self'", "http://localhost:3000", "https://localhost:3000"],
+      frameAncestors: ["'self'", "http://localhost:3000", "https://localhost:3000", "https://*.vercel.app"],
     },
   },
   hsts: process.env.NODE_ENV === 'production' ? {
