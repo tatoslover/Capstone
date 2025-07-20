@@ -27,18 +27,18 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Planeswalker's Primer API",
+      title: "Capstone API",
       version: "1.0.0",
-      description: "Enhanced API with performance monitoring for the Planeswalker's Primer MTG application",
+      description: "Enhanced API with performance monitoring for the Capstone MTG application",
       contact: {
         name: "API Support",
-        email: "support@plansewalkersprimer.com"
+        email: "support@capstone.com"
       }
     },
     servers: [
       {
         url: process.env.NODE_ENV === "production"
-          ? "https://plansewalkers-primer-api.railway.app"
+          ? "https://capstone-api.up.railway.app"
           : `http://localhost:${PORT}`,
         description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
       }
@@ -82,7 +82,7 @@ app.use(performanceLogger);
 // CORS and JSON parsing (MUST come before rate limiting to set headers)
 app.use(cors({
   origin: process.env.NODE_ENV === "production"
-    ? ["https://plansewalker-s-primer.vercel.app"]
+    ? ["https://capstone.vercel.app"]
     : ["http://localhost:3000"],
   credentials: true
 }));

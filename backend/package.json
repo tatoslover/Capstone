@@ -1,7 +1,7 @@
 {
-  "name": "plansewalker-primer-backend",
+  "name": "capstone-backend",
   "version": "1.0.0",
-  "description": "Backend API for Planeswalker's Primer - MTG rulebook for beginners",
+  "description": "Backend API for Capstone - MTG rulebook for beginners",
   "main": "server-enhanced.js",
   "scripts": {
     "start": "node server-enhanced.js",
