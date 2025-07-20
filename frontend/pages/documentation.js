@@ -349,7 +349,7 @@ export default function Documentation() {
               </span>
             </div>
             <button
-              className="btn btn-secondary btn-size-small"
+              className="btn profile-btn-blue btn-size-small"
               onClick={testDatabaseConnection}
               disabled={isTestingConnection}
             >
@@ -377,52 +377,10 @@ export default function Documentation() {
                       href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/api-docs`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn-primary"
+                      className="btn profile-btn-blue"
                     >
                       🚀 Open API Documentation
                     </a>
-                  </div>
-
-                  <div className="api-endpoints-grid">
-                    <div className="api-endpoint-card">
-                      <h5>Health & Monitoring</h5>
-                      <code>GET /</code> - Server status<br/>
-                      <code>GET /health</code> - Health check<br/>
-                      <code>GET /api/monitoring/health</code> - Detailed health
-                    </div>
-
-                    <div className="api-endpoint-card">
-                      <h5>User Management</h5>
-                      <code>GET /api/users</code> - List all users<br/>
-                      <code>POST /api/users</code> - Create user<br/>
-                      <code>GET /api/users/:id</code> - Get user<br/>
-                      <code>PUT /api/users/:id</code> - Update user<br/>
-                      <code>DELETE /api/users/:id</code> - Delete user
-                    </div>
-
-                    <div className="api-endpoint-card">
-                      <h5>Messages</h5>
-                      <code>GET /api/messages</code> - List messages<br/>
-                      <code>POST /api/messages</code> - Create message<br/>
-                      <code>GET /api/messages/:id</code> - Get message<br/>
-                      <code>PUT /api/messages/:id</code> - Update message<br/>
-                      <code>DELETE /api/messages/:id</code> - Delete message
-                    </div>
-
-                    <div className="api-endpoint-card">
-                      <h5>Favourites</h5>
-                      <code>GET /api/favourites</code> - List favourites<br/>
-                      <code>POST /api/favourites</code> - Add favourite<br/>
-                      <code>GET /api/favourites/:id</code> - Get favourite<br/>
-                      <code>DELETE /api/favourites/:id</code> - Remove favourite
-                    </div>
-
-                    <div className="api-endpoint-card">
-                      <h5>MTG Cards</h5>
-                      <code>GET /api/cards/search</code> - Search cards<br/>
-                      <code>GET /api/cards/random</code> - Random card<br/>
-                      <code>GET /api/cards/autocomplete</code> - Card suggestions
-                    </div>
                   </div>
                 </div>
               </div>
