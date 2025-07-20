@@ -79,6 +79,19 @@ export default function FavouritesPage() {
       setLoading(true);
       setError("");
 
+      // First verify that the user exists
+      try {
+        await apiService.users.getById(userId);
+      } catch (userError) {
+        console.warn(`User ID ${userId} not found, clearing stored user`);
+        localStorage.removeItem("currentUser");
+        setCurrentUser(null);
+        setFavourites([]);
+        setError("The selected user no longer exists. Please select a valid user.");
+        setLoading(false);
+        return;
+      }
+
       // Get favourites list from backend
       const favouritesData = await apiService.favourites.getByUserId(userId);
 
@@ -132,7 +145,15 @@ export default function FavouritesPage() {
       setFavourites(cardsWithFavouriteData);
     } catch (err) {
       console.error("Error fetching favourites:", err);
-      setError("Failed to load your favourites. Please try again.");
+
+      // Handle specific API errors
+      if (err.message && err.message.includes("404")) {
+        localStorage.removeItem("currentUser");
+        setCurrentUser(null);
+        setError("User not found. Please select a valid user.");
+      } else {
+        setError("Failed to load your favourites. Please try again.");
+      }
       setFavourites([]);
     } finally {
       setLoading(false);
