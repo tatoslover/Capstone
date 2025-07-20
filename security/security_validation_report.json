@@ -1,6 +1,6 @@
 {
-  "passed": 17,
-  "failed": 3,
+  "passed": 20,
+  "failed": 0,
   "warnings": 0,
   "tests": [
     {
@@ -8,140 +8,140 @@
       "passed": true,
       "message": "Both frontend and backend have lock files",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:02.444Z"
+      "timestamp": "2025-07-20T22:41:45.901Z"
     },
     {
       "test": "Next.js Security Version",
       "passed": true,
       "message": "Next.js version ^14.2.30 is secure",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:02.445Z"
+      "timestamp": "2025-07-20T22:41:45.901Z"
     },
     {
       "test": "Security Header: x-content-type-options (https://capstone-production-e2db.up.railway.app)",
       "passed": true,
       "message": "Header present: nosniff",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:03.997Z"
+      "timestamp": "2025-07-20T22:41:47.392Z"
     },
     {
       "test": "Security Header: x-frame-options (https://capstone-production-e2db.up.railway.app)",
       "passed": true,
       "message": "Header present: SAMEORIGIN",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:03.998Z"
+      "timestamp": "2025-07-20T22:41:47.392Z"
     },
     {
       "test": "Security Header: x-xss-protection (https://capstone-production-e2db.up.railway.app)",
       "passed": true,
       "message": "Header present: 0",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:03.998Z"
+      "timestamp": "2025-07-20T22:41:47.392Z"
     },
     {
       "test": "Security Header: strict-transport-security (https://capstone-production-e2db.up.railway.app)",
       "passed": true,
       "message": "Header present: max-age=31536000; includeSubDomains",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:03.998Z"
+      "timestamp": "2025-07-20T22:41:47.392Z"
     },
     {
       "test": "Security Header: x-content-type-options (https://capstone-rho-wheat.vercel.app)",
-      "passed": false,
-      "message": "Missing or incorrect header: not set",
+      "passed": true,
+      "message": "Header present: nosniff",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:04.526Z"
+      "timestamp": "2025-07-20T22:41:49.320Z"
     },
     {
       "test": "Security Header: x-frame-options (https://capstone-rho-wheat.vercel.app)",
-      "passed": false,
-      "message": "Missing or incorrect header: not set",
+      "passed": true,
+      "message": "Header present: DENY",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:04.526Z"
+      "timestamp": "2025-07-20T22:41:49.320Z"
     },
     {
       "test": "Security Header: x-xss-protection (https://capstone-rho-wheat.vercel.app)",
-      "passed": false,
-      "message": "Missing or incorrect header: not set",
+      "passed": true,
+      "message": "Header present: 1; mode=block",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:04.526Z"
+      "timestamp": "2025-07-20T22:41:49.321Z"
     },
     {
       "test": "Security Header: strict-transport-security (https://capstone-rho-wheat.vercel.app)",
       "passed": true,
       "message": "Header present: max-age=63072000; includeSubDomains; preload",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:04.526Z"
+      "timestamp": "2025-07-20T22:41:49.321Z"
     },
     {
       "test": "HTTPS Redirect (http://capstone-rho-wheat.vercel.app)",
       "passed": true,
       "message": "HTTP properly redirects to HTTPS",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:04.752Z"
+      "timestamp": "2025-07-20T22:41:49.462Z"
     },
     {
       "test": "HTTPS Redirect (http://capstone-production-e2db.up.railway.app)",
       "passed": true,
       "message": "HTTP properly redirects to HTTPS",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:05.141Z"
+      "timestamp": "2025-07-20T22:41:49.850Z"
     },
     {
       "test": "Rate Limiting Configuration",
       "passed": true,
       "message": "Made 5 requests, 5 successful",
       "type": "warning",
-      "timestamp": "2025-07-20T22:40:06.296Z"
+      "timestamp": "2025-07-20T22:41:50.979Z"
     },
     {
       "test": "CORS Security",
       "passed": true,
       "message": "CORS properly restricts origins",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:06.737Z"
+      "timestamp": "2025-07-20T22:41:51.357Z"
     },
     {
       "test": "API Endpoint (https://capstone-production-e2db.up.railway.app/health)",
       "passed": true,
       "message": "Returns expected status 200",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:07.175Z"
+      "timestamp": "2025-07-20T22:41:51.740Z"
     },
     {
       "test": "API Endpoint (https://capstone-production-e2db.up.railway.app/api/monitoring/metrics)",
       "passed": true,
       "message": "Returns expected status 200",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:07.613Z"
+      "timestamp": "2025-07-20T22:41:52.119Z"
     },
     {
       "test": "API Endpoint (https://capstone-production-e2db.up.railway.app/nonexistent)",
       "passed": true,
       "message": "Returns expected status 404",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:08.052Z"
+      "timestamp": "2025-07-20T22:41:52.501Z"
     },
     {
       "test": "Payload Size Validation",
       "passed": true,
       "message": "Large payload rejected at network level",
       "type": "warning",
-      "timestamp": "2025-07-20T22:40:28.100Z"
+      "timestamp": "2025-07-20T22:42:12.540Z"
     },
     {
       "test": "Development Mode in Production",
       "passed": true,
       "message": "Production environment properly configured",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:28.101Z"
+      "timestamp": "2025-07-20T22:42:12.541Z"
     },
     {
       "test": "Debug Mode Disabled",
       "passed": true,
       "message": "Debug mode disabled in production",
       "type": "test",
-      "timestamp": "2025-07-20T22:40:28.101Z"
+      "timestamp": "2025-07-20T22:42:12.541Z"
     }
   ]
 }
