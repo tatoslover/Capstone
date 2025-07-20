@@ -1,0 +1,826 @@
+aa37777df975f150b3d99592f0862525
+"use strict";
+
+/* istanbul ignore next */
+function cov_1w4nrj1n3y() {
+  var path = "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/Card/CardList.js";
+  var hash = "a89c69ca0b7609d6e76a8ae482a6fd9a7bd9ecb6";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/Card/CardList.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 24
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 12,
+          column: 35
+        },
+        end: {
+          line: 12,
+          column: 85
+        }
+      },
+      "5": {
+        start: {
+          line: 13,
+          column: 31
+        },
+        end: {
+          line: 13,
+          column: 81
+        }
+      },
+      "6": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 17,
+          column: 6
+        }
+      },
+      "7": {
+        start: {
+          line: 20,
+          column: 4
+        },
+        end: {
+          line: 24,
+          column: 5
+        }
+      },
+      "8": {
+        start: {
+          line: 21,
+          column: 8
+        },
+        end: {
+          line: 23,
+          column: 11
+        }
+      },
+      "9": {
+        start: {
+          line: 25,
+          column: 4
+        },
+        end: {
+          line: 30,
+          column: 5
+        }
+      },
+      "10": {
+        start: {
+          line: 26,
+          column: 8
+        },
+        end: {
+          line: 29,
+          column: 11
+        }
+      },
+      "11": {
+        start: {
+          line: 31,
+          column: 4
+        },
+        end: {
+          line: 49,
+          column: 5
+        }
+      },
+      "12": {
+        start: {
+          line: 32,
+          column: 8
+        },
+        end: {
+          line: 48,
+          column: 11
+        }
+      },
+      "13": {
+        start: {
+          line: 50,
+          column: 4
+        },
+        end: {
+          line: 82,
+          column: 7
+        }
+      },
+      "14": {
+        start: {
+          line: 54,
+          column: 65
+        },
+        end: {
+          line: 62,
+          column: 40
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "_interop_require_default",
+        decl: {
+          start: {
+            line: 14,
+            column: 9
+          },
+          end: {
+            line: 14,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 14,
+            column: 39
+          },
+          end: {
+            line: 18,
+            column: 1
+          }
+        },
+        line: 14
+      },
+      "2": {
+        name: "CardList",
+        decl: {
+          start: {
+            line: 19,
+            column: 9
+          },
+          end: {
+            line: 19,
+            column: 17
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 157
+          },
+          end: {
+            line: 83,
+            column: 1
+          }
+        },
+        line: 19
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 54,
+            column: 36
+          },
+          end: {
+            line: 54,
+            column: 37
+          }
+        },
+        loc: {
+          start: {
+            line: 54,
+            column: 65
+          },
+          end: {
+            line: 62,
+            column: 40
+          }
+        },
+        line: 54
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 35
+          },
+          end: {
+            line: 15,
+            column: 38
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 41
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        }],
+        line: 15
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 14
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 18
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        }],
+        line: 15
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 19,
+            column: 20
+          },
+          end: {
+            line: 19,
+            column: 30
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 28
+          },
+          end: {
+            line: 19,
+            column: 30
+          }
+        }],
+        line: 19
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 19,
+            column: 32
+          },
+          end: {
+            line: 19,
+            column: 47
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 42
+          },
+          end: {
+            line: 19,
+            column: 47
+          }
+        }],
+        line: 19
+      },
+      "4": {
+        loc: {
+          start: {
+            line: 19,
+            column: 49
+          },
+          end: {
+            line: 19,
+            column: 59
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 57
+          },
+          end: {
+            line: 19,
+            column: 59
+          }
+        }],
+        line: 19
+      },
+      "5": {
+        loc: {
+          start: {
+            line: 19,
+            column: 93
+          },
+          end: {
+            line: 19,
+            column: 124
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 108
+          },
+          end: {
+            line: 19,
+            column: 124
+          }
+        }],
+        line: 19
+      },
+      "6": {
+        loc: {
+          start: {
+            line: 19,
+            column: 126
+          },
+          end: {
+            line: 19,
+            column: 153
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 149
+          },
+          end: {
+            line: 19,
+            column: 153
+          }
+        }],
+        line: 19
+      },
+      "7": {
+        loc: {
+          start: {
+            line: 20,
+            column: 4
+          },
+          end: {
+            line: 24,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 20,
+            column: 4
+          },
+          end: {
+            line: 24,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 20
+      },
+      "8": {
+        loc: {
+          start: {
+            line: 25,
+            column: 4
+          },
+          end: {
+            line: 30,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 25,
+            column: 4
+          },
+          end: {
+            line: 30,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 25
+      },
+      "9": {
+        loc: {
+          start: {
+            line: 31,
+            column: 4
+          },
+          end: {
+            line: 49,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 31,
+            column: 4
+          },
+          end: {
+            line: 49,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 31
+      },
+      "10": {
+        loc: {
+          start: {
+            line: 62,
+            column: 23
+          },
+          end: {
+            line: 62,
+            column: 39
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 62,
+            column: 23
+          },
+          end: {
+            line: 62,
+            column: 30
+          }
+        }, {
+          start: {
+            line: 62,
+            column: 34
+          },
+          end: {
+            line: 62,
+            column: 39
+          }
+        }],
+        line: 62
+      },
+      "11": {
+        loc: {
+          start: {
+            line: 64,
+            column: 12
+          },
+          end: {
+            line: 80,
+            column: 14
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 64,
+            column: 12
+          },
+          end: {
+            line: 64,
+            column: 30
+          }
+        }, {
+          start: {
+            line: 64,
+            column: 48
+          },
+          end: {
+            line: 80,
+            column: 14
+          }
+        }],
+        line: 64
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0],
+      "2": [0],
+      "3": [0],
+      "4": [0],
+      "5": [0],
+      "6": [0],
+      "7": [0, 0],
+      "8": [0, 0],
+      "9": [0, 0],
+      "10": [0, 0],
+      "11": [0, 0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["/Users/samuellove/Documents/GitHub/Capstone/frontend/components/Card/CardList.js"],
+      sourcesContent: ["import CardDisplay from \"./CardDisplay\";\nimport Loading from \"../UI/Loading\";\n\nexport default function CardList({\n  cards = [],\n  loading = false,\n  error = \"\",\n  currentUser,\n  onFavouriteToggle,\n  emptyMessage = \"No cards found\",\n  showFavouriteButtons = true,\n}) {\n  if (loading) {\n    return <Loading message=\"Loading cards...\" />;\n  }\n\n  if (error) {\n    return <div className=\"error text-center mt-3 mb-3\">{error}</div>;\n  }\n\n  if (cards.length === 0) {\n    return (\n      <div className=\"empty-state\">\n        <div className=\"empty-state-icon\">\uD83C\uDCCF</div>\n        <h3 className=\"empty-state-title\">{emptyMessage}</h3>\n        <p className=\"empty-state-text\">\n          Try adjusting your search terms or browse different abilities\n        </p>\n      </div>\n    );\n  }\n\n  return (\n    <div>\n      {/* Cards Grid */}\n      <div className=\"cards-grid\">\n        {cards.map((card, index) => (\n          <div\n            key={card.id || index}\n            className={`fade-in fade-in-delay-${Math.min(index + 1, 5)}`}\n          >\n            <CardDisplay\n              card={card}\n              currentUser={currentUser}\n              onFavouriteToggle={onFavouriteToggle}\n              showFavouriteButton={showFavouriteButtons}\n            />\n          </div>\n        ))}\n      </div>\n\n      {/* Load More Message */}\n      {cards.length >= 20 && (\n        <div className=\"more-cards-section\">\n          <div className=\"more-cards-icon\">\uD83D\uDCDA</div>\n          <h4 className=\"more-cards-title\">More cards available</h4>\n          <p className=\"more-cards-text\">\n            Refine your search or try different keywords to find specific cards\n          </p>\n        </div>\n      )}\n    </div>\n  );\n}\n"],
+      names: ["CardList", "cards", "loading", "error", "currentUser", "onFavouriteToggle", "emptyMessage", "showFavouriteButtons", "Loading", "message", "div", "className", "length", "h3", "p", "map", "card", "index", "Math", "min", "CardDisplay", "showFavouriteButton", "id", "h4"],
+      mappings: ";;;;+BAGA;;;eAAwBA;;;;oEAHA;gEACJ;;;;;;AAEL,SAASA,SAAS,EAC/BC,QAAQ,EAAE,EACVC,UAAU,KAAK,EACfC,QAAQ,EAAE,EACVC,WAAW,EACXC,iBAAiB,EACjBC,eAAe,gBAAgB,EAC/BC,uBAAuB,IAAI,EAC5B;IACC,IAAIL,SAAS;QACX,qBAAO,qBAACM,gBAAO;YAACC,SAAQ;;IAC1B;IAEA,IAAIN,OAAO;QACT,qBAAO,qBAACO;YAAIC,WAAU;sBAA+BR;;IACvD;IAEA,IAAIF,MAAMW,MAAM,KAAK,GAAG;QACtB,qBACE,sBAACF;YAAIC,WAAU;;8BACb,qBAACD;oBAAIC,WAAU;8BAAmB;;8BAClC,qBAACE;oBAAGF,WAAU;8BAAqBL;;8BACnC,qBAACQ;oBAAEH,WAAU;8BAAmB;;;;IAKtC;IAEA,qBACE,sBAACD;;0BAEC,qBAACA;gBAAIC,WAAU;0BACZV,MAAMc,GAAG,CAAC,CAACC,MAAMC,sBAChB,qBAACP;wBAECC,WAAW,CAAC,sBAAsB,EAAEO,KAAKC,GAAG,CAACF,QAAQ,GAAG,GAAG,CAAC;kCAE5D,cAAA,qBAACG,oBAAW;4BACVJ,MAAMA;4BACNZ,aAAaA;4BACbC,mBAAmBA;4BACnBgB,qBAAqBd;;uBAPlBS,KAAKM,EAAE,IAAIL;;YAcrBhB,MAAMW,MAAM,IAAI,oBACf,sBAACF;gBAAIC,WAAU;;kCACb,qBAACD;wBAAIC,WAAU;kCAAkB;;kCACjC,qBAACY;wBAAGZ,WAAU;kCAAmB;;kCACjC,qBAACG;wBAAEH,WAAU;kCAAkB;;;;;;AAOzC"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "a89c69ca0b7609d6e76a8ae482a6fd9a7bd9ecb6"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1w4nrj1n3y = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1w4nrj1n3y();
+cov_1w4nrj1n3y().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_1w4nrj1n3y().s[1]++;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_1w4nrj1n3y().f[0]++;
+    cov_1w4nrj1n3y().s[2]++;
+    return CardList;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_1w4nrj1n3y().s[3]++, require("react/jsx-runtime"));
+const _CardDisplay =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_1w4nrj1n3y().s[4]++, _interop_require_default(require("./CardDisplay")));
+const _Loading =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_1w4nrj1n3y().s[5]++, _interop_require_default(require("../UI/Loading")));
+function _interop_require_default(obj) {
+  /* istanbul ignore next */
+  cov_1w4nrj1n3y().f[1]++;
+  cov_1w4nrj1n3y().s[6]++;
+  return /* istanbul ignore next */(cov_1w4nrj1n3y().b[1][0]++, obj) &&
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[1][1]++, obj.__esModule) ?
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[0][0]++, obj) :
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[0][1]++, {
+    default: obj
+  });
+}
+function CardList({
+  cards =
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[2][0]++, []),
+  loading =
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[3][0]++, false),
+  error =
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[4][0]++, ""),
+  currentUser,
+  onFavouriteToggle,
+  emptyMessage =
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[5][0]++, "No cards found"),
+  showFavouriteButtons =
+  /* istanbul ignore next */
+  (cov_1w4nrj1n3y().b[6][0]++, true)
+}) {
+  /* istanbul ignore next */
+  cov_1w4nrj1n3y().f[2]++;
+  cov_1w4nrj1n3y().s[7]++;
+  if (loading) {
+    /* istanbul ignore next */
+    cov_1w4nrj1n3y().b[7][0]++;
+    cov_1w4nrj1n3y().s[8]++;
+    return /*#__PURE__*/(0, _jsxruntime.jsx)(_Loading.default, {
+      message: "Loading cards..."
+    });
+  } else
+  /* istanbul ignore next */
+  {
+    cov_1w4nrj1n3y().b[7][1]++;
+  }
+  cov_1w4nrj1n3y().s[9]++;
+  if (error) {
+    /* istanbul ignore next */
+    cov_1w4nrj1n3y().b[8][0]++;
+    cov_1w4nrj1n3y().s[10]++;
+    return /*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+      className: "error text-center mt-3 mb-3",
+      children: error
+    });
+  } else
+  /* istanbul ignore next */
+  {
+    cov_1w4nrj1n3y().b[8][1]++;
+  }
+  cov_1w4nrj1n3y().s[11]++;
+  if (cards.length === 0) {
+    /* istanbul ignore next */
+    cov_1w4nrj1n3y().b[9][0]++;
+    cov_1w4nrj1n3y().s[12]++;
+    return /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+      className: "empty-state",
+      children: [/*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+        className: "empty-state-icon",
+        children: "\uD83C\uDCCF"
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("h3", {
+        className: "empty-state-title",
+        children: emptyMessage
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+        className: "empty-state-text",
+        children: "Try adjusting your search terms or browse different abilities"
+      })]
+    });
+  } else
+  /* istanbul ignore next */
+  {
+    cov_1w4nrj1n3y().b[9][1]++;
+  }
+  cov_1w4nrj1n3y().s[13]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+    children: [/*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+      className: "cards-grid",
+      children: cards.map((card, index) => {
+        /* istanbul ignore next */
+        cov_1w4nrj1n3y().f[3]++;
+        cov_1w4nrj1n3y().s[14]++;
+        return /*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+          className: `fade-in fade-in-delay-${Math.min(index + 1, 5)}`,
+          children: /*#__PURE__*/(0, _jsxruntime.jsx)(_CardDisplay.default, {
+            card: card,
+            currentUser: currentUser,
+            onFavouriteToggle: onFavouriteToggle,
+            showFavouriteButton: showFavouriteButtons
+          })
+        },
+        /* istanbul ignore next */
+        (cov_1w4nrj1n3y().b[10][0]++, card.id) ||
+        /* istanbul ignore next */
+        (cov_1w4nrj1n3y().b[10][1]++, index));
+      })
+    }),
+    /* istanbul ignore next */
+    (cov_1w4nrj1n3y().b[11][0]++, cards.length >= 20) &&
+    /* istanbul ignore next */
+    (cov_1w4nrj1n3y().b[11][1]++, /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+      className: "more-cards-section",
+      children: [/*#__PURE__*/(0, _jsxruntime.jsx)("div", {
+        className: "more-cards-icon",
+        children: "\uD83D\uDCDA"
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("h4", {
+        className: "more-cards-title",
+        children: "More cards available"
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("p", {
+        className: "more-cards-text",
+        children: "Refine your search or try different keywords to find specific cards"
+      })]
+    }))]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJDYXJkTGlzdCIsImNhcmRzIiwiY292XzF3NG5yajFuM3kiLCJiIiwibG9hZGluZyIsImVycm9yIiwiY3VycmVudFVzZXIiLCJvbkZhdm91cml0ZVRvZ2dsZSIsImVtcHR5TWVzc2FnZSIsInNob3dGYXZvdXJpdGVCdXR0b25zIiwiZiIsInMiLCJfanN4cnVudGltZSIsImpzeCIsIl9Mb2FkaW5nIiwiZGVmYXVsdCIsIm1lc3NhZ2UiLCJjbGFzc05hbWUiLCJsZW5ndGgiLCJqc3hzIiwibWFwIiwiY2FyZCIsImluZGV4IiwiTWF0aCIsIm1pbiIsIl9DYXJkRGlzcGxheSIsInNob3dGYXZvdXJpdGVCdXR0b24iLCJpZCJdLCJzb3VyY2VzIjpbIi9Vc2Vycy9zYW11ZWxsb3ZlL0RvY3VtZW50cy9HaXRIdWIvQ2Fwc3RvbmUvZnJvbnRlbmQvY29tcG9uZW50cy9DYXJkL0NhcmRMaXN0LmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBDYXJkRGlzcGxheSBmcm9tIFwiLi9DYXJkRGlzcGxheVwiO1xuaW1wb3J0IExvYWRpbmcgZnJvbSBcIi4uL1VJL0xvYWRpbmdcIjtcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gQ2FyZExpc3Qoe1xuICBjYXJkcyA9IFtdLFxuICBsb2FkaW5nID0gZmFsc2UsXG4gIGVycm9yID0gXCJcIixcbiAgY3VycmVudFVzZXIsXG4gIG9uRmF2b3VyaXRlVG9nZ2xlLFxuICBlbXB0eU1lc3NhZ2UgPSBcIk5vIGNhcmRzIGZvdW5kXCIsXG4gIHNob3dGYXZvdXJpdGVCdXR0b25zID0gdHJ1ZSxcbn0pIHtcbiAgaWYgKGxvYWRpbmcpIHtcbiAgICByZXR1cm4gPExvYWRpbmcgbWVzc2FnZT1cIkxvYWRpbmcgY2FyZHMuLi5cIiAvPjtcbiAgfVxuXG4gIGlmIChlcnJvcikge1xuICAgIHJldHVybiA8ZGl2IGNsYXNzTmFtZT1cImVycm9yIHRleHQtY2VudGVyIG10LTMgbWItM1wiPntlcnJvcn08L2Rpdj47XG4gIH1cblxuICBpZiAoY2FyZHMubGVuZ3RoID09PSAwKSB7XG4gICAgcmV0dXJuIChcbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZW1wdHktc3RhdGVcIj5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJlbXB0eS1zdGF0ZS1pY29uXCI+8J+DjzwvZGl2PlxuICAgICAgICA8aDMgY2xhc3NOYW1lPVwiZW1wdHktc3RhdGUtdGl0bGVcIj57ZW1wdHlNZXNzYWdlfTwvaDM+XG4gICAgICAgIDxwIGNsYXNzTmFtZT1cImVtcHR5LXN0YXRlLXRleHRcIj5cbiAgICAgICAgICBUcnkgYWRqdXN0aW5nIHlvdXIgc2VhcmNoIHRlcm1zIG9yIGJyb3dzZSBkaWZmZXJlbnQgYWJpbGl0aWVzXG4gICAgICAgIDwvcD5cbiAgICAgIDwvZGl2PlxuICAgICk7XG4gIH1cblxuICByZXR1cm4gKFxuICAgIDxkaXY+XG4gICAgICB7LyogQ2FyZHMgR3JpZCAqL31cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY2FyZHMtZ3JpZFwiPlxuICAgICAgICB7Y2FyZHMubWFwKChjYXJkLCBpbmRleCkgPT4gKFxuICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgIGtleT17Y2FyZC5pZCB8fCBpbmRleH1cbiAgICAgICAgICAgIGNsYXNzTmFtZT17YGZhZGUtaW4gZmFkZS1pbi1kZWxheS0ke01hdGgubWluKGluZGV4ICsgMSwgNSl9YH1cbiAgICAgICAgICA+XG4gICAgICAgICAgICA8Q2FyZERpc3BsYXlcbiAgICAgICAgICAgICAgY2FyZD17Y2FyZH1cbiAgICAgICAgICAgICAgY3VycmVudFVzZXI9e2N1cnJlbnRVc2VyfVxuICAgICAgICAgICAgICBvbkZhdm91cml0ZVRvZ2dsZT17b25GYXZvdXJpdGVUb2dnbGV9XG4gICAgICAgICAgICAgIHNob3dGYXZvdXJpdGVCdXR0b249e3Nob3dGYXZvdXJpdGVCdXR0b25zfVxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgKSl9XG4gICAgICA8L2Rpdj5cblxuICAgICAgey8qIExvYWQgTW9yZSBNZXNzYWdlICovfVxuICAgICAge2NhcmRzLmxlbmd0aCA+PSAyMCAmJiAoXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibW9yZS1jYXJkcy1zZWN0aW9uXCI+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJtb3JlLWNhcmRzLWljb25cIj7wn5OaPC9kaXY+XG4gICAgICAgICAgPGg0IGNsYXNzTmFtZT1cIm1vcmUtY2FyZHMtdGl0bGVcIj5Nb3JlIGNhcmRzIGF2YWlsYWJsZTwvaDQ+XG4gICAgICAgICAgPHAgY2xhc3NOYW1lPVwibW9yZS1jYXJkcy10ZXh0XCI+XG4gICAgICAgICAgICBSZWZpbmUgeW91ciBzZWFyY2ggb3IgdHJ5IGRpZmZlcmVudCBrZXl3b3JkcyB0byBmaW5kIHNwZWNpZmljIGNhcmRzXG4gICAgICAgICAgPC9wPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICl9XG4gICAgPC9kaXY+XG4gICk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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

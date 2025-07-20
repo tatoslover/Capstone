@@ -1,0 +1,593 @@
+e6aaf1a1ca4f3bbad0712e9c9a8b7d03
+"use strict";
+
+/* istanbul ignore next */
+function cov_1nrh4x1fbo() {
+  var path = "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/MinimalWizard.js";
+  var hash = "47e9dbae31b94d90bb6b7c7a1402fcce53d9d3c4";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/MinimalWizard.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 29
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 12,
+          column: 29
+        },
+        end: {
+          line: 12,
+          column: 82
+        }
+      },
+      "5": {
+        start: {
+          line: 13,
+          column: 29
+        },
+        end: {
+          line: 13,
+          column: 71
+        }
+      },
+      "6": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 17,
+          column: 6
+        }
+      },
+      "7": {
+        start: {
+          line: 20,
+          column: 4
+        },
+        end: {
+          line: 275,
+          column: 7
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "_interop_require_default",
+        decl: {
+          start: {
+            line: 14,
+            column: 9
+          },
+          end: {
+            line: 14,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 14,
+            column: 39
+          },
+          end: {
+            line: 18,
+            column: 1
+          }
+        },
+        line: 14
+      },
+      "2": {
+        name: "MinimalWizard",
+        decl: {
+          start: {
+            line: 19,
+            column: 9
+          },
+          end: {
+            line: 19,
+            column: 22
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 54
+          },
+          end: {
+            line: 276,
+            column: 1
+          }
+        },
+        line: 19
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 35
+          },
+          end: {
+            line: 15,
+            column: 38
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 41
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        }],
+        line: 15
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 14
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 18
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        }],
+        line: 15
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 19,
+            column: 25
+          },
+          end: {
+            line: 19,
+            column: 34
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 32
+          },
+          end: {
+            line: 19,
+            column: 34
+          }
+        }],
+        line: 19
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 19,
+            column: 36
+          },
+          end: {
+            line: 19,
+            column: 50
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 48
+          },
+          end: {
+            line: 19,
+            column: 50
+          }
+        }],
+        line: 19
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0],
+      "2": [0],
+      "3": [0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/MinimalWizard.js"],
+      sourcesContent: ["import React from 'react';\n\nexport default function MinimalWizard({ size = 48, className = '' }) {\n  return (\n    <div className={`minimal-wizard ${className}`} style={{ width: size, height: size }}>\n      <svg\n        width={size}\n        height={size}\n        viewBox=\"0 0 100 100\"\n        xmlns=\"http://www.w3.org/2000/svg\"\n        style={{ overflow: 'visible' }}\n      >\n        {/* Minimalist Wizard Figure */}\n        <g className=\"wizard-figure\">\n          {/* Simple Triangle Hat */}\n          <path\n            d=\"M50 20 L40 50 L60 50 Z\"\n            fill=\"var(--theme-primary, #2D3748)\"\n            stroke=\"var(--theme-accent, #805ad5)\"\n            strokeWidth=\"1.5\"\n          />\n\n          {/* Head Circle */}\n          <circle\n            cx=\"50\"\n            cy=\"55\"\n            r=\"6\"\n            fill=\"var(--theme-primary, #2D3748)\"\n            stroke=\"var(--theme-accent, #805ad5)\"\n            strokeWidth=\"1\"\n          />\n\n          {/* Simple Body */}\n          <rect\n            x=\"45\"\n            y=\"61\"\n            width=\"10\"\n            height=\"20\"\n            fill=\"var(--theme-primary, #2D3748)\"\n            stroke=\"var(--theme-accent, #805ad5)\"\n            strokeWidth=\"1\"\n            rx=\"5\"\n          />\n\n          {/* Staff */}\n          <line\n            x1=\"35\"\n            y1=\"45\"\n            x2=\"35\"\n            y2=\"85\"\n            stroke=\"var(--theme-accent, #805ad5)\"\n            strokeWidth=\"2\"\n            strokeLinecap=\"round\"\n          />\n\n          {/* Glowing Staff Orb */}\n          <circle\n            cx=\"35\"\n            cy=\"40\"\n            r=\"4\"\n            fill=\"#4169E1\"\n            opacity=\"0.9\"\n          >\n            <animate\n              attributeName=\"fill\"\n              values=\"#4169E1;#9370DB;#00BFFF;#FFD700;#4169E1\"\n              dur=\"4s\"\n              repeatCount=\"indefinite\"\n            />\n            <animate\n              attributeName=\"r\"\n              values=\"4;5.5;4\"\n              dur=\"2s\"\n              repeatCount=\"indefinite\"\n            />\n          </circle>\n\n          {/* Inner Orb Glow */}\n          <circle\n            cx=\"35\"\n            cy=\"40\"\n            r=\"2\"\n            fill=\"#FFFFFF\"\n            opacity=\"0.6\"\n          >\n            <animate\n              attributeName=\"opacity\"\n              values=\"0.6;1;0.6\"\n              dur=\"1.5s\"\n              repeatCount=\"indefinite\"\n            />\n          </circle>\n        </g>\n\n        {/* Gentle Magic Aura */}\n        <circle\n          cx=\"35\"\n          cy=\"40\"\n          r=\"8\"\n          fill=\"none\"\n          stroke=\"#9370DB\"\n          strokeWidth=\"1\"\n          opacity=\"0\"\n        >\n          <animate\n            attributeName=\"r\"\n            values=\"6;12;6\"\n            dur=\"3s\"\n            repeatCount=\"indefinite\"\n          />\n          <animate\n            attributeName=\"opacity\"\n            values=\"0;0.4;0\"\n            dur=\"3s\"\n            repeatCount=\"indefinite\"\n          />\n        </circle>\n\n        {/* Subtle Energy Particles */}\n        <g className=\"energy-particles\">\n          <circle\n            cx=\"35\"\n            cy=\"40\"\n            r=\"1\"\n            fill=\"#FFD700\"\n            opacity=\"0\"\n          >\n            <animate\n              attributeName=\"cy\"\n              values=\"40;25;15\"\n              dur=\"2.5s\"\n              repeatCount=\"indefinite\"\n            />\n            <animate\n              attributeName=\"opacity\"\n              values=\"1;0.5;0\"\n              dur=\"2.5s\"\n              repeatCount=\"indefinite\"\n            />\n          </circle>\n\n          <circle\n            cx=\"35\"\n            cy=\"40\"\n            r=\"0.8\"\n            fill=\"#87CEEB\"\n            opacity=\"0\"\n          >\n            <animate\n              attributeName=\"cy\"\n              values=\"40;20;10\"\n              dur=\"3s\"\n              repeatCount=\"indefinite\"\n              begin=\"1s\"\n            />\n            <animate\n              attributeName=\"cx\"\n              values=\"35;30;25\"\n              dur=\"3s\"\n              repeatCount=\"indefinite\"\n              begin=\"1s\"\n            />\n            <animate\n              attributeName=\"opacity\"\n              values=\"1;0.3;0\"\n              dur=\"3s\"\n              repeatCount=\"indefinite\"\n              begin=\"1s\"\n            />\n          </circle>\n\n          <circle\n            cx=\"35\"\n            cy=\"40\"\n            r=\"0.6\"\n            fill=\"#DDA0DD\"\n            opacity=\"0\"\n          >\n            <animate\n              attributeName=\"cy\"\n              values=\"40;22;12\"\n              dur=\"2.8s\"\n              repeatCount=\"indefinite\"\n              begin=\"2s\"\n            />\n            <animate\n              attributeName=\"cx\"\n              values=\"35;40;45\"\n              dur=\"2.8s\"\n              repeatCount=\"indefinite\"\n              begin=\"2s\"\n            />\n            <animate\n              attributeName=\"opacity\"\n              values=\"1;0.4;0\"\n              dur=\"2.8s\"\n              repeatCount=\"indefinite\"\n              begin=\"2s\"\n            />\n          </circle>\n        </g>\n\n        {/* Magical Glow Effect */}\n        <defs>\n          <filter id=\"minimal-glow\">\n            <feGaussianBlur stdDeviation=\"2\" result=\"coloredBlur\"/>\n            <feMerge>\n              <feMergeNode in=\"coloredBlur\"/>\n              <feMergeNode in=\"SourceGraphic\"/>\n            </feMerge>\n          </filter>\n        </defs>\n      </svg>\n\n      <style jsx>{`\n        .minimal-wizard {\n          display: inline-block;\n          position: relative;\n        }\n\n        .minimal-wizard svg {\n          filter: drop-shadow(0 0 6px rgba(65, 105, 225, 0.3));\n        }\n\n        .wizard-figure {\n          filter: url(#minimal-glow);\n        }\n\n        .energy-particles {\n          filter: url(#minimal-glow);\n        }\n\n        /* Hover effect */\n        .minimal-wizard:hover svg {\n          filter: drop-shadow(0 0 12px rgba(65, 105, 225, 0.5));\n          transform: scale(1.05);\n          transition: all 0.3s ease;\n        }\n\n        .minimal-wizard:hover .wizard-figure {\n          animation: gentle-pulse 1.5s ease-in-out;\n        }\n\n        .minimal-wizard:hover .energy-particles {\n          animation: particle-burst 2s ease-out;\n        }\n\n        @keyframes gentle-pulse {\n          0% {\n            transform: scale(1);\n          }\n          50% {\n            transform: scale(1.1);\n          }\n          100% {\n            transform: scale(1);\n          }\n        }\n\n        @keyframes particle-burst {\n          0% {\n            transform: scale(1);\n            opacity: 1;\n          }\n          50% {\n            transform: scale(1.5);\n            opacity: 0.8;\n          }\n          100% {\n            transform: scale(1);\n            opacity: 1;\n          }\n        }\n      `}</style>\n    </div>\n  );\n}\n"],
+      names: ["MinimalWizard", "size", "className", "div", "style", "width", "height", "svg", "viewBox", "xmlns", "overflow", "g", "path", "d", "fill", "stroke", "strokeWidth", "circle", "cx", "cy", "r", "rect", "x", "y", "rx", "line", "x1", "y1", "x2", "y2", "strokeLinecap", "opacity", "animate", "attributeName", "values", "dur", "repeatCount", "begin", "defs", "filter", "id", "feGaussianBlur", "stdDeviation", "result", "feMerge", "feMergeNode", "in"],
+      mappings: "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"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "47e9dbae31b94d90bb6b7c7a1402fcce53d9d3c4"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1nrh4x1fbo = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1nrh4x1fbo();
+cov_1nrh4x1fbo().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_1nrh4x1fbo().s[1]++;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_1nrh4x1fbo().f[0]++;
+    cov_1nrh4x1fbo().s[2]++;
+    return MinimalWizard;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_1nrh4x1fbo().s[3]++, require("react/jsx-runtime"));
+const _style =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_1nrh4x1fbo().s[4]++, _interop_require_default(require("styled-jsx/style")));
+const _react =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_1nrh4x1fbo().s[5]++, _interop_require_default(require("react")));
+function _interop_require_default(obj) {
+  /* istanbul ignore next */
+  cov_1nrh4x1fbo().f[1]++;
+  cov_1nrh4x1fbo().s[6]++;
+  return /* istanbul ignore next */(cov_1nrh4x1fbo().b[1][0]++, obj) &&
+  /* istanbul ignore next */
+  (cov_1nrh4x1fbo().b[1][1]++, obj.__esModule) ?
+  /* istanbul ignore next */
+  (cov_1nrh4x1fbo().b[0][0]++, obj) :
+  /* istanbul ignore next */
+  (cov_1nrh4x1fbo().b[0][1]++, {
+    default: obj
+  });
+}
+function MinimalWizard({
+  size =
+  /* istanbul ignore next */
+  (cov_1nrh4x1fbo().b[2][0]++, 48),
+  className =
+  /* istanbul ignore next */
+  (cov_1nrh4x1fbo().b[3][0]++, "")
+}) {
+  /* istanbul ignore next */
+  cov_1nrh4x1fbo().f[2]++;
+  cov_1nrh4x1fbo().s[7]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+    style: {
+      width: size,
+      height: size
+    },
+    className: "jsx-a05c036d26718d68" + " " + `minimal-wizard ${className}`,
+    children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 100 100",
+      xmlns: "http://www.w3.org/2000/svg",
+      style: {
+        overflow: "visible"
+      },
+      className: "jsx-a05c036d26718d68",
+      children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("g", {
+        className: "jsx-a05c036d26718d68" + " " + "wizard-figure",
+        children: [/*#__PURE__*/(0, _jsxruntime.jsx)("path", {
+          d: "M50 20 L40 50 L60 50 Z",
+          fill: "var(--theme-primary, #2D3748)",
+          stroke: "var(--theme-accent, #805ad5)",
+          strokeWidth: "1.5",
+          className: "jsx-a05c036d26718d68"
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("circle", {
+          cx: "50",
+          cy: "55",
+          r: "6",
+          fill: "var(--theme-primary, #2D3748)",
+          stroke: "var(--theme-accent, #805ad5)",
+          strokeWidth: "1",
+          className: "jsx-a05c036d26718d68"
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("rect", {
+          x: "45",
+          y: "61",
+          width: "10",
+          height: "20",
+          fill: "var(--theme-primary, #2D3748)",
+          stroke: "var(--theme-accent, #805ad5)",
+          strokeWidth: "1",
+          rx: "5",
+          className: "jsx-a05c036d26718d68"
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("line", {
+          x1: "35",
+          y1: "45",
+          x2: "35",
+          y2: "85",
+          stroke: "var(--theme-accent, #805ad5)",
+          strokeWidth: "2",
+          strokeLinecap: "round",
+          className: "jsx-a05c036d26718d68"
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "35",
+          cy: "40",
+          r: "4",
+          fill: "#4169E1",
+          opacity: "0.9",
+          className: "jsx-a05c036d26718d68",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "fill",
+            values: "#4169E1;#9370DB;#00BFFF;#FFD700;#4169E1",
+            dur: "4s",
+            repeatCount: "indefinite",
+            className: "jsx-a05c036d26718d68"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "r",
+            values: "4;5.5;4",
+            dur: "2s",
+            repeatCount: "indefinite",
+            className: "jsx-a05c036d26718d68"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("circle", {
+          cx: "35",
+          cy: "40",
+          r: "2",
+          fill: "#FFFFFF",
+          opacity: "0.6",
+          className: "jsx-a05c036d26718d68",
+          children: /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "0.6;1;0.6",
+            dur: "1.5s",
+            repeatCount: "indefinite",
+            className: "jsx-a05c036d26718d68"
+          })
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+        cx: "35",
+        cy: "40",
+        r: "8",
+        fill: "none",
+        stroke: "#9370DB",
+        strokeWidth: "1",
+        opacity: "0",
+        className: "jsx-a05c036d26718d68",
+        children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+          attributeName: "r",
+          values: "6;12;6",
+          dur: "3s",
+          repeatCount: "indefinite",
+          className: "jsx-a05c036d26718d68"
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+          attributeName: "opacity",
+          values: "0;0.4;0",
+          dur: "3s",
+          repeatCount: "indefinite",
+          className: "jsx-a05c036d26718d68"
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("g", {
+        className: "jsx-a05c036d26718d68" + " " + "energy-particles",
+        children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "35",
+          cy: "40",
+          r: "1",
+          fill: "#FFD700",
+          opacity: "0",
+          className: "jsx-a05c036d26718d68",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "cy",
+            values: "40;25;15",
+            dur: "2.5s",
+            repeatCount: "indefinite",
+            className: "jsx-a05c036d26718d68"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "1;0.5;0",
+            dur: "2.5s",
+            repeatCount: "indefinite",
+            className: "jsx-a05c036d26718d68"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "35",
+          cy: "40",
+          r: "0.8",
+          fill: "#87CEEB",
+          opacity: "0",
+          className: "jsx-a05c036d26718d68",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "cy",
+            values: "40;20;10",
+            dur: "3s",
+            repeatCount: "indefinite",
+            begin: "1s",
+            className: "jsx-a05c036d26718d68"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "cx",
+            values: "35;30;25",
+            dur: "3s",
+            repeatCount: "indefinite",
+            begin: "1s",
+            className: "jsx-a05c036d26718d68"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "1;0.3;0",
+            dur: "3s",
+            repeatCount: "indefinite",
+            begin: "1s",
+            className: "jsx-a05c036d26718d68"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "35",
+          cy: "40",
+          r: "0.6",
+          fill: "#DDA0DD",
+          opacity: "0",
+          className: "jsx-a05c036d26718d68",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "cy",
+            values: "40;22;12",
+            dur: "2.8s",
+            repeatCount: "indefinite",
+            begin: "2s",
+            className: "jsx-a05c036d26718d68"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "cx",
+            values: "35;40;45",
+            dur: "2.8s",
+            repeatCount: "indefinite",
+            begin: "2s",
+            className: "jsx-a05c036d26718d68"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "1;0.4;0",
+            dur: "2.8s",
+            repeatCount: "indefinite",
+            begin: "2s",
+            className: "jsx-a05c036d26718d68"
+          })]
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("defs", {
+        className: "jsx-a05c036d26718d68",
+        children: /*#__PURE__*/(0, _jsxruntime.jsxs)("filter", {
+          id: "minimal-glow",
+          className: "jsx-a05c036d26718d68",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("feGaussianBlur", {
+            stdDeviation: "2",
+            result: "coloredBlur",
+            className: "jsx-a05c036d26718d68"
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("feMerge", {
+            className: "jsx-a05c036d26718d68",
+            children: [/*#__PURE__*/(0, _jsxruntime.jsx)("feMergeNode", {
+              in: "coloredBlur",
+              className: "jsx-a05c036d26718d68"
+            }), /*#__PURE__*/(0, _jsxruntime.jsx)("feMergeNode", {
+              in: "SourceGraphic",
+              className: "jsx-a05c036d26718d68"
+            })]
+          })]
+        })
+      })]
+    }), (0, _jsxruntime.jsx)(_style.default, {
+      id: "a05c036d26718d68",
+      children: ".minimal-wizard.jsx-a05c036d26718d68{display:inline-block;position:relative}.minimal-wizard.jsx-a05c036d26718d68 svg.jsx-a05c036d26718d68{-webkit-filter:drop-shadow(0 0 6px rgba(65,105,225,.3));filter:drop-shadow(0 0 6px rgba(65,105,225,.3))}.wizard-figure.jsx-a05c036d26718d68{-webkit-filter:url(#minimal-glow);filter:url(#minimal-glow)}.energy-particles.jsx-a05c036d26718d68{-webkit-filter:url(#minimal-glow);filter:url(#minimal-glow)}.minimal-wizard.jsx-a05c036d26718d68:hover svg.jsx-a05c036d26718d68{-webkit-filter:drop-shadow(0 0 12px rgba(65,105,225,.5));filter:drop-shadow(0 0 12px rgba(65,105,225,.5));-webkit-transform:scale(1.05);-moz-transform:scale(1.05);-ms-transform:scale(1.05);-o-transform:scale(1.05);transform:scale(1.05);-webkit-transition:all.3s ease;-moz-transition:all.3s ease;-o-transition:all.3s ease;transition:all.3s ease}.minimal-wizard.jsx-a05c036d26718d68:hover .wizard-figure.jsx-a05c036d26718d68{-webkit-animation:gentle-pulse 1.5s ease-in-out;-moz-animation:gentle-pulse 1.5s ease-in-out;-o-animation:gentle-pulse 1.5s ease-in-out;animation:gentle-pulse 1.5s ease-in-out}.minimal-wizard.jsx-a05c036d26718d68:hover .energy-particles.jsx-a05c036d26718d68{-webkit-animation:particle-burst 2s ease-out;-moz-animation:particle-burst 2s ease-out;-o-animation:particle-burst 2s ease-out;animation:particle-burst 2s ease-out}@-webkit-keyframes gentle-pulse{0%{-webkit-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(1.1);transform:scale(1.1)}100%{-webkit-transform:scale(1);transform:scale(1)}}@-moz-keyframes gentle-pulse{0%{-moz-transform:scale(1);transform:scale(1)}50%{-moz-transform:scale(1.1);transform:scale(1.1)}100%{-moz-transform:scale(1);transform:scale(1)}}@-o-keyframes gentle-pulse{0%{-o-transform:scale(1);transform:scale(1)}50%{-o-transform:scale(1.1);transform:scale(1.1)}100%{-o-transform:scale(1);transform:scale(1)}}@keyframes gentle-pulse{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(1.1);-moz-transform:scale(1.1);-o-transform:scale(1.1);transform:scale(1.1)}100%{-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);transform:scale(1)}}@-webkit-keyframes particle-burst{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}50%{-webkit-transform:scale(1.5);transform:scale(1.5);opacity:.8}100%{-webkit-transform:scale(1);transform:scale(1);opacity:1}}@-moz-keyframes particle-burst{0%{-moz-transform:scale(1);transform:scale(1);opacity:1}50%{-moz-transform:scale(1.5);transform:scale(1.5);opacity:.8}100%{-moz-transform:scale(1);transform:scale(1);opacity:1}}@-o-keyframes particle-burst{0%{-o-transform:scale(1);transform:scale(1);opacity:1}50%{-o-transform:scale(1.5);transform:scale(1.5);opacity:.8}100%{-o-transform:scale(1);transform:scale(1);opacity:1}}@keyframes particle-burst{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);transform:scale(1);opacity:1}50%{-webkit-transform:scale(1.5);-moz-transform:scale(1.5);-o-transform:scale(1.5);transform:scale(1.5);opacity:.8}100%{-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);transform:scale(1);opacity:1}}"
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJNaW5pbWFsV2l6YXJkIiwic2l6ZSIsImNvdl8xbnJoNHgxZmJvIiwiYiIsImNsYXNzTmFtZSIsImYiLCJzIiwiX2pzeHJ1bnRpbWUiLCJqc3hzIiwic3R5bGUiLCJ3aWR0aCIsImhlaWdodCIsInZpZXdCb3giLCJ4bWxucyIsIm92ZXJmbG93IiwianN4IiwiZCIsImZpbGwiLCJzdHJva2UiLCJzdHJva2VXaWR0aCIsImN4IiwiY3kiLCJyIiwieCIsInkiLCJyeCIsIngxIiwieTEiLCJ4MiIsInkyIiwic3Ryb2tlTGluZWNhcCIsIm9wYWNpdHkiLCJhdHRyaWJ1dGVOYW1lIiwidmFsdWVzIiwiZHVyIiwicmVwZWF0Q291bnQiLCJiZWdpbiIsImlkIiwic3RkRGV2aWF0aW9uIiwicmVzdWx0IiwiaW4iXSwic291cmNlcyI6WyIvVXNlcnMvc2FtdWVsbG92ZS9Eb2N1bWVudHMvR2l0SHViL0NhcHN0b25lL2Zyb250ZW5kL2NvbXBvbmVudHMvVUkvTWluaW1hbFdpemFyZC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBNaW5pbWFsV2l6YXJkKHsgc2l6ZSA9IDQ4LCBjbGFzc05hbWUgPSAnJyB9KSB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9e2BtaW5pbWFsLXdpemFyZCAke2NsYXNzTmFtZX1gfSBzdHlsZT17eyB3aWR0aDogc2l6ZSwgaGVpZ2h0OiBzaXplIH19PlxuICAgICAgPHN2Z1xuICAgICAgICB3aWR0aD17c2l6ZX1cbiAgICAgICAgaGVpZ2h0PXtzaXplfVxuICAgICAgICB2aWV3Qm94PVwiMCAwIDEwMCAxMDBcIlxuICAgICAgICB4bWxucz1cImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnXCJcbiAgICAgICAgc3R5bGU9e3sgb3ZlcmZsb3c6ICd2aXNpYmxlJyB9fVxuICAgICAgPlxuICAgICAgICB7LyogTWluaW1hbGlzdCBXaXphcmQgRmlndXJlICovfVxuICAgICAgICA8ZyBjbGFzc05hbWU9XCJ3aXphcmQtZmlndXJlXCI+XG4gICAgICAgICAgey8qIFNpbXBsZSBUcmlhbmdsZSBIYXQgKi99XG4gICAgICAgICAgPHBhdGhcbiAgICAgICAgICAgIGQ9XCJNNTAgMjAgTDQwIDUwIEw2MCA1MCBaXCJcbiAgICAgICAgICAgIGZpbGw9XCJ2YXIoLS10aGVtZS1wcmltYXJ5LCAjMkQzNzQ4KVwiXG4gICAgICAgICAgICBzdHJva2U9XCJ2YXIoLS10aGVtZS1hY2NlbnQsICM4MDVhZDUpXCJcbiAgICAgICAgICAgIHN0cm9rZVdpZHRoPVwiMS41XCJcbiAgICAgICAgICAvPlxuXG4gICAgICAgICAgey8qIEhlYWQgQ2lyY2xlICovfVxuICAgICAgICAgIDxjaXJjbGVcbiAgICAgICAgICAgIGN4PVwiNTBcIlxuICAgICAgICAgICAgY3k9XCI1NVwiXG4gICAgICAgICAgICByPVwiNlwiXG4gICAgICAgICAgICBmaWxsPVwidmFyKC0tdGhlbWUtcHJpbWFyeSwgIzJEMzc0OClcIlxuICAgICAgICAgICAgc3Ryb2tlPVwidmFyKC0tdGhlbWUtYWNjZW50LCAjODA1YWQ1KVwiXG4gICAgICAgICAgICBzdHJva2VXaWR0aD1cIjFcIlxuICAgICAgICAgIC8+XG5cbiAgICAgICAgICB7LyogU2ltcGxlIEJvZHkgKi99XG4gICAgICAgICAgPHJlY3RcbiAgICAgICAgICAgIHg9XCI0NVwiXG4gICAgICAgICAgICB5PVwiNjFcIlxuICAgICAgICAgICAgd2lkdGg9XCIxMFwiXG4gICAgICAgICAgICBoZWlnaHQ9XCIyMFwiXG4gICAgICAgICAgICBmaWxsPVwidmFyKC0tdGhlbWUtcHJpbWFyeSwgIzJEMzc0OClcIlxuICAgICAgICAgICAgc3Ryb2tlPVwidmFyKC0tdGhlbWUtYWNjZW50LCAjODA1YWQ1KVwiXG4gICAgICAgICAgICBzdHJva2VXaWR0aD1cIjFcIlxuICAgICAgICAgICAgcng9XCI1XCJcbiAgICAgICAgICAvPlxuXG4gICAgICAgICAgey8qIFN0YWZmICovfVxuICAgICAgICAgIDxsaW5lXG4gICAgICAgICAgICB4MT1cIjM1XCJcbiAgICAgICAgICAgIHkxPVwiNDVcIlxuICAgICAgICAgICAgeDI9XCIzNVwiXG4gICAgICAgICAgICB5Mj1cIjg1XCJcbiAgICAgICAgICAgIHN0cm9rZT1cInZhcigtLXRoZW1lLWFjY2VudCwgIzgwNWFkNSlcIlxuICAgICAgICAgICAgc3Ryb2tlV2lkdGg9XCIyXCJcbiAgICAgICAgICAgIHN0cm9rZUxpbmVjYXA9XCJyb3VuZFwiXG4gICAgICAgICAgLz5cblxuICAgICAgICAgIHsvKiBHbG93aW5nIFN0YWZmIE9yYiAqL31cbiAgICAgICAgICA8Y2lyY2xlXG4gICAgICAgICAgICBjeD1cIjM1XCJcbiAgICAgICAgICAgIGN5PVwiNDBcIlxuICAgICAgICAgICAgcj1cIjRcIlxuICAgICAgICAgICAgZmlsbD1cIiM0MTY5RTFcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjAuOVwiXG4gICAgICAgICAgPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cImZpbGxcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIjNDE2OUUxOyM5MzcwREI7IzAwQkZGRjsjRkZENzAwOyM0MTY5RTFcIlxuICAgICAgICAgICAgICBkdXI9XCI0c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cInJcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCI0OzUuNTs0XCJcbiAgICAgICAgICAgICAgZHVyPVwiMnNcIlxuICAgICAgICAgICAgICByZXBlYXRDb3VudD1cImluZGVmaW5pdGVcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L2NpcmNsZT5cblxuICAgICAgICAgIHsvKiBJbm5lciBPcmIgR2xvdyAqL31cbiAgICAgICAgICA8Y2lyY2xlXG4gICAgICAgICAgICBjeD1cIjM1XCJcbiAgICAgICAgICAgIGN5PVwiNDBcIlxuICAgICAgICAgICAgcj1cIjJcIlxuICAgICAgICAgICAgZmlsbD1cIiNGRkZGRkZcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjAuNlwiXG4gICAgICAgICAgPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cIm9wYWNpdHlcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIwLjY7MTswLjZcIlxuICAgICAgICAgICAgICBkdXI9XCIxLjVzXCJcbiAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9XCJpbmRlZmluaXRlXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgPC9jaXJjbGU+XG4gICAgICAgIDwvZz5cblxuICAgICAgICB7LyogR2VudGxlIE1hZ2ljIEF1cmEgKi99XG4gICAgICAgIDxjaXJjbGVcbiAgICAgICAgICBjeD1cIjM1XCJcbiAgICAgICAgICBjeT1cIjQwXCJcbiAgICAgICAgICByPVwiOFwiXG4gICAgICAgICAgZmlsbD1cIm5vbmVcIlxuICAgICAgICAgIHN0cm9rZT1cIiM5MzcwREJcIlxuICAgICAgICAgIHN0cm9rZVdpZHRoPVwiMVwiXG4gICAgICAgICAgb3BhY2l0eT1cIjBcIlxuICAgICAgICA+XG4gICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJyXCJcbiAgICAgICAgICAgIHZhbHVlcz1cIjY7MTI7NlwiXG4gICAgICAgICAgICBkdXI9XCIzc1wiXG4gICAgICAgICAgICByZXBlYXRDb3VudD1cImluZGVmaW5pdGVcIlxuICAgICAgICAgIC8+XG4gICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJvcGFjaXR5XCJcbiAgICAgICAgICAgIHZhbHVlcz1cIjA7MC40OzBcIlxuICAgICAgICAgICAgZHVyPVwiM3NcIlxuICAgICAgICAgICAgcmVwZWF0Q291bnQ9XCJpbmRlZmluaXRlXCJcbiAgICAgICAgICAvPlxuICAgICAgICA8L2NpcmNsZT5cblxuICAgICAgICB7LyogU3VidGxlIEVuZXJneSBQYXJ0aWNsZXMgKi99XG4gICAgICAgIDxnIGNsYXNzTmFtZT1cImVuZXJneS1wYXJ0aWNsZXNcIj5cbiAgICAgICAgICA8Y2lyY2xlXG4gICAgICAgICAgICBjeD1cIjM1XCJcbiAgICAgICAgICAgIGN5PVwiNDBcIlxuICAgICAgICAgICAgcj1cIjFcIlxuICAgICAgICAgICAgZmlsbD1cIiNGRkQ3MDBcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjBcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJjeVwiXG4gICAgICAgICAgICAgIHZhbHVlcz1cIjQwOzI1OzE1XCJcbiAgICAgICAgICAgICAgZHVyPVwiMi41c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cIm9wYWNpdHlcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIxOzAuNTswXCJcbiAgICAgICAgICAgICAgZHVyPVwiMi41c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvY2lyY2xlPlxuXG4gICAgICAgICAgPGNpcmNsZVxuICAgICAgICAgICAgY3g9XCIzNVwiXG4gICAgICAgICAgICBjeT1cIjQwXCJcbiAgICAgICAgICAgIHI9XCIwLjhcIlxuICAgICAgICAgICAgZmlsbD1cIiM4N0NFRUJcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjBcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJjeVwiXG4gICAgICAgICAgICAgIHZhbHVlcz1cIjQwOzIwOzEwXCJcbiAgICAgICAgICAgICAgZHVyPVwiM3NcIlxuICAgICAgICAgICAgICByZXBlYXRDb3VudD1cImluZGVmaW5pdGVcIlxuICAgICAgICAgICAgICBiZWdpbj1cIjFzXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgICA8YW5pbWF0ZVxuICAgICAgICAgICAgICBhdHRyaWJ1dGVOYW1lPVwiY3hcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIzNTszMDsyNVwiXG4gICAgICAgICAgICAgIGR1cj1cIjNzXCJcbiAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9XCJpbmRlZmluaXRlXCJcbiAgICAgICAgICAgICAgYmVnaW49XCIxc1wiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cIm9wYWNpdHlcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIxOzAuMzswXCJcbiAgICAgICAgICAgICAgZHVyPVwiM3NcIlxuICAgICAgICAgICAgICByZXBlYXRDb3VudD1cImluZGVmaW5pdGVcIlxuICAgICAgICAgICAgICBiZWdpbj1cIjFzXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgPC9jaXJjbGU+XG5cbiAgICAgICAgICA8Y2lyY2xlXG4gICAgICAgICAgICBjeD1cIjM1XCJcbiAgICAgICAgICAgIGN5PVwiNDBcIlxuICAgICAgICAgICAgcj1cIjAuNlwiXG4gICAgICAgICAgICBmaWxsPVwiI0REQTBERFwiXG4gICAgICAgICAgICBvcGFjaXR5PVwiMFwiXG4gICAgICAgICAgPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cImN5XCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiNDA7MjI7MTJcIlxuICAgICAgICAgICAgICBkdXI9XCIyLjhzXCJcbiAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9XCJpbmRlZmluaXRlXCJcbiAgICAgICAgICAgICAgYmVnaW49XCIyc1wiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cImN4XCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMzU7NDA7NDVcIlxuICAgICAgICAgICAgICBkdXI9XCIyLjhzXCJcbiAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9XCJpbmRlZmluaXRlXCJcbiAgICAgICAgICAgICAgYmVnaW49XCIyc1wiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cIm9wYWNpdHlcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIxOzAuNDswXCJcbiAgICAgICAgICAgICAgZHVyPVwiMi44c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAgIGJlZ2luPVwiMnNcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L2NpcmNsZT5cbiAgICAgICAgPC9nPlxuXG4gICAgICAgIHsvKiBNYWdpY2FsIEdsb3cgRWZmZWN0ICovfVxuICAgICAgICA8ZGVmcz5cbiAgICAgICAgICA8ZmlsdGVyIGlkPVwibWluaW1hbC1nbG93XCI+XG4gICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPVwiMlwiIHJlc3VsdD1cImNvbG9yZWRCbHVyXCIvPlxuICAgICAgICAgICAgPGZlTWVyZ2U+XG4gICAgICAgICAgICAgIDxmZU1lcmdlTm9kZSBpbj1cImNvbG9yZWRCbHVyXCIvPlxuICAgICAgICAgICAgICA8ZmVNZXJnZU5vZGUgaW49XCJTb3VyY2VHcmFwaGljXCIvPlxuICAgICAgICAgICAgPC9mZU1lcmdlPlxuICAgICAgICAgIDwvZmlsdGVyPlxuICAgICAgICA8L2RlZnM+XG4gICAgICA8L3N2Zz5cblxuICAgICAgPHN0eWxlIGpzeD57YFxuICAgICAgICAubWluaW1hbC13aXphcmQge1xuICAgICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICAgICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgICAgIH1cblxuICAgICAgICAubWluaW1hbC13aXphcmQgc3ZnIHtcbiAgICAgICAgICBmaWx0ZXI6IGRyb3Atc2hhZG93KDAgMCA2cHggcmdiYSg2NSwgMTA1LCAyMjUsIDAuMykpO1xuICAgICAgICB9XG5cbiAgICAgICAgLndpemFyZC1maWd1cmUge1xuICAgICAgICAgIGZpbHRlcjogdXJsKCNtaW5pbWFsLWdsb3cpO1xuICAgICAgICB9XG5cbiAgICAgICAgLmVuZXJneS1wYXJ0aWNsZXMge1xuICAgICAgICAgIGZpbHRlcjogdXJsKCNtaW5pbWFsLWdsb3cpO1xuICAgICAgICB9XG5cbiAgICAgICAgLyogSG92ZXIgZWZmZWN0ICovXG4gICAgICAgIC5taW5pbWFsLXdpemFyZDpob3ZlciBzdmcge1xuICAgICAgICAgIGZpbHRlcjogZHJvcC1zaGFkb3coMCAwIDEycHggcmdiYSg2NSwgMTA1LCAyMjUsIDAuNSkpO1xuICAgICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS4wNSk7XG4gICAgICAgICAgdHJhbnNpdGlvbjogYWxsIDAuM3MgZWFzZTtcbiAgICAgICAgfVxuXG4gICAgICAgIC5taW5pbWFsLXdpemFyZDpob3ZlciAud2l6YXJkLWZpZ3VyZSB7XG4gICAgICAgICAgYW5pbWF0aW9uOiBnZW50bGUtcHVsc2UgMS41cyBlYXNlLWluLW91dDtcbiAgICAgICAgfVxuXG4gICAgICAgIC5taW5pbWFsLXdpemFyZDpob3ZlciAuZW5lcmd5LXBhcnRpY2xlcyB7XG4gICAgICAgICAgYW5pbWF0aW9uOiBwYXJ0aWNsZS1idXJzdCAycyBlYXNlLW91dDtcbiAgICAgICAgfVxuXG4gICAgICAgIEBrZXlmcmFtZXMgZ2VudGxlLXB1bHNlIHtcbiAgICAgICAgICAwJSB7XG4gICAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEpO1xuICAgICAgICAgIH1cbiAgICAgICAgICA1MCUge1xuICAgICAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgxLjEpO1xuICAgICAgICAgIH1cbiAgICAgICAgICAxMDAlIHtcbiAgICAgICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMSk7XG4gICAgICAgICAgfVxuICAgICAgICB9XG5cbiAgICAgICAgQGtleWZyYW1lcyBwYXJ0aWNsZS1idXJzdCB7XG4gICAgICAgICAgMCUge1xuICAgICAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgxKTtcbiAgICAgICAgICAgIG9wYWNpdHk6IDE7XG4gICAgICAgICAgfVxuICAgICAgICAgIDUwJSB7XG4gICAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEuNSk7XG4gICAgICAgICAgICBvcGFjaXR5OiAwLjg7XG4gICAgICAgICAgfVxuICAgICAgICAgIDEwMCUge1xuICAgICAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgxKTtcbiAgICAgICAgICAgIG9wYWNpdHk6IDE7XG4gICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICBgfTwvc3R5bGU+XG4gICAgPC9kaXY+XG4gICk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzsrQkFFQTs7Ozs7O1dBQXdCQSxhQUFBOzs7Ozs7Ozs7Ozt3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

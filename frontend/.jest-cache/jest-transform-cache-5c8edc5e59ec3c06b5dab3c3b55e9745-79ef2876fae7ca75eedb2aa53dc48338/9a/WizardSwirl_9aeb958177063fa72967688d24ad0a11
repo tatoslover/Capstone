@@ -1,0 +1,643 @@
+0ff296c51a063835a5e97a0c02b0cade
+"use strict";
+
+/* istanbul ignore next */
+function cov_1754wh4vgb() {
+  var path = "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/WizardSwirl.js";
+  var hash = "cf251d4743425e247e6c059aa182c2b3306cdc53";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/WizardSwirl.js",
+    statementMap: {
+      "0": {
+        start: {
+          line: 2,
+          column: 0
+        },
+        end: {
+          line: 4,
+          column: 3
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 0
+        },
+        end: {
+          line: 10,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 8
+        },
+        end: {
+          line: 8,
+          column: 27
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 20
+        },
+        end: {
+          line: 11,
+          column: 48
+        }
+      },
+      "4": {
+        start: {
+          line: 12,
+          column: 29
+        },
+        end: {
+          line: 12,
+          column: 82
+        }
+      },
+      "5": {
+        start: {
+          line: 13,
+          column: 29
+        },
+        end: {
+          line: 13,
+          column: 71
+        }
+      },
+      "6": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 17,
+          column: 6
+        }
+      },
+      "7": {
+        start: {
+          line: 20,
+          column: 4
+        },
+        end: {
+          line: 337,
+          column: 7
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 9
+          },
+          end: {
+            line: 7,
+            column: 10
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 20
+          },
+          end: {
+            line: 9,
+            column: 5
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "_interop_require_default",
+        decl: {
+          start: {
+            line: 14,
+            column: 9
+          },
+          end: {
+            line: 14,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 14,
+            column: 39
+          },
+          end: {
+            line: 18,
+            column: 1
+          }
+        },
+        line: 14
+      },
+      "2": {
+        name: "WizardSwirl",
+        decl: {
+          start: {
+            line: 19,
+            column: 9
+          },
+          end: {
+            line: 19,
+            column: 20
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 52
+          },
+          end: {
+            line: 338,
+            column: 1
+          }
+        },
+        line: 19
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 35
+          },
+          end: {
+            line: 15,
+            column: 38
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 41
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        }],
+        line: 15
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 11
+          },
+          end: {
+            line: 15,
+            column: 14
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 18
+          },
+          end: {
+            line: 15,
+            column: 32
+          }
+        }],
+        line: 15
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 19,
+            column: 23
+          },
+          end: {
+            line: 19,
+            column: 32
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 30
+          },
+          end: {
+            line: 19,
+            column: 32
+          }
+        }],
+        line: 19
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 19,
+            column: 34
+          },
+          end: {
+            line: 19,
+            column: 48
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 19,
+            column: 46
+          },
+          end: {
+            line: 19,
+            column: 48
+          }
+        }],
+        line: 19
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0],
+      "2": [0],
+      "3": [0]
+    },
+    inputSourceMap: {
+      version: 3,
+      sources: ["/Users/samuellove/Documents/GitHub/Capstone/frontend/components/UI/WizardSwirl.js"],
+      sourcesContent: ["import React from 'react';\n\nexport default function WizardSwirl({ size = 48, className = '' }) {\n  return (\n    <div className={`wizard-swirl ${className}`} style={{ width: size, height: size }}>\n      <svg\n        width={size}\n        height={size}\n        viewBox=\"0 0 100 100\"\n        xmlns=\"http://www.w3.org/2000/svg\"\n        style={{ overflow: 'visible' }}\n      >\n        {/* Wizard Hat */}\n        <path\n          d=\"M50 15 L25 75 L75 75 Z\"\n          fill=\"var(--theme-primary, #4a5568)\"\n          stroke=\"var(--theme-accent, #805ad5)\"\n          strokeWidth=\"2\"\n        />\n\n        {/* Hat Brim */}\n        <ellipse\n          cx=\"50\"\n          cy=\"75\"\n          rx=\"27\"\n          ry=\"8\"\n          fill=\"var(--theme-primary, #4a5568)\"\n          stroke=\"var(--theme-accent, #805ad5)\"\n          strokeWidth=\"2\"\n        />\n\n        {/* Hat Band */}\n        <rect\n          x=\"30\"\n          y=\"65\"\n          width=\"40\"\n          height=\"6\"\n          fill=\"var(--theme-accent, #805ad5)\"\n          rx=\"3\"\n        />\n\n        {/* Swirling Magic Energy */}\n        <g className=\"swirling-magic\">\n          {/* Energy Stream 1 */}\n          <path\n            d=\"M50 45 Q35 35 25 45 Q15 55 25 65 Q35 75 50 65\"\n            fill=\"none\"\n            stroke=\"#FFD700\"\n            strokeWidth=\"2\"\n            opacity=\"0.8\"\n            strokeLinecap=\"round\"\n          >\n            <animate\n              attributeName=\"d\"\n              values=\"M50 45 Q35 35 25 45 Q15 55 25 65 Q35 75 50 65;\n                      M50 45 Q40 30 30 40 Q20 50 30 60 Q40 70 50 60;\n                      M50 45 Q35 35 25 45 Q15 55 25 65 Q35 75 50 65\"\n              dur=\"4s\"\n              repeatCount=\"indefinite\"\n            />\n            <animate\n              attributeName=\"opacity\"\n              values=\"0.8;1;0.8\"\n              dur=\"2s\"\n              repeatCount=\"indefinite\"\n            />\n          </path>\n\n          {/* Energy Stream 2 */}\n          <path\n            d=\"M50 50 Q65 40 75 50 Q85 60 75 70 Q65 80 50 70\"\n            fill=\"none\"\n            stroke=\"#9370DB\"\n            strokeWidth=\"2\"\n            opacity=\"0.8\"\n            strokeLinecap=\"round\"\n          >\n            <animate\n              attributeName=\"d\"\n              values=\"M50 50 Q65 40 75 50 Q85 60 75 70 Q65 80 50 70;\n                      M50 50 Q60 35 70 45 Q80 55 70 65 Q60 75 50 65;\n                      M50 50 Q65 40 75 50 Q85 60 75 70 Q65 80 50 70\"\n              dur=\"4s\"\n              repeatCount=\"indefinite\"\n              begin=\"1s\"\n            />\n            <animate\n              attributeName=\"opacity\"\n              values=\"0.8;1;0.8\"\n              dur=\"2s\"\n              repeatCount=\"indefinite\"\n              begin=\"0.5s\"\n            />\n          </path>\n\n          {/* Energy Stream 3 */}\n          <path\n            d=\"M50 55 Q40 45 30 55 Q20 65 30 75 Q40 85 50 75\"\n            fill=\"none\"\n            stroke=\"#00BFFF\"\n            strokeWidth=\"1.5\"\n            opacity=\"0.7\"\n            strokeLinecap=\"round\"\n          >\n            <animate\n              attributeName=\"d\"\n              values=\"M50 55 Q40 45 30 55 Q20 65 30 75 Q40 85 50 75;\n                      M50 55 Q45 40 35 50 Q25 60 35 70 Q45 80 50 70;\n                      M50 55 Q40 45 30 55 Q20 65 30 75 Q40 85 50 75\"\n              dur=\"5s\"\n              repeatCount=\"indefinite\"\n              begin=\"2s\"\n            />\n            <animate\n              attributeName=\"opacity\"\n              values=\"0.7;0.9;0.7\"\n              dur=\"3s\"\n              repeatCount=\"indefinite\"\n              begin=\"1s\"\n            />\n          </path>\n\n          {/* Energy Stream 4 */}\n          <path\n            d=\"M50 40 Q60 30 70 40 Q80 50 70 60 Q60 70 50 60\"\n            fill=\"none\"\n            stroke=\"#FF69B4\"\n            strokeWidth=\"1.5\"\n            opacity=\"0.7\"\n            strokeLinecap=\"round\"\n          >\n            <animate\n              attributeName=\"d\"\n              values=\"M50 40 Q60 30 70 40 Q80 50 70 60 Q60 70 50 60;\n                      M50 40 Q55 25 65 35 Q75 45 65 55 Q55 65 50 55;\n                      M50 40 Q60 30 70 40 Q80 50 70 60 Q60 70 50 60\"\n              dur=\"5s\"\n              repeatCount=\"indefinite\"\n              begin=\"3s\"\n            />\n            <animate\n              attributeName=\"opacity\"\n              values=\"0.7;0.9;0.7\"\n              dur=\"3s\"\n              repeatCount=\"indefinite\"\n              begin=\"1.5s\"\n            />\n          </path>\n        </g>\n\n        {/* Orbital Energy Particles */}\n        <g className=\"orbital-particles\">\n          {/* Particle 1 */}\n          <circle\n            cx=\"50\"\n            cy=\"50\"\n            r=\"2\"\n            fill=\"#FFD700\"\n            opacity=\"0.9\"\n          >\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"rotate\"\n              values=\"0 50 50; 360 50 50\"\n              dur=\"6s\"\n              repeatCount=\"indefinite\"\n            />\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"translate\"\n              values=\"0 -20; 0 -20\"\n              additive=\"sum\"\n            />\n          </circle>\n\n          {/* Particle 2 */}\n          <circle\n            cx=\"50\"\n            cy=\"50\"\n            r=\"1.5\"\n            fill=\"#9370DB\"\n            opacity=\"0.8\"\n          >\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"rotate\"\n              values=\"120 50 50; 480 50 50\"\n              dur=\"6s\"\n              repeatCount=\"indefinite\"\n            />\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"translate\"\n              values=\"0 -25; 0 -25\"\n              additive=\"sum\"\n            />\n          </circle>\n\n          {/* Particle 3 */}\n          <circle\n            cx=\"50\"\n            cy=\"50\"\n            r=\"1\"\n            fill=\"#00BFFF\"\n            opacity=\"0.7\"\n          >\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"rotate\"\n              values=\"240 50 50; 600 50 50\"\n              dur=\"6s\"\n              repeatCount=\"indefinite\"\n            />\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"translate\"\n              values=\"0 -30; 0 -30\"\n              additive=\"sum\"\n            />\n          </circle>\n\n          {/* Particle 4 */}\n          <circle\n            cx=\"50\"\n            cy=\"50\"\n            r=\"1.5\"\n            fill=\"#FF69B4\"\n            opacity=\"0.6\"\n          >\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"rotate\"\n              values=\"60 50 50; -300 50 50\"\n              dur=\"8s\"\n              repeatCount=\"indefinite\"\n            />\n            <animateTransform\n              attributeName=\"transform\"\n              type=\"translate\"\n              values=\"0 -15; 0 -15\"\n              additive=\"sum\"\n            />\n          </circle>\n        </g>\n\n        {/* Central Energy Core */}\n        <circle\n          cx=\"50\"\n          cy=\"55\"\n          r=\"3\"\n          fill=\"#FFFFFF\"\n          opacity=\"0.8\"\n        >\n          <animate\n            attributeName=\"r\"\n            values=\"3;5;3\"\n            dur=\"2s\"\n            repeatCount=\"indefinite\"\n          />\n          <animate\n            attributeName=\"opacity\"\n            values=\"0.8;1;0.8\"\n            dur=\"1.5s\"\n            repeatCount=\"indefinite\"\n          />\n        </circle>\n\n        {/* Magical Glow Effect */}\n        <defs>\n          <filter id=\"swirl-glow\">\n            <feGaussianBlur stdDeviation=\"2\" result=\"coloredBlur\"/>\n            <feMerge>\n              <feMergeNode in=\"coloredBlur\"/>\n              <feMergeNode in=\"SourceGraphic\"/>\n            </feMerge>\n          </filter>\n        </defs>\n      </svg>\n\n      <style jsx>{`\n        .wizard-swirl {\n          display: inline-block;\n          position: relative;\n        }\n\n        .wizard-swirl svg {\n          filter: drop-shadow(0 0 8px rgba(128, 90, 213, 0.3));\n        }\n\n        .swirling-magic {\n          filter: url(#swirl-glow);\n        }\n\n        .orbital-particles {\n          filter: url(#swirl-glow);\n        }\n\n        /* Hover effect */\n        .wizard-swirl:hover svg {\n          filter: drop-shadow(0 0 15px rgba(128, 90, 213, 0.6));\n          transform: scale(1.05);\n          transition: all 0.3s ease;\n        }\n\n        .wizard-swirl:hover .swirling-magic {\n          animation: energy-boost 1s ease-in-out;\n        }\n\n        .wizard-swirl:hover .orbital-particles {\n          animation: orbital-boost 2s ease-in-out;\n        }\n\n        @keyframes energy-boost {\n          0% {\n            transform: scale(1);\n          }\n          50% {\n            transform: scale(1.2);\n          }\n          100% {\n            transform: scale(1);\n          }\n        }\n\n        @keyframes orbital-boost {\n          0% {\n            transform: scale(1) rotate(0deg);\n          }\n          50% {\n            transform: scale(1.3) rotate(180deg);\n          }\n          100% {\n            transform: scale(1) rotate(360deg);\n          }\n        }\n      `}</style>\n    </div>\n  );\n}\n"],
+      names: ["WizardSwirl", "size", "className", "div", "style", "width", "height", "svg", "viewBox", "xmlns", "overflow", "path", "d", "fill", "stroke", "strokeWidth", "ellipse", "cx", "cy", "rx", "ry", "rect", "x", "y", "g", "opacity", "strokeLinecap", "animate", "attributeName", "values", "dur", "repeatCount", "begin", "circle", "r", "animateTransform", "type", "additive", "defs", "filter", "id", "feGaussianBlur", "stdDeviation", "result", "feMerge", "feMergeNode", "in"],
+      mappings: ";;;;+BAEA;;;eAAwBA;;;;;8DAFN;;;;;;AAEH,SAASA,YAAY,EAAEC,OAAO,EAAE,EAAEC,YAAY,EAAE,EAAE;IAC/D,qBACE,sBAACC;QAA4CC,OAAO;YAAEC,OAAOJ;YAAMK,QAAQL;QAAK;kDAAhE,CAAC,aAAa,EAAEC,UAAU,CAAC;;0BACzC,sBAACK;gBACCF,OAAOJ;gBACPK,QAAQL;gBACRO,SAAQ;gBACRC,OAAM;gBACNL,OAAO;oBAAEM,UAAU;gBAAU;;;kCAG7B,qBAACC;wBACCC,GAAE;wBACFC,MAAK;wBACLC,QAAO;wBACPC,aAAY;;;kCAId,qBAACC;wBACCC,IAAG;wBACHC,IAAG;wBACHC,IAAG;wBACHC,IAAG;wBACHP,MAAK;wBACLC,QAAO;wBACPC,aAAY;;;kCAId,qBAACM;wBACCC,GAAE;wBACFC,GAAE;wBACFlB,OAAM;wBACNC,QAAO;wBACPO,MAAK;wBACLM,IAAG;;;kCAIL,sBAACK;kEAAY;;0CAEX,sBAACb;gCACCC,GAAE;gCACFC,MAAK;gCACLC,QAAO;gCACPC,aAAY;gCACZU,SAAQ;gCACRC,eAAc;;;kDAEd,qBAACC;wCACCC,eAAc;wCACdC,QAAO;wCAGPC,KAAI;wCACJC,aAAY;;;kDAEd,qBAACJ;wCACCC,eAAc;wCACdC,QAAO;wCACPC,KAAI;wCACJC,aAAY;;;;;0CAKhB,sBAACpB;gCACCC,GAAE;gCACFC,MAAK;gCACLC,QAAO;gCACPC,aAAY;gCACZU,SAAQ;gCACRC,eAAc;;;kDAEd,qBAACC;wCACCC,eAAc;wCACdC,QAAO;wCAGPC,KAAI;wCACJC,aAAY;wCACZC,OAAM;;;kDAER,qBAACL;wCACCC,eAAc;wCACdC,QAAO;wCACPC,KAAI;wCACJC,aAAY;wCACZC,OAAM;;;;;0CAKV,sBAACrB;gCACCC,GAAE;gCACFC,MAAK;gCACLC,QAAO;gCACPC,aAAY;gCACZU,SAAQ;gCACRC,eAAc;;;kDAEd,qBAACC;wCACCC,eAAc;wCACdC,QAAO;wCAGPC,KAAI;wCACJC,aAAY;wCACZC,OAAM;;;kDAER,qBAACL;wCACCC,eAAc;wCACdC,QAAO;wCACPC,KAAI;wCACJC,aAAY;wCACZC,OAAM;;;;;0CAKV,sBAACrB;gCACCC,GAAE;gCACFC,MAAK;gCACLC,QAAO;gCACPC,aAAY;gCACZU,SAAQ;gCACRC,eAAc;;;kDAEd,qBAACC;wCACCC,eAAc;wCACdC,QAAO;wCAGPC,KAAI;wCACJC,aAAY;wCACZC,OAAM;;;kDAER,qBAACL;wCACCC,eAAc;wCACdC,QAAO;wCACPC,KAAI;wCACJC,aAAY;wCACZC,OAAM;;;;;;;kCAMZ,sBAACR;kEAAY;;0CAEX,sBAACS;gCACChB,IAAG;gCACHC,IAAG;gCACHgB,GAAE;gCACFrB,MAAK;gCACLY,SAAQ;;;kDAER,qBAACU;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPC,KAAI;wCACJC,aAAY;;;kDAEd,qBAACI;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPQ,UAAS;;;;;0CAKb,sBAACJ;gCACChB,IAAG;gCACHC,IAAG;gCACHgB,GAAE;gCACFrB,MAAK;gCACLY,SAAQ;;;kDAER,qBAACU;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPC,KAAI;wCACJC,aAAY;;;kDAEd,qBAACI;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPQ,UAAS;;;;;0CAKb,sBAACJ;gCACChB,IAAG;gCACHC,IAAG;gCACHgB,GAAE;gCACFrB,MAAK;gCACLY,SAAQ;;;kDAER,qBAACU;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPC,KAAI;wCACJC,aAAY;;;kDAEd,qBAACI;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPQ,UAAS;;;;;0CAKb,sBAACJ;gCACChB,IAAG;gCACHC,IAAG;gCACHgB,GAAE;gCACFrB,MAAK;gCACLY,SAAQ;;;kDAER,qBAACU;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPC,KAAI;wCACJC,aAAY;;;kDAEd,qBAACI;wCACCP,eAAc;wCACdQ,MAAK;wCACLP,QAAO;wCACPQ,UAAS;;;;;;;kCAMf,sBAACJ;wBACChB,IAAG;wBACHC,IAAG;wBACHgB,GAAE;wBACFrB,MAAK;wBACLY,SAAQ;;;0CAER,qBAACE;gCACCC,eAAc;gCACdC,QAAO;gCACPC,KAAI;gCACJC,aAAY;;;0CAEd,qBAACJ;gCACCC,eAAc;gCACdC,QAAO;gCACPC,KAAI;gCACJC,aAAY;;;;;kCAKhB,qBAACO;;kCACC,cAAA,sBAACC;4BAAOC,IAAG;;;8CACT,qBAACC;oCAAeC,cAAa;oCAAIC,QAAO;;;8CACxC,sBAACC;;;sDACC,qBAACC;4CAAYC,IAAG;;;sDAChB,qBAACD;4CAAYC,IAAG;;;;;;;;;;;;;;;;AAiE9B"
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "cf251d4743425e247e6c059aa182c2b3306cdc53"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1754wh4vgb = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1754wh4vgb();
+cov_1754wh4vgb().s[0]++;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* istanbul ignore next */
+cov_1754wh4vgb().s[1]++;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    /* istanbul ignore next */
+    cov_1754wh4vgb().f[0]++;
+    cov_1754wh4vgb().s[2]++;
+    return WizardSwirl;
+  }
+});
+const _jsxruntime =
+/* istanbul ignore next */
+(cov_1754wh4vgb().s[3]++, require("react/jsx-runtime"));
+const _style =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_1754wh4vgb().s[4]++, _interop_require_default(require("styled-jsx/style")));
+const _react =
+/* istanbul ignore next */
+(/*#__PURE__*/cov_1754wh4vgb().s[5]++, _interop_require_default(require("react")));
+function _interop_require_default(obj) {
+  /* istanbul ignore next */
+  cov_1754wh4vgb().f[1]++;
+  cov_1754wh4vgb().s[6]++;
+  return /* istanbul ignore next */(cov_1754wh4vgb().b[1][0]++, obj) &&
+  /* istanbul ignore next */
+  (cov_1754wh4vgb().b[1][1]++, obj.__esModule) ?
+  /* istanbul ignore next */
+  (cov_1754wh4vgb().b[0][0]++, obj) :
+  /* istanbul ignore next */
+  (cov_1754wh4vgb().b[0][1]++, {
+    default: obj
+  });
+}
+function WizardSwirl({
+  size =
+  /* istanbul ignore next */
+  (cov_1754wh4vgb().b[2][0]++, 48),
+  className =
+  /* istanbul ignore next */
+  (cov_1754wh4vgb().b[3][0]++, "")
+}) {
+  /* istanbul ignore next */
+  cov_1754wh4vgb().f[2]++;
+  cov_1754wh4vgb().s[7]++;
+  return /*#__PURE__*/(0, _jsxruntime.jsxs)("div", {
+    style: {
+      width: size,
+      height: size
+    },
+    className: "jsx-690b0e5f3dd72981" + " " + `wizard-swirl ${className}`,
+    children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("svg", {
+      width: size,
+      height: size,
+      viewBox: "0 0 100 100",
+      xmlns: "http://www.w3.org/2000/svg",
+      style: {
+        overflow: "visible"
+      },
+      className: "jsx-690b0e5f3dd72981",
+      children: [/*#__PURE__*/(0, _jsxruntime.jsx)("path", {
+        d: "M50 15 L25 75 L75 75 Z",
+        fill: "var(--theme-primary, #4a5568)",
+        stroke: "var(--theme-accent, #805ad5)",
+        strokeWidth: "2",
+        className: "jsx-690b0e5f3dd72981"
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("ellipse", {
+        cx: "50",
+        cy: "75",
+        rx: "27",
+        ry: "8",
+        fill: "var(--theme-primary, #4a5568)",
+        stroke: "var(--theme-accent, #805ad5)",
+        strokeWidth: "2",
+        className: "jsx-690b0e5f3dd72981"
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("rect", {
+        x: "30",
+        y: "65",
+        width: "40",
+        height: "6",
+        fill: "var(--theme-accent, #805ad5)",
+        rx: "3",
+        className: "jsx-690b0e5f3dd72981"
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("g", {
+        className: "jsx-690b0e5f3dd72981" + " " + "swirling-magic",
+        children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("path", {
+          d: "M50 45 Q35 35 25 45 Q15 55 25 65 Q35 75 50 65",
+          fill: "none",
+          stroke: "#FFD700",
+          strokeWidth: "2",
+          opacity: "0.8",
+          strokeLinecap: "round",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "d",
+            values: "M50 45 Q35 35 25 45 Q15 55 25 65 Q35 75 50 65; M50 45 Q40 30 30 40 Q20 50 30 60 Q40 70 50 60; M50 45 Q35 35 25 45 Q15 55 25 65 Q35 75 50 65",
+            dur: "4s",
+            repeatCount: "indefinite",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "0.8;1;0.8",
+            dur: "2s",
+            repeatCount: "indefinite",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("path", {
+          d: "M50 50 Q65 40 75 50 Q85 60 75 70 Q65 80 50 70",
+          fill: "none",
+          stroke: "#9370DB",
+          strokeWidth: "2",
+          opacity: "0.8",
+          strokeLinecap: "round",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "d",
+            values: "M50 50 Q65 40 75 50 Q85 60 75 70 Q65 80 50 70; M50 50 Q60 35 70 45 Q80 55 70 65 Q60 75 50 65; M50 50 Q65 40 75 50 Q85 60 75 70 Q65 80 50 70",
+            dur: "4s",
+            repeatCount: "indefinite",
+            begin: "1s",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "0.8;1;0.8",
+            dur: "2s",
+            repeatCount: "indefinite",
+            begin: "0.5s",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("path", {
+          d: "M50 55 Q40 45 30 55 Q20 65 30 75 Q40 85 50 75",
+          fill: "none",
+          stroke: "#00BFFF",
+          strokeWidth: "1.5",
+          opacity: "0.7",
+          strokeLinecap: "round",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "d",
+            values: "M50 55 Q40 45 30 55 Q20 65 30 75 Q40 85 50 75; M50 55 Q45 40 35 50 Q25 60 35 70 Q45 80 50 70; M50 55 Q40 45 30 55 Q20 65 30 75 Q40 85 50 75",
+            dur: "5s",
+            repeatCount: "indefinite",
+            begin: "2s",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "0.7;0.9;0.7",
+            dur: "3s",
+            repeatCount: "indefinite",
+            begin: "1s",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("path", {
+          d: "M50 40 Q60 30 70 40 Q80 50 70 60 Q60 70 50 60",
+          fill: "none",
+          stroke: "#FF69B4",
+          strokeWidth: "1.5",
+          opacity: "0.7",
+          strokeLinecap: "round",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "d",
+            values: "M50 40 Q60 30 70 40 Q80 50 70 60 Q60 70 50 60; M50 40 Q55 25 65 35 Q75 45 65 55 Q55 65 50 55; M50 40 Q60 30 70 40 Q80 50 70 60 Q60 70 50 60",
+            dur: "5s",
+            repeatCount: "indefinite",
+            begin: "3s",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+            attributeName: "opacity",
+            values: "0.7;0.9;0.7",
+            dur: "3s",
+            repeatCount: "indefinite",
+            begin: "1.5s",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("g", {
+        className: "jsx-690b0e5f3dd72981" + " " + "orbital-particles",
+        children: [/*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "50",
+          cy: "50",
+          r: "2",
+          fill: "#FFD700",
+          opacity: "0.9",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "rotate",
+            values: "0 50 50; 360 50 50",
+            dur: "6s",
+            repeatCount: "indefinite",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "translate",
+            values: "0 -20; 0 -20",
+            additive: "sum",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "50",
+          cy: "50",
+          r: "1.5",
+          fill: "#9370DB",
+          opacity: "0.8",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "rotate",
+            values: "120 50 50; 480 50 50",
+            dur: "6s",
+            repeatCount: "indefinite",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "translate",
+            values: "0 -25; 0 -25",
+            additive: "sum",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "50",
+          cy: "50",
+          r: "1",
+          fill: "#00BFFF",
+          opacity: "0.7",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "rotate",
+            values: "240 50 50; 600 50 50",
+            dur: "6s",
+            repeatCount: "indefinite",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "translate",
+            values: "0 -30; 0 -30",
+            additive: "sum",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+          cx: "50",
+          cy: "50",
+          r: "1.5",
+          fill: "#FF69B4",
+          opacity: "0.6",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "rotate",
+            values: "60 50 50; -300 50 50",
+            dur: "8s",
+            repeatCount: "indefinite",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsx)("animateTransform", {
+            attributeName: "transform",
+            type: "translate",
+            values: "0 -15; 0 -15",
+            additive: "sum",
+            className: "jsx-690b0e5f3dd72981"
+          })]
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsxs)("circle", {
+        cx: "50",
+        cy: "55",
+        r: "3",
+        fill: "#FFFFFF",
+        opacity: "0.8",
+        className: "jsx-690b0e5f3dd72981",
+        children: [/*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+          attributeName: "r",
+          values: "3;5;3",
+          dur: "2s",
+          repeatCount: "indefinite",
+          className: "jsx-690b0e5f3dd72981"
+        }), /*#__PURE__*/(0, _jsxruntime.jsx)("animate", {
+          attributeName: "opacity",
+          values: "0.8;1;0.8",
+          dur: "1.5s",
+          repeatCount: "indefinite",
+          className: "jsx-690b0e5f3dd72981"
+        })]
+      }), /*#__PURE__*/(0, _jsxruntime.jsx)("defs", {
+        className: "jsx-690b0e5f3dd72981",
+        children: /*#__PURE__*/(0, _jsxruntime.jsxs)("filter", {
+          id: "swirl-glow",
+          className: "jsx-690b0e5f3dd72981",
+          children: [/*#__PURE__*/(0, _jsxruntime.jsx)("feGaussianBlur", {
+            stdDeviation: "2",
+            result: "coloredBlur",
+            className: "jsx-690b0e5f3dd72981"
+          }), /*#__PURE__*/(0, _jsxruntime.jsxs)("feMerge", {
+            className: "jsx-690b0e5f3dd72981",
+            children: [/*#__PURE__*/(0, _jsxruntime.jsx)("feMergeNode", {
+              in: "coloredBlur",
+              className: "jsx-690b0e5f3dd72981"
+            }), /*#__PURE__*/(0, _jsxruntime.jsx)("feMergeNode", {
+              in: "SourceGraphic",
+              className: "jsx-690b0e5f3dd72981"
+            })]
+          })]
+        })
+      })]
+    }), (0, _jsxruntime.jsx)(_style.default, {
+      id: "690b0e5f3dd72981",
+      children: ".wizard-swirl.jsx-690b0e5f3dd72981{display:inline-block;position:relative}.wizard-swirl.jsx-690b0e5f3dd72981 svg.jsx-690b0e5f3dd72981{-webkit-filter:drop-shadow(0 0 8px rgba(128,90,213,.3));filter:drop-shadow(0 0 8px rgba(128,90,213,.3))}.swirling-magic.jsx-690b0e5f3dd72981{-webkit-filter:url(#swirl-glow);filter:url(#swirl-glow)}.orbital-particles.jsx-690b0e5f3dd72981{-webkit-filter:url(#swirl-glow);filter:url(#swirl-glow)}.wizard-swirl.jsx-690b0e5f3dd72981:hover svg.jsx-690b0e5f3dd72981{-webkit-filter:drop-shadow(0 0 15px rgba(128,90,213,.6));filter:drop-shadow(0 0 15px rgba(128,90,213,.6));-webkit-transform:scale(1.05);-moz-transform:scale(1.05);-ms-transform:scale(1.05);-o-transform:scale(1.05);transform:scale(1.05);-webkit-transition:all.3s ease;-moz-transition:all.3s ease;-o-transition:all.3s ease;transition:all.3s ease}.wizard-swirl.jsx-690b0e5f3dd72981:hover .swirling-magic.jsx-690b0e5f3dd72981{-webkit-animation:energy-boost 1s ease-in-out;-moz-animation:energy-boost 1s ease-in-out;-o-animation:energy-boost 1s ease-in-out;animation:energy-boost 1s ease-in-out}.wizard-swirl.jsx-690b0e5f3dd72981:hover .orbital-particles.jsx-690b0e5f3dd72981{-webkit-animation:orbital-boost 2s ease-in-out;-moz-animation:orbital-boost 2s ease-in-out;-o-animation:orbital-boost 2s ease-in-out;animation:orbital-boost 2s ease-in-out}@-webkit-keyframes energy-boost{0%{-webkit-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(1.2);transform:scale(1.2)}100%{-webkit-transform:scale(1);transform:scale(1)}}@-moz-keyframes energy-boost{0%{-moz-transform:scale(1);transform:scale(1)}50%{-moz-transform:scale(1.2);transform:scale(1.2)}100%{-moz-transform:scale(1);transform:scale(1)}}@-o-keyframes energy-boost{0%{-o-transform:scale(1);transform:scale(1)}50%{-o-transform:scale(1.2);transform:scale(1.2)}100%{-o-transform:scale(1);transform:scale(1)}}@keyframes energy-boost{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(1.2);-moz-transform:scale(1.2);-o-transform:scale(1.2);transform:scale(1.2)}100%{-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);transform:scale(1)}}@-webkit-keyframes orbital-boost{0%{-webkit-transform:scale(1)rotate(0deg);transform:scale(1)rotate(0deg)}50%{-webkit-transform:scale(1.3)rotate(180deg);transform:scale(1.3)rotate(180deg)}100%{-webkit-transform:scale(1)rotate(360deg);transform:scale(1)rotate(360deg)}}@-moz-keyframes orbital-boost{0%{-moz-transform:scale(1)rotate(0deg);transform:scale(1)rotate(0deg)}50%{-moz-transform:scale(1.3)rotate(180deg);transform:scale(1.3)rotate(180deg)}100%{-moz-transform:scale(1)rotate(360deg);transform:scale(1)rotate(360deg)}}@-o-keyframes orbital-boost{0%{-o-transform:scale(1)rotate(0deg);transform:scale(1)rotate(0deg)}50%{-o-transform:scale(1.3)rotate(180deg);transform:scale(1.3)rotate(180deg)}100%{-o-transform:scale(1)rotate(360deg);transform:scale(1)rotate(360deg)}}@keyframes orbital-boost{0%{-webkit-transform:scale(1)rotate(0deg);-moz-transform:scale(1)rotate(0deg);-o-transform:scale(1)rotate(0deg);transform:scale(1)rotate(0deg)}50%{-webkit-transform:scale(1.3)rotate(180deg);-moz-transform:scale(1.3)rotate(180deg);-o-transform:scale(1.3)rotate(180deg);transform:scale(1.3)rotate(180deg)}100%{-webkit-transform:scale(1)rotate(360deg);-moz-transform:scale(1)rotate(360deg);-o-transform:scale(1)rotate(360deg);transform:scale(1)rotate(360deg)}}"
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJXaXphcmRTd2lybCIsInNpemUiLCJjb3ZfMTc1NHdoNHZnYiIsImIiLCJjbGFzc05hbWUiLCJmIiwicyIsIl9qc3hydW50aW1lIiwianN4cyIsInN0eWxlIiwid2lkdGgiLCJoZWlnaHQiLCJ2aWV3Qm94IiwieG1sbnMiLCJvdmVyZmxvdyIsImpzeCIsImQiLCJmaWxsIiwic3Ryb2tlIiwic3Ryb2tlV2lkdGgiLCJjeCIsImN5IiwicngiLCJyeSIsIngiLCJ5Iiwib3BhY2l0eSIsInN0cm9rZUxpbmVjYXAiLCJhdHRyaWJ1dGVOYW1lIiwidmFsdWVzIiwiZHVyIiwicmVwZWF0Q291bnQiLCJiZWdpbiIsInIiLCJ0eXBlIiwiYWRkaXRpdmUiLCJpZCIsInN0ZERldmlhdGlvbiIsInJlc3VsdCIsImluIl0sInNvdXJjZXMiOlsiL1VzZXJzL3NhbXVlbGxvdmUvRG9jdW1lbnRzL0dpdEh1Yi9DYXBzdG9uZS9mcm9udGVuZC9jb21wb25lbnRzL1VJL1dpemFyZFN3aXJsLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFdpemFyZFN3aXJsKHsgc2l6ZSA9IDQ4LCBjbGFzc05hbWUgPSAnJyB9KSB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9e2B3aXphcmQtc3dpcmwgJHtjbGFzc05hbWV9YH0gc3R5bGU9e3sgd2lkdGg6IHNpemUsIGhlaWdodDogc2l6ZSB9fT5cbiAgICAgIDxzdmdcbiAgICAgICAgd2lkdGg9e3NpemV9XG4gICAgICAgIGhlaWdodD17c2l6ZX1cbiAgICAgICAgdmlld0JveD1cIjAgMCAxMDAgMTAwXCJcbiAgICAgICAgeG1sbnM9XCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1wiXG4gICAgICAgIHN0eWxlPXt7IG92ZXJmbG93OiAndmlzaWJsZScgfX1cbiAgICAgID5cbiAgICAgICAgey8qIFdpemFyZCBIYXQgKi99XG4gICAgICAgIDxwYXRoXG4gICAgICAgICAgZD1cIk01MCAxNSBMMjUgNzUgTDc1IDc1IFpcIlxuICAgICAgICAgIGZpbGw9XCJ2YXIoLS10aGVtZS1wcmltYXJ5LCAjNGE1NTY4KVwiXG4gICAgICAgICAgc3Ryb2tlPVwidmFyKC0tdGhlbWUtYWNjZW50LCAjODA1YWQ1KVwiXG4gICAgICAgICAgc3Ryb2tlV2lkdGg9XCIyXCJcbiAgICAgICAgLz5cblxuICAgICAgICB7LyogSGF0IEJyaW0gKi99XG4gICAgICAgIDxlbGxpcHNlXG4gICAgICAgICAgY3g9XCI1MFwiXG4gICAgICAgICAgY3k9XCI3NVwiXG4gICAgICAgICAgcng9XCIyN1wiXG4gICAgICAgICAgcnk9XCI4XCJcbiAgICAgICAgICBmaWxsPVwidmFyKC0tdGhlbWUtcHJpbWFyeSwgIzRhNTU2OClcIlxuICAgICAgICAgIHN0cm9rZT1cInZhcigtLXRoZW1lLWFjY2VudCwgIzgwNWFkNSlcIlxuICAgICAgICAgIHN0cm9rZVdpZHRoPVwiMlwiXG4gICAgICAgIC8+XG5cbiAgICAgICAgey8qIEhhdCBCYW5kICovfVxuICAgICAgICA8cmVjdFxuICAgICAgICAgIHg9XCIzMFwiXG4gICAgICAgICAgeT1cIjY1XCJcbiAgICAgICAgICB3aWR0aD1cIjQwXCJcbiAgICAgICAgICBoZWlnaHQ9XCI2XCJcbiAgICAgICAgICBmaWxsPVwidmFyKC0tdGhlbWUtYWNjZW50LCAjODA1YWQ1KVwiXG4gICAgICAgICAgcng9XCIzXCJcbiAgICAgICAgLz5cblxuICAgICAgICB7LyogU3dpcmxpbmcgTWFnaWMgRW5lcmd5ICovfVxuICAgICAgICA8ZyBjbGFzc05hbWU9XCJzd2lybGluZy1tYWdpY1wiPlxuICAgICAgICAgIHsvKiBFbmVyZ3kgU3RyZWFtIDEgKi99XG4gICAgICAgICAgPHBhdGhcbiAgICAgICAgICAgIGQ9XCJNNTAgNDUgUTM1IDM1IDI1IDQ1IFExNSA1NSAyNSA2NSBRMzUgNzUgNTAgNjVcIlxuICAgICAgICAgICAgZmlsbD1cIm5vbmVcIlxuICAgICAgICAgICAgc3Ryb2tlPVwiI0ZGRDcwMFwiXG4gICAgICAgICAgICBzdHJva2VXaWR0aD1cIjJcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjAuOFwiXG4gICAgICAgICAgICBzdHJva2VMaW5lY2FwPVwicm91bmRcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJkXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiTTUwIDQ1IFEzNSAzNSAyNSA0NSBRMTUgNTUgMjUgNjUgUTM1IDc1IDUwIDY1O1xuICAgICAgICAgICAgICAgICAgICAgIE01MCA0NSBRNDAgMzAgMzAgNDAgUTIwIDUwIDMwIDYwIFE0MCA3MCA1MCA2MDtcbiAgICAgICAgICAgICAgICAgICAgICBNNTAgNDUgUTM1IDM1IDI1IDQ1IFExNSA1NSAyNSA2NSBRMzUgNzUgNTAgNjVcIlxuICAgICAgICAgICAgICBkdXI9XCI0c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVcbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cIm9wYWNpdHlcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIwLjg7MTswLjhcIlxuICAgICAgICAgICAgICBkdXI9XCIyc1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvcGF0aD5cblxuICAgICAgICAgIHsvKiBFbmVyZ3kgU3RyZWFtIDIgKi99XG4gICAgICAgICAgPHBhdGhcbiAgICAgICAgICAgIGQ9XCJNNTAgNTAgUTY1IDQwIDc1IDUwIFE4NSA2MCA3NSA3MCBRNjUgODAgNTAgNzBcIlxuICAgICAgICAgICAgZmlsbD1cIm5vbmVcIlxuICAgICAgICAgICAgc3Ryb2tlPVwiIzkzNzBEQlwiXG4gICAgICAgICAgICBzdHJva2VXaWR0aD1cIjJcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjAuOFwiXG4gICAgICAgICAgICBzdHJva2VMaW5lY2FwPVwicm91bmRcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJkXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiTTUwIDUwIFE2NSA0MCA3NSA1MCBRODUgNjAgNzUgNzAgUTY1IDgwIDUwIDcwO1xuICAgICAgICAgICAgICAgICAgICAgIE01MCA1MCBRNjAgMzUgNzAgNDUgUTgwIDU1IDcwIDY1IFE2MCA3NSA1MCA2NTtcbiAgICAgICAgICAgICAgICAgICAgICBNNTAgNTAgUTY1IDQwIDc1IDUwIFE4NSA2MCA3NSA3MCBRNjUgODAgNTAgNzBcIlxuICAgICAgICAgICAgICBkdXI9XCI0c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAgIGJlZ2luPVwiMXNcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJvcGFjaXR5XCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMC44OzE7MC44XCJcbiAgICAgICAgICAgICAgZHVyPVwiMnNcIlxuICAgICAgICAgICAgICByZXBlYXRDb3VudD1cImluZGVmaW5pdGVcIlxuICAgICAgICAgICAgICBiZWdpbj1cIjAuNXNcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L3BhdGg+XG5cbiAgICAgICAgICB7LyogRW5lcmd5IFN0cmVhbSAzICovfVxuICAgICAgICAgIDxwYXRoXG4gICAgICAgICAgICBkPVwiTTUwIDU1IFE0MCA0NSAzMCA1NSBRMjAgNjUgMzAgNzUgUTQwIDg1IDUwIDc1XCJcbiAgICAgICAgICAgIGZpbGw9XCJub25lXCJcbiAgICAgICAgICAgIHN0cm9rZT1cIiMwMEJGRkZcIlxuICAgICAgICAgICAgc3Ryb2tlV2lkdGg9XCIxLjVcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjAuN1wiXG4gICAgICAgICAgICBzdHJva2VMaW5lY2FwPVwicm91bmRcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJkXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiTTUwIDU1IFE0MCA0NSAzMCA1NSBRMjAgNjUgMzAgNzUgUTQwIDg1IDUwIDc1O1xuICAgICAgICAgICAgICAgICAgICAgIE01MCA1NSBRNDUgNDAgMzUgNTAgUTI1IDYwIDM1IDcwIFE0NSA4MCA1MCA3MDtcbiAgICAgICAgICAgICAgICAgICAgICBNNTAgNTUgUTQwIDQ1IDMwIDU1IFEyMCA2NSAzMCA3NSBRNDAgODUgNTAgNzVcIlxuICAgICAgICAgICAgICBkdXI9XCI1c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAgIGJlZ2luPVwiMnNcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJvcGFjaXR5XCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMC43OzAuOTswLjdcIlxuICAgICAgICAgICAgICBkdXI9XCIzc1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAgIGJlZ2luPVwiMXNcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L3BhdGg+XG5cbiAgICAgICAgICB7LyogRW5lcmd5IFN0cmVhbSA0ICovfVxuICAgICAgICAgIDxwYXRoXG4gICAgICAgICAgICBkPVwiTTUwIDQwIFE2MCAzMCA3MCA0MCBRODAgNTAgNzAgNjAgUTYwIDcwIDUwIDYwXCJcbiAgICAgICAgICAgIGZpbGw9XCJub25lXCJcbiAgICAgICAgICAgIHN0cm9rZT1cIiNGRjY5QjRcIlxuICAgICAgICAgICAgc3Ryb2tlV2lkdGg9XCIxLjVcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjAuN1wiXG4gICAgICAgICAgICBzdHJva2VMaW5lY2FwPVwicm91bmRcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJkXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiTTUwIDQwIFE2MCAzMCA3MCA0MCBRODAgNTAgNzAgNjAgUTYwIDcwIDUwIDYwO1xuICAgICAgICAgICAgICAgICAgICAgIE01MCA0MCBRNTUgMjUgNjUgMzUgUTc1IDQ1IDY1IDU1IFE1NSA2NSA1MCA1NTtcbiAgICAgICAgICAgICAgICAgICAgICBNNTAgNDAgUTYwIDMwIDcwIDQwIFE4MCA1MCA3MCA2MCBRNjAgNzAgNTAgNjBcIlxuICAgICAgICAgICAgICBkdXI9XCI1c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAgIGJlZ2luPVwiM3NcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJvcGFjaXR5XCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMC43OzAuOTswLjdcIlxuICAgICAgICAgICAgICBkdXI9XCIzc1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAgIGJlZ2luPVwiMS41c1wiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvcGF0aD5cbiAgICAgICAgPC9nPlxuXG4gICAgICAgIHsvKiBPcmJpdGFsIEVuZXJneSBQYXJ0aWNsZXMgKi99XG4gICAgICAgIDxnIGNsYXNzTmFtZT1cIm9yYml0YWwtcGFydGljbGVzXCI+XG4gICAgICAgICAgey8qIFBhcnRpY2xlIDEgKi99XG4gICAgICAgICAgPGNpcmNsZVxuICAgICAgICAgICAgY3g9XCI1MFwiXG4gICAgICAgICAgICBjeT1cIjUwXCJcbiAgICAgICAgICAgIHI9XCIyXCJcbiAgICAgICAgICAgIGZpbGw9XCIjRkZENzAwXCJcbiAgICAgICAgICAgIG9wYWNpdHk9XCIwLjlcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlVHJhbnNmb3JtXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJ0cmFuc2Zvcm1cIlxuICAgICAgICAgICAgICB0eXBlPVwicm90YXRlXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMCA1MCA1MDsgMzYwIDUwIDUwXCJcbiAgICAgICAgICAgICAgZHVyPVwiNnNcIlxuICAgICAgICAgICAgICByZXBlYXRDb3VudD1cImluZGVmaW5pdGVcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDxhbmltYXRlVHJhbnNmb3JtXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJ0cmFuc2Zvcm1cIlxuICAgICAgICAgICAgICB0eXBlPVwidHJhbnNsYXRlXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMCAtMjA7IDAgLTIwXCJcbiAgICAgICAgICAgICAgYWRkaXRpdmU9XCJzdW1cIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L2NpcmNsZT5cblxuICAgICAgICAgIHsvKiBQYXJ0aWNsZSAyICovfVxuICAgICAgICAgIDxjaXJjbGVcbiAgICAgICAgICAgIGN4PVwiNTBcIlxuICAgICAgICAgICAgY3k9XCI1MFwiXG4gICAgICAgICAgICByPVwiMS41XCJcbiAgICAgICAgICAgIGZpbGw9XCIjOTM3MERCXCJcbiAgICAgICAgICAgIG9wYWNpdHk9XCIwLjhcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlVHJhbnNmb3JtXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJ0cmFuc2Zvcm1cIlxuICAgICAgICAgICAgICB0eXBlPVwicm90YXRlXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMTIwIDUwIDUwOyA0ODAgNTAgNTBcIlxuICAgICAgICAgICAgICBkdXI9XCI2c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVUcmFuc2Zvcm1cbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cInRyYW5zZm9ybVwiXG4gICAgICAgICAgICAgIHR5cGU9XCJ0cmFuc2xhdGVcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIwIC0yNTsgMCAtMjVcIlxuICAgICAgICAgICAgICBhZGRpdGl2ZT1cInN1bVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvY2lyY2xlPlxuXG4gICAgICAgICAgey8qIFBhcnRpY2xlIDMgKi99XG4gICAgICAgICAgPGNpcmNsZVxuICAgICAgICAgICAgY3g9XCI1MFwiXG4gICAgICAgICAgICBjeT1cIjUwXCJcbiAgICAgICAgICAgIHI9XCIxXCJcbiAgICAgICAgICAgIGZpbGw9XCIjMDBCRkZGXCJcbiAgICAgICAgICAgIG9wYWNpdHk9XCIwLjdcIlxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxhbmltYXRlVHJhbnNmb3JtXG4gICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9XCJ0cmFuc2Zvcm1cIlxuICAgICAgICAgICAgICB0eXBlPVwicm90YXRlXCJcbiAgICAgICAgICAgICAgdmFsdWVzPVwiMjQwIDUwIDUwOyA2MDAgNTAgNTBcIlxuICAgICAgICAgICAgICBkdXI9XCI2c1wiXG4gICAgICAgICAgICAgIHJlcGVhdENvdW50PVwiaW5kZWZpbml0ZVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICAgPGFuaW1hdGVUcmFuc2Zvcm1cbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cInRyYW5zZm9ybVwiXG4gICAgICAgICAgICAgIHR5cGU9XCJ0cmFuc2xhdGVcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCIwIC0zMDsgMCAtMzBcIlxuICAgICAgICAgICAgICBhZGRpdGl2ZT1cInN1bVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvY2lyY2xlPlxuXG4gICAgICAgICAgey8qIFBhcnRpY2xlIDQgKi99XG4gICAgICAgICAgPGNpcmNsZVxuICAgICAgICAgICAgY3g9XCI1MFwiXG4gICAgICAgICAgICBjeT1cIjUwXCJcbiAgICAgICAgICAgIHI9XCIxLjVcIlxuICAgICAgICAgICAgZmlsbD1cIiNGRjY5QjRcIlxuICAgICAgICAgICAgb3BhY2l0eT1cIjAuNlwiXG4gICAgICAgICAgPlxuICAgICAgICAgICAgPGFuaW1hdGVUcmFuc2Zvcm1cbiAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cInRyYW5zZm9ybVwiXG4gICAgICAgICAgICAgIHR5cGU9XCJyb3RhdGVcIlxuICAgICAgICAgICAgICB2YWx1ZXM9XCI2MCA1MCA1MDsgLTMwMCA1MCA1MFwiXG4gICAgICAgICAgICAgIGR1cj1cIjhzXCJcbiAgICAgICAgICAgICAgcmVwZWF0Q291bnQ9XCJpbmRlZmluaXRlXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgICA8YW5pbWF0ZVRyYW5zZm9ybVxuICAgICAgICAgICAgICBhdHRyaWJ1dGVOYW1lPVwidHJhbnNmb3JtXCJcbiAgICAgICAgICAgICAgdHlwZT1cInRyYW5zbGF0ZVwiXG4gICAgICAgICAgICAgIHZhbHVlcz1cIjAgLTE1OyAwIC0xNVwiXG4gICAgICAgICAgICAgIGFkZGl0aXZlPVwic3VtXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgPC9jaXJjbGU+XG4gICAgICAgIDwvZz5cblxuICAgICAgICB7LyogQ2VudHJhbCBFbmVyZ3kgQ29yZSAqL31cbiAgICAgICAgPGNpcmNsZVxuICAgICAgICAgIGN4PVwiNTBcIlxuICAgICAgICAgIGN5PVwiNTVcIlxuICAgICAgICAgIHI9XCIzXCJcbiAgICAgICAgICBmaWxsPVwiI0ZGRkZGRlwiXG4gICAgICAgICAgb3BhY2l0eT1cIjAuOFwiXG4gICAgICAgID5cbiAgICAgICAgICA8YW5pbWF0ZVxuICAgICAgICAgICAgYXR0cmlidXRlTmFtZT1cInJcIlxuICAgICAgICAgICAgdmFsdWVzPVwiMzs1OzNcIlxuICAgICAgICAgICAgZHVyPVwiMnNcIlxuICAgICAgICAgICAgcmVwZWF0Q291bnQ9XCJpbmRlZmluaXRlXCJcbiAgICAgICAgICAvPlxuICAgICAgICAgIDxhbmltYXRlXG4gICAgICAgICAgICBhdHRyaWJ1dGVOYW1lPVwib3BhY2l0eVwiXG4gICAgICAgICAgICB2YWx1ZXM9XCIwLjg7MTswLjhcIlxuICAgICAgICAgICAgZHVyPVwiMS41c1wiXG4gICAgICAgICAgICByZXBlYXRDb3VudD1cImluZGVmaW5pdGVcIlxuICAgICAgICAgIC8+XG4gICAgICAgIDwvY2lyY2xlPlxuXG4gICAgICAgIHsvKiBNYWdpY2FsIEdsb3cgRWZmZWN0ICovfVxuICAgICAgICA8ZGVmcz5cbiAgICAgICAgICA8ZmlsdGVyIGlkPVwic3dpcmwtZ2xvd1wiPlxuICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj1cIjJcIiByZXN1bHQ9XCJjb2xvcmVkQmx1clwiLz5cbiAgICAgICAgICAgIDxmZU1lcmdlPlxuICAgICAgICAgICAgICA8ZmVNZXJnZU5vZGUgaW49XCJjb2xvcmVkQmx1clwiLz5cbiAgICAgICAgICAgICAgPGZlTWVyZ2VOb2RlIGluPVwiU291cmNlR3JhcGhpY1wiLz5cbiAgICAgICAgICAgIDwvZmVNZXJnZT5cbiAgICAgICAgICA8L2ZpbHRlcj5cbiAgICAgICAgPC9kZWZzPlxuICAgICAgPC9zdmc+XG5cbiAgICAgIDxzdHlsZSBqc3g+e2BcbiAgICAgICAgLndpemFyZC1zd2lybCB7XG4gICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgICAgfVxuXG4gICAgICAgIC53aXphcmQtc3dpcmwgc3ZnIHtcbiAgICAgICAgICBmaWx0ZXI6IGRyb3Atc2hhZG93KDAgMCA4cHggcmdiYSgxMjgsIDkwLCAyMTMsIDAuMykpO1xuICAgICAgICB9XG5cbiAgICAgICAgLnN3aXJsaW5nLW1hZ2ljIHtcbiAgICAgICAgICBmaWx0ZXI6IHVybCgjc3dpcmwtZ2xvdyk7XG4gICAgICAgIH1cblxuICAgICAgICAub3JiaXRhbC1wYXJ0aWNsZXMge1xuICAgICAgICAgIGZpbHRlcjogdXJsKCNzd2lybC1nbG93KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8qIEhvdmVyIGVmZmVjdCAqL1xuICAgICAgICAud2l6YXJkLXN3aXJsOmhvdmVyIHN2ZyB7XG4gICAgICAgICAgZmlsdGVyOiBkcm9wLXNoYWRvdygwIDAgMTVweCByZ2JhKDEyOCwgOTAsIDIxMywgMC42KSk7XG4gICAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgxLjA1KTtcbiAgICAgICAgICB0cmFuc2l0aW9uOiBhbGwgMC4zcyBlYXNlO1xuICAgICAgICB9XG5cbiAgICAgICAgLndpemFyZC1zd2lybDpob3ZlciAuc3dpcmxpbmctbWFnaWMge1xuICAgICAgICAgIGFuaW1hdGlvbjogZW5lcmd5LWJvb3N0IDFzIGVhc2UtaW4tb3V0O1xuICAgICAgICB9XG5cbiAgICAgICAgLndpemFyZC1zd2lybDpob3ZlciAub3JiaXRhbC1wYXJ0aWNsZXMge1xuICAgICAgICAgIGFuaW1hdGlvbjogb3JiaXRhbC1ib29zdCAycyBlYXNlLWluLW91dDtcbiAgICAgICAgfVxuXG4gICAgICAgIEBrZXlmcmFtZXMgZW5lcmd5LWJvb3N0IHtcbiAgICAgICAgICAwJSB7XG4gICAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEpO1xuICAgICAgICAgIH1cbiAgICAgICAgICA1MCUge1xuICAgICAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgxLjIpO1xuICAgICAgICAgIH1cbiAgICAgICAgICAxMDAlIHtcbiAgICAgICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMSk7XG4gICAgICAgICAgfVxuICAgICAgICB9XG5cbiAgICAgICAgQGtleWZyYW1lcyBvcmJpdGFsLWJvb3N0IHtcbiAgICAgICAgICAwJSB7XG4gICAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEpIHJvdGF0ZSgwZGVnKTtcbiAgICAgICAgICB9XG4gICAgICAgICAgNTAlIHtcbiAgICAgICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS4zKSByb3RhdGUoMTgwZGVnKTtcbiAgICAgICAgICB9XG4gICAgICAgICAgMTAwJSB7XG4gICAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlKDEpIHJvdGF0ZSgzNjBkZWcpO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgYH08L3N0eWxlPlxuICAgIDwvZGl2PlxuICApO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7K0JBRUE7Ozs7OztXQUF3QkEsV0FBQTs7Ozs7Ozs7Ozs7d0VBRk47Ozs7Ozs7Ozs7Ozs7OztBQUVILFNBQVNBLFlBQVk7RUFBRUMsSUFBQTtFQUFBO0VBQUEsQ0FBQUMsY0FBQSxHQUFBQyxDQUFBLFVBQU8sRUFBRTtFQUFFQyxTQUFBO0VBQUE7RUFBQSxDQUFBRixjQUFBLEdBQUFDLENBQUEsVUFBWSxFQUFFO0FBQUEsQ0FBRTtFQUFBO0VBQUFELGNBQUEsR0FBQUcsQ0FBQTtFQUFBSCxjQUFBLEdBQUFJLENBQUE7RUFDL0Qsb0JBQ0UsSUFBQUMsV0FBQSxDQUFBQyxJ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

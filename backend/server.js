@@ -914,7 +914,7 @@ app.get("/api/cards/:id", async (req, res) => {
  *         description: Database error
  */
 app.post("/api/favourites", async (req, res) => {
-  const { user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes } = req.body;
+  const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
 
   if (!user_id || !card_name) {
     return res
@@ -924,8 +924,8 @@ app.post("/api/favourites", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes],
+      "INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [user_id, card_name, scryfall_id, ability_type, notes],
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
