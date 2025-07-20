@@ -157,7 +157,7 @@ export const apiService = {
   // Favourites operations
   favourites: {
     async getByUserId(userId) {
-      return await apiRequest(`/api/favourites/${userId}`);
+      return await apiRequest(`/api/favourites?user_id=${userId}`);
     },
 
     async create(favouriteData) {

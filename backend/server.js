@@ -914,7 +914,7 @@ app.get("/api/cards/:id", async (req, res) => {
  *         description: Database error
  */
 app.post("/api/favourites", async (req, res) => {
-  const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
+  const { user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes } = req.body;
 
   if (!user_id || !card_name) {
     return res
@@ -924,12 +924,12 @@ app.post("/api/favourites", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [user_id, card_name, scryfall_id, ability_type, notes],
+      "INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes],
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    console.error("Error adding favorite:", error);
+    console.error("Error adding favourite:", error);
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -1023,12 +1023,12 @@ app.put("/api/favourites/:id", async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Favorite not found" });
+      return res.status(404).json({ error: "Favourite not found" });
     }
 
     res.json(result.rows[0]);
   } catch (error) {
-    console.error("Error updating favorite:", error);
+    console.error("Error updating favourite:", error);
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -1074,84 +1074,6 @@ app.delete("/api/favourites/:id", async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Favorite not found" });
-    }
-
-    res.json({ message: "Favorite removed", deleted: result.rows[0] });
-  } catch (error) {
-    console.error("Error deleting favorite:", error);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-// Backward compatibility aliases for US spelling
-app.post("/api/favourites", async (req, res) => {
-  const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
-
-  if (!user_id || !card_name) {
-    return res
-      .status(400)
-      .json({ error: "User ID and card name are required" });
-  }
-
-  try {
-    const result = await pool.query(
-      "INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [user_id, card_name, scryfall_id, ability_type, notes],
-    );
-    res.status(201).json(result.rows[0]);
-  } catch (error) {
-    console.error("Error adding favorite:", error);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-app.get("/api/favourites/:userId", async (req, res) => {
-  const userId = parseInt(req.params.userId);
-
-  try {
-    const result = await pool.query(
-      "SELECT * FROM favourites WHERE user_id = $1 ORDER BY created_at DESC",
-      [userId],
-    );
-    res.json(result.rows);
-  } catch (error) {
-    console.error("Error fetching favourites:", error);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-app.put("/api/favourites/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { notes, ability_type } = req.body;
-
-  try {
-    const result = await pool.query(
-      "UPDATE favourites SET notes = $1, ability_type = $2 WHERE id = $3 RETURNING *",
-      [notes, ability_type, id],
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Favorite not found" });
-    }
-
-    res.json(result.rows[0]);
-  } catch (error) {
-    console.error("Error updating favorite:", error);
-    res.status(500).json({ error: "Database error" });
-  }
-});
-
-app.delete("/api/favourites/:id", async (req, res) => {
-  const id = parseInt(req.params.id);
-
-  try {
-    const result = await pool.query(
-      "DELETE FROM favourites WHERE id = $1 RETURNING *",
-      [id],
-    );
-
-    if (result.rows.length === 0) {
       return res.status(404).json({ error: "Favourite not found" });
     }
 
@@ -1161,6 +1083,8 @@ app.delete("/api/favourites/:id", async (req, res) => {
     res.status(500).json({ error: "Database error" });
   }
 });
+
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

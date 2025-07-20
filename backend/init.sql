@@ -30,6 +30,10 @@ CREATE TABLE IF NOT EXISTS messages (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Add new columns to existing favourites table (migration)
+ALTER TABLE favourites ADD COLUMN IF NOT EXISTS mana_cost VARCHAR(50);
+ALTER TABLE favourites ADD COLUMN IF NOT EXISTS color_identity VARCHAR(10);
+
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_favourites_user_id ON favourites(user_id);
 CREATE INDEX IF NOT EXISTS idx_favourites_card_name ON favourites(card_name);
@@ -49,6 +53,12 @@ INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes) VA
     (2, 'Serra Angel', 'b5d97e72-8c85-4f1e-9a55-8e4b6c54c9b1', 'Creature - Angel', 'Flying and vigilance make this a strong creature'),
     (2, 'Counterspell', 'ce30f926-bc06-46ee-9f35-0cdf09a67043', 'Instant', 'Classic blue counterspell')
 ON CONFLICT DO NOTHING;
+
+-- Update sample data with mana costs and color identities
+UPDATE favourites SET mana_cost = '{R}', color_identity = 'R' WHERE card_name = 'Lightning Bolt';
+UPDATE favourites SET mana_cost = '{G}', color_identity = 'G' WHERE card_name = 'Llanowar Elves';
+UPDATE favourites SET mana_cost = '{3}{W}{W}', color_identity = 'W' WHERE card_name = 'Serra Angel';
+UPDATE favourites SET mana_cost = '{U}{U}', color_identity = 'U' WHERE card_name = 'Counterspell';
 
 -- Insert sample messages for testing
 INSERT INTO messages (text) VALUES

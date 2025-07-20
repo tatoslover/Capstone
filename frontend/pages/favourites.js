@@ -78,6 +78,73 @@ export default function FavouritesPage() {
     }
   }, [isOnline, currentUser]);
 
+  // Helper function to determine card colour from stored data or fallback to inference
+  const getCardColour = (favourite) => {
+    // First, try to use stored color_identity
+    if (favourite.color_identity) {
+      return favourite.color_identity.split('');
+    }
+
+    // If no stored color_identity, try to infer from mana_cost
+    if (favourite.mana_cost) {
+      const colours = [];
+      if (favourite.mana_cost.includes('{W}')) colours.push('W');
+      if (favourite.mana_cost.includes('{U}')) colours.push('U');
+      if (favourite.mana_cost.includes('{B}')) colours.push('B');
+      if (favourite.mana_cost.includes('{R}')) colours.push('R');
+      if (favourite.mana_cost.includes('{G}')) colours.push('G');
+      return colours;
+    }
+
+    // Fallback to name/ability inference
+    const name = (favourite.card_name || "").toLowerCase();
+    const ability = (favourite.ability_type || "").toLowerCase();
+
+    // Check for colour-specific keywords in card name
+    if (name.includes("lightning") || name.includes("bolt") || name.includes("fire") ||
+        name.includes("burn") || name.includes("flame") || name.includes("dragon")) {
+      return ["R"]; // Red
+    }
+    if (name.includes("angel") || name.includes("serra") || name.includes("soul") ||
+        name.includes("healer") || name.includes("cleric")) {
+      return ["W"]; // White
+    }
+    if (name.includes("counter") || name.includes("draw") || name.includes("island") ||
+        name.includes("merfolk") || name.includes("wizard")) {
+      return ["U"]; // Blue
+    }
+    if (name.includes("death") || name.includes("dark") || name.includes("zombie") ||
+        name.includes("vampire") || name.includes("swamp")) {
+      return ["B"]; // Black
+    }
+    if (name.includes("elf") || name.includes("forest") || name.includes("beast") ||
+        name.includes("growth") || name.includes("nature")) {
+      return ["G"]; // Green
+    }
+
+    // Check for colour-specific keywords in ability type
+    if (ability.includes("angel") || ability.includes("cleric") || ability.includes("soldier")) {
+      return ["W"]; // White
+    }
+    if (ability.includes("wizard") || ability.includes("merfolk") || ability.includes("bird")) {
+      return ["U"]; // Blue
+    }
+    if (ability.includes("zombie") || ability.includes("vampire") || ability.includes("demon")) {
+      return ["B"]; // Black
+    }
+    if (ability.includes("dragon") || ability.includes("goblin") || ability.includes("warrior")) {
+      return ["R"]; // Red
+    }
+    if (ability.includes("elf") || ability.includes("beast") || ability.includes("druid")) {
+      return ["G"]; // Green
+    }
+
+    // Default to colourless
+    return [];
+  };
+
+
+
   const fetchFavourites = async (userId) => {
     if (!isOnline) {
       setLoading(false);
@@ -131,6 +198,12 @@ export default function FavouritesPage() {
               notes: fav.notes,
               created_at: fav.created_at,
               ability_type: fav.ability_type,
+              // Add placeholder-friendly properties
+              image_uris: null, // Ensure placeholder is shown
+              color_identity: getCardColour(fav),
+              type_line: fav.ability_type || "Unknown Type",
+              mana_cost: fav.mana_cost || null,
+              rarity: "common",
             };
           }
         } catch (cardError) {
@@ -146,12 +219,38 @@ export default function FavouritesPage() {
             notes: fav.notes,
             created_at: fav.created_at,
             ability_type: fav.ability_type,
+            // Add placeholder-friendly properties
+            image_uris: null, // Ensure placeholder is shown
+            color_identity: getCardColour(fav),
+            type_line: fav.ability_type || "Unknown Type",
+            mana_cost: fav.mana_cost || null,
+            rarity: "common",
           };
         }
       });
 
       const cardsWithFavouriteData = await Promise.all(cardPromises);
-      setFavourites(cardsWithFavouriteData);
+
+      // Filter out favourites with incomplete essential data
+      const validFavourites = cardsWithFavouriteData.filter(card => {
+        // Ensure card has essential properties for good UX
+        const isValid = card &&
+               card.name &&
+               (card.id || card.favourite_id) &&
+               (card.type_line || card.oracle_text || card.mana_cost || card.ability_type);
+
+        if (!isValid && card) {
+          console.warn(`Filtering out incomplete favourite: ${card.name || 'Unknown'} - missing essential data`);
+        }
+
+        return isValid;
+      });
+
+      if (validFavourites.length < cardsWithFavouriteData.length) {
+        console.log(`Filtered favourites: ${validFavourites.length}/${cardsWithFavouriteData.length} cards had complete data`);
+      }
+
+      setFavourites(validFavourites);
     } catch (err) {
       console.error("Error fetching favourites:", err);
 

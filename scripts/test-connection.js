@@ -193,10 +193,10 @@ async function runTests() {
   });
 
   if (addFavorite.success && [200, 201].includes(addFavorite.status)) {
-    logTest("Add favorite", "PASS", `Added: ${addFavorite.data.card_name}`);
+    logTest("Add favourite", "PASS", `Added: ${addFavorite.data.card_name}`);
   } else {
     logTest(
-      "Add favorite",
+      "Add favourite",
       "FAIL",
       addFavorite.error || `Status: ${addFavorite.status}`,
     );
