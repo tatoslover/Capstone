@@ -232,6 +232,15 @@ const favouritesOperations = {
     );
   },
 
+  // Get favourite by ID
+  getById: async (id) => {
+    return await query(
+      `SELECT * FROM favourites WHERE id = $1`,
+      [id],
+      'get_favourite_by_id'
+    );
+  },
+
   // Get user favourites with optimised query
   getByUserId: async (userId, limit = 50, offset = 0) => {
     return await query(
