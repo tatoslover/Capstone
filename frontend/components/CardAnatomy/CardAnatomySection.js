@@ -152,9 +152,9 @@ const CardAnatomySection = ({ cardAnatomyData }) => {
           <div style={{ marginBottom: "1rem" }}>
             <strong style={{ color: "#ffc107" }}>🎨 Rarity Colors:</strong>
             <ul style={{ marginTop: "0.5rem", paddingLeft: "1.5rem" }}>
-              {partData.rarityColours.map((color, index) => (
+              {partData.rarityColours.map((colour, index) => (
                 <li key={index} style={{ marginBottom: "0.25rem" }}>
-                  {color}
+                  {colour}
                 </li>
               ))}
             </ul>

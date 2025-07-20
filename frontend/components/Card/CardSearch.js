@@ -10,7 +10,7 @@ export default function CardSearch({
 }) {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [filters, setFilters] = useState({
-    colors: [],
+    colours: [],
     types: [],
     abilities: [],
     rarity: "",
@@ -19,11 +19,11 @@ export default function CardSearch({
   const [showAdvanced, setShowAdvanced] = useState(false);
   const { theme } = useTheme();
 
-  // Common MTG colors
-  const colors = [
+  // Common MTG colours
+  const colours = [
     { symbol: "W", name: "White", color: "#FFFBD5", textColor: "#000000" },
     { symbol: "U", name: "Blue", color: "#0E68AB", textColor: "#FFFFFF" },
-    { symbol: "B", name: "Black", color: "#9370DB", textColor: "#FFFFFF" },
+    { symbol: "B", name: "Black", color: "#150B00", textColor: "#FFFFFF" },
     { symbol: "R", name: "Red", color: "#D3202A", textColor: "#FFFFFF" },
     { symbol: "G", name: "Green", color: "#00733E", textColor: "#FFFFFF" },
   ];
@@ -58,12 +58,12 @@ export default function CardSearch({
     // Build search query with filters
     let query = searchQuery.trim();
 
-    // Add color filters
-    if (filters.colors.length > 0) {
-      const colorQuery = filters.colors
-        .map((color) => `c:${color.toLowerCase()}`)
+    // Add colour filters
+    if (filters.colours.length > 0) {
+      const colourQuery = filters.colours
+        .map((colour) => `c:${colour.toLowerCase()}`)
         .join(" OR ");
-      query += query ? ` (${colorQuery})` : `(${colorQuery})`;
+      query += query ? ` (${colourQuery})` : `(${colourQuery})`;
     }
 
     // Add type filters
@@ -99,7 +99,7 @@ export default function CardSearch({
 
   const hasActiveFilters = () => {
     return (
-      filters.colors.length > 0 ||
+      filters.colours.length > 0 ||
       filters.types.length > 0 ||
       filters.abilities.length > 0 ||
       filters.rarity ||
@@ -109,7 +109,7 @@ export default function CardSearch({
 
   const clearFilters = () => {
     setFilters({
-      colors: [],
+      colours: [],
       types: [],
       abilities: [],
       rarity: "",
@@ -120,7 +120,7 @@ export default function CardSearch({
   const toggleFilter = (filterType, value) => {
     setFilters((prev) => {
       if (
-        filterType === "colors" ||
+        filterType === "colours" ||
         filterType === "types" ||
         filterType === "abilities"
       ) {
@@ -236,7 +236,7 @@ export default function CardSearch({
           {showAdvanced ? "▲" : "▼"} Advanced Filters
           {hasActiveFilters() && (
             <span className="advanced-filters-badge">
-              {filters.colors.length +
+              {filters.colours.length +
                 filters.types.length +
                 filters.abilities.length +
                 (filters.rarity ? 1 : 0) +
@@ -251,26 +251,26 @@ export default function CardSearch({
         <div className="advanced-filters-panel">
           {/* Colors */}
           <div className="filter-section">
-            <h5 className="filter-title">Colors</h5>
+            <h4 className="filter-title">Colours</h4>
             <div className="filter-buttons">
-              {colors.map((color) => (
+              {colours.map((colour) => (
                 <button
-                  key={color.symbol}
-                  onClick={() => toggleFilter("colors", color.symbol)}
+                  key={colour.symbol}
+                  onClick={() => toggleFilter("colours", colour.symbol)}
                   disabled={loading}
                   className="filter-btn filter-btn-color"
                   style={{
-                    background: filters.colors.includes(color.symbol)
-                      ? color.color
+                    background: filters.colours.includes(colour.symbol)
+                      ? colour.color
                       : "var(--theme-cardBg)",
-                    color: filters.colors.includes(color.symbol)
-                      ? color.textColor
+                    color: filters.colours.includes(colour.symbol)
+                      ? colour.textColor
                       : "var(--theme-text)",
-                    borderColor: color.color,
+                    borderColor: colour.color,
                     borderWidth: "2px",
                   }}
                 >
-                  {color.symbol} {color.name}
+                  {colour.symbol} {colour.name}
                 </button>
               ))}
             </div>
