@@ -28,6 +28,15 @@ export default function FavouritesPage() {
 
   // Load user from localStorage on mount
   useEffect(() => {
+    // Check for reset query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reset') === 'true') {
+      localStorage.removeItem("currentUser");
+      window.history.replaceState({}, '', window.location.pathname);
+      setLoading(false);
+      return;
+    }
+
     // Listen for connection status changes first
     const handleConnectionChange = (online) => {
       setIsOnline(online);
@@ -378,6 +387,12 @@ export default function FavouritesPage() {
               <a href="/profile" className="btn-outline">
                 Create Profile
               </a>
+              <a href="/search" className="btn">
+                Browse Cards
+              </a>
+            </div>
+            <div style={{ marginTop: "1rem", fontSize: "0.9rem", color: "var(--theme-textMuted)" }}>
+              <p>Need to reset? <a href="/favourites?reset=true" style={{ color: "var(--theme-primary)" }}>Clear stored user data</a></p>
             </div>
           </div>
         </div>
