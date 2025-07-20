@@ -82,7 +82,14 @@ app.use(performanceLogger);
 // CORS and JSON parsing (MUST come before rate limiting to set headers)
 app.use(cors({
   origin: process.env.NODE_ENV === "production"
-    ? ["https://capstone-9tvkmrtc9-samuel-loves-projects.vercel.app"]
+    ? (origin, callback) => {
+        // Allow any Vercel deployment URL for capstone
+        if (!origin || origin.includes('vercel.app') && origin.includes('capstone')) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      }
     : ["http://localhost:3000"],
   credentials: true
 }));
