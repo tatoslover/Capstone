@@ -250,8 +250,6 @@ export default function SearchPage() {
         card_name: card.name,
         scryfall_id: card.id,
         ability_type: extractAbilityType(card),
-        mana_cost: card.mana_cost || null,
-        color_identity: card.color_identity ? card.color_identity.join('') : null,
         notes: "",
       });
 

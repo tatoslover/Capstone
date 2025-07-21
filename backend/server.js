@@ -4,6 +4,12 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
 
+// Database URL validation and setup
+if (!process.env.DATABASE_URL) {
+  console.warn("⚠️  DATABASE_URL not set in environment, using default connection string");
+  process.env.DATABASE_URL = "postgresql://postgres:yTiwznpoFJQFArsSpZpprsqQHOjcWXvE@tramway.proxy.rlwy.net:59004/railway";
+}
+
 // Import enhanced modules
 const { initTables, healthCheck } = require("./db-enhanced");
 const {
@@ -41,6 +47,10 @@ const swaggerOptions = {
           ? "https://capstone-production-e2db.up.railway.app"
           : `http://localhost:${PORT}`,
         description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
+      },
+      {
+        url: "https://capstone-production-e2db.up.railway.app",
+        description: "Production server (Railway)"
       }
     ],
     tags: [
@@ -121,18 +131,34 @@ app.use((req, res, next) => {
 // Cache middleware for GET requests
 app.use(cacheMiddleware(300)); // 5 minutes cache
 
-// Swagger UI
+// Swagger UI with enhanced configuration
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
-  customCss: ".swagger-ui .topbar { display: none }",
+  explorer: true,
+  customCss: `
+    .swagger-ui .topbar { display: none }
+    .swagger-ui .info .title { color: #2c3e50; }
+    .swagger-ui .scheme-container { background: #f8f9fa; padding: 10px; border-radius: 5px; }
+  `,
   customSiteTitle: "Planeswalker's Primer API Documentation",
-  customfavIcon: "/favicon.ico"
+  customfavIcon: "/favicon.ico",
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+    docExpansion: 'none',
+    filter: true,
+    showExtensions: true,
+    showCommonExtensions: true,
+    tryItOutEnabled: true
+  }
 }));
 
 // Initialize database tables on startup
+console.log(`🔗 Using database: ${process.env.DATABASE_URL.substring(0, 30)}...`);
 initTables().then(() => {
   console.log("✅ Enhanced database initialisation complete");
 }).catch(err => {
   console.error("❌ Database initialisation failed:", err);
+  console.error("   Check DATABASE_URL environment variable");
 });
 
 // Monitoring Routes
@@ -906,23 +932,53 @@ app.delete("/api/users/:id", async (req, res) => {
  * /api/favourites:
  *   get:
  *     summary: Get all favourites for a user
+ *     description: Retrieve user's favourite MTG cards with optional filtering
  *     tags: [Favourites]
  *     parameters:
  *       - in: query
  *         name: user_id
+ *         required: true
  *         schema:
  *           type: integer
  *         description: User ID to get favourites for
+ *         example: 1
  *       - in: query
  *         name: ability_type
  *         schema:
  *           type: string
- *         description: Filter by ability type
+ *         description: Filter by ability type (e.g., "Flying", "Trample")
+ *         example: "Flying"
  *     responses:
  *       200:
- *         description: List of favourites
+ *         description: List of favourites retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Favourite'
  *       400:
- *         description: Invalid user ID
+ *         description: Invalid or missing user ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "user_id parameter is required"
+ *                 requestId:
+ *                   type: string
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to fetch favourites"
  */
 app.get("/api/favourites", async (req, res) => {
   try {
@@ -1014,6 +1070,7 @@ app.get("/api/favourites/:id", async (req, res) => {
  * /api/favourites:
  *   post:
  *     summary: Create a new favourite
+ *     description: Add a MTG card to user's favourites collection
  *     tags: [Favourites]
  *     requestBody:
  *       required: true
@@ -1027,23 +1084,62 @@ app.get("/api/favourites/:id", async (req, res) => {
  *             properties:
  *               user_id:
  *                 type: integer
+ *                 description: ID of the user adding the favourite
+ *                 example: 1
  *               card_name:
  *                 type: string
+ *                 description: Name of the MTG card
+ *                 example: "Lightning Bolt"
  *               scryfall_id:
  *                 type: string
+ *                 description: Scryfall API card identifier
+ *                 example: "e3285e6b-3e79-4d7c-bf96-d920f973b122"
  *               ability_type:
  *                 type: string
+ *                 description: Primary ability or card type
+ *                 example: "Instant"
  *               notes:
  *                 type: string
+ *                 description: User's personal notes about the card
+ *                 example: "Great for aggro decks"
  *     responses:
  *       201:
  *         description: Favourite created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Favourite'
  *       400:
- *         description: Invalid input
+ *         description: Invalid input - missing required fields
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "user_id and card_name are required"
+ *                 requestId:
+ *                   type: string
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to create favourite"
+ *                 requestId:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
  */
 app.post("/api/favourites", async (req, res) => {
   try {
-    const { user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes } = req.body;
+    const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
 
     if (!user_id || !card_name) {
       return res.status(400).json({
@@ -1071,8 +1167,6 @@ app.post("/api/favourites", async (req, res) => {
       card_name.trim(),
       scryfall_id,
       ability_type,
-      mana_cost,
-      color_identity,
       notes
     );
 

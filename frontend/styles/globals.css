@@ -832,6 +832,8 @@ button.profile-btn-blue:disabled,
 
     h1 {
         font-size: 1.75rem;
+        position: relative;
+        z-index: 1;
     }
 
     h2 {
@@ -841,6 +843,8 @@ button.profile-btn-blue:disabled,
     .header-box {
         padding: 1.5rem;
         border-radius: 0.75rem;
+        position: relative;
+        z-index: 2;
     }
 
     /* Enhanced mobile touch targets */
@@ -871,6 +875,22 @@ button.profile-btn-blue:disabled,
     .loading-container .loading {
         min-width: 150px;
         padding: 0.75rem;
+    }
+
+    /* Fix stack animation positioning above title on mobile */
+    .search-controls {
+        position: relative;
+        z-index: 3;
+    }
+
+    .search-input-container::before {
+        font-size: 0.9rem;
+        left: 0.5rem;
+    }
+
+    .search-input-field {
+        padding: 0.75rem 2rem 0.75rem 2rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -2201,6 +2221,22 @@ button.profile-btn-blue:disabled,
 .mtg-colour-black {
     background-color: #8b5cf6;
     color: #ffffff;
+    border: 2px solid #a855f7;
+    box-shadow: 0 0 0 1px #c084fc, 0 2px 4px rgba(168, 85, 247, 0.3);
+}
+
+.mtg-colour-black:hover {
+    background-color: #7c3aed;
+    border-color: #c084fc;
+    box-shadow: 0 0 0 2px #c084fc, 0 4px 8px rgba(168, 85, 247, 0.4);
+    transform: translateY(-1px);
+}
+
+.mtg-colour-black:focus {
+    outline: none;
+    background-color: #7c3aed;
+    border-color: #ddd6fe;
+    box-shadow: 0 0 0 3px #ddd6fe, 0 4px 12px rgba(168, 85, 247, 0.5);
 }
 
 .mtg-colour-red {
@@ -2233,11 +2269,32 @@ button.profile-btn-blue:disabled,
 /* Form and Search Component Styles */
 .search-form {
     margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 4;
 }
 
 .search-input-container {
     position: relative;
     flex: 1;
+}
+
+.search-input-container::before {
+    content: "🔍";
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--theme-textLight);
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 1;
+    transition: all 0.2s ease;
+}
+
+.search-input-field:focus + .search-input-container::before,
+.search-input-container:hover::before {
+    color: #007bff;
+    transform: translateY(-50%) scale(1.1);
 }
 
 .search-input-field {
@@ -2246,8 +2303,19 @@ button.profile-btn-blue:disabled,
     color: var(--theme-text);
     border: 1px solid var(--theme-border);
     border-radius: 0.375rem;
-    padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+    padding: 0.75rem 2.5rem 0.75rem 2.5rem;
     font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.search-input-field:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+.search-input-field:hover {
+    border-color: var(--theme-accent);
 }
 
 .search-clear-btn {
@@ -2278,6 +2346,9 @@ button.profile-btn-blue:disabled,
 .search-controls {
     display: flex;
     gap: 0.5rem;
+    align-items: flex-end;
+    position: relative;
+    z-index: 5;
 }
 
 /* Search button styling - same approach as profile-btn-blue */
@@ -2290,6 +2361,11 @@ button.search-btn-primary,
     border-color: #007bff !important;
     color: white !important;
     border: 2px solid #007bff !important;
+    min-width: 3rem;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .search-controls .btn-primary:hover,
@@ -2300,8 +2376,16 @@ button.search-btn-primary:hover,
     background: #0056b3 !important;
     border-color: #0056b3 !important;
     color: white !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4) !important;
+}
+
+.search-controls .btn-primary:active,
+.search-form .btn-primary:active,
+button.search-btn-primary:active,
+.btn.search-btn-primary:active {
+    transform: translateY(0) scale(0.98) !important;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3) !important;
 }
 
 .quick-search-section {
@@ -3293,26 +3377,7 @@ button.pagination-btn:disabled,
     opacity: 1;
 }
 
-.search-card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    padding: 1rem;
-    color: white;
-}
 
-.search-card-name {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 600;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.search-card:hover .search-card-overlay {
-    opacity: 1;
-}
 
 .search-card::after {
     content: "Click to view details";
@@ -3433,13 +3498,7 @@ button.pagination-btn:disabled,
         gap: 0.75rem;
     }
 
-    .search-card-name {
-        font-size: 0.8rem;
-    }
 
-    .search-card-overlay {
-        padding: 0.75rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -3448,9 +3507,7 @@ button.pagination-btn:disabled,
         gap: 0.5rem;
     }
 
-    .search-card-name {
-        font-size: 0.75rem;
-    }
+
 }
 
 /* ===== MECHANICS-SPECIFIC STYLING (UK ENGLISH) ===== */
