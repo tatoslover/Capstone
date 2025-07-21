@@ -4,6 +4,12 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
 
+// Database URL validation and setup
+if (!process.env.DATABASE_URL) {
+  console.warn("⚠️  DATABASE_URL not set in environment, using default connection string");
+  process.env.DATABASE_URL = "postgresql://postgres:yTiwznpoFJQFArsSpZpprsqQHOjcWXvE@tramway.proxy.rlwy.net:59004/railway";
+}
+
 // Import enhanced modules
 const { initTables, healthCheck } = require("./db-enhanced");
 const {
@@ -27,12 +33,12 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Capstone API",
+      title: "Planeswalker's Primer API",
       version: "1.0.0",
-      description: "Enhanced API with performance monitoring for the Capstone MTG application",
+      description: "Enhanced API with performance monitoring for the Planeswalker's Primer MTG application",
       contact: {
         name: "API Support",
-        email: "support@capstone.com"
+        email: "samuelwelove@icloud.com"
       }
     },
     servers: [
@@ -41,6 +47,10 @@ const swaggerOptions = {
           ? "https://capstone-production-e2db.up.railway.app"
           : `http://localhost:${PORT}`,
         description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
+      },
+      {
+        url: "https://capstone-production-e2db.up.railway.app",
+        description: "Production server (Railway)"
       }
     ],
     tags: [
@@ -121,18 +131,34 @@ app.use((req, res, next) => {
 // Cache middleware for GET requests
 app.use(cacheMiddleware(300)); // 5 minutes cache
 
-// Swagger UI
+// Swagger UI with enhanced configuration
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
-  customCss: ".swagger-ui .topbar { display: none }",
+  explorer: true,
+  customCss: `
+    .swagger-ui .topbar { display: none }
+    .swagger-ui .info .title { color: #2c3e50; }
+    .swagger-ui .scheme-container { background: #f8f9fa; padding: 10px; border-radius: 5px; }
+  `,
   customSiteTitle: "Planeswalker's Primer API Documentation",
-  customfavIcon: "/favicon.ico"
+  customfavIcon: "/favicon.ico",
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+    docExpansion: 'none',
+    filter: true,
+    showExtensions: true,
+    showCommonExtensions: true,
+    tryItOutEnabled: true
+  }
 }));
 
 // Initialize database tables on startup
+console.log(`🔗 Using database: ${process.env.DATABASE_URL.substring(0, 30)}...`);
 initTables().then(() => {
   console.log("✅ Enhanced database initialisation complete");
 }).catch(err => {
   console.error("❌ Database initialisation failed:", err);
+  console.error("   Check DATABASE_URL environment variable");
 });
 
 // Monitoring Routes
@@ -618,15 +644,38 @@ app.post("/api/users", async (req, res) => {
       });
     }
 
+    // Prevent test user patterns in production
+    const testPatterns = [
+      'favourites_user_',
+      'integration_user_',
+      'test_user_',
+      'temp_user_'
+    ];
+
+    const trimmedUsername = username.trim();
+
+    if (process.env.NODE_ENV === 'production') {
+      const isTestPattern = testPatterns.some(pattern =>
+        trimmedUsername.toLowerCase().includes(pattern.toLowerCase())
+      );
+
+      if (isTestPattern) {
+        return res.status(400).json({
+          error: "Username contains reserved test patterns",
+          requestId: req.id
+        });
+      }
+    }
+
     // Check for alphanumeric username
-    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+    if (!/^[a-zA-Z0-9_]+$/.test(trimmedUsername)) {
       return res.status(400).json({
         error: "Username can only contain letters, numbers, and underscores",
         requestId: req.id
       });
     }
 
-    const result = await userOperations.create(username.trim());
+    const result = await userOperations.create(trimmedUsername);
 
     if (result.rows.length === 0) {
       return res.status(400).json({
@@ -883,23 +932,53 @@ app.delete("/api/users/:id", async (req, res) => {
  * /api/favourites:
  *   get:
  *     summary: Get all favourites for a user
+ *     description: Retrieve user's favourite MTG cards with optional filtering
  *     tags: [Favourites]
  *     parameters:
  *       - in: query
  *         name: user_id
+ *         required: true
  *         schema:
  *           type: integer
  *         description: User ID to get favourites for
+ *         example: 1
  *       - in: query
  *         name: ability_type
  *         schema:
  *           type: string
- *         description: Filter by ability type
+ *         description: Filter by ability type (e.g., "Flying", "Trample")
+ *         example: "Flying"
  *     responses:
  *       200:
- *         description: List of favourites
+ *         description: List of favourites retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Favourite'
  *       400:
- *         description: Invalid user ID
+ *         description: Invalid or missing user ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "user_id parameter is required"
+ *                 requestId:
+ *                   type: string
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to fetch favourites"
  */
 app.get("/api/favourites", async (req, res) => {
   try {
@@ -991,6 +1070,7 @@ app.get("/api/favourites/:id", async (req, res) => {
  * /api/favourites:
  *   post:
  *     summary: Create a new favourite
+ *     description: Add a MTG card to user's favourites collection
  *     tags: [Favourites]
  *     requestBody:
  *       required: true
@@ -1004,23 +1084,62 @@ app.get("/api/favourites/:id", async (req, res) => {
  *             properties:
  *               user_id:
  *                 type: integer
+ *                 description: ID of the user adding the favourite
+ *                 example: 1
  *               card_name:
  *                 type: string
+ *                 description: Name of the MTG card
+ *                 example: "Lightning Bolt"
  *               scryfall_id:
  *                 type: string
+ *                 description: Scryfall API card identifier
+ *                 example: "e3285e6b-3e79-4d7c-bf96-d920f973b122"
  *               ability_type:
  *                 type: string
+ *                 description: Primary ability or card type
+ *                 example: "Instant"
  *               notes:
  *                 type: string
+ *                 description: User's personal notes about the card
+ *                 example: "Great for aggro decks"
  *     responses:
  *       201:
  *         description: Favourite created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Favourite'
  *       400:
- *         description: Invalid input
+ *         description: Invalid input - missing required fields
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "user_id and card_name are required"
+ *                 requestId:
+ *                   type: string
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to create favourite"
+ *                 requestId:
+ *                   type: string
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
  */
 app.post("/api/favourites", async (req, res) => {
   try {
-    const { user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes } = req.body;
+    const { user_id, card_name, scryfall_id, ability_type, notes } = req.body;
 
     if (!user_id || !card_name) {
       return res.status(400).json({
@@ -1048,8 +1167,6 @@ app.post("/api/favourites", async (req, res) => {
       card_name.trim(),
       scryfall_id,
       ability_type,
-      mana_cost,
-      color_identity,
       notes
     );
 
@@ -1179,6 +1296,66 @@ app.delete("/api/favourites/:id", async (req, res) => {
     console.error("Error deleting favourite:", error);
     res.status(500).json({
       error: "Failed to delete favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Development/staging cleanup endpoint for test users
+app.delete("/api/admin/cleanup-test-users", async (req, res) => {
+  try {
+    // Only allow in non-production environments
+    if (process.env.NODE_ENV === 'production') {
+      return res.status(403).json({
+        error: "Cleanup endpoint not available in production",
+        requestId: req.id
+      });
+    }
+
+    const testPatterns = [
+      'favourites_user_%',
+      'integration_user_%',
+      'test_user_%',
+      'temp_user_%'
+    ];
+
+    let totalDeleted = 0;
+    const deletedUsers = [];
+
+    for (const pattern of testPatterns) {
+      // Get users matching the pattern first
+      const selectResult = await query(
+        'SELECT id, username, created_at FROM users WHERE username LIKE $1',
+        [pattern],
+        'select_test_users'
+      );
+
+      if (selectResult.rows.length > 0) {
+        // Delete users (cascades to favourites)
+        const deleteResult = await query(
+          'DELETE FROM users WHERE username LIKE $1 RETURNING id, username',
+          [pattern],
+          'delete_test_users'
+        );
+
+        totalDeleted += deleteResult.rowCount;
+        deletedUsers.push(...deleteResult.rows);
+      }
+    }
+
+    res.json({
+      message: "Test user cleanup completed",
+      totalDeleted,
+      deletedUsers,
+      timestamp: new Date().toISOString(),
+      requestId: req.id
+    });
+
+  } catch (error) {
+    console.error("Error cleaning up test users:", error);
+    res.status(500).json({
+      error: "Failed to cleanup test users",
       requestId: req.id,
       timestamp: new Date().toISOString()
     });

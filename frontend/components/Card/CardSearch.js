@@ -183,8 +183,10 @@ export default function CardSearch({
               loading={loading}
               disabled={!searchQuery.trim() && !hasActiveFilters()}
               className="btn-primary search-btn-primary"
+              aria-label="Search for MTG cards"
+              title="Search for MTG cards"
             >
-              Search
+              🔍
             </Button>
             <Button
               type="button"
@@ -266,8 +268,13 @@ export default function CardSearch({
                     color: filters.colours.includes(colour.symbol)
                       ? colour.textColor
                       : "var(--theme-text)",
-                    borderColor: colour.color,
+                    borderColor: colour.symbol === "B" ? "#a855f7" : colour.color,
                     borderWidth: "2px",
+                    boxShadow: colour.symbol === "B" && filters.colours.includes(colour.symbol)
+                      ? "0 0 0 1px #c084fc, 0 2px 4px rgba(168, 85, 247, 0.3)"
+                      : colour.symbol === "B"
+                      ? "0 0 0 1px #8b5cf6"
+                      : "none",
                   }}
                 >
                   {colour.symbol} {colour.name}

@@ -123,6 +123,8 @@ const initTables = async () => {
       ON favourites(scryfall_id)
     `, [], 'create_favourites_scryfall_index');
 
+
+
     // Update trigger for messages table
     await query(`
       CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -222,12 +224,12 @@ const userOperations = {
 // Optimised favourites operations
 const favouritesOperations = {
   // Create favourite with duplicate prevention
-  create: async (userId, cardName, scryfallId, abilityType, manaCost, colorIdentity, notes) => {
+  create: async (userId, cardName, scryfallId, abilityType, notes) => {
     return await query(
-      `INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, mana_cost, color_identity, notes)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
+      `INSERT INTO favourites (user_id, card_name, scryfall_id, ability_type, notes)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING *`,
-      [userId, cardName, scryfallId, abilityType, manaCost, colorIdentity, notes],
+      [userId, cardName, scryfallId, abilityType, notes],
       'create_favourite'
     );
   },

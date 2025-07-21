@@ -18,6 +18,8 @@
     "test:connection": "node ../scripts/test-connection.js",
     "db:reset": "docker-compose down -v && docker-compose up -d postgres",
     "db:seed": "node -e \"require('./db-enhanced').initTables().then(() => console.log('Database seeded')).catch(console.error);\"",
+    "db:cleanup": "node cleanup-test-users.js",
+    "db:cleanup:dry": "node cleanup-test-users.js --dry-run",
     "monitor": "node -e \"const { getPerformanceMetrics } = require('./middleware/performance'); console.log(JSON.stringify(getPerformanceMetrics(), null, 2));\"",
     "health": "curl -s http://localhost:3001/api/monitoring/health | jq ."
   },

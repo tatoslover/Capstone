@@ -230,10 +230,7 @@ export default function SearchCard({
           )}
         </div>
 
-        {/* Card Name Overlay */}
-        <div className="search-card-overlay">
-          <h4 className="search-card-name">{card.name}</h4>
-        </div>
+
       </div>
 
       {/* Modal */}

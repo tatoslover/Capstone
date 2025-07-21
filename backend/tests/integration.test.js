@@ -230,14 +230,16 @@ describe("Integration Tests - End-to-End Workflows", () => {
 
   describe("Cross-Entity Workflows", () => {
     test("User with favourites deletion workflow", async () => {
-      // 1. Create user
-      const userData = { username: "favourites_user_" + Date.now() };
-      const userResponse = await request(app)
-        .post("/api/users")
-        .send(userData)
-        .expect(201);
+      let user;
+      try {
+        // 1. Create user
+        const userData = { username: "favourites_user_" + Date.now() };
+        const userResponse = await request(app)
+          .post("/api/users")
+          .send(userData)
+          .expect(201);
 
-      const user = userResponse.body;
+        user = userResponse.body;
 
       // 2. Add multiple favourites for the user
       const favouriteCards = [
@@ -286,6 +288,17 @@ describe("Integration Tests - End-to-End Workflows", () => {
       // 6. Verify individual favourites return 404 when accessed directly
       for (const favouriteId of createdFavouriteIds) {
         await request(app).get(`/api/favourites/${favouriteId}`).expect(404);
+      }
+      } catch (error) {
+        // Cleanup user if test fails
+        if (user?.id) {
+          try {
+            await request(app).delete(`/api/users/${user.id}`);
+          } catch (cleanupError) {
+            console.warn(`Failed to cleanup test user ${user.id}:`, cleanupError.message);
+          }
+        }
+        throw error;
       }
     });
 
