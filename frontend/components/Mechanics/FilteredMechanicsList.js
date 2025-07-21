@@ -23,21 +23,31 @@ const cleanDescription = (text, mechanicName) => {
 
   // Clean the main text more carefully
   let cleaned = text
+    // First normalize whitespace to ensure consistent matching
+    .replace(/\s+/g, ' ')
+    .replace(/\n/g, ' ')
+    .trim()
     // Remove citation markers
     .replace(/\[\d+\]/g, '')
-    // Remove redundant keyword ability phrases
-    .replace(/A keyword ability found on creatures\.\s*/gi, '')
-    .replace(/A keyword ability\.\s*/gi, '')
-    .replace(/A keyword ability found on [^.]*\.\s*/gi, '')
-    .replace(/An? ability word found on [^.]*\.\s*/gi, '')
-    .replace(/An? ability word\.\s*/gi, '')
-    .replace(/A static ability found on [^.]*\.\s*/gi, '')
-    .replace(/A triggered ability found on [^.]*\.\s*/gi, '')
-    .replace(/An activated ability found on [^.]*\.\s*/gi, '')
-    .replace(/This is a keyword ability\.\s*/gi, '')
-    .replace(/This is an ability word\.\s*/gi, '')
-    .replace(/^[^.]*is a keyword ability that\s*/gi, '')
-    .replace(/^[^.]*is an ability word that\s*/gi, '')
+    // Remove redundant keyword ability phrases - multiple passes for robustness
+    .replace(/^A\s+keyword\s+ability\s+found\s+on\s+creatures\.\s*/gi, '')
+    .replace(/^A\s+keyword\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, '')
+    .replace(/^A\s+keyword\s+ability\.\s*/gi, '')
+    .replace(/^An?\s+ability\s+word\s+found\s+on\s+[^.]*\.\s*/gi, '')
+    .replace(/^An?\s+ability\s+word\.\s*/gi, '')
+    .replace(/^A\s+static\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, '')
+    .replace(/^A\s+triggered\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, '')
+    .replace(/^An?\s+activated\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, '')
+    // Second pass to catch any remaining instances
+    .replace(/A\s+keyword\s+ability\s+found\s+on\s+creatures\.\s*/gi, '')
+    .replace(/A\s+keyword\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, '')
+    .replace(/A\s+keyword\s+ability\.\s*/gi, '')
+    .replace(/An?\s+ability\s+word\s+found\s+on\s+[^.]*\.\s*/gi, '')
+    .replace(/An?\s+ability\s+word\.\s*/gi, '')
+    .replace(/This\s+is\s+a\s+keyword\s+ability\.\s*/gi, '')
+    .replace(/This\s+is\s+an\s+ability\s+word\.\s*/gi, '')
+    .replace(/^[^.]*\s+is\s+a\s+keyword\s+ability\s+that\s*/gi, '')
+    .replace(/^[^.]*\s+is\s+an\s+ability\s+word\s+that\s*/gi, '')
     // Clean up wiki metadata but preserve meaningful content
     .replace(/\b\w*Keyword\s*Ability\s*Type\s*\w*/gi, '')
     .replace(/Introduced\s+[^.]*\.?/gi, '')
@@ -50,9 +60,8 @@ const cleanDescription = (text, mechanicName) => {
     .replace(/Other\s+Symbols\s*/gi, '')
     // Clean up broken sentences that start with fragments
     .replace(/^[a-z]+\s+(?=[A-Z])/g, '')
-    // Normalise whitespace
+    // Final whitespace cleanup
     .replace(/\s+/g, ' ')
-    .replace(/\n/g, ' ')
     .trim();
 
   // If we have useful reminder text that's clear, use it
