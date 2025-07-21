@@ -27,12 +27,12 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Capstone API",
+      title: "Planeswalker's Primer API",
       version: "1.0.0",
-      description: "Enhanced API with performance monitoring for the Capstone MTG application",
+      description: "Enhanced API with performance monitoring for the Planeswalker's Primer MTG application",
       contact: {
         name: "API Support",
-        email: "support@capstone.com"
+        email: "samuelwelove@icloud.com"
       }
     },
     servers: [
