@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: plansewalker-db
+    container_name: planeswalker-db
     environment:
-      POSTGRES_DB: plansewalker_primer
+      POSTGRES_DB: planeswalker_primer
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
@@ -24,11 +24,11 @@ services:
   # Optional: pgAdmin for database management
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: plansewalker-pgadmin
+    container_name: planeswalker-pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@plansewalker.com
+      PGADMIN_DEFAULT_EMAIL: admin@planeswalker.com
       PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_SERVER_MODE: "False"
     ports:
       - "8080:80"
     depends_on:
@@ -47,4 +47,4 @@ volumes:
 
 networks:
   default:
-    name: plansewalker-network
+    name: planeswalker-network

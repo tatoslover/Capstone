@@ -6,11 +6,19 @@ require("dotenv").config();
 
 // Database URL validation and setup
 if (!process.env.DATABASE_URL) {
-  console.warn(
-    "⚠️  DATABASE_URL not set in environment, using default connection string",
-  );
-  process.env.DATABASE_URL =
-    "postgresql://postgres:yTiwznpoFJQFArsSpZpprsqQHOjcWXvE@tramway.proxy.rlwy.net:59004/railway";
+  // Allow tests to run without DATABASE_URL
+  if (process.env.NODE_ENV === "test") {
+    console.warn("⚠️ DATABASE_URL not set, using test database configuration");
+    process.env.DATABASE_URL =
+      "postgresql://postgres:password@localhost:5432/test_db";
+  } else {
+    console.error("❌ DATABASE_URL not set in environment variables.");
+    console.error("Please set DATABASE_URL in your .env file or environment.");
+    console.error(
+      "Example: DATABASE_URL=postgresql://user:password@host:port/database",
+    );
+    process.exit(1);
+  }
 }
 
 // Import enhanced modules

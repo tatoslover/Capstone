@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { UserListSkeleton } from "../UI/Skeleton";
 
 export default function UserSelector({ onUserSelect, currentUser }) {
   const [users, setUsers] = useState([]);
@@ -132,7 +133,14 @@ export default function UserSelector({ onUserSelect, currentUser }) {
       {!currentUser && (
         <>
           {/* Existing Users */}
-          {users.length > 0 && (
+          {loading ? (
+            <div style={{ marginBottom: "1.5rem" }}>
+              <h4 style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                Existing Profiles
+              </h4>
+              <UserListSkeleton count={3} />
+            </div>
+          ) : users.length > 0 ? (
             <div style={{ marginBottom: "1.5rem" }}>
               <h4 style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
                 Existing Profiles
@@ -180,7 +188,7 @@ export default function UserSelector({ onUserSelect, currentUser }) {
                 ))}
               </div>
             </div>
-          )}
+          ) : null}
 
           {/* Create New User Section */}
           <div
