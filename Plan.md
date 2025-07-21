@@ -7,6 +7,17 @@
 - Core value: Quick, beginner-friendly access to MTG abilities with personal favourites
 - Mobile-first design for on-the-go reference during games
 
+## Design & Planning
+
+### UI/UX Design
+- **Figma Mockups**: [View Mobile Design](https://www.figma.com/design/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=0-1&t=sbXzY8oJIeW1QDSH-1)
+- **Design Principles**:
+  - Mobile-first responsive design
+  - Dark theme optimised for gameplay environments
+  - Clear typography and high contrast for readability
+  - MTG-themed visual elements (mana symbols, card frames)
+  - Intuitive navigation for quick rule lookups
+
 ## Business Context & Stakeholders
 
 ### Target Users
