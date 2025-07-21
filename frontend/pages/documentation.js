@@ -400,13 +400,21 @@ export default function Documentation() {
           </p>
 
           <div className="doc-figma-container">
-            <h5 className="doc-figma-title">Interactive Figma Prototype</h5>
-            <div className="doc-figma-wrapper">
-              <iframe
-                src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FX6Yi5UFrELNmPJqNR5Ghbr%2FCapstone_Mobile%3Fnode-id%3D1-125%26p%3Df%26t%3DiCqmRz0wtU6cs5wZ-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26page-id%3D0%253A1"
-                className="doc-figma-iframe"
-                allowFullScreen
-              />
+            <h5 className="doc-figma-title">Mobile Design Prototype</h5>
+            <p className="doc-paragraph">
+              Our mobile-first design features a dark theme optimised for gameplay environments,
+              with MTG-themed visual elements and intuitive navigation.
+            </p>
+            <div style={{ textAlign: "center", margin: "20px 0" }}>
+              <a
+                href="https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button primary"
+                style={{ display: "inline-block", padding: "12px 24px" }}
+              >
+                View Interactive Prototype in Figma →
+              </a>
             </div>
           </div>
 
@@ -419,17 +427,7 @@ export default function Documentation() {
               <strong>Responsive Layout:</strong> Mobile-first approach with
               breakpoints for tablet and desktop experiences
             </li>
-            <li>
-              <strong>External Link:</strong>{" "}
-              <a
-                href="https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="doc-link"
-              >
-                Open in Figma
-              </a>
-            </li>
+
           </ul>
 
           <h4 className="doc-heading">Project Timeline & Milestones</h4>
