@@ -25,6 +25,19 @@ const cleanDescription = (text, mechanicName) => {
   let cleaned = text
     // Remove citation markers
     .replace(/\[\d+\]/g, '')
+    // Remove redundant keyword ability phrases
+    .replace(/A keyword ability found on creatures\.\s*/gi, '')
+    .replace(/A keyword ability\.\s*/gi, '')
+    .replace(/A keyword ability found on [^.]*\.\s*/gi, '')
+    .replace(/An? ability word found on [^.]*\.\s*/gi, '')
+    .replace(/An? ability word\.\s*/gi, '')
+    .replace(/A static ability found on [^.]*\.\s*/gi, '')
+    .replace(/A triggered ability found on [^.]*\.\s*/gi, '')
+    .replace(/An activated ability found on [^.]*\.\s*/gi, '')
+    .replace(/This is a keyword ability\.\s*/gi, '')
+    .replace(/This is an ability word\.\s*/gi, '')
+    .replace(/^[^.]*is a keyword ability that\s*/gi, '')
+    .replace(/^[^.]*is an ability word that\s*/gi, '')
     // Clean up wiki metadata but preserve meaningful content
     .replace(/\b\w*Keyword\s*Ability\s*Type\s*\w*/gi, '')
     .replace(/Introduced\s+[^.]*\.?/gi, '')
