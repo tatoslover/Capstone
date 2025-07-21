@@ -12,57 +12,74 @@ import {
 const cleanDescription = (text, mechanicName) => {
   if (!text) return getFallbackDescription(mechanicName);
 
+  // Return the description as-is if it's already clean and reasonable
+  if (text.length < 300 && !text.includes('Keyword Ability') && !text.includes('Statistics')) {
+    return text.trim();
+  }
+
   // First, extract useful reminder text if it exists
   const reminderMatch = text.match(/\(([^)]+)\)/);
   const reminderText = reminderMatch ? reminderMatch[1] : '';
 
-  // Clean the main text
+  // Clean the main text more carefully
   let cleaned = text
     // Remove citation markers
     .replace(/\[\d+\]/g, '')
-    // Clean up wiki metadata
-    .replace(/\b\w*Keyword\s*Ability\w*/gi, '')
-    .replace(/Type\s+(Static|Triggered|Activated)\w*/gi, '')
-    .replace(/Introduced\s+[^.]+/gi, '')
-    .replace(/Last\s+used\s+[^.]+/gi, '')
+    // Clean up wiki metadata but preserve meaningful content
+    .replace(/\b\w*Keyword\s*Ability\s*Type\s*\w*/gi, '')
+    .replace(/Introduced\s+[^.]*\.?/gi, '')
+    .replace(/Last\s+used\s+[^.]*\.?/gi, '')
     .replace(/Reminder\s+Text\s*/gi, '')
     .replace(/Storm\s+Scale\s+\d+/gi, '')
-    .replace(/Statistics[^.]+/gi, '')
+    .replace(/Statistics\s+\d+[^.]*\.?/gi, '')
     .replace(/Scryfall\s+Search[^"]*"[^"]*"/gi, '')
-    .replace(/\b\d+(\.\d+)?%/g, '') // Remove percentages
-    .replace(/^\w+\s*\(/g, '') // Remove leading ability name with parenthesis
+    .replace(/\b\d+(\.\d+)?%\s*/g, '') // Remove percentages
+    .replace(/Other\s+Symbols\s*/gi, '')
+    // Clean up broken sentences that start with fragments
+    .replace(/^[a-z]+\s+(?=[A-Z])/g, '')
     // Normalise whitespace
     .replace(/\s+/g, ' ')
     .replace(/\n/g, ' ')
     .trim();
 
-  // If we have useful reminder text, use it
-  if (reminderText && reminderText.length > 20 && !reminderText.includes('keyword')) {
+  // If we have useful reminder text that's clear, use it
+  if (reminderText && reminderText.length > 15 && reminderText.length < 150 && !reminderText.includes('keyword')) {
     return reminderText.trim();
   }
 
-  // Otherwise, try to extract the most meaningful sentence
-  const sentences = cleaned.split(/[.!?]+/).filter(s => s.trim().length > 15);
+  // Try to find the best description sentence
+  const sentences = cleaned.split(/[.!?]+/).filter(s => s.trim().length > 10);
 
   if (sentences.length > 0) {
-    let bestSentence = sentences[0].trim();
+    // Look for the most descriptive sentence
+    let bestSentence = null;
 
-    // If first sentence is still messy, try the second
-    if (sentences.length > 1 && (bestSentence.includes('Keyword') || bestSentence.includes('Type') || bestSentence.length < 20)) {
-      bestSentence = sentences[1].trim();
+    for (let sentence of sentences) {
+      sentence = sentence.trim();
+      // Skip metadata-heavy sentences
+      if (sentence.includes('Keyword') || sentence.includes('Type') || sentence.includes('Statistics')) {
+        continue;
+      }
+      // Prefer sentences that explain what the mechanic does
+      if (sentence.length > 20 && sentence.length < 200) {
+        bestSentence = sentence;
+        break;
+      }
     }
 
-    const result = bestSentence.substring(0, 180).trim();
-    // If result is still poor quality, use fallback
-    if (result.length < 10 || result.includes('Ability Word') || result.includes('Static')) {
-      return getFallbackDescription(mechanicName);
+    if (bestSentence) {
+      return bestSentence;
     }
-    return result;
+
+    // Fallback to first reasonable sentence
+    const firstSentence = sentences[0].trim();
+    if (firstSentence.length > 15 && firstSentence.length < 200) {
+      return firstSentence;
+    }
   }
 
-  // Fallback: return cleaned text or fallback description
-  const fallback = cleaned.substring(0, 120).trim();
-  return fallback.length > 10 ? fallback : getFallbackDescription(mechanicName);
+  // Final fallback: use fallback description
+  return getFallbackDescription(mechanicName);
 };
 
 // Comprehensive fallback descriptions for mechanics - beginner-friendly explanations
@@ -435,7 +452,17 @@ export default function FilteredMechanicsList({
           >
             {filteredMechanics.map((mechanic) => {
               const isSelected = selectedMechanic?.name === mechanic;
-              const mechanicData = getMechanicDetails(mechanic);
+              // Try multiple key formats to find mechanic data
+              let mechanicData = getMechanicDetails(mechanic);
+              if (!mechanicData) {
+                // Try with exact case
+                mechanicData = getMechanicDetails(mechanic.toLowerCase());
+              }
+              if (!mechanicData) {
+                // Try with title case
+                const titleCase = mechanic.charAt(0).toUpperCase() + mechanic.slice(1).toLowerCase();
+                mechanicData = getMechanicDetails(titleCase);
+              }
 
               // Get category colour
               const getCategoryColour = (category) => {
@@ -590,7 +617,15 @@ export default function FilteredMechanicsList({
           </h3>
 
           {(() => {
-            const mechanicData = getMechanicDetails(selectedMechanic.name);
+            // Try multiple ways to get mechanic data
+            let mechanicData = getMechanicDetails(selectedMechanic.name);
+            if (!mechanicData) {
+              mechanicData = getMechanicDetails(selectedMechanic.name.toLowerCase());
+            }
+            if (!mechanicData) {
+              const titleCase = selectedMechanic.name.charAt(0).toUpperCase() + selectedMechanic.name.slice(1).toLowerCase();
+              mechanicData = getMechanicDetails(titleCase);
+            }
             const wikiUrl = getMechanicWikiUrl(selectedMechanic.name);
 
             if (mechanicData) {

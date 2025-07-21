@@ -4975,8 +4975,24 @@ export const getMechanicsByCategory = (category) => {
 };
 
 export const getMechanicDetails = (mechanicName) => {
-  const key = mechanicName.toLowerCase().replace(/[^a-z0-9]/g, "_");
-  return mechanicsDetails[key] || null;
+  if (!mechanicName) return null;
+
+  // Try multiple key formats to find the mechanic
+  const tryKeys = [
+    mechanicName.toLowerCase().replace(/[^a-z0-9]/g, "_"), // Original format
+    mechanicName.toLowerCase().replace(/\s+/g, "_"), // Space to underscore
+    mechanicName.toLowerCase().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, "_"), // Clean then underscore
+    mechanicName.toLowerCase(), // Just lowercase
+    mechanicName // Exact case
+  ];
+
+  for (const key of tryKeys) {
+    if (mechanicsDetails[key]) {
+      return mechanicsDetails[key];
+    }
+  }
+
+  return null;
 };
 
 export const getMechanicDescription = (mechanicName, preferFallback = false) => {
