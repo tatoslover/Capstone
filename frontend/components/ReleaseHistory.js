@@ -48,11 +48,12 @@ const ReleaseHistory = () => {
   };
 
   const getFallbackReleases = () => {
+    // Return releases in descending order (newest first)
     return [
       {
         tag_name: "v1.0.0",
         name: "🎉 Final Release - Complete Production Application",
-        created_at: new Date().toISOString(),
+        created_at: "2024-01-22T00:00:00Z",
         body: `## 🎉 Version 1.0.0 - Final Release
 
 ### 🌟 Major Features
@@ -82,7 +83,7 @@ const ReleaseHistory = () => {
       {
         tag_name: "v0.3.0",
         name: "🚀 Production Ready - Comprehensive Testing & Deployment",
-        created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+        created_at: "2024-01-15T00:00:00Z",
         body: `## 🚀 Production Ready - Comprehensive Testing & Deployment
 
 ### 🧪 Testing Excellence
@@ -111,9 +112,7 @@ const ReleaseHistory = () => {
       {
         tag_name: "v0.2.0",
         name: "⚡ Performance & Monitoring - Production-Grade Optimisation",
-        created_at: new Date(
-          Date.now() - 7 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
+        created_at: "2024-01-08T00:00:00Z",
         body: `## ⚡ Performance & Monitoring - Production-Grade Optimisation
 
 ### 🚀 Performance Features
@@ -140,9 +139,7 @@ const ReleaseHistory = () => {
       {
         tag_name: "v0.1.0",
         name: "🎯 Core Foundation - Basic Functionality Complete",
-        created_at: new Date(
-          Date.now() - 14 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
+        created_at: "2024-01-01T00:00:00Z",
         body: `## 🎯 Core Foundation - Basic Functionality Complete
 
 ### ✅ Core Features Implemented
@@ -221,9 +218,10 @@ const ReleaseHistory = () => {
   };
 
   const getVersionStatus = (tagName) => {
-    if (tagName.includes("1.0")) return "current";
-    if (tagName.includes("0.3")) return "stable";
-    if (tagName.includes("0.2")) return "legacy";
+    if (tagName === "v1.0.0") return "current";
+    if (tagName === "v0.3.0") return "stable";
+    if (tagName === "v0.2.0") return "legacy";
+    if (tagName === "v0.1.0") return "legacy";
     return "legacy";
   };
 
