@@ -8,6 +8,7 @@ import {
 import PerformanceDashboard from "../components/PerformanceDashboard";
 import PerformanceOverview from "../components/PerformanceOverview";
 import PerformanceHealthIndicator from "../components/PerformanceHealthIndicator";
+import ReleaseHistory from "../components/ReleaseHistory";
 import ClientOnly from "../components/ClientOnly";
 import {
   getPerformanceMetrics,
@@ -1313,7 +1314,15 @@ export default function Documentation() {
           <ul className="doc-list">
             <li>
               <strong>Keyboard Shortcut:</strong> Press <kbd>Ctrl+Shift+P</kbd>{" "}
-              to toggle floating performance dashboard
+              to toggle floating performance dashboard (available in production)
+            </li>
+            <li>
+              <strong>Floating Button:</strong> Click the 📊 button (top-right
+              corner) for instant dashboard access
+            </li>
+            <li>
+              <strong>Production Ready:</strong> Real-time monitoring available
+              on live application for professional system observability
             </li>
             <li>
               <strong>Console Access:</strong> Use{" "}
@@ -1329,6 +1338,14 @@ export default function Documentation() {
               operations and high memory usage
             </li>
           </ul>
+        </div>
+      ),
+    },
+    releases: {
+      title: "Release History",
+      content: (
+        <div>
+          <ReleaseHistory />
         </div>
       ),
     },
@@ -1442,7 +1459,13 @@ export default function Documentation() {
               onClick={() => handleSectionClick("performance")}
               className={`doc-section-btn ${selectedSection === "performance" ? "active" : ""}`}
             >
-              🚀 Performance Monitoring
+              ⚡ Performance Monitoring
+            </button>
+            <button
+              onClick={() => handleSectionClick("releases")}
+              className={`doc-section-btn ${selectedSection === "releases" ? "active" : ""}`}
+            >
+              📋 Release History
             </button>
             <button
               onClick={() => handleSectionClick("references")}

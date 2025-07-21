@@ -1,75 +1,105 @@
-# TODO - Prioritised Action Plan
+# TODO - Final Phase Implementation Plan
 
-## High Priority (Critical Functionality)
+## High Priority (Critical Final Features)
 
-### 1. Fix Favourites API Error (500) - ✅ COMPLETED
-**Issue:** Adding favourites was failing due to database schema mismatch
-**Root Cause:** Backend was trying to insert `mana_cost` and `color_identity` columns that didn't exist in database table
+### 1. Header Health Dashboard Integration - 🏥 NEW
+**Issue:** Health dashboard currently only accessible via floating button (Ctrl+Shift+P) or documentation page
+**Goal:** Integrate performance health indicator into navigation header for always-visible system status
+**Solution Required:**
+- Add compact `PerformanceHealthIndicator` to `Layout.js` header near connection status
+- Create header-optimised display mode (smaller, icon-focused)
+- Ensure mobile responsiveness doesn't break navigation
+- Link to full dashboard for detailed metrics
+
+**Status:** Components exist and functional - need integration and styling
+
+### 2. Release History Implementation - 📈 ✅ COMPLETED  
+**Issue:** Release strategy documented but not implemented
+**Goal:** Create GitHub releases and display release history in application
 **Solution Applied:**
-- Removed unnecessary `mana_cost` and `color_identity` parameters from database operations
-- Updated backend API endpoint to only use required fields: `user_id`, `card_name`, `scryfall_id`, `ability_type`, `notes`
-- Updated frontend to not send redundant parameters
-- Frontend already fetches fresh card data from Scryfall API when displaying favourites, so storing mana cost and colour data was redundant
+- ✅ Executed release strategy: created Git tags for v0.1.0, v0.2.0, v0.3.0 with descriptions from `release_strategy.md`
+- ✅ Added ReleaseHistory component to documentation page with GitHub API integration
+- ✅ Implemented fallback system for offline release data display
+- ✅ Updated README.md with comprehensive release information table
+- ✅ Added release notes section to main documentation
 
-**Status:** Ready for testing - favourites creation should now work properly
+**Status:** Fully implemented with GitHub API integration and professional presentation
 
-### 2. Swagger Documentation Backend Connection - ✅ COMPLETED
-**Issue:** Swagger documentation needed proper backend connection and validation
-**Root Cause:** Missing environment variable configuration and limited documentation examples
+### 3. Figma Prototype Creation - 🎨 NEW
+**Issue:** No design documentation for assessment showcase
+**Goal:** Professional design prototype demonstrating UI/UX design thinking
+**Solution Required:**
+- Create Figma workspace with key user flows: onboarding → search → favourites → documentation
+- Document design system: colour schemes, typography hierarchy, spacing, component library
+- Show mobile and desktop responsive layouts
+- Include accessibility considerations and design rationale
+
+**Status:** New requirement - full creation needed
+
+## Medium Priority (Content Polish)
+
+### 4. Performance Dashboard Accessibility - ⚡ INVESTIGATION
+**Issue:** User reports dashboard button not working - likely production mode limitation
+**Root Cause:** PerformanceWrapper only shows toggle button in development mode or with localStorage flag
 **Solution Applied:**
-- Added automatic DATABASE_URL fallback configuration to ensure connection
-- Enhanced Swagger UI configuration with better styling and functionality
-- Added comprehensive API documentation with examples and error responses
-- Created database validation scripts to verify connectivity
-- Improved endpoint documentation with detailed parameter descriptions and response schemas
-- Verified database connection string works correctly: `postgresql://postgres:yTiwznpoFJQFArsSpZpprsqQHOjcWXvE@tramway.proxy.rlwy.net:59004/railway`
+- In production: Set `localStorage.setItem('enablePerformanceDashboard', 'true')` to enable
+- Or use keyboard shortcut: `Ctrl+Shift+P` 
+- Consider making dashboard more discoverable in production
 
-**Status:** Swagger UI accessible at `/api-docs` with full backend connectivity and enhanced documentation
+**Status:** Working as designed but needs better user guidance
 
-## Medium Priority (User Experience)
+### 5. Content Management Cleanup - 📝 PARTIALLY COMPLETE
+**Remaining Actions:**
+- ✅ Delete Canadian Highlander content (verify removal)
+- ✅ Convert future steps to proper bullet points format
+- Add Setup password authentication to roadmap
+- Add Market app concept to product expansion documentation
+- Review mechanics guide for optimal card integration display
+- Implement retractable buttons for game modes section
 
-### 3. UI Improvements - ✅ COMPLETED
-**Issues:** Visual and UX improvements for better usability
-**Root Cause:** Search interface and card styling needed enhancement for dark theme consistency
-**Solution Applied:**
-- **Black card styling**: Added purple outline and enhanced contrast with `border: 2px solid #a855f7` and purple box-shadow for better visibility in dark mode
-- **Black filter button**: Added purple outline (`#a855f7`) and purple box-shadow for the "B Black" colour filter button to maintain theme consistency
-- **Search icon enhancement**: Replaced text "Search" button with magnifying glass emoji (🔍) and added search icon to input field with proper positioning
-- **Card name cleanup**: Removed redundant card names from bottom overlay of search cards for cleaner presentation
-- **Mobile stack animation fix**: Added proper z-index layering and positioning to prevent search elements from interfering with title on mobile screens
-- **Interactive feedback**: Added hover, focus, and active states for search elements with smooth transitions
-- **Search input improvements**: Added magnifying glass icon inside input field with proper spacing and focus states
+## Low Priority (Documentation Enhancement)
 
-**Status:** All UI improvements implemented including specific black button purple outline and card name removal
+### 6. Documentation Improvements - 📚 MINOR UPDATES
+**Status:** Comprehensive documentation exists - minor enhancements needed
+**Remaining Actions:**
+- Add Figma prototype link to planning section
+- Reference release history in main README
+- Ensure all wiki scraping references are accurate
+- Document health dashboard access methods
 
-### 4. Content Management
+### 7. Header/TOC Organisation - 🗂️ STRUCTURAL
 **Actions:**
-- Delete Canadian highlander content
-- Convert future steps / out of scope to proper bullet points format:
-  - (Advanced strategy guides, deck building tools, multiplayer features, tournament tracking, and real-time gameplay simulation)
-  - add Setup password authentication for users
-  - add Market app as a product
+- Integrate health indicator without disrupting mobile navigation
+- Review table of contents structure with new health dashboard
+- Optimise header hierarchy for better UX flow
+- Ensure unique emoji usage throughout navigation
 
-## Low Priority (Documentation & Planning)
-
-### 5. Documentation Enhancements
-**Missing Documentation:**
-- Database structure
-- File structure
-- Planning section (consider Figma demo - TBC)
-
-### 6. Implementation Review
-**Discussion Points:**
-- Wiki scraping scripts (did we actually use Wizards of the Coast: Official MTG comprehensive rules and tournament regulations?)
-- Key milestones and versioning strategy (reference release_strategy.md - not yet implemented but planned)
-
-### 7. Header/TOC Organisation
+### 8. UI/UX Final Polish - ✨ REFINEMENTS  
 **Actions:**
-- Improve table of contents structure
-- Organise header hierarchy
+- Ensure colourless mana coverage is complete throughout application
+- Review all UI components for UK English consistency
+- Verify all globals.css styling is optimised
+- Test health dashboard integration across all screen sizes
 
 ## Notes
-- All changes to use UK spelling (favourites, colour, organisation, etc.)
-- Use globals.css for styling changes
-- Avoid regex searches to conserve tokens
-- Reference existing documentation in release_strategy.md for versioning plans
+- All changes must maintain UK spelling (favourites, colour, organisation, etc.)
+- Use globals.css for all styling modifications
+- Avoid regex searches to conserve development tokens
+- Reference existing `release_strategy.md` for GitHub release creation
+- Health dashboard components are fully functional - integration focus needed
+
+## Assessment Showcase Priorities
+1. **Performance Story**: Health dashboard demonstrates production-ready monitoring
+2. **Release Timeline**: GitHub releases show professional development lifecycle  
+3. **Design Documentation**: Figma prototype evidences UI/UX design thinking
+4. **Security Excellence**: Highlight 100/100 security audit score
+5. **Testing Coverage**: Emphasise 96 passing tests as quality assurance
+6. **Professional Practices**: Release strategy + health monitoring = production mindset
+
+## Implementation Order
+**Phase 1 (Quick Wins):** Header health integration + Release history creation
+**Phase 2 (Design):** Figma prototype development
+**Phase 3 (Polish):** Content cleanup and final refinements
+
+**Estimated Time:** 2-3 days for complete implementation
+**Current Status:** 95% feature complete - final polish and documentation phase
