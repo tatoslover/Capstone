@@ -144,37 +144,72 @@ export default function Documentation() {
           <h4 className="doc-heading">Purpose</h4>
           <ul className="doc-list">
             <li>
-              Magic: The Gathering has a notoriously steep learning curve, with new players often overwhelmed by complex rules, terminology, and strategic concepts
+              Magic: The Gathering has a notoriously steep learning curve, with
+              new players often overwhelmed by complex rules, terminology, and
+              strategic concepts
             </li>
-            <li>Existing learning resources are fragmented across wikis, rulebooks, and community sites, making systematic learning difficult</li>
             <li>
-              Current state: New players frequently abandon the game due to feeling lost or intimidated by the complexity
+              Existing learning resources are fragmented across wikis,
+              rulebooks, and community sites, making systematic learning
+              difficult
             </li>
-            <li>Desired state: A centralised, beginner-friendly platform that guides new players through MTG fundamentals systematically</li>
             <li>
-              Similar projects exist (MTG Wiki, EDHRec) but focus on advanced players; this project specifically targets beginners with structured learning paths
+              Current state: New players frequently abandon the game due to
+              feeling lost or intimidated by the complexity
+            </li>
+            <li>
+              Desired state: A centralised, beginner-friendly platform that
+              guides new players through MTG fundamentals systematically
+            </li>
+            <li>
+              Similar projects exist (MTG Wiki, EDHRec) but focus on advanced
+              players; this project specifically targets beginners with
+              structured learning paths
             </li>
           </ul>
 
           <h4 className="doc-heading">Industry/Domain</h4>
           <ul className="doc-list">
-            <li>Trading card game industry, specifically Magic: The Gathering (30+ year established game)</li>
             <li>
-              Industry challenges include player retention, accessibility for new players, and digital transformation
+              Trading card game industry, specifically Magic: The Gathering (30+
+              year established game)
             </li>
-            <li>Value chain: Game publisher (Wizards of the Coast) → Local game stores → Players → Secondary market</li>
-            <li>Key concepts: Mana system, card types, phases/steps, stack, priority, deck construction rules</li>
-            <li>Principles are applicable to other complex games requiring structured learning approaches</li>
+            <li>
+              Industry challenges include player retention, accessibility for
+              new players, and digital transformation
+            </li>
+            <li>
+              Value chain: Game publisher (Wizards of the Coast) → Local game
+              stores → Players → Secondary market
+            </li>
+            <li>
+              Key concepts: Mana system, card types, phases/steps, stack,
+              priority, deck construction rules
+            </li>
+            <li>
+              Principles are applicable to other complex games requiring
+              structured learning approaches
+            </li>
           </ul>
 
           <h4 className="doc-heading">Stakeholders</h4>
-          <ul>
+          <ul className="doc-list">
             <li>
-              Primary: New MTG players seeking to learn game fundamentals systematically
+              Primary: New MTG players seeking to learn game fundamentals
+              systematically
             </li>
-            <li>Secondary: Local game store owners wanting to support new player onboarding</li>
-            <li>Tertiary: Experienced players mentoring newcomers who need structured teaching resources</li>
-            <li>Expectations: Clear, accurate information; progressive difficulty; mobile-friendly interface; up-to-date content</li>
+            <li>
+              Secondary: Local game store owners wanting to support new player
+              onboarding
+            </li>
+            <li>
+              Tertiary: Experienced players mentoring newcomers who need
+              structured teaching resources
+            </li>
+            <li>
+              Expectations: Clear, accurate information; progressive difficulty;
+              mobile-friendly interface; up-to-date content
+            </li>
           </ul>
         </div>
       ),
@@ -185,16 +220,20 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">System Architecture</h4>
           <p className="doc-paragraph">
-            <strong>Frontend:</strong> Next.js React application with responsive design, dark theme, and component-based architecture
+            <strong>Frontend:</strong> Next.js React application with responsive
+            design, dark theme, and component-based architecture
           </p>
           <p className="doc-paragraph">
-            <strong>Backend:</strong> Express.js REST API with PostgreSQL database, rate limiting, and comprehensive security headers
+            <strong>Backend:</strong> Express.js REST API with PostgreSQL
+            database, rate limiting, and comprehensive security headers
           </p>
           <p className="doc-paragraph">
-            <strong>External APIs:</strong> Scryfall API for MTG card data and images
+            <strong>External APIs:</strong> Scryfall API for MTG card data and
+            images
           </p>
           <p className="doc-paragraph">
-            <strong>Deployment:</strong> Frontend on Vercel, Backend on Railway with automated CI/CD
+            <strong>Deployment:</strong> Frontend on Vercel, Backend on Railway
+            with automated CI/CD
           </p>
 
           <h4 className="doc-heading">Core User Stories</h4>
@@ -212,25 +251,37 @@ export default function Documentation() {
                 <tr>
                   <td>1</td>
                   <td>Learn MTG Basics</td>
-                  <td>As a new player, I want to learn MTG fundamentals through structured guides</td>
+                  <td>
+                    As a new player, I want to learn MTG fundamentals through
+                    structured guides
+                  </td>
                   <td>✅ Complete</td>
                 </tr>
                 <tr>
                   <td>2</td>
                   <td>Search MTG Cards</td>
-                  <td>As a user, I want to search for cards and view detailed information</td>
+                  <td>
+                    As a user, I want to search for cards and view detailed
+                    information
+                  </td>
                   <td>✅ Complete</td>
                 </tr>
                 <tr>
                   <td>3</td>
                   <td>Save Favourites</td>
-                  <td>As a user, I want to save my favourite cards for quick access</td>
+                  <td>
+                    As a user, I want to save my favourite cards for quick
+                    access
+                  </td>
                   <td>✅ Complete</td>
                 </tr>
                 <tr>
                   <td>4</td>
                   <td>Browse Mechanics</td>
-                  <td>As a player, I want to explore MTG mechanics with detailed explanations</td>
+                  <td>
+                    As a player, I want to explore MTG mechanics with detailed
+                    explanations
+                  </td>
                   <td>✅ Complete</td>
                 </tr>
               </tbody>
@@ -238,9 +289,28 @@ export default function Documentation() {
           </div>
 
           <h4 className="doc-heading">User Flow</h4>
-          <p className="doc-paragraph">
-            1. User selects/creates profile → 2. Navigates learning sections (Colours, Card Types, etc.) → 3. Searches for specific cards → 4. Saves interesting cards to favourites → 5. References quick guide panel as needed
-          </p>
+          <div className="doc-paragraph">
+            <div className="user-flow-container">
+              <div className="user-flow-row">
+                <div className="user-flow-box">
+                  User selects/creates profile
+                </div>
+                <span className="user-flow-arrow">→</span>
+                <div className="user-flow-box">Navigates learning sections</div>
+                <span className="user-flow-arrow">→</span>
+                <div className="user-flow-box">Searches for specific cards</div>
+              </div>
+              <div className="user-flow-row">
+                <div className="user-flow-box">
+                  Saves interesting cards to favourites
+                </div>
+                <span className="user-flow-arrow">→</span>
+                <div className="user-flow-box">
+                  References quick guide panel as needed
+                </div>
+              </div>
+            </div>
+          </div>
 
           <h4 className="doc-heading">Key Features</h4>
           <ul className="doc-list">
@@ -253,7 +323,15 @@ export default function Documentation() {
           </ul>
 
           <h4 className="doc-heading">Out of Scope</h4>
-          <p className="doc-paragraph">Advanced strategy guides, deck building tools, multiplayer features, tournament tracking, and real-time gameplay simulation</p>
+          <ul className="doc-list">
+            <li>Advanced strategy guides</li>
+            <li>Deck building tools</li>
+            <li>Multiplayer features</li>
+            <li>Tournament tracking</li>
+            <li>Real-time gameplay simulation</li>
+            <li>Setup password authentication for users</li>
+            <li>Market app as a product</li>
+          </ul>
         </div>
       ),
     },
@@ -263,8 +341,13 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Security</h4>
           <ul className="doc-list">
-            <li>Comprehensive security headers including CSP, HSTS, and X-Frame-Options</li>
-            <li>Rate limiting to prevent API abuse (1000 requests per 15 minutes)</li>
+            <li>
+              Comprehensive security headers including CSP, HSTS, and
+              X-Frame-Options
+            </li>
+            <li>
+              Rate limiting to prevent API abuse (1000 requests per 15 minutes)
+            </li>
             <li>Input validation and payload size limits</li>
             <li>CORS configuration for secure cross-origin requests</li>
             <li>Secure error handling without information leakage</li>
@@ -284,7 +367,9 @@ export default function Documentation() {
             <li>Mobile-first responsive design for all screen sizes</li>
             <li>Dark theme optimised for extended reading sessions</li>
             <li>Intuitive navigation with clear visual hierarchy</li>
-            <li>Loading states and error handling for better user experience</li>
+            <li>
+              Loading states and error handling for better user experience
+            </li>
           </ul>
 
           <h4 className="doc-heading">Reliability & Standards</h4>
@@ -292,7 +377,9 @@ export default function Documentation() {
             <li>RESTful API design following OpenAPI 3.0 specification</li>
             <li>Comprehensive error handling and graceful degradation</li>
             <li>Health check endpoints for monitoring system status</li>
-            <li>Modern web standards compliance (ES6+, React best practices)</li>
+            <li>
+              Modern web standards compliance (ES6+, React best practices)
+            </li>
           </ul>
         </div>
       ),
@@ -303,25 +390,86 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Development Methodology</h4>
           <p className="doc-paragraph">
-            Agile development approach with iterative feature delivery, continuous testing, and regular deployment cycles.
+            Agile development approach with iterative feature delivery,
+            continuous testing, and regular deployment cycles.
           </p>
 
-          <h4 className="doc-heading">Key Milestones Achieved</h4>
+          <h4 className="doc-heading">Project Timeline & Milestones</h4>
+          <div className="doc-paragraph">
+            <div className="timeline-container">
+              <div className="timeline-item">
+                <strong>Phase 1: Foundation</strong>
+                <ul className="doc-list">
+                  <li>✅ Project setup and repository initialisation</li>
+                  <li>✅ Database schema design and implementation</li>
+                  <li>✅ Basic frontend and backend architecture</li>
+                  <li>✅ CI/CD pipeline configuration</li>
+                </ul>
+              </div>
+
+              <div className="timeline-item">
+                <strong>Phase 2: Core Features</strong>
+                <ul className="doc-list">
+                  <li>
+                    ✅ MTG learning modules (Colours, Card Types, Turn Phases)
+                  </li>
+                  <li>✅ User management and authentication flow</li>
+                  <li>✅ Favourites system with database integration</li>
+                  <li>✅ Responsive dark theme implementation</li>
+                </ul>
+              </div>
+
+              <div className="timeline-item">
+                <strong>Phase 3: Integration & Enhancement</strong>
+                <ul className="doc-list">
+                  <li>✅ Scryfall API integration for card search</li>
+                  <li>✅ Performance monitoring and metrics</li>
+                  <li>✅ Comprehensive security implementation</li>
+                  <li>✅ Theme system with MTG colour integration</li>
+                </ul>
+              </div>
+
+              <div className="timeline-item">
+                <strong>Phase 4: Production & Documentation</strong>
+                <ul className="doc-list">
+                  <li>✅ Production deployment (Vercel + Railway)</li>
+                  <li>✅ Comprehensive testing suite</li>
+                  <li>✅ API documentation with Swagger</li>
+                  <li>✅ Project documentation and planning</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h4 className="doc-heading">Future Enhancements (Out of Scope)</h4>
           <ul className="doc-list">
-            <li>✅ Project setup and initial architecture (Frontend + Backend + Database)</li>
-            <li>✅ Core learning modules implementation (Colours, Card Types, Turn Phases)</li>
-            <li>✅ Scryfall API integration and card search functionality</li>
-            <li>✅ User management and favourites system</li>
-            <li>✅ Comprehensive testing suite and security implementation</li>
-            <li>✅ Production deployment on Vercel and Railway</li>
-            <li>✅ Documentation and API specification completion</li>
+            <li>Advanced strategy guides</li>
+            <li>Deck building tools</li>
+            <li>Multiplayer features</li>
+            <li>Tournament tracking</li>
+            <li>Real-time gameplay simulation</li>
+            <li>Setup password authentication for users</li>
+            <li>Market app as a product</li>
           </ul>
 
-          <h4 className="doc-heading">Future Enhancements</h4>
+          <h4 className="doc-heading">Risk Management</h4>
           <ul className="doc-list">
-            <li>Advanced deck building tools and validation</li>
-            <li>Interactive gameplay simulation</li>
-            <li>Community features and user-generated content</li>
+            <li>
+              <strong>Technical Risks:</strong> Mitigated through comprehensive
+              testing and fallback strategies
+            </li>
+            <li>
+              <strong>Performance Risks:</strong> Addressed with monitoring,
+              caching, and rate limiting
+            </li>
+            <li>
+              <strong>Security Risks:</strong> Prevented through security
+              headers, input validation, and audit procedures
+            </li>
+            <li>
+              <strong>Deployment Risks:</strong> Minimised with automated CI/CD
+              and staging environments
+            </li>
           </ul>
         </div>
       ),
@@ -332,19 +480,43 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Quality Assurance Approach</h4>
           <ul className="doc-list">
-            <li>Comprehensive test coverage across frontend and backend components</li>
-            <li>Automated testing with Jest framework for both React components and API endpoints</li>
-            <li>Manual testing for user experience and accessibility validation</li>
-            <li>Security testing including rate limiting and input validation</li>
+            <li>
+              Comprehensive test coverage across frontend and backend components
+            </li>
+            <li>
+              Automated testing with Jest framework for both React components
+              and API endpoints
+            </li>
+            <li>
+              Manual testing for user experience and accessibility validation
+            </li>
+            <li>
+              Security testing including rate limiting and input validation
+            </li>
           </ul>
 
-          <h4 className="doc-heading-spaced">Testing Types Implemented</h4>
+          <h4 className="doc-heading">Testing Types Implemented</h4>
           <ul className="doc-list">
-            <li><strong>Unit Testing:</strong> Component rendering, user interactions, utility functions</li>
-            <li><strong>Integration Testing:</strong> API endpoints, database operations, external service connections</li>
-            <li><strong>Performance Testing:</strong> Response times, memory usage, concurrent user simulation</li>
-            <li><strong>User Interface Testing:</strong> Component behaviour, state management, responsive design</li>
-            <li><strong>API Testing:</strong> CRUD operations, error handling, authentication flows</li>
+            <li>
+              <strong>Unit Testing:</strong> Component rendering, user
+              interactions, utility functions
+            </li>
+            <li>
+              <strong>Integration Testing:</strong> API endpoints, database
+              operations, external service connections
+            </li>
+            <li>
+              <strong>Performance Testing:</strong> Response times, memory
+              usage, concurrent user simulation
+            </li>
+            <li>
+              <strong>User Interface Testing:</strong> Component behaviour,
+              state management, responsive design
+            </li>
+            <li>
+              <strong>API Testing:</strong> CRUD operations, error handling,
+              authentication flows
+            </li>
           </ul>
 
           <h4 className="doc-heading">Edge Cases Handled</h4>
@@ -364,24 +536,55 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Technology Stack</h4>
           <ul className="doc-list">
-            <li><strong>Frontend:</strong> Next.js 13+, React 18, CSS-in-JS with custom global styles</li>
-            <li><strong>Backend:</strong> Node.js with Express.js, Helmet security middleware, compression</li>
-            <li><strong>Database:</strong> PostgreSQL with connection pooling and automated migrations</li>
-            <li><strong>External APIs:</strong> Scryfall API for MTG card data and high-resolution images</li>
-            <li><strong>Testing:</strong> Jest framework with comprehensive unit and integration tests</li>
+            <li>
+              <strong>Frontend:</strong> Next.js 13+, React 18, CSS-in-JS with
+              custom global styles
+            </li>
+            <li>
+              <strong>Backend:</strong> Node.js with Express.js, Helmet security
+              middleware, compression
+            </li>
+            <li>
+              <strong>Database:</strong> PostgreSQL with connection pooling and
+              automated migrations
+            </li>
+            <li>
+              <strong>External APIs:</strong> Scryfall API for MTG card data and
+              high-resolution images
+            </li>
+            <li>
+              <strong>Testing:</strong> Jest framework with comprehensive unit
+              and integration tests
+            </li>
           </ul>
 
           <h4 className="doc-heading">Deployment Architecture</h4>
           <ul className="doc-list">
-            <li><strong>Frontend:</strong> Vercel with automatic CI/CD from GitHub integration</li>
-            <li><strong>Backend:</strong> Railway with PostgreSQL database and environment management</li>
-            <li><strong>Security:</strong> HTTPS enforcement, rate limiting, and comprehensive security headers</li>
-            <li><strong>Performance:</strong> Response time monitoring, caching middleware, and compression</li>
+            <li>
+              <strong>Frontend:</strong> Vercel with automatic CI/CD from GitHub
+              integration
+            </li>
+            <li>
+              <strong>Backend:</strong> Railway with PostgreSQL database and
+              environment management
+            </li>
+            <li>
+              <strong>Security:</strong> HTTPS enforcement, rate limiting, and
+              comprehensive security headers
+            </li>
+            <li>
+              <strong>Performance:</strong> Response time monitoring, caching
+              middleware, and compression
+            </li>
           </ul>
 
           <h4 className="doc-heading">Project Outcomes</h4>
           <p className="doc-paragraph">
-            The software successfully meets its objective of providing a comprehensive, beginner-friendly MTG learning platform. Key achievements include complete coverage of fundamental concepts, intuitive user interface, robust card search functionality, and scalable architecture ready for future enhancements.
+            The software successfully meets its objective of providing a
+            comprehensive, beginner-friendly MTG learning platform. Key
+            achievements include complete coverage of fundamental concepts,
+            intuitive user interface, robust card search functionality, and
+            scalable architecture ready for future enhancements.
           </p>
         </div>
       ),
@@ -434,7 +637,8 @@ export default function Documentation() {
                     <div className="swagger-fallback-content">
                       <h5>⚠️ Iframe Loading Issues</h5>
                       <p>
-                        If the documentation doesn't load above, open it in a new window:
+                        If the documentation doesn't load above, open it in a
+                        new window:
                       </p>
                       <div className="text-center">
                         <a
@@ -520,7 +724,7 @@ export default function Documentation() {
               <h5>Favourites System</h5>
               <ul className="doc-list">
                 <li>
-                  <code>GET /api/favourites?user_id=:userId</code> - User's
+                  <code>GET /api/favourites?user_id=:userid</code> - User's
                   favourites
                 </li>
                 <li>
@@ -536,36 +740,323 @@ export default function Documentation() {
             </div>
 
             <div className="api-endpoint-card">
-              <h5>MTG Cards (Scryfall)</h5>
+              <h5>Messages System</h5>
               <ul className="doc-list">
                 <li>
-                  <code>GET /api/cards/search</code> - Search cards
+                  <code>GET /api/messages</code> - List all messages
                 </li>
                 <li>
-                  <code>GET /api/cards/random</code> - Random cards
+                  <code>POST /api/messages</code> - Create message
                 </li>
                 <li>
-                  <code>GET /api/cards/:id</code> - Get card by ID
+                  <code>PUT /api/messages/:id</code> - Update message
+                </li>
+                <li>
+                  <code>DELETE /api/messages/:id</code> - Delete message
+                </li>
+              </ul>
+            </div>
+
+            <div className="api-endpoint-card">
+              <h5>Performance Monitoring</h5>
+              <ul className="doc-list">
+                <li>
+                  <code>GET /api/monitoring/performance</code> - System metrics
+                </li>
+                <li>
+                  <code>GET /api/monitoring/health</code> - Health status
+                </li>
+                <li>
+                  <code>POST /api/monitoring/client-metrics</code> - Client data
                 </li>
               </ul>
             </div>
           </div>
-
-          <h4 className="doc-heading">Database Schema</h4>
+        </div>
+      ),
+    },
+    database: {
+      title: "Database Schema",
+      content: (
+        <div>
+          <h4 className="doc-heading">Entity Relationship Diagram</h4>
           <p className="doc-paragraph">
             The application uses PostgreSQL hosted on Railway with the following
-            main tables:
+            schema:
           </p>
+
+          <div className="schema-diagram">
+            {/* Users Table */}
+            <div className="schema-table">
+              <div className="schema-table-header">
+                <span className="schema-table-icon">👤</span>
+                <strong>users</strong>
+              </div>
+              <div className="schema-table-body">
+                <div className="schema-field primary-key">
+                  <span className="field-name">id</span>
+                  <span className="field-type">int</span>
+                  <span className="field-constraint">PK</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">username</span>
+                  <span className="field-type">varchar(50)</span>
+                  <span className="field-constraint">UNIQUE, NOT NULL</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">created_at</span>
+                  <span className="field-type">timestamp</span>
+                  <span className="field-constraint">DEFAULT NOW()</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Favourites Table */}
+            <div className="schema-table">
+              <div className="schema-table-header">
+                <span className="schema-table-icon">⭐</span>
+                <strong>favourites</strong>
+              </div>
+              <div className="schema-table-body">
+                <div className="schema-field primary-key">
+                  <span className="field-name">id</span>
+                  <span className="field-type">int</span>
+                  <span className="field-constraint">PK</span>
+                </div>
+                <div className="schema-field foreign-key">
+                  <span className="field-name">user_id</span>
+                  <span className="field-type">int</span>
+                  <span className="field-constraint">FK → users.id (1:N)</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">card_name</span>
+                  <span className="field-type">varchar(255)</span>
+                  <span className="field-constraint">NOT NULL</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">scryfall_id</span>
+                  <span className="field-type">varchar(255)</span>
+                  <span className="field-constraint"></span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">ability_type</span>
+                  <span className="field-type">varchar(100)</span>
+                  <span className="field-constraint"></span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">notes</span>
+                  <span className="field-type">text</span>
+                  <span className="field-constraint"></span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">mana_cost</span>
+                  <span className="field-type">varchar(50)</span>
+                  <span className="field-constraint"></span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">color_identity</span>
+                  <span className="field-type">varchar(10)</span>
+                  <span className="field-constraint"></span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">created_at</span>
+                  <span className="field-type">timestamp</span>
+                  <span className="field-constraint">DEFAULT NOW()</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Messages Table */}
+            <div className="schema-table">
+              <div className="schema-table-header">
+                <span className="schema-table-icon">💬</span>
+                <strong>messages</strong>
+              </div>
+              <div className="schema-table-body">
+                <div className="schema-field primary-key">
+                  <span className="field-name">id</span>
+                  <span className="field-type">int</span>
+                  <span className="field-constraint">PK</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">text</span>
+                  <span className="field-type">text</span>
+                  <span className="field-constraint">NOT NULL</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">created_at</span>
+                  <span className="field-type">timestamp</span>
+                  <span className="field-constraint">DEFAULT NOW()</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">updated_at</span>
+                  <span className="field-type">timestamp</span>
+                  <span className="field-constraint">DEFAULT NOW()</span>
+                </div>
+              </div>
+            </div>
+
+            {/* User Stats View */}
+            <div className="schema-table schema-view">
+              <div className="schema-table-header">
+                <span className="schema-table-icon">📊</span>
+                <strong>user_stats</strong>
+                <span className="view-badge">VIEW</span>
+              </div>
+              <div className="schema-table-body">
+                <div className="schema-field">
+                  <span className="field-name">id</span>
+                  <span className="field-type">int</span>
+                  <span className="field-constraint">FROM users.id</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">username</span>
+                  <span className="field-type">varchar(50)</span>
+                  <span className="field-constraint">FROM users.username</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">created_at</span>
+                  <span className="field-type">timestamp</span>
+                  <span className="field-constraint">
+                    FROM users.created_at
+                  </span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">favourite_count</span>
+                  <span className="field-type">int</span>
+                  <span className="field-constraint">COUNT(favourites)</span>
+                </div>
+                <div className="schema-field">
+                  <span className="field-name">last_favourite_added</span>
+                  <span className="field-type">timestamp</span>
+                  <span className="field-constraint">MAX(created_at)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h4 className="doc-heading">Table Descriptions</h4>
           <ul className="doc-list">
             <li>
-              <strong>users</strong> - User account information
+              <strong>users</strong> - User account information with unique
+              usernames
             </li>
             <li>
               <strong>favourites</strong> - User's favourite MTG cards with
-              personal notes
+              Scryfall integration and personal notes
             </li>
             <li>
-              <strong>messages</strong> - System messages and notifications
+              <strong>messages</strong> - System messages and notifications for
+              testing purposes
+            </li>
+            <li>
+              <strong>user_stats</strong> - Computed view (virtual table) that
+              automatically calculates user statistics from favourites data
+            </li>
+          </ul>
+
+          <h4 className="doc-heading">Database Features</h4>
+          <ul className="doc-list">
+            <li>Referential integrity with CASCADE delete on user removal</li>
+            <li>Performance indexes on frequently queried columns</li>
+            <li>UUID extension enabled for future scalability</li>
+            <li>Automated timestamps for audit trails</li>
+            <li>Sample data seeding for development environment</li>
+          </ul>
+        </div>
+      ),
+    },
+    filestructure: {
+      title: "File Structure",
+      content: (
+        <div>
+          <h4 className="doc-heading">Project Organisation</h4>
+          <p className="doc-paragraph">
+            The project follows a monorepo structure with separate frontend and
+            backend applications:
+          </p>
+
+          <div className="code-block">
+            <pre>
+              <code>{`Capstone/
+├── frontend/                    # Next.js React application
+│   ├── components/             # Reusable React components
+│   │   ├── Layout/            # Page layout components
+│   │   ├── UserSelector.js    # User management component
+│   │   └── PerformanceDashboard.js
+│   ├── contexts/              # React context providers
+│   │   └── ThemeContext.js    # MTG theme management
+│   ├── data/                  # Static JSON data files
+│   │   ├── colours.json       # MTG colour information
+│   │   ├── gameModes.json     # Game format data
+│   │   └── mechanics.json     # MTG mechanics database
+│   ├── pages/                 # Next.js pages
+│   │   ├── index.js          # Homepage
+│   │   ├── search.js         # Card search functionality
+│   │   ├── favourites.js     # User favourites management
+│   │   └── documentation.js   # This documentation
+│   ├── services/             # API service layers
+│   │   └── apiService.js     # Backend API integration
+│   ├── styles/               # CSS styling
+│   │   └── globals.css       # Global theme-aware styles
+│   └── utils/                # Utility functions
+│       └── performance.js    # Performance monitoring
+├── backend/                   # Express.js API server
+│   ├── middleware/           # Express middleware
+│   │   └── performance.js    # Performance tracking
+│   ├── routes/              # API route handlers
+│   │   └── monitoring.js    # Monitoring endpoints
+│   ├── tests/               # Jest test suites
+│   ├── server.js            # Main server application
+│   ├── db-enhanced.js       # Database operations
+│   └── init.sql             # Database schema
+├── scripts/                  # Utility scripts
+│   └── README.md            # Script documentation
+├── security/                # Security documentation
+│   ├── SECURITY_AUDIT.md    # Security assessment
+│   └── SECURITY_CHECKLIST.md
+└── documentation/           # Project documentation
+    ├── Plan.md              # Project planning
+    ├── Features.md          # Feature specifications
+    └── README.md            # Main project documentation`}</code>
+            </pre>
+          </div>
+
+          <h4 className="doc-heading">Architecture Patterns</h4>
+          <ul className="doc-list">
+            <li>
+              <strong>Separation of Concerns</strong> - Clear distinction
+              between frontend and backend
+            </li>
+            <li>
+              <strong>Component-Based Design</strong> - Reusable React
+              components with theme integration
+            </li>
+            <li>
+              <strong>Service Layer Pattern</strong> - API calls abstracted
+              through service modules
+            </li>
+            <li>
+              <strong>Context Pattern</strong> - Theme management through React
+              Context
+            </li>
+            <li>
+              <strong>Static Data Organisation</strong> - JSON files for MTG
+              reference data
+            </li>
+          </ul>
+
+          <h4 className="doc-heading">Development Standards</h4>
+          <ul className="doc-list">
+            <li>UK spelling throughout codebase (favourites, colour, etc.)</li>
+            <li>
+              Consistent file naming conventions (camelCase for JS, kebab-case
+              for routes)
+            </li>
+            <li>Comprehensive documentation at component and function level</li>
+            <li>Performance monitoring integrated at multiple levels</li>
+            <li>
+              Security-first approach with dedicated security documentation
             </li>
           </ul>
         </div>
@@ -577,24 +1068,57 @@ export default function Documentation() {
         <div>
           <h4 className="doc-heading">Code Repository</h4>
           <p className="doc-paragraph">
-            Source code available on GitHub: <a href="https://github.com/tatoslover/Capstone" target="_blank" rel="noopener noreferrer">github.com/tatoslover/Capstone</a>
+            Source code available on GitHub:{" "}
+            <a
+              href="https://github.com/tatoslover/Capstone"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/tatoslover/Capstone
+            </a>
           </p>
 
           <h4 className="doc-heading">External Resources</h4>
           <ul className="doc-list">
-            <li><strong>Scryfall API:</strong> Comprehensive MTG card database and high-resolution images</li>
-            <li><strong>MTG Wiki:</strong> Authoritative source for game mechanics and rules explanations</li>
-            <li><strong>Wizards of the Coast:</strong> Official MTG comprehensive rules and tournament regulations</li>
+            <li>
+              <strong>Scryfall API:</strong> Comprehensive MTG card database and
+              high-resolution images
+            </li>
+            <li>
+              <strong>MTG Wiki:</strong> Authoritative source for game mechanics
+              and rules explanations
+            </li>
+            <li>
+              <strong>Wizards of the Coast:</strong> Official MTG comprehensive
+              rules and tournament regulations
+            </li>
           </ul>
 
           <h4 className="doc-heading">Technology Documentation</h4>
           <ul className="doc-list">
-            <li><strong>Next.js:</strong> React framework for production applications</li>
-            <li><strong>Express.js:</strong> Fast, unopinionated web framework for Node.js</li>
-            <li><strong>PostgreSQL:</strong> Advanced open-source relational database</li>
-            <li><strong>Jest:</strong> JavaScript testing framework with focus on simplicity</li>
-            <li><strong>Vercel:</strong> Frontend deployment and hosting platform</li>
-            <li><strong>Railway:</strong> Backend deployment and database hosting platform</li>
+            <li>
+              <strong>Next.js:</strong> React framework for production
+              applications
+            </li>
+            <li>
+              <strong>Express.js:</strong> Fast, unopinionated web framework for
+              Node.js
+            </li>
+            <li>
+              <strong>PostgreSQL:</strong> Advanced open-source relational
+              database
+            </li>
+            <li>
+              <strong>Jest:</strong> JavaScript testing framework with focus on
+              simplicity
+            </li>
+            <li>
+              <strong>Vercel:</strong> Frontend deployment and hosting platform
+            </li>
+            <li>
+              <strong>Railway:</strong> Backend deployment and database hosting
+              platform
+            </li>
           </ul>
         </div>
       ),
@@ -829,16 +1353,28 @@ export default function Documentation() {
           <h2 className="doc-section-title">Project Overview</h2>
           <div className="doc-overview-text">
             <p className="doc-overview-paragraph">
-              Planeswalker's Primer is a comprehensive Magic: The Gathering learning platform designed to help new players understand the game's fundamentals through interactive guides and structured learning paths.
+              Planeswalker's Primer is a comprehensive Magic: The Gathering
+              learning platform designed to help new players understand the
+              game's fundamentals through interactive guides and structured
+              learning paths.
             </p>
             <p className="doc-overview-paragraph">
-              The application features a dark-themed interface with comprehensive coverage of MTG basics including the six colour system, card anatomy, turn phases, combat mechanics, deck building principles, and over 270 gameplay mechanics with detailed explanations.
+              The application features a dark-themed interface with
+              comprehensive coverage of MTG basics including the six colour
+              system, card anatomy, turn phases, combat mechanics, deck building
+              principles, and over 270 gameplay mechanics with detailed
+              explanations.
             </p>
             <p className="doc-overview-paragraph">
-              Built as a full-stack web application with Next.js frontend and Express.js backend, the project includes user management, a favourites system for MTG cards via Scryfall API integration, and comprehensive API documentation.
+              Built as a full-stack web application with Next.js frontend and
+              Express.js backend, the project includes user management, a
+              favourites system for MTG cards via Scryfall API integration, and
+              comprehensive API documentation.
             </p>
             <p>
-              The project demonstrates modern web development practices including responsive design, API integration, database management, security implementation, and comprehensive testing strategies.
+              The project demonstrates modern web development practices
+              including responsive design, API integration, database management,
+              security implementation, and comprehensive testing strategies.
             </p>
           </div>
         </div>
@@ -885,6 +1421,18 @@ export default function Documentation() {
               🚀 Implementation
             </button>
             <button
+              onClick={() => handleSectionClick("database")}
+              className={`doc-section-btn ${selectedSection === "database" ? "active" : ""}`}
+            >
+              🗃️ Database Schema
+            </button>
+            <button
+              onClick={() => handleSectionClick("filestructure")}
+              className={`doc-section-btn ${selectedSection === "filestructure" ? "active" : ""}`}
+            >
+              📁 File Structure
+            </button>
+            <button
               onClick={() => handleSectionClick("api")}
               className={`doc-section-btn ${selectedSection === "api" ? "active" : ""}`}
             >
@@ -903,18 +1451,19 @@ export default function Documentation() {
               📚 References
             </button>
           </div>
-
-          {selectedSection && (
-            <div className="doc-content-panel">
-              <h3 className="doc-content-title">
-                {sectionInfo[selectedSection].title}
-              </h3>
-              <div className="doc-content-body">
-                {sectionInfo[selectedSection].content}
-              </div>
-            </div>
-          )}
         </div>
+
+        {/* Selected Section Content */}
+        {selectedSection && (
+          <div className="card doc-content-panel">
+            <h3 className="doc-content-title">
+              {sectionInfo[selectedSection].title}
+            </h3>
+            <div className="doc-content-body">
+              {sectionInfo[selectedSection].content}
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );

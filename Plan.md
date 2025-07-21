@@ -407,8 +407,14 @@ git push origin --tags
 ## Future Enhancements (Post-MVP)
 
 ### Phase 2 Features (Post-Production)
+- Advanced strategy guides
+- Deck building tools
+- Multiplayer features
+- Tournament tracking
+- Real-time gameplay simulation
+- Setup password authentication for users
+- Market app as a product
 - User authentication with secure login and sessions
-- Deck building and analysis features
 - Community sharing of favourite card lists
 - Advanced search filters and sorting capabilities
 - Card price tracking integration with market APIs
