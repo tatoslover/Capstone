@@ -10,7 +10,7 @@
 ## Design & Planning
 
 ### UI/UX Design
-- **Figma Mockups**: [View Mobile Design](https://www.figma.com/design/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=0-1&t=sbXzY8oJIeW1QDSH-1)
+- **Figma Mockups**: [View Mobile Design](https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1)
 - **Design Principles**:
   - Mobile-first responsive design
   - Dark theme optimised for gameplay environments

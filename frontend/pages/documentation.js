@@ -394,6 +394,32 @@ export default function Documentation() {
             continuous testing, and regular deployment cycles.
           </p>
 
+          <h4 className="doc-heading">Design & Prototyping</h4>
+          <p className="doc-paragraph">
+            Mobile-first design approach with comprehensive UI/UX planning.
+          </p>
+          <ul className="doc-list">
+            <li>
+              <strong>Figma Prototype:</strong>{" "}
+              <a
+                href="https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="doc-link"
+              >
+                View Interactive Mobile Design
+              </a>
+            </li>
+            <li>
+              <strong>Design Principles:</strong> Dark theme optimised for gameplay,
+              MTG-themed visual elements, high contrast for readability
+            </li>
+            <li>
+              <strong>Responsive Layout:</strong> Mobile-first approach with
+              breakpoints for tablet and desktop experiences
+            </li>
+          </ul>
+
           <h4 className="doc-heading">Project Timeline & Milestones</h4>
           <div className="doc-paragraph">
             <div className="timeline-container">
