@@ -106,7 +106,9 @@ act pull_request -W .github/workflows/preview.yml
 
 ## Troubleshooting
 
-### Common Issues
+For comprehensive troubleshooting guidance, see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
+
+### Quick Reference
 
 1. **Tests failing in CI but passing locally**
    - Check environment variables
@@ -129,6 +131,12 @@ act pull_request -W .github/workflows/preview.yml
 2. Download artifacts for detailed test results
 3. Re-run jobs with debug logging enabled
 4. Check service dashboards (Railway/Vercel)
+
+### Common Errors
+
+- **Vercel path errors**: See [TROUBLESHOOTING.md#1-vercel-deployment-path-error](./TROUBLESHOOTING.md#1-vercel-deployment-path-error)
+- **Missing secrets**: See [TROUBLESHOOTING.md#2-missing-secrets](./TROUBLESHOOTING.md#2-missing-secrets)
+- **Health check failures**: See [TROUBLESHOOTING.md#4-health-check-failures](./TROUBLESHOOTING.md#4-health-check-failures)
 
 ## Best Practices
 

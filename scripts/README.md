@@ -10,6 +10,22 @@ The scrapers collect data from:
 
 ## Scripts
 
+### 🚀 Vercel Setup (`setup-vercel.sh`)
+Helps developers set up Vercel CLI for local development and deployment.
+
+**Usage:** `./scripts/setup-vercel.sh`
+
+**Requirements:**
+- `VERCEL_TOKEN` - Your personal Vercel token
+- `VERCEL_ORG_ID` - Your organisation/team ID
+- `VERCEL_PROJECT_ID` - The project ID
+
+**Features:**
+- Installs Vercel CLI if not present
+- Links your local project to Vercel
+- Pulls environment variables for development
+- Provides helpful commands for local development
+
 ### 🎮 Game Overview Scraper (`scrapers/gameOverview.js`)
 Scrapes comprehensive MTG introduction and learning guide.
 
