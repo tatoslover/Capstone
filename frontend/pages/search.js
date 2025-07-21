@@ -189,22 +189,27 @@ export default function SearchPage() {
       }
 
       // Filter out cards with incomplete essential data
-      const validCards = cards.filter(card => {
+      const validCards = cards.filter((card) => {
         // Ensure card has essential properties for good UX
-        const isValid = card &&
-               card.name &&
-               card.id &&
-               (card.type_line || card.oracle_text || card.mana_cost);
+        const isValid =
+          card &&
+          card.name &&
+          card.id &&
+          (card.type_line || card.oracle_text || card.mana_cost);
 
         if (!isValid && card) {
-          console.warn(`Filtering out incomplete card: ${card.name || 'Unknown'} - missing essential data`);
+          console.warn(
+            `Filtering out incomplete card: ${card.name || "Unknown"} - missing essential data`,
+          );
         }
 
         return isValid;
       });
 
       if (validCards.length < cards.length) {
-        console.log(`Filtered search results: ${validCards.length}/${cards.length} cards had complete data`);
+        console.log(
+          `Filtered search results: ${validCards.length}/${cards.length} cards had complete data`,
+        );
       }
 
       setSearchResults(validCards);
@@ -245,16 +250,25 @@ export default function SearchPage() {
 
     try {
       // Add card to favourites via API
-      await apiService.favourites.create({
-        user_id: currentUser.id,
+      const response = await apiService.favourites.create({
+        user_id: parseInt(currentUser.id),
         card_name: card.name,
         scryfall_id: card.id,
         ability_type: extractAbilityType(card),
         notes: "",
       });
 
-      // Show success notification
-      showNotification(`Added "${card.name}" to your favourites!`, "success");
+      // Verify the response contains the created favourite
+      if (response && response.id) {
+        // Show success notification
+        showNotification(`Added "${card.name}" to your favourites!`, "success");
+      } else {
+        console.error("Invalid response from create favourite:", response);
+        showNotification(
+          "Failed to add to favourites. Please try again.",
+          "error",
+        );
+      }
     } catch (err) {
       console.error("Error adding to favourites:", err);
       if (err.message && err.message.includes("already exists")) {

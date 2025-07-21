@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ThemeSelector } from "../Theme";
 import { useTheme } from "../../contexts/ThemeContext";
 import WizardIcon from "../UI/WizardIcon";
-import WizardStaff from "../UI/WizardStaff";
+import MagnifyingGlass from "../UI/MagnifyingGlass";
 import WizardSilhouette from "../UI/WizardSilhouette";
 import WizardSwirl from "../UI/WizardSwirl";
 import MinimalWizard from "../UI/MinimalWizard";
@@ -114,7 +114,7 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
                   </span>
                 </Link>
                 <Link href="/search" className="nav-link nav-link-mobile">
-                  <WizardStaff size={64} />
+                  <MagnifyingGlass size={64} />
                   <span
                     className={`nav-link-text ${isActive("/search") ? "active" : ""}`}
                   >
@@ -161,7 +161,7 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
                   </span>
                 </Link>
                 <Link href="/search" className="nav-link nav-link-desktop">
-                  <WizardStaff size={56} />
+                  <MagnifyingGlass size={56} />
                   <span
                     className={`nav-link-text-desktop ${isActive("/search") ? "active" : ""}`}
                   >

@@ -1853,22 +1853,6 @@ button.profile-btn-blue:disabled,
     color: white;
 }
 
-.favourite-btn-modal {
-    background: #d63031;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.favourite-btn-modal:hover {
-    background: #e74c3c;
-    transform: scale(1.1);
-}
-
 @media (max-width: 768px) {
     .card-modal-content {
         margin: 0.5rem;
@@ -3601,11 +3585,6 @@ button.pagination-btn:disabled,
     colour: white; /* UK spelling */
 }
 
-.mechanic-badge.beginner-friendly {
-    background: var(--theme-info);
-    colour: white; /* UK spelling */
-}
-
 .mechanic-badge.category {
     background: var(--theme-secondary);
     colour: white; /* UK spelling */
@@ -3949,6 +3928,23 @@ button.pagination-btn:disabled,
     }
     100% {
         opacity: 1;
+    }
+}
+
+/* Magnifying glass search animation */
+@keyframes magnifyingGlassSearch {
+    0%,
+    100% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(2px) translateY(-2px) rotate(-5deg);
+    }
+    50% {
+        transform: translateX(-2px) translateY(2px) rotate(5deg);
+    }
+    75% {
+        transform: translateX(2px) translateY(2px) rotate(-5deg);
     }
 }
 
@@ -4719,10 +4715,15 @@ code {
 }
 
 /* Consistent Button Styling for Card Actions */
-.card-action-btn, .scryfall-btn, .add-favourite-btn {
-    background: #d63031;
-    color: white;
-    border: none;
+.card-action-btn,
+.scryfall-btn,
+.add-favourite-btn,
+.remove-favourite-btn {
+    background-color: #007bff !important;
+    background: #007bff !important;
+    border-color: #007bff !important;
+    color: white !important;
+    border: 2px solid #007bff !important;
     border-radius: 6px;
     padding: 0.75rem 1.5rem;
     cursor: pointer;
@@ -4735,15 +4736,40 @@ code {
     font-size: 0.9rem;
 }
 
-.card-action-btn:hover, .scryfall-btn:hover, .add-favourite-btn:hover {
-    background: #e74c3c;
-    transform: scale(1.05);
-    color: white;
+.card-action-btn:hover,
+.scryfall-btn:hover,
+.add-favourite-btn:hover,
+.remove-favourite-btn:hover {
+    background-color: #0056b3 !important;
+    background: #0056b3 !important;
+    border-color: #0056b3 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3) !important;
     text-decoration: none;
 }
 
-.card-action-btn:active, .scryfall-btn:active, .add-favourite-btn:active {
-    transform: scale(0.98);
+.card-action-btn:active,
+.scryfall-btn:active,
+.add-favourite-btn:active,
+.remove-favourite-btn:active {
+    transform: translateY(0) scale(0.98) !important;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3) !important;
+}
+
+/* Specific styling for remove button to use danger colour */
+.remove-favourite-btn {
+    background-color: #dc3545 !important;
+    background: #dc3545 !important;
+    border-color: #dc3545 !important;
+    border: 2px solid #dc3545 !important;
+}
+
+.remove-favourite-btn:hover {
+    background-color: #c82333 !important;
+    background: #c82333 !important;
+    border-color: #bd2130 !important;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3) !important;
 }
 
 /* Specific styling for Scryfall links */

@@ -3,9 +3,8 @@ import {
   allMechanics,
   mechanicsDetails,
   evergreenKeywords,
-  beginnerFriendly,
   getMechanicDetails,
-  getMechanicWikiUrl
+  getMechanicWikiUrl,
 } from "../../data/mechanics";
 
 export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
@@ -24,12 +23,13 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
 
   const handleMechanicClick = (mechanicName) => {
     if (onMechanicSelect) {
-      const newSelection = selectedMechanic?.name === mechanicName
-        ? null
-        : {
-            name: mechanicName,
-            id: mechanicName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
-          };
+      const newSelection =
+        selectedMechanic?.name === mechanicName
+          ? null
+          : {
+              name: mechanicName,
+              id: mechanicName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
+            };
       onMechanicSelect(newSelection);
     }
   };
@@ -49,14 +49,14 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
       title: "All Mechanics",
       description: `Browse all ${allMechanics.length} mechanics`,
       icon: "📋",
-      mechanics: allMechanics
+      mechanics: allMechanics,
     },
     evergreen: {
       title: "Evergreen",
       description: `Core mechanics that appear in most sets`,
       icon: "🌲",
-      mechanics: evergreenKeywords
-    }
+      mechanics: evergreenKeywords,
+    },
   };
 
   return (
@@ -87,16 +87,11 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
             onClick={() => handleCategoryClick(categoryKey)}
             className={`section-button ${selectedCategory === categoryKey ? "active" : ""}`}
           >
-            <span style={{ fontSize: "1.5rem" }}>
-              {category.icon}
-            </span>
-            <span>
-              {category.title}
-            </span>
+            <span style={{ fontSize: "1.5rem" }}>{category.icon}</span>
+            <span>{category.title}</span>
             <span style={{ fontSize: "0.8rem", color: "#adb5bd" }}>
               {category.mechanics.length} mechanics
             </span>
-
           </button>
         ))}
       </div>
@@ -104,10 +99,24 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
       {/* Selected Category Content */}
       {selectedCategory && categories[selectedCategory] && (
         <div className="section-content">
-          <h3 style={{ marginBottom: "1rem", color: "#ffffff", textAlign: "center" }}>
-            {categories[selectedCategory].icon} {categories[selectedCategory].title}
+          <h3
+            style={{
+              marginBottom: "1rem",
+              color: "#ffffff",
+              textAlign: "center",
+            }}
+          >
+            {categories[selectedCategory].icon}{" "}
+            {categories[selectedCategory].title}
           </h3>
-          <p style={{ textAlign: "center", marginBottom: "1.5rem", color: "#adb5bd", fontSize: "1.1rem" }}>
+          <p
+            style={{
+              textAlign: "center",
+              marginBottom: "1.5rem",
+              color: "#adb5bd",
+              fontSize: "1.1rem",
+            }}
+          >
             {categories[selectedCategory].description}
           </p>
 
@@ -153,31 +162,39 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
           </div>
 
           {/* Mechanics Grid */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "1rem"
-          }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gap: "1rem",
+            }}
+          >
             {(() => {
               let mechanicsToShow = categories[selectedCategory].mechanics;
 
               if (searchQuery.trim()) {
                 mechanicsToShow = mechanicsToShow.filter((mechanic) =>
-                  mechanic.toLowerCase().includes(searchQuery.toLowerCase())
+                  mechanic.toLowerCase().includes(searchQuery.toLowerCase()),
                 );
               }
 
               if (mechanicsToShow.length === 0) {
                 return (
-                  <div style={{
-                    gridColumn: "1 / -1",
-                    textAlign: "center",
-                    padding: "2rem",
-                    color: "#999"
-                  }}>
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>🔍</div>
+                  <div
+                    style={{
+                      gridColumn: "1 / -1",
+                      textAlign: "center",
+                      padding: "2rem",
+                      color: "#999",
+                    }}
+                  >
+                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
+                      🔍
+                    </div>
                     <p>No mechanics found</p>
-                    <p style={{ fontSize: "0.9rem" }}>Try a different search term</p>
+                    <p style={{ fontSize: "0.9rem" }}>
+                      Try a different search term
+                    </p>
                   </div>
                 );
               }
@@ -191,12 +208,18 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
                     onClick={() => handleMechanicClick(mechanic)}
                     style={{
                       padding: "1rem",
-                      background: selectedMechanic?.name === mechanic ? "#007bff" : "#2a2a2a",
+                      background:
+                        selectedMechanic?.name === mechanic
+                          ? "#007bff"
+                          : "#2a2a2a",
                       border: `1px solid ${selectedMechanic?.name === mechanic ? "#0056b3" : "#444"}`,
                       borderRadius: "0.5rem",
                       cursor: "pointer",
                       transition: "all 0.2s ease",
-                      color: selectedMechanic?.name === mechanic ? "white" : "#e0e0e0",
+                      color:
+                        selectedMechanic?.name === mechanic
+                          ? "white"
+                          : "#e0e0e0",
                     }}
                     onMouseEnter={(e) => {
                       if (selectedMechanic?.name !== mechanic) {
@@ -211,49 +234,73 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
                       }
                     }}
                   >
-                    <h4 style={{
-                      margin: "0 0 0.5rem 0",
-                      fontSize: "1.1rem",
-                      color: selectedMechanic?.name === mechanic ? "white" : "#ffffff"
-                    }}>
+                    <h4
+                      style={{
+                        margin: "0 0 0.5rem 0",
+                        fontSize: "1.1rem",
+                        color:
+                          selectedMechanic?.name === mechanic
+                            ? "white"
+                            : "#ffffff",
+                      }}
+                    >
                       {mechanic}
                     </h4>
 
                     {mechanicData && (
                       <>
-                        <p style={{
-                          margin: "0 0 0.5rem 0",
-                          fontSize: "0.9rem",
-                          lineHeight: "1.4",
-                          color: selectedMechanic?.name === mechanic ? "#e6f3ff" : "#adb5bd"
-                        }}>
-                          {removeCitations(mechanicData.description)?.substring(0, 120)}
-                          {(mechanicData.description || "").length > 120 && "..."}
+                        <p
+                          style={{
+                            margin: "0 0 0.5rem 0",
+                            fontSize: "0.9rem",
+                            lineHeight: "1.4",
+                            color:
+                              selectedMechanic?.name === mechanic
+                                ? "#e6f3ff"
+                                : "#adb5bd",
+                          }}
+                        >
+                          {removeCitations(mechanicData.description)?.substring(
+                            0,
+                            120,
+                          )}
+                          {(mechanicData.description || "").length > 120 &&
+                            "..."}
                         </p>
 
-                        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "0.5rem",
+                            flexWrap: "wrap",
+                          }}
+                        >
                           {mechanicData.isEvergreen && (
-                            <span style={{
-                              padding: "0.2rem 0.4rem",
-                              background: "#28a745",
-                              borderRadius: "0.2rem",
-                              fontSize: "0.7rem",
-                              fontWeight: "bold",
-                              color: "#ffffff",
-                            }}>
+                            <span
+                              style={{
+                                padding: "0.2rem 0.4rem",
+                                background: "#28a745",
+                                borderRadius: "0.2rem",
+                                fontSize: "0.7rem",
+                                fontWeight: "bold",
+                                color: "#ffffff",
+                              }}
+                            >
                               Evergreen
                             </span>
                           )}
 
                           {mechanicData.category && (
-                            <span style={{
-                              padding: "0.2rem 0.4rem",
-                              background: "#6f42c1",
-                              borderRadius: "0.2rem",
-                              fontSize: "0.7rem",
-                              fontWeight: "bold",
-                              color: "#ffffff",
-                            }}>
+                            <span
+                              style={{
+                                padding: "0.2rem 0.4rem",
+                                background: "#6f42c1",
+                                borderRadius: "0.2rem",
+                                fontSize: "0.7rem",
+                                fontWeight: "bold",
+                                color: "#ffffff",
+                              }}
+                            >
                               {mechanicData.category}
                             </span>
                           )}
@@ -272,12 +319,14 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
       {selectedMechanic && (
         <div style={{ marginTop: "2rem" }}>
           <div className="section-content">
-            <h4 style={{
-              margin: "0 0 1rem 0",
-              color: "var(--theme-accent)",
-              fontSize: "1.5rem",
-              fontWeight: "600",
-            }}>
+            <h4
+              style={{
+                margin: "0 0 1rem 0",
+                color: "var(--theme-accent)",
+                fontSize: "1.5rem",
+                fontWeight: "600",
+              }}
+            >
               {selectedMechanic.name}
             </h4>
             {(() => {
@@ -292,27 +341,33 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
                     </p>
                     <div style={{ marginBottom: "1rem" }}>
                       {mechanicData.isEvergreen && (
-                        <span style={{
-                          padding: "0.25rem 0.5rem",
-                          background: "#28a745",
-                          borderRadius: "0.25rem",
-                          fontSize: "0.8rem",
-                          fontWeight: "bold",
-                          color: "#ffffff",
-                        }}>
+                        <span
+                          style={{
+                            padding: "0.25rem 0.5rem",
+                            background: "#28a745",
+                            borderRadius: "0.25rem",
+                            fontSize: "0.8rem",
+                            fontWeight: "bold",
+                            color: "#ffffff",
+                          }}
+                        >
                           Evergreen
                         </span>
                       )}
                       {mechanicData.category && (
-                        <span style={{
-                          marginLeft: mechanicData.isEvergreen ? "0.5rem" : "0",
-                          padding: "0.25rem 0.5rem",
-                          background: "#6f42c1",
-                          borderRadius: "0.25rem",
-                          fontSize: "0.8rem",
-                          fontWeight: "bold",
-                          color: "#ffffff",
-                        }}>
+                        <span
+                          style={{
+                            marginLeft: mechanicData.isEvergreen
+                              ? "0.5rem"
+                              : "0",
+                            padding: "0.25rem 0.5rem",
+                            background: "#6f42c1",
+                            borderRadius: "0.25rem",
+                            fontSize: "0.8rem",
+                            fontWeight: "bold",
+                            color: "#ffffff",
+                          }}
+                        >
                           {mechanicData.category}
                         </span>
                       )}
@@ -322,7 +377,8 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
               } else {
                 return (
                   <p style={{ margin: 0, lineHeight: "1.5", color: "#6c757d" }}>
-                    Description for {selectedMechanic.name} is not available yet.
+                    Description for {selectedMechanic.name} is not available
+                    yet.
                   </p>
                 );
               }
@@ -335,7 +391,10 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
       <style jsx>{`
         @media (max-width: 768px) {
           .section-grid {
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(140px, 1fr)
+            ) !important;
           }
         }
       `}</style>

@@ -93,6 +93,8 @@ async function apiRequest(endpoint, options = {}) {
       ...options,
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
         ...options.headers,
       },
     });
@@ -157,7 +159,10 @@ export const apiService = {
   // Favourites operations
   favourites: {
     async getByUserId(userId) {
-      return await apiRequest(`/api/favourites?user_id=${userId}`);
+      // Add timestamp to prevent caching
+      return await apiRequest(
+        `/api/favourites?user_id=${userId}&_t=${Date.now()}`,
+      );
     },
 
     async create(favouriteData) {

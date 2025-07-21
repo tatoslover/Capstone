@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Button from "../UI/Button";
-import { beginnerFriendly } from "../../data/mechanics";
+import { evergreenKeywords } from "../../data/mechanics";
 import { useTheme } from "../../contexts/ThemeContext";
 
 export default function CardSearch({
@@ -39,8 +39,8 @@ export default function CardSearch({
     "Land",
   ];
 
-  // Get beginner-friendly mechanics
-  const commonAbilities = beginnerFriendly;
+  // Get evergreen mechanics
+  const commonAbilities = evergreenKeywords;
 
   // Rarity options
   const rarities = ["Common", "Uncommon", "Rare", "Mythic"];
@@ -186,7 +186,33 @@ export default function CardSearch({
               aria-label="Search for MTG cards"
               title="Search for MTG cards"
             >
-              🔍
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                  animation: "magnifyingGlassSearch 2s ease-in-out infinite",
+                }}
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="8"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M21 21L16.65 16.65"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </Button>
             <Button
               type="button"
@@ -268,13 +294,16 @@ export default function CardSearch({
                     color: filters.colours.includes(colour.symbol)
                       ? colour.textColor
                       : "var(--theme-text)",
-                    borderColor: colour.symbol === "B" ? "#a855f7" : colour.color,
+                    borderColor:
+                      colour.symbol === "B" ? "#a855f7" : colour.color,
                     borderWidth: "2px",
-                    boxShadow: colour.symbol === "B" && filters.colours.includes(colour.symbol)
-                      ? "0 0 0 1px #c084fc, 0 2px 4px rgba(168, 85, 247, 0.3)"
-                      : colour.symbol === "B"
-                      ? "0 0 0 1px #8b5cf6"
-                      : "none",
+                    boxShadow:
+                      colour.symbol === "B" &&
+                      filters.colours.includes(colour.symbol)
+                        ? "0 0 0 1px #c084fc, 0 2px 4px rgba(168, 85, 247, 0.3)"
+                        : colour.symbol === "B"
+                          ? "0 0 0 1px #8b5cf6"
+                          : "none",
                   }}
                 >
                   {colour.symbol} {colour.name}

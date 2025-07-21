@@ -299,25 +299,6 @@ export const evergreenKeywords = [
   "Ward"
 ];
 
-export const beginnerFriendly = [
-  "Flying",
-  "Trample",
-  "First strike",
-  "Deathtouch",
-  "Lifelink",
-  "Vigilance",
-  "Haste",
-  "Hexproof",
-  "Reach",
-  "Menace",
-  "Defender",
-  "Double strike",
-  "Indestructible",
-  "Flash",
-  "Protection",
-  "Ward"
-];
-
 // Detailed mechanics data with descriptions and wiki links
 export const mechanicsDetails = {
   "living_weapon": {
@@ -4967,8 +4948,6 @@ export const getMechanicsByCategory = (category) => {
   switch (category) {
     case "evergreen":
       return evergreenKeywords;
-    case "beginner":
-      return beginnerFriendly;
     default:
       return allMechanics;
   }
