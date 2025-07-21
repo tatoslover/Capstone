@@ -195,11 +195,14 @@ export default function SearchPage() {
           card &&
           card.name &&
           card.id &&
-          (card.type_line || card.oracle_text || card.mana_cost);
+          (card.type_line || card.oracle_text || card.mana_cost) &&
+          card.image_uris?.normal; // Must have proper image data
 
         if (!isValid && card) {
           console.warn(
-            `Filtering out incomplete card: ${card.name || "Unknown"} - missing essential data`,
+            `Filtering out incomplete card: ${card.name || "Unknown"} - missing ${
+              !card.image_uris?.normal ? "image data" : "essential data"
+            }`,
           );
         }
 

@@ -57,7 +57,7 @@ export default function SearchCard({
     };
   }, [showModal]);
 
-  if (!card) {
+  if (!card || !card.image_uris?.normal) {
     return null;
   }
 
@@ -102,8 +102,10 @@ export default function SearchCard({
   const cardColours = card.color_identity || card.colours || [];
   const colourClass = getCardColourClass(cardColours);
 
-  // Check if we should show placeholder (no image available or error)
-  const showPlaceholder = !card.image_uris?.normal || imageError;
+  // If image error occurs, don't render the card
+  if (imageError) {
+    return null;
+  }
 
   // Parse mana symbols for better display
   const formatManaSymbols = (manaCost) => {
@@ -199,35 +201,16 @@ export default function SearchCard({
       >
         {/* Card Image Only */}
         <div className="search-card-image-container">
-          {showPlaceholder ? (
-            <div className={`mtg-card-placeholder ${colourClass}`}>
-              <div className="mtg-card-placeholder-content">
-                <h3 className="mtg-card-placeholder-name">{card.name}</h3>
-                {card.type_line && (
-                  <p className="mtg-card-placeholder-type">{card.type_line}</p>
-                )}
-                {card.mana_cost && (
-                  <p className="mtg-card-placeholder-mana">
-                    {formatManaSymbols(card.mana_cost)}
-                  </p>
-                )}
-                <p className="mtg-card-placeholder-hint">Placeholder</p>
-              </div>
-            </div>
-          ) : (
-            <>
-              {!imageLoaded && (
-                <div className="card-image-placeholder">Loading image...</div>
-              )}
-              <img
-                src={card.image_uris.normal}
-                alt={card.name}
-                onLoad={() => setImageLoaded(true)}
-                onError={() => setImageError(true)}
-                className={`search-card-image ${imageLoaded ? "loaded" : ""}`}
-              />
-            </>
+          {!imageLoaded && (
+            <div className="card-image-placeholder">Loading image...</div>
           )}
+          <img
+            src={card.image_uris.normal}
+            alt={card.name}
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageError(true)}
+            className={`search-card-image ${imageLoaded ? "loaded" : ""}`}
+          />
         </div>
       </div>
 
@@ -252,32 +235,11 @@ export default function SearchCard({
               <div className="card-modal-body">
                 {/* Card Image in Modal */}
                 <div className="card-modal-image-container">
-                  {showPlaceholder ? (
-                    <div className={`mtg-card-placeholder ${colourClass}`}>
-                      <div className="mtg-card-placeholder-content">
-                        <h3 className="mtg-card-placeholder-name">
-                          {card.name}
-                        </h3>
-                        {card.type_line && (
-                          <p className="mtg-card-placeholder-type">
-                            {card.type_line}
-                          </p>
-                        )}
-                        {card.mana_cost && (
-                          <p className="mtg-card-placeholder-mana">
-                            {formatManaSymbols(card.mana_cost)}
-                          </p>
-                        )}
-                        <p className="mtg-card-placeholder-hint">Placeholder</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <img
-                      src={card.image_uris?.normal}
-                      alt={card.name}
-                      className="card-modal-image"
-                    />
-                  )}
+                  <img
+                    src={card.image_uris?.normal}
+                    alt={card.name}
+                    className="card-modal-image"
+                  />
                 </div>
 
                 {/* Card Details */}

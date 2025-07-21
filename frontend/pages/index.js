@@ -227,9 +227,8 @@ export default function Home() {
           >
             <h1>Welcome to Planeswalker's Primer</h1>
             <p style={{ fontSize: "1.25rem" }}>
-              Your beginner-friendly guide to Magic: The Gathering mechanics and
-              keywords. Learn the basics, explore cards, and save your
-              favourites!
+              Your beginner-friendly guide to Magic: The Gathering. Learn the
+              basics, explore cards, and save your favourites!
             </p>
           </div>
         </div>
@@ -254,9 +253,10 @@ export default function Home() {
                 fontWeight: "500",
                 color: "#ffffff",
               }}
-            >
-              {gameOverview.introduction.tagline}
-            </p>
+              dangerouslySetInnerHTML={{
+                __html: gameOverview.introduction.tagline,
+              }}
+            />
             <p style={{ marginBottom: "1rem" }}>
               {gameOverview.introduction.description.replace(
                 /\[\d+\](\[\d+\])*/g,
@@ -427,7 +427,9 @@ export default function Home() {
               <button
                 key={colourKey}
                 onClick={() =>
-                  setSelectedColour(selectedColour === colourKey ? null : colourKey)
+                  setSelectedColour(
+                    selectedColour === colourKey ? null : colourKey,
+                  )
                 }
                 className={`section-button ${selectedColour === colourKey ? "active" : ""}`}
               >
