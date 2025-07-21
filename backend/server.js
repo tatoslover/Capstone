@@ -618,15 +618,38 @@ app.post("/api/users", async (req, res) => {
       });
     }
 
+    // Prevent test user patterns in production
+    const testPatterns = [
+      'favourites_user_',
+      'integration_user_',
+      'test_user_',
+      'temp_user_'
+    ];
+
+    const trimmedUsername = username.trim();
+
+    if (process.env.NODE_ENV === 'production') {
+      const isTestPattern = testPatterns.some(pattern =>
+        trimmedUsername.toLowerCase().includes(pattern.toLowerCase())
+      );
+
+      if (isTestPattern) {
+        return res.status(400).json({
+          error: "Username contains reserved test patterns",
+          requestId: req.id
+        });
+      }
+    }
+
     // Check for alphanumeric username
-    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+    if (!/^[a-zA-Z0-9_]+$/.test(trimmedUsername)) {
       return res.status(400).json({
         error: "Username can only contain letters, numbers, and underscores",
         requestId: req.id
       });
     }
 
-    const result = await userOperations.create(username.trim());
+    const result = await userOperations.create(trimmedUsername);
 
     if (result.rows.length === 0) {
       return res.status(400).json({
@@ -1179,6 +1202,66 @@ app.delete("/api/favourites/:id", async (req, res) => {
     console.error("Error deleting favourite:", error);
     res.status(500).json({
       error: "Failed to delete favourite",
+      requestId: req.id,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Development/staging cleanup endpoint for test users
+app.delete("/api/admin/cleanup-test-users", async (req, res) => {
+  try {
+    // Only allow in non-production environments
+    if (process.env.NODE_ENV === 'production') {
+      return res.status(403).json({
+        error: "Cleanup endpoint not available in production",
+        requestId: req.id
+      });
+    }
+
+    const testPatterns = [
+      'favourites_user_%',
+      'integration_user_%',
+      'test_user_%',
+      'temp_user_%'
+    ];
+
+    let totalDeleted = 0;
+    const deletedUsers = [];
+
+    for (const pattern of testPatterns) {
+      // Get users matching the pattern first
+      const selectResult = await query(
+        'SELECT id, username, created_at FROM users WHERE username LIKE $1',
+        [pattern],
+        'select_test_users'
+      );
+
+      if (selectResult.rows.length > 0) {
+        // Delete users (cascades to favourites)
+        const deleteResult = await query(
+          'DELETE FROM users WHERE username LIKE $1 RETURNING id, username',
+          [pattern],
+          'delete_test_users'
+        );
+
+        totalDeleted += deleteResult.rowCount;
+        deletedUsers.push(...deleteResult.rows);
+      }
+    }
+
+    res.json({
+      message: "Test user cleanup completed",
+      totalDeleted,
+      deletedUsers,
+      timestamp: new Date().toISOString(),
+      requestId: req.id
+    });
+
+  } catch (error) {
+    console.error("Error cleaning up test users:", error);
+    res.status(500).json({
+      error: "Failed to cleanup test users",
       requestId: req.id,
       timestamp: new Date().toISOString()
     });
