@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { initPerformanceMonitoring } from '../utils/performance';
-import PerformanceDashboard from './PerformanceDashboard';
+import React, { useEffect, useState } from "react";
+import { initPerformanceMonitoring } from "../utils/performance";
+import PerformanceDashboard from "./PerformanceDashboard";
 
 const PerformanceWrapper = ({ children }) => {
   const [showDashboard, setShowDashboard] = useState(false);
@@ -8,32 +8,33 @@ const PerformanceWrapper = ({ children }) => {
 
   useEffect(() => {
     // Only run on client side
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // Check if we're in production
-    const prod = process.env.NODE_ENV === 'production';
+    const prod = process.env.NODE_ENV === "production";
     setIsProduction(prod);
 
     // Initialize performance monitoring
     initPerformanceMonitoring();
 
-    // Only show dashboard toggle in development or if explicitly enabled
-    if (!prod || localStorage.getItem('enablePerformanceDashboard') === 'true') {
+    // Always enable dashboard access - professional monitoring should be available in production
+    if (true) {
       // Add keyboard shortcut to toggle dashboard (Ctrl+Shift+P)
       const handleKeyDown = (event) => {
-        if (event.ctrlKey && event.shiftKey && event.key === 'P') {
+        if (event.ctrlKey && event.shiftKey && event.key === "P") {
           event.preventDefault();
-          setShowDashboard(prev => !prev);
+          setShowDashboard((prev) => !prev);
         }
       };
 
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
 
-      // Add performance monitoring toggle button in development
-      if (!prod) {
-        const toggleButton = document.createElement('button');
-        toggleButton.innerHTML = '📊';
-        toggleButton.title = 'Toggle Performance Dashboard (Ctrl+Shift+P)';
+      // Add performance monitoring toggle button (available in all environments)
+      if (true) {
+        const toggleButton = document.createElement("button");
+        toggleButton.innerHTML = "📊";
+        toggleButton.title =
+          "Toggle Performance Dashboard (Ctrl+Shift+P) - Production Monitoring";
         toggleButton.style.cssText = `
           position: fixed;
           top: 10px;
@@ -51,57 +52,54 @@ const PerformanceWrapper = ({ children }) => {
           transition: all 0.2s ease;
         `;
 
-        toggleButton.addEventListener('mouseenter', () => {
-          toggleButton.style.transform = 'scale(1.1)';
-          toggleButton.style.background = '#2563eb';
+        toggleButton.addEventListener("mouseenter", () => {
+          toggleButton.style.transform = "scale(1.1)";
+          toggleButton.style.background = "#2563eb";
         });
 
-        toggleButton.addEventListener('mouseleave', () => {
-          toggleButton.style.transform = 'scale(1)';
-          toggleButton.style.background = '#3b82f6';
+        toggleButton.addEventListener("mouseleave", () => {
+          toggleButton.style.transform = "scale(1)";
+          toggleButton.style.background = "#3b82f6";
         });
 
-        toggleButton.addEventListener('click', () => {
-          setShowDashboard(prev => !prev);
+        toggleButton.addEventListener("click", () => {
+          setShowDashboard((prev) => !prev);
         });
 
         document.body.appendChild(toggleButton);
 
         return () => {
-          window.removeEventListener('keydown', handleKeyDown);
+          window.removeEventListener("keydown", handleKeyDown);
           if (document.body.contains(toggleButton)) {
             document.body.removeChild(toggleButton);
           }
         };
       }
-
-      return () => {
-        window.removeEventListener('keydown', handleKeyDown);
-      };
     }
   }, []);
 
   // Performance optimization: Add resource hints
   useEffect(() => {
     // Only run on client side
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // Preconnect to backend API
-    const preconnectLink = document.createElement('link');
-    preconnectLink.rel = 'preconnect';
-    preconnectLink.href = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const preconnectLink = document.createElement("link");
+    preconnectLink.rel = "preconnect";
+    preconnectLink.href =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
     document.head.appendChild(preconnectLink);
 
     // Preconnect to Scryfall API
-    const scryfallPreconnect = document.createElement('link');
-    scryfallPreconnect.rel = 'preconnect';
-    scryfallPreconnect.href = 'https://api.scryfall.com';
+    const scryfallPreconnect = document.createElement("link");
+    scryfallPreconnect.rel = "preconnect";
+    scryfallPreconnect.href = "https://api.scryfall.com";
     document.head.appendChild(scryfallPreconnect);
 
     // Add performance meta tags
-    const performanceMeta = document.createElement('meta');
-    performanceMeta.name = 'performance-monitoring';
-    performanceMeta.content = 'enabled';
+    const performanceMeta = document.createElement("meta");
+    performanceMeta.name = "performance-monitoring";
+    performanceMeta.content = "enabled";
     document.head.appendChild(performanceMeta);
 
     return () => {
@@ -120,25 +118,28 @@ const PerformanceWrapper = ({ children }) => {
   // Log performance warnings in development
   useEffect(() => {
     // Only run on client side and in development
-    if (typeof window === 'undefined' || isProduction) return;
+    if (typeof window === "undefined" || isProduction) return;
 
     // Monitor for slow page loads
     const checkPageLoad = () => {
       if (window.performance && window.performance.timing) {
-        const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+        const loadTime =
+          window.performance.timing.loadEventEnd -
+          window.performance.timing.navigationStart;
         if (loadTime > 3000) {
           console.warn(`🐌 Page load took ${loadTime}ms (threshold: 3000ms)`);
         }
       }
     };
 
-    window.addEventListener('load', checkPageLoad);
+    window.addEventListener("load", checkPageLoad);
 
     // Monitor for memory leaks
     const memoryCheck = setInterval(() => {
       if (window.performance && window.performance.memory) {
         const memory = window.performance.memory;
-        const usedPercent = (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
+        const usedPercent =
+          (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
 
         if (usedPercent > 80) {
           console.warn(`🧠 High memory usage: ${usedPercent.toFixed(1)}%`);
@@ -147,7 +148,7 @@ const PerformanceWrapper = ({ children }) => {
     }, 30000); // Check every 30 seconds
 
     return () => {
-      window.removeEventListener('load', checkPageLoad);
+      window.removeEventListener("load", checkPageLoad);
       clearInterval(memoryCheck);
     };
   }, [isProduction]);
@@ -166,12 +167,15 @@ const PerformanceWrapper = ({ children }) => {
       <style jsx>{`
         /* Optimise font loading */
         @font-face {
-          font-family: 'system';
+          font-family: "system";
           font-style: normal;
           font-weight: 300;
-          src: local('.SFNSText-Light'), local('.HelveticaNeueDeskInterface-Light'),
-               local('.LucidaGrandeUI'), local('Ubuntu Light'), local('Segoe UI Light'),
-               local('Roboto-Light'), local('DroidSans'), local('Tahoma');
+          src:
+            local(".SFNSText-Light"),
+            local(".HelveticaNeueDeskInterface-Light"),
+            local(".LucidaGrandeUI"), local("Ubuntu Light"),
+            local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"),
+            local("Tahoma");
         }
 
         /* Smooth scrolling performance */
