@@ -4,6 +4,7 @@ import Layout from "../components/Layout/Layout";
 import { CardSearch } from "../components/Card";
 import SearchCard from "../components/Search/SearchCard";
 import Loading from "../components/UI/Loading";
+import { SearchResultsSkeleton } from "../components/UI/Skeleton";
 import { useTheme } from "../contexts/ThemeContext";
 import { apiService } from "../services/apiService";
 
@@ -353,8 +354,8 @@ export default function SearchPage() {
 
         {/* Loading State */}
         {loading && (
-          <div className="loading-container">
-            <Loading message="Searching cards..." size="large" />
+          <div className="search-loading-state">
+            <SearchResultsSkeleton count={10} />
           </div>
         )}
 

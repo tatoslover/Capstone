@@ -1,6 +1,8 @@
 // Simplified API Service - Direct backend communication only
 // No offline fallbacks or mock data
 
+import { withCache } from "../utils/apiCache";
+
 // Configuration
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 const REQUEST_TIMEOUT = 5000; // 5 seconds
@@ -186,78 +188,90 @@ export const apiService = {
     },
   },
 
-  // Card operations - direct Scryfall API calls
+  // Card operations - direct Scryfall API calls with caching
   cards: {
     async search(query) {
-      try {
-        const encodedQuery = encodeURIComponent(query);
-        const response = await fetch(
-          `https://api.scryfall.com/cards/search?q=${encodedQuery}`,
-          {
+      const url = "https://api.scryfall.com/cards/search";
+      const params = { q: query };
+
+      return await withCache("cardSearch", url, params, async () => {
+        try {
+          const encodedQuery = encodeURIComponent(query);
+          const response = await fetch(`${url}?q=${encodedQuery}`, {
             method: "GET",
             headers: {
               Accept: "application/json",
             },
-          },
-        );
+          });
 
-        if (!response.ok) {
-          if (response.status === 404) {
-            return { data: [], total_cards: 0 };
+          if (!response.ok) {
+            if (response.status === 404) {
+              return { data: [], total_cards: 0 };
+            }
+            throw new Error(`Scryfall API error: ${response.status}`);
           }
-          throw new Error(`Scryfall API error: ${response.status}`);
-        }
 
-        return await response.json();
-      } catch (error) {
-        console.error("Card search error:", error);
-        throw error;
-      }
+          return await response.json();
+        } catch (error) {
+          console.error("Card search error:", error);
+          throw error;
+        }
+      });
     },
 
     async random(ability) {
-      try {
-        let url = "https://api.scryfall.com/cards/random";
-        if (ability) {
-          url += `?q=oracle:${encodeURIComponent(ability)}`;
+      const baseUrl = "https://api.scryfall.com/cards/random";
+      const params = ability ? { q: `oracle:${ability}` } : {};
+
+      return await withCache("randomCard", baseUrl, params, async () => {
+        try {
+          let url = baseUrl;
+          if (ability) {
+            url += `?q=oracle:${encodeURIComponent(ability)}`;
+          }
+
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`Scryfall API error: ${response.status}`);
+          }
+
+          return await response.json();
+        } catch (error) {
+          console.error("Random card error:", error);
+          throw error;
         }
-
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Scryfall API error: ${response.status}`);
-        }
-
-        return await response.json();
-      } catch (error) {
-        console.error("Random card error:", error);
-        throw error;
-      }
+      });
     },
 
     async getById(id) {
-      try {
-        const response = await fetch(`https://api.scryfall.com/cards/${id}`, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-          },
-        });
+      const url = `https://api.scryfall.com/cards/${id}`;
+      const params = { id };
 
-        if (!response.ok) {
-          throw new Error(`Scryfall API error: ${response.status}`);
+      return await withCache("cardDetails", url, params, async () => {
+        try {
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`Scryfall API error: ${response.status}`);
+          }
+
+          return await response.json();
+        } catch (error) {
+          console.error("Get card by ID error:", error);
+          throw error;
         }
-
-        return await response.json();
-      } catch (error) {
-        console.error("Get card by ID error:", error);
-        throw error;
-      }
+      });
     },
   },
 

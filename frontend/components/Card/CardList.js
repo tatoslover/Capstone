@@ -1,5 +1,7 @@
 import CardDisplay from "./CardDisplay";
 import Loading from "../UI/Loading";
+import { CardErrorBoundary } from "../ErrorBoundary";
+import { CardListSkeleton } from "../UI/Skeleton";
 
 export default function CardList({
   cards = [],
@@ -11,7 +13,7 @@ export default function CardList({
   showFavouriteButtons = true,
 }) {
   if (loading) {
-    return <Loading message="Loading cards..." />;
+    return <CardListSkeleton count={8} showFavouriteButtons={showFavouriteButtons} />;
   }
 
   if (error) {
@@ -39,12 +41,14 @@ export default function CardList({
             key={card.id || index}
             className={`fade-in fade-in-delay-${Math.min(index + 1, 5)}`}
           >
-            <CardDisplay
-              card={card}
-              currentUser={currentUser}
-              onFavouriteToggle={onFavouriteToggle}
-              showFavouriteButton={showFavouriteButtons}
-            />
+            <CardErrorBoundary>
+              <CardDisplay
+                card={card}
+                currentUser={currentUser}
+                onFavouriteToggle={onFavouriteToggle}
+                showFavouriteButton={showFavouriteButtons}
+              />
+            </CardErrorBoundary>
           </div>
         ))}
       </div>

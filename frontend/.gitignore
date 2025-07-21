@@ -114,3 +114,4 @@ Thumbs.db
 # Build outputs
 build/
 dist/
+.jest-cache/

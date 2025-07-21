@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Layout from "../components/Layout/Layout";
 import SearchCard from "../components/Search/SearchCard";
 import Loading from "../components/UI/Loading";
+import { SearchResultsSkeleton } from "../components/UI/Skeleton";
 import {
   apiService,
   addConnectionListener,
@@ -607,8 +608,8 @@ export default function FavouritesPage() {
 
         {/* Loading State */}
         {loading && (
-          <div className="loading-container">
-            <Loading message="Loading your favourites..." size="large" />
+          <div className="search-loading-state">
+            <SearchResultsSkeleton count={10} />
           </div>
         )}
 
