@@ -55,7 +55,7 @@ A professional-grade MTG beginner's guide featuring interactive learning, card s
 
 ## 🎨 Design
 
-- **📱 Figma Design**: [View Mobile Design Mockups](https://www.figma.com/design/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=0-1&t=sbXzY8oJIeW1QDSH-1)
+- **📱 Figma Design**: [View Mobile Design Mockups](https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1)
 
 ## 🏗️ Architecture & Tech Stack
 
@@ -274,6 +274,7 @@ This is an academic capstone project. For assessment purposes, please refer to:
 - [`Plan.md`](Plan.md) - Development methodology and planning
 - [`TESTING.md`](TESTING.md) - Testing strategy and results
 - [`SECURITY.md`](SECURITY.md) - Security implementation and audit
+- [Figma Design](https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1) - Mobile UI/UX mockups
 
 ## 📄 License & Legal
 

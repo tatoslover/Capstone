@@ -1479,6 +1479,18 @@ button.profile-btn-blue:disabled,
     border-color: #6c757d;
 }
 
+/* Documentation Figma Container */
+.doc-figma-container {
+    margin: 20px 0;
+}
+
+.doc-figma-title {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+/* Database Connection Status */
 .doc-content-panel {
     margin-top: 1rem;
     padding: 1.5rem;
