@@ -22,7 +22,12 @@ const copyToFrontend = async () => {
       { name: "winConditions", icon: "🏆", description: "win conditions" },
       { name: "deckBuilding", icon: "🏗️", description: "deck building" },
       { name: "combatBasics", icon: "⚔️", description: "combat basics" },
-      { name: "mechanics-official-first", icon: "⚡", description: "mechanics", targetName: "mechanics" },
+      {
+        name: "mechanics-official-first",
+        icon: "⚡",
+        description: "mechanics",
+        targetName: "mechanics",
+      },
       { name: "gameModes", icon: "🎮", description: "game modes" },
     ];
 
@@ -37,7 +42,9 @@ const copyToFrontend = async () => {
         await fs.copy(sourceFile, targetFile);
         console.log(`   ✅ ${targetFile}`);
       } else {
-        console.log(`   ⚠️  ${file.name}.json not found - run create:official-first first`);
+        console.log(
+          `   ⚠️  ${file.name}.json not found - run create:official-first first`,
+        );
       }
     }
 
@@ -50,10 +57,9 @@ const copyToFrontend = async () => {
       const mechanicsData = await fs.readJson(mechanicsJsonPath);
 
       // Create all mechanics list from the mechanics object
-      const allMechanicsList = Object.values(mechanicsData.mechanics).map(mechanic => mechanic.name);
-
-      // Create beginner-friendly list from evergreen mechanics (they're inherently beginner-friendly)
-      const beginnerFriendlyList = mechanicsData.categories.evergreen;
+      const allMechanicsList = Object.values(mechanicsData.mechanics).map(
+        (mechanic) => mechanic.name,
+      );
 
       const mechanicsJsContent = `// MTG Mechanics Data - Updated from Scryfall API + MTG Wiki
 // Last updated: ${mechanicsData.lastUpdated}
@@ -64,8 +70,6 @@ export const allMechanics = ${JSON.stringify(allMechanicsList, null, 2)};
 
 // Categorised lists for easier filtering
 export const evergreenKeywords = ${JSON.stringify(mechanicsData.categories.evergreen, null, 2)};
-
-export const beginnerFriendly = ${JSON.stringify(beginnerFriendlyList, null, 2)};
 
 // Detailed mechanics data with descriptions and wiki links
 export const mechanicsDetails = ${JSON.stringify(mechanicsData.mechanics, null, 2)};
@@ -83,8 +87,6 @@ export const getMechanicsByCategory = (category) => {
   switch (category) {
     case "evergreen":
       return evergreenKeywords;
-    case "beginner":
-      return beginnerFriendly;
     default:
       return allMechanics;
   }
@@ -139,7 +141,9 @@ export const totalMechanics = allMechanics.length;
     console.log('   import deckBuilding from "../data/deckBuilding.json";');
     console.log('   import combatBasics from "../data/combatBasics.json";');
     console.log('   import gameModes from "../data/gameModes.json";');
-    console.log('   import { mechanicsDetails, getMechanicWikiUrl } from "../data/mechanics.js";');
+    console.log(
+      '   import { mechanicsDetails, getMechanicWikiUrl } from "../data/mechanics.js";',
+    );
   } catch (error) {
     console.error("❌ Error copying data:", error.message);
     throw error;

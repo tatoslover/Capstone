@@ -229,8 +229,6 @@ export default function SearchCard({
             </>
           )}
         </div>
-
-
       </div>
 
       {/* Modal */}
@@ -365,7 +363,7 @@ export default function SearchCard({
                       handleFavouriteClick();
                       closeModal();
                     }}
-                    className="favourite-btn-modal"
+                    className="add-favourite-btn"
                     title="Add to favourites"
                   >
                     ⭐ Add to Favourites
@@ -376,7 +374,7 @@ export default function SearchCard({
                     href={card.scryfall_uri}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-btn"
+                    className="scryfall-btn"
                     onClick={(e) => e.stopPropagation()}
                   >
                     View on Scryfall

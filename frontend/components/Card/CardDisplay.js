@@ -241,7 +241,7 @@ export default function CardDisplay({
               href={card.scryfall_uri}
               target="_blank"
               rel="noopener noreferrer"
-              className="link-btn"
+              className="scryfall-btn"
               onClick={(e) => e.stopPropagation()}
             >
               View on Scryfall
@@ -348,7 +348,7 @@ export default function CardDisplay({
                     e.stopPropagation();
                     handleFavouriteClick();
                   }}
-                  className="favourite-btn-modal"
+                  className="add-favourite-btn"
                   title="Add to favourites"
                 >
                   ⭐ Add to Favourites
@@ -359,7 +359,7 @@ export default function CardDisplay({
                   href={card.scryfall_uri}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-btn"
+                  className="scryfall-btn"
                 >
                   View on Scryfall
                 </a>

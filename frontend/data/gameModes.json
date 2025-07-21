@@ -293,6 +293,18 @@
           "category": "custom",
           "wikiUrl": "https://mtg.fandom.com/wiki/Highlander",
           "popularity": "low"
+        },
+        {
+          "name": "Canadian Highlander",
+          "description": "Highlander is a casual constructed variant of Magic which allows only one copy of each card in the deck, with the exception of basic lands.[1] It may also be a format modifier, where any other constructed format is modified by restricting it to also be Highlander. The name Highlander is a reference to the movie of the same name, whose tagline was \"There can be only one\".[2]",
+          "rules": "Any card from Alpha up through the latest Magic set can be used (except for banned cards). Cards from the Portal sets, International Collector Editions, and World Championship Decks can be used provided you put all your cards in opaque sleeves and the International Collector Edition card edges are rounded.\nSpecial mulligan rules: In some variants, the first time a player takes a mulligan, they draw a new hand of as many cards as they had before. Subsequent hands decrease by one card as normal. In other variants, a mulligan of 7-6-6-5-5... is used (i.e. a second mulligan of each size except 7).",
+          "cardPool": "",
+          "isDigitalOnly": true,
+          "isCompetitive": false,
+          "isRotating": false,
+          "category": "custom",
+          "wikiUrl": "https://mtg.fandom.com/wiki/Canadian_Highlander",
+          "popularity": "low"
         }
       ]
     }
@@ -560,6 +572,18 @@
       "isRotating": false,
       "category": "custom",
       "wikiUrl": "https://mtg.fandom.com/wiki/Highlander",
+      "popularity": "low"
+    },
+    {
+      "name": "Canadian Highlander",
+      "description": "Highlander is a casual constructed variant of Magic which allows only one copy of each card in the deck, with the exception of basic lands.[1] It may also be a format modifier, where any other constructed format is modified by restricting it to also be Highlander. The name Highlander is a reference to the movie of the same name, whose tagline was \"There can be only one\".[2]",
+      "rules": "Any card from Alpha up through the latest Magic set can be used (except for banned cards). Cards from the Portal sets, International Collector Editions, and World Championship Decks can be used provided you put all your cards in opaque sleeves and the International Collector Edition card edges are rounded.\nSpecial mulligan rules: In some variants, the first time a player takes a mulligan, they draw a new hand of as many cards as they had before. Subsequent hands decrease by one card as normal. In other variants, a mulligan of 7-6-6-5-5... is used (i.e. a second mulligan of each size except 7).",
+      "cardPool": "",
+      "isDigitalOnly": true,
+      "isCompetitive": false,
+      "isRotating": false,
+      "category": "custom",
+      "wikiUrl": "https://mtg.fandom.com/wiki/Canadian_Highlander",
       "popularity": "low"
     }
   ]

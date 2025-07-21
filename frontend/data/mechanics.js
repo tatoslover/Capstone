@@ -299,25 +299,6 @@ export const evergreenKeywords = [
   "Ward"
 ];
 
-export const beginnerFriendly = [
-  "Flying",
-  "Trample",
-  "First strike",
-  "Deathtouch",
-  "Lifelink",
-  "Vigilance",
-  "Haste",
-  "Hexproof",
-  "Reach",
-  "Menace",
-  "Defender",
-  "Double strike",
-  "Indestructible",
-  "Flash",
-  "Protection",
-  "Ward"
-];
-
 // Detailed mechanics data with descriptions and wiki links
 export const mechanicsDetails = {
   "living_weapon": {
@@ -577,7 +558,7 @@ export const mechanicsDetails = {
   },
   "reach": {
     "name": "Reach",
-    "description": "A keyword ability found on creatures. A creature with reach can block a creature with flying. Note that a creature with reach can be blocked by any kind of creature.",
+    "description": "Can block creatures with flying. Note that creatures with reach can be blocked by any kind of creature.",
     "category": "combat",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Reach",
@@ -984,7 +965,7 @@ export const mechanicsDetails = {
   },
   "vigilance": {
     "name": "Vigilance",
-    "description": "A keyword ability found on creatures. A creature with vigilance doesn't tap to attack. Vigilance doesn't allow a tapped creature or a creature that entered the battlefield this turn to attack.",
+    "description": "Doesn't tap to attack. Vigilance doesn't allow a tapped creature or a creature that entered the battlefield this turn to attack.",
     "category": "combat",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Vigilance",
@@ -1340,7 +1321,7 @@ export const mechanicsDetails = {
   },
   "menace": {
     "name": "Menace",
-    "description": "A keyword ability found on creatures. A creature with menace can't be blocked except by two or more creatures.",
+    "description": "Can't be blocked except by two or more creatures.",
     "category": "evasion",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Menace",
@@ -1611,7 +1592,7 @@ export const mechanicsDetails = {
   },
   "double_strike": {
     "name": "Double strike",
-    "description": "A keyword ability found on creatures. Creatures with double strike deal combat damage twice - once during first strike and once during regular damage.",
+    "description": "Deals combat damage twice - once during first strike and once during regular damage.",
     "category": "combat",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Double_strike",
@@ -1645,7 +1626,7 @@ export const mechanicsDetails = {
   },
   "first_strike": {
     "name": "First strike",
-    "description": "A keyword ability found on creatures. Creatures with first strike deal all of their combat damage before creatures without first strike or double strike. When you reach the combat damage step, check to see if any attacking or blocking creatures have first strike or double strike. If so, an extra combat damage step is created just for them.",
+    "description": "Deals all combat damage before creatures without first strike or double strike. When you reach the combat damage step, check to see if any attacking or blocking creatures have first strike or double strike. If so, an extra combat damage step is created just for them.",
     "category": "combat",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/First_strike",
@@ -1695,7 +1676,7 @@ export const mechanicsDetails = {
   },
   "deathtouch": {
     "name": "Deathtouch",
-    "description": "A keyword ability found on creatures. A creature dealt any amount of damage by a creature with deathtouch is destroyed. Deathtouch has no effect on players or planeswalkers.",
+    "description": "Any amount of damage dealt by this creature destroys the damaged creature. Deathtouch has no effect on players or planeswalkers.",
     "category": "combat",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Deathtouch",
@@ -1711,7 +1692,7 @@ export const mechanicsDetails = {
   },
   "defender": {
     "name": "Defender",
-    "description": "A keyword ability found on creatures. A creature with defender can't attack.",
+    "description": "Can't attack.",
     "category": "restriction",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Defender",
@@ -2340,7 +2321,7 @@ export const mechanicsDetails = {
   },
   "flying": {
     "name": "Flying",
-    "description": "A keyword ability found on creatures. A creature with flying can be blocked only by creatures with flying or reach.",
+    "description": "Can only be blocked by creatures with flying or reach.",
     "category": "evasion",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Flying",
@@ -2356,7 +2337,7 @@ export const mechanicsDetails = {
   },
   "haste": {
     "name": "Haste",
-    "description": "A keyword ability found on creatures. A creature with haste isn't affected by summoning sickness. It can attack as soon as it comes under your control. You can also activate its activated abilities with in the cost right away.",
+    "description": "Isn't affected by summoning sickness. Can attack as soon as it comes under your control. You can also activate its activated abilities with in the cost right away.",
     "category": "utility",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Haste",
@@ -2422,7 +2403,7 @@ export const mechanicsDetails = {
   },
   "lifelink": {
     "name": "Lifelink",
-    "description": "A keyword ability found on creatures. When a creature you control has lifelink and deals damage, you simultaneously gain that much life.",
+    "description": "When this creature deals damage, you simultaneously gain that much life.",
     "category": "lifegain",
     "isEvergreen": true,
     "wikiUrl": "https://mtg.fandom.com/wiki/Lifelink",
@@ -4967,8 +4948,6 @@ export const getMechanicsByCategory = (category) => {
   switch (category) {
     case "evergreen":
       return evergreenKeywords;
-    case "beginner":
-      return beginnerFriendly;
     default:
       return allMechanics;
   }

@@ -17,6 +17,7 @@ export default function FavouritesPage() {
   const [error, setError] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  const [lastFetchTime, setLastFetchTime] = useState(0);
 
   // Filtering and sorting state
   const [sortBy, setSortBy] = useState("newest");
@@ -30,9 +31,9 @@ export default function FavouritesPage() {
   useEffect(() => {
     // Check for reset query parameter
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('reset') === 'true') {
+    if (urlParams.get("reset") === "true") {
       localStorage.removeItem("currentUser");
-      window.history.replaceState({}, '', window.location.pathname);
+      window.history.replaceState({}, "", window.location.pathname);
       setLoading(false);
       return;
     }
@@ -78,21 +79,51 @@ export default function FavouritesPage() {
     }
   }, [isOnline, currentUser]);
 
+  // Refresh favourites when navigating to this page
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url === "/favourites" && currentUser && isOnline) {
+        // Only refresh if it's been more than 2 seconds since last fetch
+        const now = Date.now();
+        if (now - lastFetchTime > 2000) {
+          console.log("Refreshing favourites due to route change");
+          fetchFavourites(currentUser.id);
+          setLastFetchTime(now);
+        }
+      }
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // Also check if we're already on the favourites page and should refresh
+    if (router.pathname === "/favourites" && currentUser && isOnline) {
+      const now = Date.now();
+      if (now - lastFetchTime > 2000) {
+        fetchFavourites(currentUser.id);
+        setLastFetchTime(now);
+      }
+    }
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router, currentUser, isOnline, lastFetchTime]);
+
   // Helper function to determine card colour from stored data or fallback to inference
   const getCardColour = (favourite) => {
     // First, try to use stored color_identity
     if (favourite.color_identity) {
-      return favourite.color_identity.split('');
+      return favourite.color_identity.split("");
     }
 
     // If no stored color_identity, try to infer from mana_cost
     if (favourite.mana_cost) {
       const colours = [];
-      if (favourite.mana_cost.includes('{W}')) colours.push('W');
-      if (favourite.mana_cost.includes('{U}')) colours.push('U');
-      if (favourite.mana_cost.includes('{B}')) colours.push('B');
-      if (favourite.mana_cost.includes('{R}')) colours.push('R');
-      if (favourite.mana_cost.includes('{G}')) colours.push('G');
+      if (favourite.mana_cost.includes("{W}")) colours.push("W");
+      if (favourite.mana_cost.includes("{U}")) colours.push("U");
+      if (favourite.mana_cost.includes("{B}")) colours.push("B");
+      if (favourite.mana_cost.includes("{R}")) colours.push("R");
+      if (favourite.mana_cost.includes("{G}")) colours.push("G");
       return colours;
     }
 
@@ -101,49 +132,93 @@ export default function FavouritesPage() {
     const ability = (favourite.ability_type || "").toLowerCase();
 
     // Check for colour-specific keywords in card name
-    if (name.includes("lightning") || name.includes("bolt") || name.includes("fire") ||
-        name.includes("burn") || name.includes("flame") || name.includes("dragon")) {
+    if (
+      name.includes("lightning") ||
+      name.includes("bolt") ||
+      name.includes("fire") ||
+      name.includes("burn") ||
+      name.includes("flame") ||
+      name.includes("dragon")
+    ) {
       return ["R"]; // Red
     }
-    if (name.includes("angel") || name.includes("serra") || name.includes("soul") ||
-        name.includes("healer") || name.includes("cleric")) {
+    if (
+      name.includes("angel") ||
+      name.includes("serra") ||
+      name.includes("soul") ||
+      name.includes("healer") ||
+      name.includes("cleric")
+    ) {
       return ["W"]; // White
     }
-    if (name.includes("counter") || name.includes("draw") || name.includes("island") ||
-        name.includes("merfolk") || name.includes("wizard")) {
+    if (
+      name.includes("counter") ||
+      name.includes("draw") ||
+      name.includes("island") ||
+      name.includes("merfolk") ||
+      name.includes("wizard")
+    ) {
       return ["U"]; // Blue
     }
-    if (name.includes("death") || name.includes("dark") || name.includes("zombie") ||
-        name.includes("vampire") || name.includes("swamp")) {
+    if (
+      name.includes("death") ||
+      name.includes("dark") ||
+      name.includes("zombie") ||
+      name.includes("vampire") ||
+      name.includes("swamp")
+    ) {
       return ["B"]; // Black
     }
-    if (name.includes("elf") || name.includes("forest") || name.includes("beast") ||
-        name.includes("growth") || name.includes("nature")) {
+    if (
+      name.includes("elf") ||
+      name.includes("forest") ||
+      name.includes("beast") ||
+      name.includes("growth") ||
+      name.includes("nature")
+    ) {
       return ["G"]; // Green
     }
 
     // Check for colour-specific keywords in ability type
-    if (ability.includes("angel") || ability.includes("cleric") || ability.includes("soldier")) {
+    if (
+      ability.includes("angel") ||
+      ability.includes("cleric") ||
+      ability.includes("soldier")
+    ) {
       return ["W"]; // White
     }
-    if (ability.includes("wizard") || ability.includes("merfolk") || ability.includes("bird")) {
+    if (
+      ability.includes("wizard") ||
+      ability.includes("merfolk") ||
+      ability.includes("bird")
+    ) {
       return ["U"]; // Blue
     }
-    if (ability.includes("zombie") || ability.includes("vampire") || ability.includes("demon")) {
+    if (
+      ability.includes("zombie") ||
+      ability.includes("vampire") ||
+      ability.includes("demon")
+    ) {
       return ["B"]; // Black
     }
-    if (ability.includes("dragon") || ability.includes("goblin") || ability.includes("warrior")) {
+    if (
+      ability.includes("dragon") ||
+      ability.includes("goblin") ||
+      ability.includes("warrior")
+    ) {
       return ["R"]; // Red
     }
-    if (ability.includes("elf") || ability.includes("beast") || ability.includes("druid")) {
+    if (
+      ability.includes("elf") ||
+      ability.includes("beast") ||
+      ability.includes("druid")
+    ) {
       return ["G"]; // Green
     }
 
     // Default to colourless
     return [];
   };
-
-
 
   const fetchFavourites = async (userId) => {
     if (!isOnline) {
@@ -157,22 +232,30 @@ export default function FavouritesPage() {
 
       // First verify that the user exists
       try {
-        await apiService.users.getById(userId);
+        await apiService.users.getById(parseInt(userId));
       } catch (userError) {
         console.warn(`User ID ${userId} not found, clearing stored user`);
         localStorage.removeItem("currentUser");
         setCurrentUser(null);
         setFavourites([]);
-        setError("The selected user no longer exists. Please select a valid user.");
+        setError(
+          "The selected user no longer exists. Please select a valid user.",
+        );
         setLoading(false);
         return;
       }
 
       // Get favourites list from backend
-      const favouritesData = await apiService.favourites.getByUserId(userId);
+      const favouritesData = await apiService.favourites.getByUserId(
+        parseInt(userId),
+      );
+
+      console.log("Fetched favourites data:", favouritesData);
 
       if (!Array.isArray(favouritesData) || favouritesData.length === 0) {
+        console.log("No favourites found for user");
         setFavourites([]);
+        setLoading(false);
         return;
       }
 
@@ -232,22 +315,30 @@ export default function FavouritesPage() {
       const cardsWithFavouriteData = await Promise.all(cardPromises);
 
       // Filter out favourites with incomplete essential data
-      const validFavourites = cardsWithFavouriteData.filter(card => {
+      const validFavourites = cardsWithFavouriteData.filter((card) => {
         // Ensure card has essential properties for good UX
-        const isValid = card &&
-               card.name &&
-               (card.id || card.favourite_id) &&
-               (card.type_line || card.oracle_text || card.mana_cost || card.ability_type);
+        const isValid =
+          card &&
+          card.name &&
+          (card.id || card.favourite_id) &&
+          (card.type_line ||
+            card.oracle_text ||
+            card.mana_cost ||
+            card.ability_type);
 
         if (!isValid && card) {
-          console.warn(`Filtering out incomplete favourite: ${card.name || 'Unknown'} - missing essential data`);
+          console.warn(
+            `Filtering out incomplete favourite: ${card.name || "Unknown"} - missing essential data`,
+          );
         }
 
         return isValid;
       });
 
       if (validFavourites.length < cardsWithFavouriteData.length) {
-        console.log(`Filtered favourites: ${validFavourites.length}/${cardsWithFavouriteData.length} cards had complete data`);
+        console.log(
+          `Filtered favourites: ${validFavourites.length}/${cardsWithFavouriteData.length} cards had complete data`,
+        );
       }
 
       setFavourites(validFavourites);
@@ -490,8 +581,22 @@ export default function FavouritesPage() {
                 Browse Cards
               </a>
             </div>
-            <div style={{ marginTop: "1rem", fontSize: "0.9rem", color: "var(--theme-textMuted)" }}>
-              <p>Need to reset? <a href="/favourites?reset=true" style={{ color: "var(--theme-primary)" }}>Clear stored user data</a></p>
+            <div
+              style={{
+                marginTop: "1rem",
+                fontSize: "0.9rem",
+                color: "var(--theme-textMuted)",
+              }}
+            >
+              <p>
+                Need to reset?{" "}
+                <a
+                  href="/favourites?reset=true"
+                  style={{ color: "var(--theme-primary)" }}
+                >
+                  Clear stored user data
+                </a>
+              </p>
             </div>
           </div>
         </div>

@@ -3,7 +3,6 @@ import {
   allMechanics,
   mechanicsDetails,
   evergreenKeywords,
-  beginnerFriendly,
   getMechanicDetails,
   getMechanicWikiUrl,
 } from "../../data/mechanics";
@@ -12,190 +11,329 @@ import {
 const cleanDescription = (text, mechanicName) => {
   if (!text) return getFallbackDescription(mechanicName);
 
+  // Return the description as-is if it's already clean and reasonable
+  if (
+    text.length < 300 &&
+    !text.includes("Keyword Ability") &&
+    !text.includes("Statistics")
+  ) {
+    return text.trim();
+  }
+
   // First, extract useful reminder text if it exists
   const reminderMatch = text.match(/\(([^)]+)\)/);
-  const reminderText = reminderMatch ? reminderMatch[1] : '';
+  const reminderText = reminderMatch ? reminderMatch[1] : "";
 
-  // Clean the main text
+  // Clean the main text more carefully
   let cleaned = text
+    // First normalize whitespace to ensure consistent matching
+    .replace(/\s+/g, " ")
+    .replace(/\n/g, " ")
+    .trim()
     // Remove citation markers
-    .replace(/\[\d+\]/g, '')
-    // Clean up wiki metadata
-    .replace(/\b\w*Keyword\s*Ability\w*/gi, '')
-    .replace(/Type\s+(Static|Triggered|Activated)\w*/gi, '')
-    .replace(/Introduced\s+[^.]+/gi, '')
-    .replace(/Last\s+used\s+[^.]+/gi, '')
-    .replace(/Reminder\s+Text\s*/gi, '')
-    .replace(/Storm\s+Scale\s+\d+/gi, '')
-    .replace(/Statistics[^.]+/gi, '')
-    .replace(/Scryfall\s+Search[^"]*"[^"]*"/gi, '')
-    .replace(/\b\d+(\.\d+)?%/g, '') // Remove percentages
-    .replace(/^\w+\s*\(/g, '') // Remove leading ability name with parenthesis
-    // Normalise whitespace
-    .replace(/\s+/g, ' ')
-    .replace(/\n/g, ' ')
+    .replace(/\[\d+\]/g, "")
+    // Remove redundant keyword ability phrases - multiple passes for robustness
+    .replace(/^A\s+keyword\s+ability\s+found\s+on\s+creatures\.\s*/gi, "")
+    .replace(/^A\s+keyword\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, "")
+    .replace(/^A\s+keyword\s+ability\.\s*/gi, "")
+    .replace(/^An?\s+ability\s+word\s+found\s+on\s+[^.]*\.\s*/gi, "")
+    .replace(/^An?\s+ability\s+word\.\s*/gi, "")
+    .replace(/^A\s+static\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, "")
+    .replace(/^A\s+triggered\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, "")
+    .replace(/^An?\s+activated\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, "")
+    // Second pass to catch any remaining instances
+    .replace(/A\s+keyword\s+ability\s+found\s+on\s+creatures\.\s*/gi, "")
+    .replace(/A\s+keyword\s+ability\s+found\s+on\s+[^.]*\.\s*/gi, "")
+    .replace(/A\s+keyword\s+ability\.\s*/gi, "")
+    .replace(/An?\s+ability\s+word\s+found\s+on\s+[^.]*\.\s*/gi, "")
+    .replace(/An?\s+ability\s+word\.\s*/gi, "")
+    .replace(/This\s+is\s+a\s+keyword\s+ability\.\s*/gi, "")
+    .replace(/This\s+is\s+an\s+ability\s+word\.\s*/gi, "")
+    .replace(/^[^.]*\s+is\s+a\s+keyword\s+ability\s+that\s*/gi, "")
+    .replace(/^[^.]*\s+is\s+an\s+ability\s+word\s+that\s*/gi, "")
+    // Clean up wiki metadata but preserve meaningful content
+    .replace(/\b\w*Keyword\s*Ability\s*Type\s*\w*/gi, "")
+    .replace(/Introduced\s+[^.]*\.?/gi, "")
+    .replace(/Last\s+used\s+[^.]*\.?/gi, "")
+    .replace(/Reminder\s+Text\s*/gi, "")
+    .replace(/Storm\s+Scale\s+\d+/gi, "")
+    .replace(/Statistics\s+\d+[^.]*\.?/gi, "")
+    .replace(/Scryfall\s+Search[^"]*"[^"]*"/gi, "")
+    .replace(/\b\d+(\.\d+)?%\s*/g, "") // Remove percentages
+    .replace(/Other\s+Symbols\s*/gi, "")
+    // Clean up broken sentences that start with fragments
+    .replace(/^[a-z]+\s+(?=[A-Z])/g, "")
+    // Final whitespace cleanup
+    .replace(/\s+/g, " ")
     .trim();
 
-  // If we have useful reminder text, use it
-  if (reminderText && reminderText.length > 20 && !reminderText.includes('keyword')) {
+  // If we have useful reminder text that's clear, use it
+  if (
+    reminderText &&
+    reminderText.length > 15 &&
+    reminderText.length < 150 &&
+    !reminderText.includes("keyword")
+  ) {
     return reminderText.trim();
   }
 
-  // Otherwise, try to extract the most meaningful sentence
-  const sentences = cleaned.split(/[.!?]+/).filter(s => s.trim().length > 15);
+  // Try to find the best description sentence
+  const sentences = cleaned.split(/[.!?]+/).filter((s) => s.trim().length > 10);
 
   if (sentences.length > 0) {
-    let bestSentence = sentences[0].trim();
+    // Look for the most descriptive sentence
+    let bestSentence = null;
 
-    // If first sentence is still messy, try the second
-    if (sentences.length > 1 && (bestSentence.includes('Keyword') || bestSentence.includes('Type') || bestSentence.length < 20)) {
-      bestSentence = sentences[1].trim();
+    for (let sentence of sentences) {
+      sentence = sentence.trim();
+      // Skip metadata-heavy sentences
+      if (
+        sentence.includes("Keyword") ||
+        sentence.includes("Type") ||
+        sentence.includes("Statistics")
+      ) {
+        continue;
+      }
+      // Prefer sentences that explain what the mechanic does
+      if (sentence.length > 20 && sentence.length < 200) {
+        bestSentence = sentence;
+        break;
+      }
     }
 
-    const result = bestSentence.substring(0, 180).trim();
-    // If result is still poor quality, use fallback
-    if (result.length < 10 || result.includes('Ability Word') || result.includes('Static')) {
-      return getFallbackDescription(mechanicName);
+    if (bestSentence) {
+      return bestSentence;
     }
-    return result;
+
+    // Fallback to first reasonable sentence
+    const firstSentence = sentences[0].trim();
+    if (firstSentence.length > 15 && firstSentence.length < 200) {
+      return firstSentence;
+    }
   }
 
-  // Fallback: return cleaned text or fallback description
-  const fallback = cleaned.substring(0, 120).trim();
-  return fallback.length > 10 ? fallback : getFallbackDescription(mechanicName);
+  // Final fallback: use fallback description
+  return getFallbackDescription(mechanicName);
 };
 
 // Comprehensive fallback descriptions for mechanics - beginner-friendly explanations
 const getFallbackDescription = (mechanicName) => {
   const fallbacks = {
     // Evergreen Keywords
-    "Flying": "This creature can only be blocked by creatures with flying or reach.",
-    "Trample": "Excess combat damage can be dealt to the defending player or planeswalker.",
-    "First strike": "This creature deals combat damage before creatures without first strike.",
-    "Deathtouch": "Any amount of damage this creature deals is lethal to other creatures.",
-    "Lifelink": "Damage dealt by this creature causes you to gain that much life.",
-    "Vigilance": "This creature doesn't tap when it attacks.",
-    "Haste": "This creature can attack and use tap abilities immediately when it enters.",
-    "Hexproof": "This creature can't be targeted by spells or abilities opponents control.",
-    "Reach": "This creature can block creatures with flying.",
-    "Menace": "This creature can't be blocked except by two or more creatures.",
-    "Defender": "This creature can't attack.",
-    "Double strike": "This creature deals first strike and regular combat damage.",
-    "Indestructible": "This creature can't be destroyed by damage or effects that say 'destroy'.",
-    "Flash": "You can cast this spell any time you could cast an instant.",
-    "Protection": "This creature can't be damaged, enchanted, blocked, or targeted by the specified quality.",
-    "Ward": "Spells and abilities that target this creature cost additional mana to cast.",
+    Flying:
+      "This creature can only be blocked by creatures with flying or reach.",
+    Trample:
+      "Excess combat damage can be dealt to the defending player or planeswalker.",
+    "First strike":
+      "This creature deals combat damage before creatures without first strike.",
+    Deathtouch:
+      "Any amount of damage this creature deals is lethal to other creatures.",
+    Lifelink:
+      "Damage dealt by this creature causes you to gain that much life.",
+    Vigilance: "This creature doesn't tap when it attacks.",
+    Haste:
+      "This creature can attack and use tap abilities immediately when it enters.",
+    Hexproof:
+      "This creature can't be targeted by spells or abilities opponents control.",
+    Reach: "This creature can block creatures with flying.",
+    Menace: "This creature can't be blocked except by two or more creatures.",
+    Defender: "This creature can't attack.",
+    "Double strike":
+      "This creature deals first strike and regular combat damage.",
+    Indestructible:
+      "This creature can't be destroyed by damage or effects that say 'destroy'.",
+    Flash: "You can cast this spell any time you could cast an instant.",
+    Protection:
+      "This creature can't be damaged, enchanted, blocked, or targeted by the specified quality.",
+    Ward: "Spells and abilities that target this creature cost additional mana to cast.",
 
     // Popular Non-Evergreen Keywords
-    "Cycling": "Pay the cycling cost and discard this card to draw a card.",
-    "Flashback": "You can cast this spell from your graveyard by paying its flashback cost.",
-    "Kicker": "You may pay an additional cost when casting this spell for an extra effect.",
-    "Morph": "Cast this face down as a 2/2 creature, then turn it face up for its morph cost.",
-    "Scavenge": "Exile this creature from your graveyard to put +1/+1 counters on target creature.",
-    "Convoke": "You can tap creatures to help pay for this spell.",
-    "Delve": "You can exile cards from your graveyard to help pay for this spell.",
-    "Prowess": "Gets +1/+1 until end of turn whenever you cast a noncreature spell.",
-    "Crew": "Tap any number of creatures with total power equal to or greater than this value.",
-    "Cascade": "When you cast this spell, reveal cards until you reveal a cheaper spell and cast it.",
-    "Storm": "Copy this spell for each spell cast before it this turn.",
-    "Suspend": "Exile this card with time counters, then cast it when the last is removed.",
-    "Madness": "You may cast this card for its madness cost when you discard it.",
-    "Bloodthirst": "If an opponent was dealt damage this turn, this enters with +1/+1 counters.",
-    "Evolve": "Whenever a creature enters under your control with greater power or toughness, put a +1/+1 counter on this creature.",
-    "Undying": "When this creature dies, if it had no +1/+1 counters, return it with a +1/+1 counter.",
-    "Persist": "When this creature dies, if it had no -1/-1 counters, return it with a -1/-1 counter.",
-    "Dredge": "If you would draw a card, you may mill cards and return this to your hand instead.",
-    "Affinity": "This spell costs less to cast for each artifact you control.",
-    "Modular": "This enters with +1/+1 counters and can move them when it dies.",
+    Cycling: "Pay the cycling cost and discard this card to draw a card.",
+    Flashback:
+      "You can cast this spell from your graveyard by paying its flashback cost.",
+    Kicker:
+      "You may pay an additional cost when casting this spell for an extra effect.",
+    Morph:
+      "Cast this face down as a 2/2 creature, then turn it face up for its morph cost.",
+    Scavenge:
+      "Exile this creature from your graveyard to put +1/+1 counters on target creature.",
+    Convoke: "You can tap creatures to help pay for this spell.",
+    Delve:
+      "You can exile cards from your graveyard to help pay for this spell.",
+    Prowess:
+      "Gets +1/+1 until end of turn whenever you cast a noncreature spell.",
+    Crew: "Tap any number of creatures with total power equal to or greater than this value.",
+    Cascade:
+      "When you cast this spell, reveal cards until you reveal a cheaper spell and cast it.",
+    Storm: "Copy this spell for each spell cast before it this turn.",
+    Suspend:
+      "Exile this card with time counters, then cast it when the last is removed.",
+    Madness: "You may cast this card for its madness cost when you discard it.",
+    Bloodthirst:
+      "If an opponent was dealt damage this turn, this enters with +1/+1 counters.",
+    Evolve:
+      "Whenever a creature enters under your control with greater power or toughness, put a +1/+1 counter on this creature.",
+    Undying:
+      "When this creature dies, if it had no +1/+1 counters, return it with a +1/+1 counter.",
+    Persist:
+      "When this creature dies, if it had no -1/-1 counters, return it with a -1/-1 counter.",
+    Dredge:
+      "If you would draw a card, you may mill cards and return this to your hand instead.",
+    Affinity: "This spell costs less to cast for each artifact you control.",
+    Modular: "This enters with +1/+1 counters and can move them when it dies.",
 
     // Ability Words & Set Mechanics
-    "Addendum": "Provides an additional effect if cast during your main phase.",
-    "Living weapon": "When this equipment enters, create a 0/0 creature token and attach to it.",
-    "Infect": "Deals damage to creatures as -1/-1 counters and to players as poison counters.",
-    "Fabricate": "When this enters, you may create artifact creature tokens or put +1/+1 counters.",
-    "Embalm": "Exile this creature card from your graveyard to create a token copy.",
-    "Eternalize": "Exile this creature card from your graveyard to create a 4/4 token copy.",
-    "Aftermath": "You can cast this from your graveyard, then exile it.",
-    "Mentor": "Whenever this attacks, put a +1/+1 counter on target attacking creature with lesser power.",
-    "Surveil": "Look at the top cards of your library, then put any number into your graveyard.",
-    "Adapt": "Pay the adapt cost to put +1/+1 counters on this if it has no +1/+1 counters.",
-    "Spectacle": "You may cast this for its spectacle cost if an opponent lost life this turn.",
-    "Riot": "This enters with your choice of haste or a +1/+1 counter.",
-    "Escape": "You may cast this from your graveyard by exiling cards and paying its escape cost.",
-    "Mutate": "Put this on top or bottom of target non-human creature you own.",
-    "Companion": "If your starting deck meets certain conditions, you may cast this from outside the game.",
-    "Foretell": "Pay 2 mana to exile this face down, then cast it for its foretell cost later.",
-    "Disturb": "You may cast this from your graveyard transformed for its disturb cost.",
-    "Cleave": "You may choose to pay the cleave cost to ignore the bracketed text.",
-    "Training": "Whenever this attacks with another creature, put a +1/+1 counter on this.",
-    "Blitz": "You may cast this for its blitz cost for haste and card draw, but it's sacrificed.",
-    "Casualty": "You may sacrifice a creature to copy this spell.",
-    "Connive": "Draw a card, then discard a card. If you discarded a nonland, put a +1/+1 counter on this.",
-    "Prototype": "You may cast this for its prototype cost as a smaller creature.",
-    "Toxic": "Players dealt combat damage by this get poison counters equal to its toxic value.",
-    "Backup": "When this enters, put +1/+1 counters on target creature and give it this creature's abilities.",
+    Addendum: "Provides an additional effect if cast during your main phase.",
+    "Living weapon":
+      "When this equipment enters, create a 0/0 creature token and attach to it.",
+    Infect:
+      "Deals damage to creatures as -1/-1 counters and to players as poison counters.",
+    Fabricate:
+      "When this enters, you may create artifact creature tokens or put +1/+1 counters.",
+    Embalm:
+      "Exile this creature card from your graveyard to create a token copy.",
+    Eternalize:
+      "Exile this creature card from your graveyard to create a 4/4 token copy.",
+    Aftermath: "You can cast this from your graveyard, then exile it.",
+    Mentor:
+      "Whenever this attacks, put a +1/+1 counter on target attacking creature with lesser power.",
+    Surveil:
+      "Look at the top cards of your library, then put any number into your graveyard.",
+    Adapt:
+      "Pay the adapt cost to put +1/+1 counters on this if it has no +1/+1 counters.",
+    Spectacle:
+      "You may cast this for its spectacle cost if an opponent lost life this turn.",
+    Riot: "This enters with your choice of haste or a +1/+1 counter.",
+    Escape:
+      "You may cast this from your graveyard by exiling cards and paying its escape cost.",
+    Mutate: "Put this on top or bottom of target non-human creature you own.",
+    Companion:
+      "If your starting deck meets certain conditions, you may cast this from outside the game.",
+    Foretell:
+      "Pay 2 mana to exile this face down, then cast it for its foretell cost later.",
+    Disturb:
+      "You may cast this from your graveyard transformed for its disturb cost.",
+    Cleave:
+      "You may choose to pay the cleave cost to ignore the bracketed text.",
+    Training:
+      "Whenever this attacks with another creature, put a +1/+1 counter on this.",
+    Blitz:
+      "You may cast this for its blitz cost for haste and card draw, but it's sacrificed.",
+    Casualty: "You may sacrifice a creature to copy this spell.",
+    Connive:
+      "Draw a card, then discard a card. If you discarded a nonland, put a +1/+1 counter on this.",
+    Prototype:
+      "You may cast this for its prototype cost as a smaller creature.",
+    Toxic:
+      "Players dealt combat damage by this get poison counters equal to its toxic value.",
+    Backup:
+      "When this enters, put +1/+1 counters on target creature and give it this creature's abilities.",
 
     // Landwalk abilities
-    "Plainswalk": "This creature can't be blocked if defending player controls a Plains.",
-    "Islandwalk": "This creature can't be blocked if defending player controls an Island.",
-    "Swampwalk": "This creature can't be blocked if defending player controls a Swamp.",
-    "Mountainwalk": "This creature can't be blocked if defending player controls a Mountain.",
-    "Forestwalk": "This creature can't be blocked if defending player controls a Forest.",
-    "Landwalk": "This creature can't be blocked if defending player controls the specified land type.",
+    Plainswalk:
+      "This creature can't be blocked if defending player controls a Plains.",
+    Islandwalk:
+      "This creature can't be blocked if defending player controls an Island.",
+    Swampwalk:
+      "This creature can't be blocked if defending player controls a Swamp.",
+    Mountainwalk:
+      "This creature can't be blocked if defending player controls a Mountain.",
+    Forestwalk:
+      "This creature can't be blocked if defending player controls a Forest.",
+    Landwalk:
+      "This creature can't be blocked if defending player controls the specified land type.",
 
     // Other mechanics
-    "Equip": "Pay this cost to attach this equipment to target creature you control.",
-    "Enchant": "This aura can only be attached to the specified permanent type.",
-    "Partner": "You can have two commanders if both have partner.",
-    "Annihilator": "Whenever this attacks, defending player sacrifices the specified number of permanents.",
-    "Shroud": "This permanent can't be the target of spells or abilities.",
-    "Intimidate": "This creature can't be blocked except by artifact creatures and creatures that share a colour.",
-    "Fear": "This creature can't be blocked except by artifact creatures and black creatures.",
-    "Shadow": "This creature can only block or be blocked by creatures with shadow.",
-    "Horsemanship": "This creature can't be blocked except by creatures with horsemanship.",
-    "Banding": "You can attack with multiple creatures as a band and redistribute combat damage.",
-    "Flanking": "Whenever this blocks or is blocked by a creature without flanking, that creature gets -1/-1.",
-    "Bushido": "Whenever this blocks or becomes blocked, it gets +X/+X until end of turn.",
-    "Ninjutsu": "Return an unblocked attacker to hand to put this onto the battlefield attacking.",
-    "Splice": "You may reveal this from your hand and pay its splice cost to add its effects to another spell.",
-    "Soulshift": "When this dies, return target spirit card with lower mana value to your hand.",
-    "Champion": "When this enters, exile target creature of the specified type you control or sacrifice this.",
-    "Changeling": "This creature is every creature type.",
-    "Hideaway": "When this enters, look at the top cards, exile one face down, put the rest on bottom.",
-    "Prowl": "You may cast this for its prowl cost if a player was dealt combat damage by the specified creature type.",
-    "Reinforce": "Discard this card and pay its reinforce cost to put +1/+1 counters on target creature.",
-    "Conspire": "You may tap two untapped creatures that share a colour with this spell to copy it.",
-    "Retrace": "You may cast this from your graveyard by discarding a land card.",
-    "Devour": "When this enters, you may sacrifice creatures to put +1/+1 counters on it.",
-    "Exalted": "Whenever a creature you control attacks alone, it gets +1/+1 until end of turn.",
-    "Unearth": "Pay the unearth cost to return this from your graveyard to the battlefield with haste.",
-    "Multikicker": "You may pay the kicker cost any number of times.",
-    "Rebound": "If you cast this from your hand, exile it and cast it again next turn.",
-    "Miracle": "You may cast this for its miracle cost if you drew it this turn.",
-    "Soulbond": "You may pair this with another unpaired creature when either enters.",
-    "Unleash": "You may have this enter with a +1/+1 counter, but then it can't block.",
-    "Overload": "You may cast this for its overload cost to affect all valid targets.",
-    "Scavenge": "Exile this from your graveyard and pay its scavenge cost to put +1/+1 counters on target creature.",
-    "Cipher": "You may exile this encoded on a creature, then copy it whenever that creature deals combat damage.",
-    "Extort": "Whenever you cast a spell, you may pay white or black mana to make each opponent lose 1 life.",
-    "Bestow": "You may cast this as an aura for its bestow cost.",
-    "Tribute": "As this enters, an opponent may put +1/+1 counters on it to prevent its triggered ability.",
-    "Outlast": "Pay the outlast cost and tap this creature to put a +1/+1 counter on it.",
-    "Dash": "You may cast this for its dash cost for haste, but return it to your hand at end of turn.",
-    "Exploit": "When this enters, you may sacrifice a creature for an additional effect.",
-    "Megamorph": "Like morph, but the creature gets a +1/+1 counter when turned face up.",
-    "Awaken": "If you pay the awaken cost, target land becomes a creature with +1/+1 counters.",
-    "Ingest": "Whenever this deals combat damage to a player, that player exiles the top card of their library.",
-    "Devoid": "This spell is colourless.",
-    "Surge": "You may pay the surge cost if you or a teammate cast another spell this turn.",
-    "Skulk": "This creature can't be blocked by creatures with greater power.",
-    "Emerge": "You may sacrifice a creature and pay the emerge cost minus that creature's mana value.",
-    "Escalate": "Pay the escalate cost for each mode beyond the first.",
-    "Delirium": "This has additional effects if there are four or more card types in your graveyard.",
-    "Meld": "These two cards can be exiled and melded into a single double-faced card."
+    Equip:
+      "Pay this cost to attach this equipment to target creature you control.",
+    Enchant: "This aura can only be attached to the specified permanent type.",
+    Partner: "You can have two commanders if both have partner.",
+    Annihilator:
+      "Whenever this attacks, defending player sacrifices the specified number of permanents.",
+    Shroud: "This permanent can't be the target of spells or abilities.",
+    Intimidate:
+      "This creature can't be blocked except by artifact creatures and creatures that share a colour.",
+    Fear: "This creature can't be blocked except by artifact creatures and black creatures.",
+    Shadow:
+      "This creature can only block or be blocked by creatures with shadow.",
+    Horsemanship:
+      "This creature can't be blocked except by creatures with horsemanship.",
+    Banding:
+      "You can attack with multiple creatures as a band and redistribute combat damage.",
+    Flanking:
+      "Whenever this blocks or is blocked by a creature without flanking, that creature gets -1/-1.",
+    Bushido:
+      "Whenever this blocks or becomes blocked, it gets +X/+X until end of turn.",
+    Ninjutsu:
+      "Return an unblocked attacker to hand to put this onto the battlefield attacking.",
+    Splice:
+      "You may reveal this from your hand and pay its splice cost to add its effects to another spell.",
+    Soulshift:
+      "When this dies, return target spirit card with lower mana value to your hand.",
+    Champion:
+      "When this enters, exile target creature of the specified type you control or sacrifice this.",
+    Changeling: "This creature is every creature type.",
+    Hideaway:
+      "When this enters, look at the top cards, exile one face down, put the rest on bottom.",
+    Prowl:
+      "You may cast this for its prowl cost if a player was dealt combat damage by the specified creature type.",
+    Reinforce:
+      "Discard this card and pay its reinforce cost to put +1/+1 counters on target creature.",
+    Conspire:
+      "You may tap two untapped creatures that share a colour with this spell to copy it.",
+    Retrace: "You may cast this from your graveyard by discarding a land card.",
+    Devour:
+      "When this enters, you may sacrifice creatures to put +1/+1 counters on it.",
+    Exalted:
+      "Whenever a creature you control attacks alone, it gets +1/+1 until end of turn.",
+    Unearth:
+      "Pay the unearth cost to return this from your graveyard to the battlefield with haste.",
+    Multikicker: "You may pay the kicker cost any number of times.",
+    Rebound:
+      "If you cast this from your hand, exile it and cast it again next turn.",
+    Miracle: "You may cast this for its miracle cost if you drew it this turn.",
+    Soulbond:
+      "You may pair this with another unpaired creature when either enters.",
+    Unleash:
+      "You may have this enter with a +1/+1 counter, but then it can't block.",
+    Overload:
+      "You may cast this for its overload cost to affect all valid targets.",
+    Scavenge:
+      "Exile this from your graveyard and pay its scavenge cost to put +1/+1 counters on target creature.",
+    Cipher:
+      "You may exile this encoded on a creature, then copy it whenever that creature deals combat damage.",
+    Extort:
+      "Whenever you cast a spell, you may pay white or black mana to make each opponent lose 1 life.",
+    Bestow: "You may cast this as an aura for its bestow cost.",
+    Tribute:
+      "As this enters, an opponent may put +1/+1 counters on it to prevent its triggered ability.",
+    Outlast:
+      "Pay the outlast cost and tap this creature to put a +1/+1 counter on it.",
+    Dash: "You may cast this for its dash cost for haste, but return it to your hand at end of turn.",
+    Exploit:
+      "When this enters, you may sacrifice a creature for an additional effect.",
+    Megamorph:
+      "Like morph, but the creature gets a +1/+1 counter when turned face up.",
+    Awaken:
+      "If you pay the awaken cost, target land becomes a creature with +1/+1 counters.",
+    Ingest:
+      "Whenever this deals combat damage to a player, that player exiles the top card of their library.",
+    Devoid: "This spell is colourless.",
+    Surge:
+      "You may pay the surge cost if you or a teammate cast another spell this turn.",
+    Skulk: "This creature can't be blocked by creatures with greater power.",
+    Emerge:
+      "You may sacrifice a creature and pay the emerge cost minus that creature's mana value.",
+    Escalate: "Pay the escalate cost for each mode beyond the first.",
+    Delirium:
+      "This has additional effects if there are four or more card types in your graveyard.",
+    Meld: "These two cards can be exiled and melded into a single double-faced card.",
   };
 
-  return fallbacks[mechanicName] || `${mechanicName} is a Magic: The Gathering mechanic.`;
+  return (
+    fallbacks[mechanicName] ||
+    `${mechanicName} is a Magic: The Gathering mechanic.`
+  );
 };
 
 export default function FilteredMechanicsList({
@@ -215,8 +353,6 @@ export default function FilteredMechanicsList({
     // Apply category filter first
     if (selectedCategory === "evergreen") {
       filtered = evergreenKeywords;
-    } else if (selectedCategory === "beginner") {
-      filtered = beginnerFriendly;
     }
 
     // Apply search filter
@@ -255,41 +391,22 @@ export default function FilteredMechanicsList({
   const categories = [
     { id: "all", label: "All Mechanics", count: allMechanics.length },
     { id: "evergreen", label: "Evergreen", count: evergreenKeywords.length },
-    {
-      id: "beginner",
-      label: "Beginner Friendly",
-      count: beginnerFriendly.length,
-    },
   ];
 
   return (
     <div className="card" style={{ marginBottom: "2rem" }}>
-      {/* Centered Header */}
-      <h2 style={{
-        marginBottom: "1.5rem",
-        textAlign: "center",
-        fontSize: "2.25rem",
-        fontWeight: "700",
-        background: "linear-gradient(135deg, #ffc107, #fd7e14)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent"
-      }}>
-        ⚡ Mechanics Guide
-      </h2>
-      <p
-        style={{
-          textAlign: "center",
-          marginBottom: "2rem",
-          color: "#dee2e6",
-          maxWidth: "700px",
-          margin: "0 auto 2rem auto",
-          lineHeight: "1.6",
-          fontSize: "1.1rem"
-        }}
+      {/* Header */}
+      <div
+        className="card-header text-center"
+        style={{ marginBottom: "1.5rem" }}
       >
-        Discover and explore {allMechanics.length} Magic: The Gathering mechanics with detailed descriptions and direct links to comprehensive guides
-        and abilities
-      </p>
+        <h2 className="card-title">Mechanics Guide</h2>
+        <p className="card-subtitle">
+          Discover and explore {allMechanics.length} Magic: The Gathering
+          mechanics with detailed descriptions and direct links to comprehensive
+          guides and abilities
+        </p>
+      </div>
 
       {/* Category Filter Buttons */}
       <div
@@ -435,19 +552,39 @@ export default function FilteredMechanicsList({
           >
             {filteredMechanics.map((mechanic) => {
               const isSelected = selectedMechanic?.name === mechanic;
-              const mechanicData = getMechanicDetails(mechanic);
+              // Try multiple key formats to find mechanic data
+              let mechanicData = getMechanicDetails(mechanic);
+              if (!mechanicData) {
+                // Try with exact case
+                mechanicData = getMechanicDetails(mechanic.toLowerCase());
+              }
+              if (!mechanicData) {
+                // Try with title case
+                const titleCase =
+                  mechanic.charAt(0).toUpperCase() +
+                  mechanic.slice(1).toLowerCase();
+                mechanicData = getMechanicDetails(titleCase);
+              }
 
               // Get category colour
               const getCategoryColour = (category) => {
                 switch (category) {
-                  case "evasion": return "#0d6efd";
-                  case "combat": return "#dc3545";
-                  case "protection": return "#198754";
-                  case "utility": return "#ffc107";
-                  case "timing": return "#6f42c1";
-                  case "cost_reduction": return "#20c997";
-                  case "triggered": return "#fd7e14";
-                  default: return "#6c757d";
+                  case "evasion":
+                    return "#0d6efd";
+                  case "combat":
+                    return "#dc3545";
+                  case "protection":
+                    return "#198754";
+                  case "utility":
+                    return "#ffc107";
+                  case "timing":
+                    return "#6f42c1";
+                  case "cost_reduction":
+                    return "#20c997";
+                  case "triggered":
+                    return "#fd7e14";
+                  default:
+                    return "#6c757d";
                 }
               };
 
@@ -461,9 +598,7 @@ export default function FilteredMechanicsList({
                     background: isSelected
                       ? "linear-gradient(135deg, rgba(0, 112, 243, 0.2), rgba(0, 112, 243, 0.1))"
                       : "linear-gradient(135deg, #1a1a1a, #2d2d2d)",
-                    border: isSelected
-                      ? "2px solid #0070f3"
-                      : "2px solid #444",
+                    border: isSelected ? "2px solid #0070f3" : "2px solid #444",
                     borderRadius: "0.75rem",
                     cursor: "pointer",
                     textAlign: "center",
@@ -475,15 +610,18 @@ export default function FilteredMechanicsList({
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
-                      e.target.style.background = "linear-gradient(135deg, #2d2d2d, #3a3a3a)";
+                      e.target.style.background =
+                        "linear-gradient(135deg, #2d2d2d, #3a3a3a)";
                       e.target.style.borderColor = "#6c757d";
                       e.target.style.transform = "translateY(-2px)";
-                      e.target.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.3)";
+                      e.target.style.boxShadow =
+                        "0 4px 12px rgba(0, 0, 0, 0.3)";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isSelected) {
-                      e.target.style.background = "linear-gradient(135deg, #1a1a1a, #2d2d2d)";
+                      e.target.style.background =
+                        "linear-gradient(135deg, #1a1a1a, #2d2d2d)";
                       e.target.style.borderColor = "#444";
                       e.target.style.transform = "translateY(0)";
                       e.target.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.2)";
@@ -546,24 +684,6 @@ export default function FilteredMechanicsList({
                         {mechanicData.category.replace("_", " ")}
                       </span>
                     )}
-                    {beginnerFriendly.includes(mechanic) && (
-                      <span
-                        style={{
-                          padding: "0.25rem 0.5rem",
-                          background: "#17a2b8",
-                          borderRadius: "0.375rem",
-                          fontSize: "0.7rem",
-                          fontWeight: "700",
-                          color: "#ffffff",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.25rem",
-                          boxShadow: "0 2px 4px rgba(23, 162, 184, 0.3)",
-                        }}
-                      >
-                        ✨ Beginner
-                      </span>
-                    )}
                   </div>
                 </div>
               );
@@ -590,52 +710,74 @@ export default function FilteredMechanicsList({
           </h3>
 
           {(() => {
-            const mechanicData = getMechanicDetails(selectedMechanic.name);
+            // Try multiple ways to get mechanic data
+            let mechanicData = getMechanicDetails(selectedMechanic.name);
+            if (!mechanicData) {
+              mechanicData = getMechanicDetails(
+                selectedMechanic.name.toLowerCase(),
+              );
+            }
+            if (!mechanicData) {
+              const titleCase =
+                selectedMechanic.name.charAt(0).toUpperCase() +
+                selectedMechanic.name.slice(1).toLowerCase();
+              mechanicData = getMechanicDetails(titleCase);
+            }
             const wikiUrl = getMechanicWikiUrl(selectedMechanic.name);
 
             if (mechanicData) {
               return (
                 <div style={{ color: "#dee2e6", lineHeight: "1.6" }}>
                   {/* Clean Description */}
-                  <div style={{
-                    background: "linear-gradient(135deg, #1a1a1a, #2d2d2d)",
-                    padding: "1.25rem",
-                    borderRadius: "0.75rem",
-                    border: "1px solid #444",
-                    marginBottom: "1.5rem"
-                  }}>
-                    <p style={{
-                      margin: "0",
-                      fontSize: "1.1rem",
-                      lineHeight: "1.7",
-                      color: "#ffffff",
-                      fontWeight: "400"
-                    }}>
-                      {cleanDescription(mechanicData.description, selectedMechanic.name)}
+                  <div
+                    style={{
+                      background: "linear-gradient(135deg, #1a1a1a, #2d2d2d)",
+                      padding: "1.25rem",
+                      borderRadius: "0.75rem",
+                      border: "1px solid #444",
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: "0",
+                        fontSize: "1.1rem",
+                        lineHeight: "1.7",
+                        color: "#ffffff",
+                        fontWeight: "400",
+                      }}
+                    >
+                      {cleanDescription(
+                        mechanicData.description,
+                        selectedMechanic.name,
+                      )}
                     </p>
                   </div>
 
                   {/* Enhanced Category badges */}
                   {(mechanicData.category ||
                     mechanicData.isEvergreen ||
-                    evergreenKeywords.includes(selectedMechanic.name) ||
-                    beginnerFriendly.includes(selectedMechanic.name)) && (
-                    <div style={{
-                      display: "flex",
-                      gap: "0.75rem",
-                      flexWrap: "wrap",
-                      justifyContent: "center",
-                      marginBottom: "2rem",
-                      padding: "1rem",
-                      background: "rgba(0, 0, 0, 0.3)",
-                      borderRadius: "0.75rem",
-                      border: "1px solid #333"
-                    }}>
-                      {(mechanicData.isEvergreen || evergreenKeywords.includes(selectedMechanic.name)) && (
+                    evergreenKeywords.includes(selectedMechanic.name)) && (
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "0.75rem",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        marginBottom: "2rem",
+                        padding: "1rem",
+                        background: "rgba(0, 0, 0, 0.3)",
+                        borderRadius: "0.75rem",
+                        border: "1px solid #333",
+                      }}
+                    >
+                      {(mechanicData.isEvergreen ||
+                        evergreenKeywords.includes(selectedMechanic.name)) && (
                         <span
                           style={{
                             padding: "0.5rem 1rem",
-                            background: "linear-gradient(135deg, #28a745, #20c997)",
+                            background:
+                              "linear-gradient(135deg, #28a745, #20c997)",
                             borderRadius: "0.5rem",
                             fontSize: "0.9rem",
                             fontWeight: "600",
@@ -649,29 +791,12 @@ export default function FilteredMechanicsList({
                           ♾️ Evergreen Keyword
                         </span>
                       )}
-                      {beginnerFriendly.includes(selectedMechanic.name) && (
-                        <span
-                          style={{
-                            padding: "0.5rem 1rem",
-                            background: "linear-gradient(135deg, #17a2b8, #0d6efd)",
-                            borderRadius: "0.5rem",
-                            fontSize: "0.9rem",
-                            fontWeight: "600",
-                            color: "#ffffff",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            boxShadow: "0 3px 8px rgba(23, 162, 184, 0.3)",
-                          }}
-                        >
-                          ✨ Beginner-Friendly
-                        </span>
-                      )}
                       {mechanicData.category && (
                         <span
                           style={{
                             padding: "0.5rem 1rem",
-                            background: "linear-gradient(135deg, #6f42c1, #495057)",
+                            background:
+                              "linear-gradient(135deg, #6f42c1, #495057)",
                             borderRadius: "0.5rem",
                             fontSize: "0.9rem",
                             fontWeight: "600",
@@ -682,7 +807,10 @@ export default function FilteredMechanicsList({
                             boxShadow: "0 3px 8px rgba(111, 66, 193, 0.3)",
                           }}
                         >
-                          📂 {mechanicData.category.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase())}
+                          📂{" "}
+                          {mechanicData.category
+                            .replace("_", " ")
+                            .replace(/\b\w/g, (l) => l.toUpperCase())}
                         </span>
                       )}
                     </div>
@@ -700,7 +828,8 @@ export default function FilteredMechanicsList({
                           alignItems: "center",
                           gap: "0.75rem",
                           padding: "1rem 2rem",
-                          background: "linear-gradient(135deg, #0070f3, #0051cc)",
+                          background:
+                            "linear-gradient(135deg, #0070f3, #0051cc)",
                           color: "white",
                           textDecoration: "none",
                           borderRadius: "0.75rem",
@@ -708,25 +837,29 @@ export default function FilteredMechanicsList({
                           fontWeight: "600",
                           boxShadow: "0 4px 12px rgba(0, 112, 243, 0.3)",
                           transition: "all 0.2s ease",
-                          border: "1px solid rgba(255, 255, 255, 0.1)"
+                          border: "1px solid rgba(255, 255, 255, 0.1)",
                         }}
                         onMouseEnter={(e) => {
                           e.target.style.transform = "translateY(-2px)";
-                          e.target.style.boxShadow = "0 6px 20px rgba(0, 112, 243, 0.4)";
+                          e.target.style.boxShadow =
+                            "0 6px 20px rgba(0, 112, 243, 0.4)";
                         }}
                         onMouseLeave={(e) => {
                           e.target.style.transform = "translateY(0)";
-                          e.target.style.boxShadow = "0 4px 12px rgba(0, 112, 243, 0.3)";
+                          e.target.style.boxShadow =
+                            "0 4px 12px rgba(0, 112, 243, 0.3)";
                         }}
                       >
                         📖 Learn more on MTG Wiki →
                       </a>
-                      <p style={{
-                        margin: "0.75rem 0 0 0",
-                        color: "#adb5bd",
-                        fontSize: "0.9rem",
-                        fontStyle: "italic"
-                      }}>
+                      <p
+                        style={{
+                          margin: "0.75rem 0 0 0",
+                          color: "#adb5bd",
+                          fontSize: "0.9rem",
+                          fontStyle: "italic",
+                        }}
+                      >
                         Get comprehensive rules, examples, and card listings
                       </p>
                     </div>
@@ -739,33 +872,44 @@ export default function FilteredMechanicsList({
                   style={{
                     textAlign: "center",
                     padding: "3rem 2rem",
-                    background: "linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(253, 126, 20, 0.1))",
+                    background:
+                      "linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(253, 126, 20, 0.1))",
                     borderRadius: "0.75rem",
                     border: "1px solid rgba(255, 193, 7, 0.3)",
                   }}
                 >
-                  <div style={{
-                    fontSize: "3rem",
-                    marginBottom: "1.5rem",
-                    filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))"
-                  }}>
+                  <div
+                    style={{
+                      fontSize: "3rem",
+                      marginBottom: "1.5rem",
+                      filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+                    }}
+                  >
                     📚
                   </div>
-                  <h4 style={{
-                    margin: "0 0 1rem 0",
-                    color: "#ffc107",
-                    fontSize: "1.25rem",
-                    fontWeight: "600"
-                  }}>
+                  <h4
+                    style={{
+                      margin: "0 0 1rem 0",
+                      color: "#ffc107",
+                      fontSize: "1.25rem",
+                      fontWeight: "600",
+                    }}
+                  >
                     More Information Coming Soon
                   </h4>
-                  <p style={{
-                    margin: "0 0 1.5rem 0",
-                    lineHeight: "1.6",
-                    color: "#dee2e6",
-                    fontSize: "1rem"
-                  }}>
-                    Enhanced details for <strong style={{ color: "#ffffff" }}>{selectedMechanic.name}</strong> are being prepared.
+                  <p
+                    style={{
+                      margin: "0 0 1.5rem 0",
+                      lineHeight: "1.6",
+                      color: "#dee2e6",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Enhanced details for{" "}
+                    <strong style={{ color: "#ffffff" }}>
+                      {selectedMechanic.name}
+                    </strong>{" "}
+                    are being prepared.
                   </p>
                   {getMechanicWikiUrl(selectedMechanic.name) && (
                     <a
@@ -784,7 +928,7 @@ export default function FilteredMechanicsList({
                         fontSize: "0.95rem",
                         fontWeight: "500",
                         transition: "all 0.2s ease",
-                        boxShadow: "0 3px 8px rgba(0, 112, 243, 0.3)"
+                        boxShadow: "0 3px 8px rgba(0, 112, 243, 0.3)",
                       }}
                     >
                       📖 Learn more on MTG Wiki →

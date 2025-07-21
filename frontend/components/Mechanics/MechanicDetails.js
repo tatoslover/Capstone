@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
   evergreenKeywords,
-  beginnerFriendly,
   getMechanicDetails,
   getMechanicWikiUrl,
 } from "../../data/mechanics";
@@ -27,8 +26,8 @@ export default function MechanicDetails({ mechanic }) {
 
   const mechanicDetails = getMechanicDetails(mechanic.name);
   const wikiUrl = getMechanicWikiUrl(mechanic.name);
-  const isEvergreen = mechanicDetails?.isEvergreen || evergreenKeywords.includes(mechanic.name);
-  const isBeginnerFriendly = mechanicDetails?.isEvergreen || beginnerFriendly.includes(mechanic.name);
+  const isEvergreen =
+    mechanicDetails?.isEvergreen || evergreenKeywords.includes(mechanic.name);
 
   // Get category colour
   const getCategoryColor = (category) => {
@@ -115,21 +114,6 @@ export default function MechanicDetails({ mechanic }) {
             </span>
           )}
 
-          {isBeginnerFriendly && (
-            <span
-              style={{
-                background: "rgba(212, 237, 218, 0.9)",
-                color: "#155724",
-                padding: "0.25rem 0.75rem",
-                borderRadius: "1rem",
-                fontSize: "0.9rem",
-                fontWeight: "600",
-              }}
-            >
-              ✨ Beginner-Friendly
-            </span>
-          )}
-
           {mechanicDetails?.category && (
             <span
               style={{
@@ -142,11 +126,11 @@ export default function MechanicDetails({ mechanic }) {
               }}
             >
               {getCategoryEmoji(mechanicDetails.category)}{" "}
-              {mechanicDetails.category.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase())}
+              {mechanicDetails.category
+                .replace("_", " ")
+                .replace(/\b\w/g, (l) => l.toUpperCase())}
             </span>
           )}
-
-
         </div>
 
         {mechanicDetails?.description && (
@@ -170,32 +154,33 @@ export default function MechanicDetails({ mechanic }) {
       </div>
 
       {/* Full Description */}
-      {mechanicDetails?.description && mechanicDetails.description.length > 200 && (
-        <div className="card" style={{ marginBottom: "2rem" }}>
-          <h3 style={{ color: "#ffc107", marginBottom: "1rem" }}>
-            📋 Full Description
-          </h3>
-          <div
-            style={{
-              background: "#1a1a1a",
-              padding: "1.5rem",
-              borderRadius: "0.5rem",
-              border: "1px solid #444",
-            }}
-          >
-            <p
+      {mechanicDetails?.description &&
+        mechanicDetails.description.length > 200 && (
+          <div className="card" style={{ marginBottom: "2rem" }}>
+            <h3 style={{ color: "#ffc107", marginBottom: "1rem" }}>
+              📋 Full Description
+            </h3>
+            <div
               style={{
-                margin: 0,
-                lineHeight: "1.6",
-                fontSize: "1rem",
-                color: "#e0e0e0",
+                background: "#1a1a1a",
+                padding: "1.5rem",
+                borderRadius: "0.5rem",
+                border: "1px solid #444",
               }}
             >
-              {mechanicDetails.description}
-            </p>
+              <p
+                style={{
+                  margin: 0,
+                  lineHeight: "1.6",
+                  fontSize: "1rem",
+                  color: "#e0e0e0",
+                }}
+              >
+                {mechanicDetails.description}
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
       {/* Wiki Link Section */}
       {wikiUrl && (
@@ -240,8 +225,15 @@ export default function MechanicDetails({ mechanic }) {
             >
               📖 View on MTG Wiki ↗
             </a>
-            <p style={{ margin: "0.75rem 0 0 0", color: "#ccc", fontSize: "0.9rem" }}>
-              Visit the MTG Wiki for comprehensive rules details, card examples, and rulings.
+            <p
+              style={{
+                margin: "0.75rem 0 0 0",
+                color: "#ccc",
+                fontSize: "0.9rem",
+              }}
+            >
+              Visit the MTG Wiki for comprehensive rules details, card examples,
+              and rulings.
             </p>
           </div>
         </div>
@@ -265,12 +257,16 @@ export default function MechanicDetails({ mechanic }) {
             {mechanicDetails?.category && (
               <p style={{ margin: "0 0 0.5rem 0" }}>
                 <strong>Category:</strong>{" "}
-                <span style={{
-                  color: getCategoryColor(mechanicDetails.category),
-                  fontWeight: "500"
-                }}>
+                <span
+                  style={{
+                    color: getCategoryColor(mechanicDetails.category),
+                    fontWeight: "500",
+                  }}
+                >
                   {getCategoryEmoji(mechanicDetails.category)}{" "}
-                  {mechanicDetails.category.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase())}
+                  {mechanicDetails.category
+                    .replace("_", " ")
+                    .replace(/\b\w/g, (l) => l.toUpperCase())}
                 </span>
               </p>
             )}
@@ -278,11 +274,6 @@ export default function MechanicDetails({ mechanic }) {
               <strong>Type:</strong>{" "}
               {isEvergreen ? "Evergreen Keyword" : "Non-Evergreen Mechanic"}
             </p>
-            {isBeginnerFriendly && (
-              <p style={{ margin: 0, color: "#28a745" }}>
-                <strong>✨ Beginner-Friendly:</strong> Great for new players
-              </p>
-            )}
           </div>
         </div>
 
@@ -294,17 +285,19 @@ export default function MechanicDetails({ mechanic }) {
           <div style={{ fontSize: "0.9rem", color: "#e0e0e0" }}>
             <p style={{ margin: "0 0 0.5rem 0" }}>
               <strong>Status:</strong>{" "}
-              <span style={{
-                color: isEvergreen ? "#28a745" : "#6c757d",
-                fontWeight: "500"
-              }}>
+              <span
+                style={{
+                  color: isEvergreen ? "#28a745" : "#6c757d",
+                  fontWeight: "500",
+                }}
+              >
                 {isEvergreen ? "♾️ Always available" : "📦 Set-specific"}
               </span>
             </p>
             <p style={{ margin: 0 }}>
               <strong>Complexity:</strong>{" "}
-              <span style={{ color: isBeginnerFriendly ? "#28a745" : "#ffc107" }}>
-                {isBeginnerFriendly ? "🟢 Simple" : "🟡 Intermediate"}
+              <span style={{ color: isEvergreen ? "#28a745" : "#ffc107" }}>
+                {isEvergreen ? "🟢 Simple" : "🟡 Intermediate"}
               </span>
             </p>
           </div>
