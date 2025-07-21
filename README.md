@@ -53,6 +53,10 @@ A professional-grade MTG beginner's guide featuring interactive learning, card s
 - **🔧 Backend API**: [https://capstone-production-e2db.up.railway.app](https://capstone-production-e2db.up.railway.app)
 - **📖 API Documentation**: [/api-docs](https://capstone-production-e2db.up.railway.app/api-docs)
 
+## 🎨 Design
+
+- **📱 Figma Design**: [View Mobile Design Mockups](https://www.figma.com/design/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=0-1&t=sbXzY8oJIeW1QDSH-1)
+
 ## 🏗️ Architecture & Tech Stack
 
 ### **Frontend** (Next.js 14)
