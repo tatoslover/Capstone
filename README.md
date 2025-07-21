@@ -271,7 +271,6 @@ Capstone/
 
 This is an academic capstone project. For assessment purposes, please refer to:
 - [`README.md`](README.md) - Project overview and features
-- [`Plan.md`](Plan.md) - Development methodology and planning
 - [`TESTING.md`](TESTING.md) - Testing strategy and results
 - [`SECURITY.md`](SECURITY.md) - Security implementation and audit
 - [Figma Design](https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1) - Mobile UI/UX mockups

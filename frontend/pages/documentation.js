@@ -1042,7 +1042,6 @@ export default function Documentation() {
 │   ├── SECURITY_AUDIT.md    # Security assessment
 │   └── SECURITY_CHECKLIST.md
 └── documentation/           # Project documentation
-    ├── Plan.md              # Project planning
     ├── Features.md          # Feature specifications
     └── README.md            # Main project documentation`}</code>
             </pre>
