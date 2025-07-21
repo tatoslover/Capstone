@@ -12,32 +12,40 @@ A professional-grade MTG beginner's guide featuring interactive learning, card s
 ## 🌟 Key Features
 
 ### 📚 **Comprehensive Learning System**
-- **Interactive Learning Path** - Track progress through MTG fundamentals
-- **Six Colours Guide** - Complete colour identity system including colourless
-- **Card Types & Anatomy** - Detailed breakdowns of card components
-- **Turn Phases** - Interactive phase-by-phase gameplay guide
-- **Win Conditions** - Primary and alternative victory conditions
-- **Combat System** - Step-by-step combat mechanics
-- **273 Mechanics Database** - Complete keyword and ability reference
+- ✅ **Interactive Learning Path** - Track progress through MTG fundamentals
+- ✅ **Six Colours Guide** - Complete colour identity system including colourless
+- ✅ **Card Types & Anatomy** - Detailed breakdowns of card components
+- ✅ **Turn Phases** - Interactive phase-by-phase gameplay guide
+- ✅ **Win Conditions** - Primary and alternative victory conditions
+- ✅ **Deck Building** - Fundamental rules and construction principles
+- ✅ **Combat System** - Step-by-step combat mechanics
+- ✅ **273 Mechanics Database** - Complete keyword and ability reference with categorisation
+- ✅ **23 Game Formats** - All major MTG formats with accurate categorisation
 
 ### 🔍 **Advanced Card Management**
-- **Live Card Search** - Real-time Scryfall API integration
-- **Advanced Filtering** - Search by colour, type, rarity, mana cost
-- **Favourites System** - Save and manage your favourite cards with notes
-- **Card Details Modal** - Comprehensive card information display
-- **Mobile-Responsive Design** - Optimised for all device sizes
+- ✅ **Live Card Search** - Real-time Scryfall API integration with 20,000+ cards
+- ✅ **Advanced Filtering** - Search by colour, type, rarity, mana cost
+- ✅ **Favourites System** - Save and manage your favourite cards with notes
+- ✅ **Card Details Modal** - Comprehensive card information display
+- ✅ **Mobile-Responsive Design** - Optimised for all device sizes
 
 ### ⚡ **Performance & Monitoring**
-- **Real-time Performance Dashboard** - Monitor Web Vitals, API response times, memory usage
-- **Health Indicators** - System status monitoring with recommendations
-- **Error Tracking** - Comprehensive error handling and reporting
-- **Connection Status** - Live backend connectivity monitoring
+- ✅ **Real-time Performance Dashboard** - Monitor Web Vitals, API response times, memory usage
+- ✅ **Health Indicators** - System status monitoring with recommendations
+- ✅ **Error Tracking** - Comprehensive error handling and reporting
+- ✅ **Connection Status** - Live backend connectivity monitoring
 
 ### 🎨 **Professional UI/UX**
-- **MTG-Themed Design** - Wizard icons, mana symbols, immersive colour schemes
-- **Dark Mode Optimised** - Professional dark theme with UK English throughout
-- **Accessibility Features** - Keyboard shortcuts, screen reader support
-- **Quick Reference Panel** - Floating MTG rules reference
+- ✅ **MTG-Themed Design** - Wizard icons, mana symbols, immersive colour schemes
+- ✅ **Dark Mode Optimised** - Professional dark theme with UK English throughout
+- ✅ **Accessibility Features** - Keyboard shortcuts, screen reader support
+- ✅ **Quick Reference Panel** - Floating MTG rules reference
+
+### 📊 **Data Integration**
+- ✅ **Automated Data Pipeline** - Scripts for updating all content from authoritative sources
+- ✅ **Game Modes Data** - Comprehensive scraped data for 23 MTG formats
+- ✅ **Enhanced Mechanics Scraper** - 273 mechanics with descriptions and rules text
+- ✅ **Wiki Integration** - Curated content from MTG Wiki and official sources
 
 ## 🚀 Live Demo
 
@@ -60,6 +68,13 @@ A professional-grade MTG beginner's guide featuring interactive learning, card s
 - **API**: RESTful design with Swagger/OpenAPI documentation
 - **Security**: Rate limiting, CORS, input validation, security headers
 - **Deployment**: Railway with automatic CI/CD
+
+#### API Endpoints
+- **Health**: `GET /health` - System health check
+- **Users**: Full CRUD operations for user management
+- **Favourites**: Create, read, update, delete favourite cards
+- **Messages**: CRUD operations for system messages
+- **Monitoring**: `/api/monitoring/*` - Performance metrics and dashboards
 
 ### **Data Sources**
 - **Scryfall API**: Live MTG card data and search
@@ -105,6 +120,8 @@ A professional-grade MTG beginner's guide featuring interactive learning, card s
 cd frontend && npm test
 cd backend && npm test
 ```
+
+*See [`TESTING.md`](TESTING.md) for comprehensive testing documentation*
 
 ## 🚀 Quick Start
 
@@ -223,13 +240,36 @@ Capstone/
 
 *Complete API documentation available at `/api-docs`*
 
+## 📁 Project Structure
+
+```
+Capstone/
+├── frontend/          # Next.js application
+│   ├── components/    # React components
+│   ├── pages/         # Next.js pages
+│   ├── styles/        # Global CSS and styling
+│   ├── services/      # API service layer
+│   ├── contexts/      # React contexts
+│   ├── data/          # Static JSON data
+│   └── tests/         # Frontend test suite
+├── backend/           # Express.js API
+│   ├── server.js      # Main server file
+│   ├── db-enhanced.js # Database operations
+│   ├── middleware/    # Custom middleware
+│   └── routes/        # API routes
+├── scripts/           # Utility scripts
+│   └── scrapers/      # Data collection scripts
+├── security/          # Security validation
+└── docs/              # Documentation
+```
+
 ## 🤝 Contributing
 
 This is an academic capstone project. For assessment purposes, please refer to:
-- [`Features.md`](Features.md) - Complete feature documentation
+- [`README.md`](README.md) - Project overview and features
 - [`Plan.md`](Plan.md) - Development methodology and planning
 - [`TESTING.md`](TESTING.md) - Testing strategy and results
-- [`release_strategy.md`](release_strategy.md) - Release planning and versioning
+- [`SECURITY.md`](SECURITY.md) - Security implementation and audit
 
 ## 📄 License & Legal
 

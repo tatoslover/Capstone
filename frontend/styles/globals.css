@@ -2760,6 +2760,13 @@ button.search-btn-primary:active,
     text-decoration: none;
 }
 
+@media (max-width: 768px) {
+    .nav-brand-layout {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+
 .nav-mobile {
     display: flex;
     flex-direction: column;

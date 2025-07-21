@@ -273,8 +273,8 @@ export default function Layout({ children, title = "Planeswalker's Primer" }) {
               <div>
                 <h4 className="footer-section-title">Planeswalker's Primer</h4>
                 <p className="footer-description">
-                  Your beginner-friendly guide to Magic: The Gathering mechanics
-                  and keywords. Learn, explore, and save your favourite cards.
+                  Your beginner-friendly guide to Magic: The Gathering. Learn,
+                  explore, and save your favourite cards.
                 </p>
               </div>
 

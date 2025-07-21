@@ -274,20 +274,8 @@ export default function FavouritesPage() {
             };
           } else {
             // Fallback for favourites without scryfall_id
-            return {
-              id: fav.id,
-              name: fav.card_name || "Unknown Card",
-              favourite_id: fav.id,
-              notes: fav.notes,
-              created_at: fav.created_at,
-              ability_type: fav.ability_type,
-              // Add placeholder-friendly properties
-              image_uris: null, // Ensure placeholder is shown
-              color_identity: getCardColour(fav),
-              type_line: fav.ability_type || "Unknown Type",
-              mana_cost: fav.mana_cost || null,
-              rarity: "common",
-            };
+            // Don't return cards without scryfall_id as they won't have images
+            return null;
           }
         } catch (cardError) {
           console.warn(
@@ -295,40 +283,32 @@ export default function FavouritesPage() {
             cardError,
           );
           // Return fallback data if Scryfall fetch fails
-          return {
-            id: fav.scryfall_id || fav.id,
-            name: fav.card_name || "Unknown Card",
-            favourite_id: fav.id,
-            notes: fav.notes,
-            created_at: fav.created_at,
-            ability_type: fav.ability_type,
-            // Add placeholder-friendly properties
-            image_uris: null, // Ensure placeholder is shown
-            color_identity: getCardColour(fav),
-            type_line: fav.ability_type || "Unknown Type",
-            mana_cost: fav.mana_cost || null,
-            rarity: "common",
-          };
+          // Don't return cards that failed to fetch from Scryfall
+          return null;
         }
       });
 
       const cardsWithFavouriteData = await Promise.all(cardPromises);
 
-      // Filter out favourites with incomplete essential data
+      // Filter out null results and favourites with incomplete essential data
       const validFavourites = cardsWithFavouriteData.filter((card) => {
-        // Ensure card has essential properties for good UX
+        if (!card) return false; // Filter out null results
+
+        // Ensure card has essential properties for good UX, including image data
         const isValid =
-          card &&
           card.name &&
           (card.id || card.favourite_id) &&
           (card.type_line ||
             card.oracle_text ||
             card.mana_cost ||
-            card.ability_type);
+            card.ability_type) &&
+          card.image_uris?.normal; // Must have proper image data
 
-        if (!isValid && card) {
+        if (!isValid) {
           console.warn(
-            `Filtering out incomplete favourite: ${card.name || "Unknown"} - missing essential data`,
+            `Filtering out incomplete favourite: ${card.name || "Unknown"} - missing ${
+              !card.image_uris?.normal ? "image data" : "essential data"
+            }`,
           );
         }
 

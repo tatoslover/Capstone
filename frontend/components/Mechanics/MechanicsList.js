@@ -48,13 +48,11 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
     all: {
       title: "All Mechanics",
       description: `Browse all ${allMechanics.length} mechanics`,
-      icon: "📋",
       mechanics: allMechanics,
     },
     evergreen: {
       title: "Evergreen",
       description: `Core mechanics that appear in most sets`,
-      icon: "🌲",
       mechanics: evergreenKeywords,
     },
   };
@@ -87,7 +85,6 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
             onClick={() => handleCategoryClick(categoryKey)}
             className={`section-button ${selectedCategory === categoryKey ? "active" : ""}`}
           >
-            <span style={{ fontSize: "1.5rem" }}>{category.icon}</span>
             <span>{category.title}</span>
             <span style={{ fontSize: "0.8rem", color: "#adb5bd" }}>
               {category.mechanics.length} mechanics
@@ -106,7 +103,6 @@ export default function MechanicsList({ onMechanicSelect, selectedMechanic }) {
               textAlign: "center",
             }}
           >
-            {categories[selectedCategory].icon}{" "}
             {categories[selectedCategory].title}
           </h3>
           <p

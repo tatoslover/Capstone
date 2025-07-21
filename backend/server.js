@@ -6,8 +6,11 @@ require("dotenv").config();
 
 // Database URL validation and setup
 if (!process.env.DATABASE_URL) {
-  console.warn("⚠️  DATABASE_URL not set in environment, using default connection string");
-  process.env.DATABASE_URL = "postgresql://postgres:yTiwznpoFJQFArsSpZpprsqQHOjcWXvE@tramway.proxy.rlwy.net:59004/railway";
+  console.warn(
+    "⚠️  DATABASE_URL not set in environment, using default connection string",
+  );
+  process.env.DATABASE_URL =
+    "postgresql://postgres:yTiwznpoFJQFArsSpZpprsqQHOjcWXvE@tramway.proxy.rlwy.net:59004/railway";
 }
 
 // Import enhanced modules
@@ -21,7 +24,7 @@ const {
   performanceLogger,
   errorTracker,
   cacheMiddleware,
-  getPerformanceMetrics
+  getPerformanceMetrics,
 } = require("./middleware/performance");
 const monitoringRoutes = require("./routes/monitoring");
 
@@ -35,23 +38,28 @@ const swaggerOptions = {
     info: {
       title: "Planeswalker's Primer API",
       version: "1.0.0",
-      description: "Enhanced API with performance monitoring for the Planeswalker's Primer MTG application",
+      description:
+        "Enhanced API with performance monitoring for the Planeswalker's Primer MTG application",
       contact: {
         name: "API Support",
-        email: "samuelwelove@icloud.com"
-      }
+        email: "samuelwelove@icloud.com",
+      },
     },
     servers: [
       {
-        url: process.env.NODE_ENV === "production"
-          ? "https://capstone-production-e2db.up.railway.app"
-          : `http://localhost:${PORT}`,
-        description: process.env.NODE_ENV === "production" ? "Production server" : "Development server"
+        url:
+          process.env.NODE_ENV === "production"
+            ? "https://capstone-production-e2db.up.railway.app"
+            : `http://localhost:${PORT}`,
+        description:
+          process.env.NODE_ENV === "production"
+            ? "Production server"
+            : "Development server",
       },
       {
         url: "https://capstone-production-e2db.up.railway.app",
-        description: "Production server (Railway)"
-      }
+        description: "Production server (Railway)",
+      },
     ],
     tags: [
       { name: "Health", description: "Server health endpoints" },
@@ -59,10 +67,9 @@ const swaggerOptions = {
       { name: "Users", description: "User management operations" },
       { name: "Messages", description: "Message CRUD operations" },
       { name: "Favourites", description: "User favourite cards management" },
-      { name: "Cards", description: "MTG card search via Scryfall API" }
-    ]
+    ],
   },
-  apis: ["./server.js", "./routes/*.js"]
+  apis: ["./server.js", "./routes/*.js"],
 };
 
 const swaggerSpecs = swaggerJsdoc(swaggerOptions);
@@ -71,24 +78,34 @@ const swaggerSpecs = swaggerJsdoc(swaggerOptions);
 console.log("🔧 Initialising performance middleware...");
 
 // Security headers with iframe-friendly configuration
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "https:"],
-      fontSrc: ["'self'", "data:"],
-      connectSrc: ["'self'"],
-      frameAncestors: ["'self'", "http://localhost:3000", "https://localhost:3000", "https://*.vercel.app"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        fontSrc: ["'self'", "data:"],
+        connectSrc: ["'self'"],
+        frameAncestors: [
+          "'self'",
+          "http://localhost:3000",
+          "https://localhost:3000",
+          "https://*.vercel.app",
+        ],
+      },
     },
-  },
-  hsts: process.env.NODE_ENV === 'production' ? {
-    maxAge: 31536000,
-    includeSubDomains: true,
-    preload: true
-  } : false,
-}));
+    hsts:
+      process.env.NODE_ENV === "production"
+        ? {
+            maxAge: 31536000,
+            includeSubDomains: true,
+            preload: true,
+          }
+        : false,
+  }),
+);
 
 // Compression for better performance
 app.use(compression());
@@ -98,24 +115,27 @@ app.use(responseTimeMiddleware);
 app.use(performanceLogger);
 
 // CORS and JSON parsing (MUST come before rate limiting to set headers)
-app.use(cors({
-  origin: process.env.NODE_ENV === "production"
-    ? (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? (origin, callback) => {
+            // Allow requests with no origin (like mobile apps or curl requests)
+            if (!origin) return callback(null, true);
 
-        // Allow any Vercel deployment URL that contains 'capstone'
-        if (origin.includes('vercel.app') && origin.includes('capstone')) {
-          return callback(null, true);
-        }
+            // Allow any Vercel deployment URL that contains 'capstone'
+            if (origin.includes("vercel.app") && origin.includes("capstone")) {
+              return callback(null, true);
+            }
 
-        // Reject other origins
-        callback(new Error('Not allowed by CORS'));
-      }
-    : ["http://localhost:3000"],
-  credentials: true
-}));
-app.use(express.json({ limit: '10mb' }));
+            // Reject other origins
+            callback(new Error("Not allowed by CORS"));
+          }
+        : ["http://localhost:3000"],
+    credentials: true,
+  }),
+);
+app.use(express.json({ limit: "10mb" }));
 
 // Rate limiting (after CORS to ensure proper headers)
 app.use("/api/cards", scryfallLimiter); // Specific rate limiting for Scryfall API
@@ -124,7 +144,7 @@ app.use(limiter); // General rate limiting
 // Request ID middleware for tracking
 app.use((req, res, next) => {
   req.id = Math.random().toString(36).substr(2, 9);
-  res.set('X-Request-ID', req.id);
+  res.set("X-Request-ID", req.id);
   next();
 });
 
@@ -132,34 +152,42 @@ app.use((req, res, next) => {
 app.use(cacheMiddleware(300)); // 5 minutes cache
 
 // Swagger UI with enhanced configuration
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
-  explorer: true,
-  customCss: `
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpecs, {
+    explorer: true,
+    customCss: `
     .swagger-ui .topbar { display: none }
     .swagger-ui .info .title { color: #2c3e50; }
     .swagger-ui .scheme-container { background: #f8f9fa; padding: 10px; border-radius: 5px; }
   `,
-  customSiteTitle: "Planeswalker's Primer API Documentation",
-  customfavIcon: "/favicon.ico",
-  swaggerOptions: {
-    persistAuthorization: true,
-    displayRequestDuration: true,
-    docExpansion: 'none',
-    filter: true,
-    showExtensions: true,
-    showCommonExtensions: true,
-    tryItOutEnabled: true
-  }
-}));
+    customSiteTitle: "Planeswalker's Primer API Documentation",
+    customfavIcon: "/favicon.ico",
+    swaggerOptions: {
+      persistAuthorization: true,
+      displayRequestDuration: true,
+      docExpansion: "none",
+      filter: true,
+      showExtensions: true,
+      showCommonExtensions: true,
+      tryItOutEnabled: true,
+    },
+  }),
+);
 
 // Initialize database tables on startup
-console.log(`🔗 Using database: ${process.env.DATABASE_URL.substring(0, 30)}...`);
-initTables().then(() => {
-  console.log("✅ Enhanced database initialisation complete");
-}).catch(err => {
-  console.error("❌ Database initialisation failed:", err);
-  console.error("   Check DATABASE_URL environment variable");
-});
+console.log(
+  `🔗 Using database: ${process.env.DATABASE_URL.substring(0, 30)}...`,
+);
+initTables()
+  .then(() => {
+    console.log("✅ Enhanced database initialisation complete");
+  })
+  .catch((err) => {
+    console.error("❌ Database initialisation failed:", err);
+    console.error("   Check DATABASE_URL environment variable");
+  });
 
 // Monitoring Routes
 app.use("/api/monitoring", monitoringRoutes);
@@ -213,8 +241,8 @@ app.get("/", (req, res) => {
       uptime: metrics.server.uptime.human,
       totalRequests: metrics.server.requests.total,
       averageResponseTime: metrics.server.requests.averageResponseTime,
-      errorRate: metrics.server.requests.errorRate
-    }
+      errorRate: metrics.server.requests.errorRate,
+    },
   });
 });
 
@@ -245,16 +273,16 @@ app.get("/health", async (req, res) => {
     const dbHealth = await healthCheck();
 
     res.json({
-      status: dbHealth.status === 'healthy' ? "OK" : "DEGRADED",
+      status: dbHealth.status === "healthy" ? "OK" : "DEGRADED",
       timestamp: new Date().toISOString(),
       database: dbHealth.status,
-      responseTime: dbHealth.responseTime
+      responseTime: dbHealth.responseTime,
     });
   } catch (error) {
     res.status(503).json({
       status: "ERROR",
       timestamp: new Date().toISOString(),
-      error: "Health check failed"
+      error: "Health check failed",
     });
   }
 });
@@ -327,7 +355,11 @@ app.get("/health", async (req, res) => {
  */
 
 // Import enhanced database operations
-const { messageOperations, userOperations, favouritesOperations } = require("./db-enhanced");
+const {
+  messageOperations,
+  userOperations,
+  favouritesOperations,
+} = require("./db-enhanced");
 
 /**
  * @swagger
@@ -370,7 +402,7 @@ app.get("/api/messages", async (req, res) => {
     res.status(500).json({
       error: "Failed to fetch messages",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -407,14 +439,14 @@ app.post("/api/messages", async (req, res) => {
     if (!text || text.trim().length === 0) {
       return res.status(400).json({
         error: "Message text is required",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (text.length > 1000) {
       return res.status(400).json({
         error: "Message text too long (max 1000 characters)",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -425,7 +457,7 @@ app.post("/api/messages", async (req, res) => {
     res.status(500).json({
       error: "Failed to create message",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -454,7 +486,7 @@ app.get("/api/messages/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid message ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -463,7 +495,7 @@ app.get("/api/messages/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "Message not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -473,7 +505,7 @@ app.get("/api/messages/:id", async (req, res) => {
     res.status(500).json({
       error: "Failed to fetch message",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -515,14 +547,14 @@ app.put("/api/messages/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid message ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (!text || text.trim().length === 0) {
       return res.status(400).json({
         error: "Message text is required",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -531,7 +563,7 @@ app.put("/api/messages/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "Message not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -541,7 +573,7 @@ app.put("/api/messages/:id", async (req, res) => {
     res.status(500).json({
       error: "Failed to update message",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -571,7 +603,7 @@ app.delete("/api/messages/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid message ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -580,21 +612,21 @@ app.delete("/api/messages/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "Message not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     res.json({
       message: "Message deleted successfully",
       deletedMessage: result.rows[0],
-      requestId: req.id
+      requestId: req.id,
     });
   } catch (error) {
     console.error("Error deleting message:", error);
     res.status(500).json({
       error: "Failed to delete message",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -633,36 +665,36 @@ app.post("/api/users", async (req, res) => {
     if (!username || username.trim().length < 3) {
       return res.status(400).json({
         error: "Username must be at least 3 characters long",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (username.length > 50) {
       return res.status(400).json({
         error: "Username too long (max 50 characters)",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     // Prevent test user patterns in production
     const testPatterns = [
-      'favourites_user_',
-      'integration_user_',
-      'test_user_',
-      'temp_user_'
+      "favourites_user_",
+      "integration_user_",
+      "test_user_",
+      "temp_user_",
     ];
 
     const trimmedUsername = username.trim();
 
-    if (process.env.NODE_ENV === 'production') {
-      const isTestPattern = testPatterns.some(pattern =>
-        trimmedUsername.toLowerCase().includes(pattern.toLowerCase())
+    if (process.env.NODE_ENV === "production") {
+      const isTestPattern = testPatterns.some((pattern) =>
+        trimmedUsername.toLowerCase().includes(pattern.toLowerCase()),
       );
 
       if (isTestPattern) {
         return res.status(400).json({
           error: "Username contains reserved test patterns",
-          requestId: req.id
+          requestId: req.id,
         });
       }
     }
@@ -671,7 +703,7 @@ app.post("/api/users", async (req, res) => {
     if (!/^[a-zA-Z0-9_]+$/.test(trimmedUsername)) {
       return res.status(400).json({
         error: "Username can only contain letters, numbers, and underscores",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -680,7 +712,7 @@ app.post("/api/users", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(400).json({
         error: "Username already exists",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -690,7 +722,7 @@ app.post("/api/users", async (req, res) => {
     res.status(500).json({
       error: "Failed to create user",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -729,7 +761,7 @@ app.get("/api/users", async (req, res) => {
     res.status(500).json({
       error: "Failed to fetch users",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -760,7 +792,7 @@ app.get("/api/users/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid user ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -769,7 +801,7 @@ app.get("/api/users/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "User not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -779,7 +811,7 @@ app.get("/api/users/:id", async (req, res) => {
     res.status(500).json({
       error: "Failed to fetch user",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -826,28 +858,28 @@ app.put("/api/users/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid user ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (!username || username.trim().length < 3) {
       return res.status(400).json({
         error: "Username must be at least 3 characters long",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (username.length > 50) {
       return res.status(400).json({
         error: "Username too long (max 50 characters)",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (!/^[a-zA-Z0-9_]+$/.test(username)) {
       return res.status(400).json({
         error: "Username can only contain letters, numbers, and underscores",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -856,7 +888,7 @@ app.put("/api/users/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "User not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -866,7 +898,7 @@ app.put("/api/users/:id", async (req, res) => {
     res.status(500).json({
       error: "Failed to update user",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -897,7 +929,7 @@ app.delete("/api/users/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid user ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -906,21 +938,21 @@ app.delete("/api/users/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "User not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     res.json({
       message: "User deleted successfully",
       user: result.rows[0],
-      requestId: req.id
+      requestId: req.id,
     });
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({
       error: "Failed to delete user",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -987,7 +1019,7 @@ app.get("/api/favourites", async (req, res) => {
     if (!user_id) {
       return res.status(400).json({
         error: "user_id parameter is required",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -995,13 +1027,16 @@ app.get("/api/favourites", async (req, res) => {
     if (isNaN(userId)) {
       return res.status(400).json({
         error: "Invalid user ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     let result;
     if (ability_type) {
-      result = await favouritesOperations.getByAbilityType(userId, ability_type);
+      result = await favouritesOperations.getByAbilityType(
+        userId,
+        ability_type,
+      );
     } else {
       result = await favouritesOperations.getByUserId(userId);
     }
@@ -1012,7 +1047,7 @@ app.get("/api/favourites", async (req, res) => {
     res.status(500).json({
       error: "Failed to fetch favourites",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -1041,7 +1076,7 @@ app.get("/api/favourites/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid favourite ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -1050,7 +1085,7 @@ app.get("/api/favourites/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "Favourite not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -1060,7 +1095,7 @@ app.get("/api/favourites/:id", async (req, res) => {
     res.status(500).json({
       error: "Failed to fetch favourite",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -1144,21 +1179,21 @@ app.post("/api/favourites", async (req, res) => {
     if (!user_id || !card_name) {
       return res.status(400).json({
         error: "user_id and card_name are required",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
-    if (typeof user_id !== 'number' || user_id <= 0) {
+    if (typeof user_id !== "number" || user_id <= 0) {
       return res.status(400).json({
         error: "user_id must be a positive number",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (!card_name.trim()) {
       return res.status(400).json({
         error: "card_name cannot be empty",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -1167,7 +1202,7 @@ app.post("/api/favourites", async (req, res) => {
       card_name.trim(),
       scryfall_id,
       ability_type,
-      notes
+      notes,
     );
 
     res.status(201).json(result.rows[0]);
@@ -1176,7 +1211,7 @@ app.post("/api/favourites", async (req, res) => {
     res.status(500).json({
       error: "Failed to create favourite",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -1218,14 +1253,14 @@ app.put("/api/favourites/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid favourite ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     if (notes === undefined) {
       return res.status(400).json({
         error: "notes field is required",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -1234,7 +1269,7 @@ app.put("/api/favourites/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "Favourite not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -1244,7 +1279,7 @@ app.put("/api/favourites/:id", async (req, res) => {
     res.status(500).json({
       error: "Failed to update favourite",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -1274,7 +1309,7 @@ app.delete("/api/favourites/:id", async (req, res) => {
     if (isNaN(id)) {
       return res.status(400).json({
         error: "Invalid favourite ID",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
@@ -1283,21 +1318,21 @@ app.delete("/api/favourites/:id", async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: "Favourite not found",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     res.json({
       message: "Favourite deleted successfully",
       favourite: result.rows[0],
-      requestId: req.id
+      requestId: req.id,
     });
   } catch (error) {
     console.error("Error deleting favourite:", error);
     res.status(500).json({
       error: "Failed to delete favourite",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -1306,18 +1341,18 @@ app.delete("/api/favourites/:id", async (req, res) => {
 app.delete("/api/admin/cleanup-test-users", async (req, res) => {
   try {
     // Only allow in non-production environments
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       return res.status(403).json({
         error: "Cleanup endpoint not available in production",
-        requestId: req.id
+        requestId: req.id,
       });
     }
 
     const testPatterns = [
-      'favourites_user_%',
-      'integration_user_%',
-      'test_user_%',
-      'temp_user_%'
+      "favourites_user_%",
+      "integration_user_%",
+      "test_user_%",
+      "temp_user_%",
     ];
 
     let totalDeleted = 0;
@@ -1326,17 +1361,17 @@ app.delete("/api/admin/cleanup-test-users", async (req, res) => {
     for (const pattern of testPatterns) {
       // Get users matching the pattern first
       const selectResult = await query(
-        'SELECT id, username, created_at FROM users WHERE username LIKE $1',
+        "SELECT id, username, created_at FROM users WHERE username LIKE $1",
         [pattern],
-        'select_test_users'
+        "select_test_users",
       );
 
       if (selectResult.rows.length > 0) {
         // Delete users (cascades to favourites)
         const deleteResult = await query(
-          'DELETE FROM users WHERE username LIKE $1 RETURNING id, username',
+          "DELETE FROM users WHERE username LIKE $1 RETURNING id, username",
           [pattern],
-          'delete_test_users'
+          "delete_test_users",
         );
 
         totalDeleted += deleteResult.rowCount;
@@ -1349,15 +1384,14 @@ app.delete("/api/admin/cleanup-test-users", async (req, res) => {
       totalDeleted,
       deletedUsers,
       timestamp: new Date().toISOString(),
-      requestId: req.id
+      requestId: req.id,
     });
-
   } catch (error) {
     console.error("Error cleaning up test users:", error);
     res.status(500).json({
       error: "Failed to cleanup test users",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -1374,20 +1408,20 @@ app.post("/api/monitoring/client-metrics", (req, res) => {
       timestamp,
       sessionDuration: metrics.session?.duration,
       apiCalls: metrics.apiCalls?.total,
-      errors: metrics.errors?.total
+      errors: metrics.errors?.total,
     });
 
     res.json({
       message: "Client metrics received",
       timestamp: new Date().toISOString(),
-      requestId: req.id
+      requestId: req.id,
     });
   } catch (error) {
     console.error("Error processing client metrics:", error);
     res.status(500).json({
       error: "Failed to process client metrics",
       requestId: req.id,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -1402,7 +1436,7 @@ app.use((req, res) => {
     path: req.path,
     method: req.method,
     timestamp: new Date().toISOString(),
-    requestId: req.id
+    requestId: req.id,
   });
 });
 
@@ -1416,18 +1450,18 @@ const server = app.listen(PORT, () => {
 });
 
 // Handle graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('🔄 SIGTERM received, shutting down gracefully...');
+process.on("SIGTERM", () => {
+  console.log("🔄 SIGTERM received, shutting down gracefully...");
   server.close(() => {
-    console.log('✅ Server closed');
+    console.log("✅ Server closed");
     process.exit(0);
   });
 });
 
-process.on('SIGINT', () => {
-  console.log('🔄 SIGINT received, shutting down gracefully...');
+process.on("SIGINT", () => {
+  console.log("🔄 SIGINT received, shutting down gracefully...");
   server.close(() => {
-    console.log('✅ Server closed');
+    console.log("✅ Server closed");
     process.exit(0);
   });
 });

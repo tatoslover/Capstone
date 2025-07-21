@@ -164,8 +164,7 @@ export default function Documentation() {
             </li>
             <li>
               Similar projects exist (MTG Wiki, EDHRec) but focus on advanced
-              players; this project specifically targets beginners with
-              structured learning paths
+              players; this project specifically targets beginners
             </li>
           </ul>
 
@@ -442,17 +441,6 @@ export default function Documentation() {
             </div>
           </div>
 
-          <h4 className="doc-heading">Future Enhancements (Out of Scope)</h4>
-          <ul className="doc-list">
-            <li>Advanced strategy guides</li>
-            <li>Deck building tools</li>
-            <li>Multiplayer features</li>
-            <li>Tournament tracking</li>
-            <li>Real-time gameplay simulation</li>
-            <li>Setup password authentication for users</li>
-            <li>Market app as a product</li>
-          </ul>
-
           <h4 className="doc-heading">Risk Management</h4>
           <ul className="doc-list">
             <li>
@@ -585,7 +573,9 @@ export default function Documentation() {
             comprehensive, beginner-friendly MTG learning platform. Key
             achievements include complete coverage of fundamental concepts,
             intuitive user interface, robust card search functionality, and
-            scalable architecture ready for future enhancements.
+            scalable architecture ready for future enhancements. The application
+            was thoroughly tested among family and friends to ensure usability
+            and accessibility for beginners.
           </p>
         </div>
       ),
@@ -619,8 +609,7 @@ export default function Documentation() {
           <h4 className="doc-heading">Interactive API Explorer</h4>
           <p className="doc-paragraph">
             The API documentation provides interactive testing for all backend
-            endpoints including users, favourites, messages, and MTG card search
-            functionality.
+            endpoints including users, favourites, and messages.
           </p>
 
           <div className="api-swagger-container">
@@ -1091,7 +1080,7 @@ export default function Documentation() {
             </li>
             <li>
               <strong>Wizards of the Coast:</strong> Official MTG comprehensive
-              rules and tournament regulations
+              rules and tournament regulations (used as reference)
             </li>
           </ul>
 
