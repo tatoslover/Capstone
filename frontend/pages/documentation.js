@@ -398,18 +398,19 @@ export default function Documentation() {
           <p className="doc-paragraph">
             Mobile-first design approach with comprehensive UI/UX planning.
           </p>
+
+          <div className="doc-figma-container">
+            <h5 className="doc-figma-title">Interactive Figma Prototype</h5>
+            <div className="doc-figma-wrapper">
+              <iframe
+                src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FX6Yi5UFrELNmPJqNR5Ghbr%2FCapstone_Mobile%3Fnode-id%3D1-125%26p%3Df%26t%3DiCqmRz0wtU6cs5wZ-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26page-id%3D0%253A1"
+                className="doc-figma-iframe"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
           <ul className="doc-list">
-            <li>
-              <strong>Figma Prototype:</strong>{" "}
-              <a
-                href="https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="doc-link"
-              >
-                View Interactive Mobile Design
-              </a>
-            </li>
             <li>
               <strong>Design Principles:</strong> Dark theme optimised for gameplay,
               MTG-themed visual elements, high contrast for readability
@@ -417,6 +418,17 @@ export default function Documentation() {
             <li>
               <strong>Responsive Layout:</strong> Mobile-first approach with
               breakpoints for tablet and desktop experiences
+            </li>
+            <li>
+              <strong>External Link:</strong>{" "}
+              <a
+                href="https://www.figma.com/proto/X6Yi5UFrELNmPJqNR5Ghbr/Capstone_Mobile?node-id=1-125&p=f&t=iCqmRz0wtU6cs5wZ-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="doc-link"
+              >
+                Open in Figma
+              </a>
             </li>
           </ul>
 
