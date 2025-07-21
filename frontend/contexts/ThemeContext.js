@@ -172,6 +172,7 @@ export const ThemeProvider = ({ children }) => {
     // Apply additional computed properties
     root.style.setProperty("--theme-primary-rgb", hexToRgb(theme.primary));
     root.style.setProperty("--theme-accent-rgb", hexToRgb(theme.accent));
+    root.style.setProperty("--theme-highlight-rgb", hexToRgb(theme.highlight));
 
     // Add gold-specific CSS variables for colorless theme
     if (currentTheme === "colorless") {

@@ -168,7 +168,7 @@ export default function Documentation() {
           </ul>
 
           <h4 className="doc-heading">Stakeholders</h4>
-          <ul>
+          <ul className="doc-list">
             <li>
               Primary: New MTG players seeking to learn game fundamentals systematically
             </li>
@@ -238,9 +238,32 @@ export default function Documentation() {
           </div>
 
           <h4 className="doc-heading">User Flow</h4>
-          <p className="doc-paragraph">
-            1. User selects/creates profile → 2. Navigates learning sections (Colours, Card Types, etc.) → 3. Searches for specific cards → 4. Saves interesting cards to favourites → 5. References quick guide panel as needed
-          </p>
+          <div className="doc-paragraph">
+            <div className="user-flow-container">
+              <div className="user-flow-row">
+                <div className="user-flow-box">
+                  User selects/creates profile
+                </div>
+                <span className="user-flow-arrow">→</span>
+                <div className="user-flow-box">
+                  Navigates learning sections
+                </div>
+                <span className="user-flow-arrow">→</span>
+                <div className="user-flow-box">
+                  Searches for specific cards
+                </div>
+              </div>
+              <div className="user-flow-row">
+                <div className="user-flow-box">
+                  Saves interesting cards to favourites
+                </div>
+                <span className="user-flow-arrow">→</span>
+                <div className="user-flow-box">
+                  References quick guide panel as needed
+                </div>
+              </div>
+            </div>
+          </div>
 
           <h4 className="doc-heading">Key Features</h4>
           <ul className="doc-list">
@@ -253,7 +276,15 @@ export default function Documentation() {
           </ul>
 
           <h4 className="doc-heading">Out of Scope</h4>
-          <p className="doc-paragraph">Advanced strategy guides, deck building tools, multiplayer features, tournament tracking, and real-time gameplay simulation</p>
+          <ul className="doc-list">
+            <li>Advanced strategy guides</li>
+            <li>Deck building tools</li>
+            <li>Multiplayer features</li>
+            <li>Tournament tracking</li>
+            <li>Real-time gameplay simulation</li>
+            <li>Setup password authentication for users</li>
+            <li>Market app as a product</li>
+          </ul>
         </div>
       ),
     },
@@ -338,7 +369,7 @@ export default function Documentation() {
             <li>Security testing including rate limiting and input validation</li>
           </ul>
 
-          <h4 className="doc-heading-spaced">Testing Types Implemented</h4>
+          <h4 className="doc-heading">Testing Types Implemented</h4>
           <ul className="doc-list">
             <li><strong>Unit Testing:</strong> Component rendering, user interactions, utility functions</li>
             <li><strong>Integration Testing:</strong> API endpoints, database operations, external service connections</li>
@@ -520,8 +551,7 @@ export default function Documentation() {
               <h5>Favourites System</h5>
               <ul className="doc-list">
                 <li>
-                  <code>GET /api/favourites?user_id=:userId</code> - User's
-                  favourites
+                  <code>GET /api/favourites?user_id=:userid</code> - User's favourites
                 </li>
                 <li>
                   <code>POST /api/favourites</code> - Add favourite
@@ -536,16 +566,34 @@ export default function Documentation() {
             </div>
 
             <div className="api-endpoint-card">
-              <h5>MTG Cards (Scryfall)</h5>
+              <h5>Messages System</h5>
               <ul className="doc-list">
                 <li>
-                  <code>GET /api/cards/search</code> - Search cards
+                  <code>GET /api/messages</code> - List all messages
                 </li>
                 <li>
-                  <code>GET /api/cards/random</code> - Random cards
+                  <code>POST /api/messages</code> - Create message
                 </li>
                 <li>
-                  <code>GET /api/cards/:id</code> - Get card by ID
+                  <code>PUT /api/messages/:id</code> - Update message
+                </li>
+                <li>
+                  <code>DELETE /api/messages/:id</code> - Delete message
+                </li>
+              </ul>
+            </div>
+
+            <div className="api-endpoint-card">
+              <h5>Performance Monitoring</h5>
+              <ul className="doc-list">
+                <li>
+                  <code>GET /api/monitoring/performance</code> - System metrics
+                </li>
+                <li>
+                  <code>GET /api/monitoring/health</code> - Health status
+                </li>
+                <li>
+                  <code>POST /api/monitoring/client-metrics</code> - Client data
                 </li>
               </ul>
             </div>
