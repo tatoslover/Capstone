@@ -71,7 +71,7 @@ A professional-grade MTG beginner's guide featuring interactive learning, card s
 - **Database**: PostgreSQL with connection pooling
 - **API**: RESTful design with Swagger/OpenAPI documentation
 - **Security**: Rate limiting, CORS, input validation, security headers
-- **Deployment**: Railway with automatic CI/CD
+- **Deployment**: Railway with manual deployment process
 
 #### API Endpoints
 - **Health**: `GET /health` - System health check
@@ -227,7 +227,7 @@ Capstone/
 - ✅ **Security Implementation** - Production-grade security measures
 - ✅ **Performance Optimization** - Real-time monitoring and optimization
 - ✅ **Testing Strategy** - Comprehensive test coverage across stack
-- ✅ **DevOps Practices** - CI/CD, monitoring, and deployment automation
+- ✅ **DevOps Practices** - Monitoring, deployment, and infrastructure management
 - ✅ **Professional Documentation** - Technical writing and code documentation
 
 ## 🌐 API Endpoints
