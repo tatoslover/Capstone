@@ -126,6 +126,6 @@ coverage/
 .idea/
 
 # Misc
-release_strategy.md
 presentation.md
-todo.md
+tweaks.md
+capstone_document.md

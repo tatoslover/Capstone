@@ -77,7 +77,7 @@ const ReleaseHistory = () => {
 - ✅ Frontend deployed on Vercel
 - ✅ Backend deployed on Railway
 - ✅ PostgreSQL database with optimised schema
-- ✅ Complete CI/CD pipeline removed in favour of manual deployment`,
+- ✅ Manual deployment process established for better control`,
         html_url: "#",
       },
       {

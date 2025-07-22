@@ -359,11 +359,14 @@ test('should have proper ARIA labels and roles', async () => {
 });
 ```
 
-## Continuous Integration
+## Continuous Integration (Future Enhancement)
 
-### GitHub Actions Integration
+### Planned GitHub Actions Integration
+Note: CI/CD pipeline is not currently implemented. Tests are run manually during development.
+
+The following configuration is planned for future implementation:
 ```yaml
-# .github/workflows/test.yml
+# .github/workflows/test.yml (not yet implemented)
 name: Test Suite
 on: [push, pull_request]
 jobs:
@@ -384,6 +387,11 @@ jobs:
       - name: Run frontend tests
         run: cd frontend && npm run test:ci
 ```
+
+### Current Testing Process
+Tests are run manually using:
+- Backend: `cd backend && npm test`
+- Frontend: `cd frontend && npm test`
 
 ## Debugging Tests
 

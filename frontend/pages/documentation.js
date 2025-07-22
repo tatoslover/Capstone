@@ -233,7 +233,7 @@ export default function Documentation() {
           </p>
           <p className="doc-paragraph">
             <strong>Deployment:</strong> Frontend on Vercel, Backend on Railway
-            with automated CI/CD
+            with manual deployment process
           </p>
 
           <h4 className="doc-heading">Core User Stories</h4>
@@ -330,7 +330,11 @@ export default function Documentation() {
             <li>Tournament tracking</li>
             <li>Real-time gameplay simulation</li>
             <li>Setup password authentication for users</li>
-            <li>Market app as a product</li>
+            <li>Commercialise app as a product</li>
+            <li>CI/CD pipeline implementation</li>
+            <li>Automated testing workflows</li>
+            <li>GitHub Actions integration</li>
+            <li>Continuous deployment processes</li>
           </ul>
         </div>
       ),
@@ -342,7 +346,7 @@ export default function Documentation() {
           <h4 className="doc-heading">Security</h4>
           <ul className="doc-list">
             <li>
-              Comprehensive security headers including CSP, HSTS, and
+              Robust security headers including CSP, HSTS, and
               X-Frame-Options
             </li>
             <li>
@@ -375,7 +379,7 @@ export default function Documentation() {
           <h4 className="doc-heading">Reliability & Standards</h4>
           <ul className="doc-list">
             <li>RESTful API design following OpenAPI 3.0 specification</li>
-            <li>Comprehensive error handling and graceful degradation</li>
+            <li>Thorough error handling and graceful degradation</li>
             <li>Health check endpoints for monitoring system status</li>
             <li>
               Modern web standards compliance (ES6+, React best practices)
@@ -439,7 +443,7 @@ export default function Documentation() {
                   <li>✅ Project setup and repository initialisation</li>
                   <li>✅ Database schema design and implementation</li>
                   <li>✅ Basic frontend and backend architecture</li>
-                  <li>✅ CI/CD pipeline configuration</li>
+                  <li>✅ Development environment configuration</li>
                 </ul>
               </div>
 
@@ -492,8 +496,8 @@ export default function Documentation() {
               headers, input validation, and audit procedures
             </li>
             <li>
-              <strong>Deployment Risks:</strong> Minimised with automated CI/CD
-              and staging environments
+              <strong>Deployment Risks:</strong> Minimised with thorough testing
+              and manual deployment verification
             </li>
           </ul>
         </div>
@@ -506,11 +510,11 @@ export default function Documentation() {
           <h4 className="doc-heading">Quality Assurance Approach</h4>
           <ul className="doc-list">
             <li>
-              Comprehensive test coverage across frontend and backend components
+              Extensive test coverage across frontend and backend components
             </li>
             <li>
-              Automated testing with Jest framework for both React components
-              and API endpoints
+              Testing with Jest framework for both React components
+              and API endpoints (run manually during development)
             </li>
             <li>
               Manual testing for user experience and accessibility validation
@@ -578,7 +582,7 @@ export default function Documentation() {
               high-resolution images
             </li>
             <li>
-              <strong>Testing:</strong> Jest framework with comprehensive unit
+              <strong>Testing:</strong> Jest framework with thorough unit
               and integration tests
             </li>
           </ul>
@@ -586,16 +590,20 @@ export default function Documentation() {
           <h4 className="doc-heading">Deployment Architecture</h4>
           <ul className="doc-list">
             <li>
-              <strong>Frontend:</strong> Vercel with automatic CI/CD from GitHub
-              integration
+              <strong>Frontend:</strong> Vercel platform with manual deployment
+              from GitHub repository
             </li>
             <li>
-              <strong>Backend:</strong> Railway with PostgreSQL database and
+              <strong>Backend:</strong> Railway platform with PostgreSQL database and
               environment management
             </li>
             <li>
+              <strong>Deployment Process:</strong> Manual deployment through platform dashboards,
+              allowing for careful verification before production updates
+            </li>
+            <li>
               <strong>Security:</strong> HTTPS enforcement, rate limiting, and
-              comprehensive security headers
+              robust security headers
             </li>
             <li>
               <strong>Performance:</strong> Response time monitoring, caching
@@ -603,14 +611,30 @@ export default function Documentation() {
             </li>
           </ul>
 
+          <h4 className="doc-heading">Manual Deployment Process</h4>
+          <ul className="doc-list">
+            <li>
+              <strong>Frontend Deployment:</strong> Push changes to GitHub, then manually deploy through Vercel dashboard
+            </li>
+            <li>
+              <strong>Backend Deployment:</strong> Push changes to GitHub, then manually deploy through Railway dashboard
+            </li>
+            <li>
+              <strong>Database Updates:</strong> Execute migrations manually through Railway's PostgreSQL console
+            </li>
+            <li>
+              <strong>Verification:</strong> Test both staging and production deployments manually before release
+            </li>
+          </ul>
+
           <h4 className="doc-heading">Project Outcomes</h4>
           <p className="doc-paragraph">
             The software successfully meets its objective of providing a
-            comprehensive, beginner-friendly MTG learning platform. Key
+            complete, beginner-friendly MTG learning platform. Key
             achievements include complete coverage of fundamental concepts,
             intuitive user interface, robust card search functionality, and
             scalable architecture ready for future enhancements. The application
-            was thoroughly tested among family and friends to ensure usability
+            was extensively tested among family and friends to ensure usability
             and accessibility for beginners.
           </p>
         </div>
@@ -1076,9 +1100,9 @@ export default function Documentation() {
             <li>UK spelling throughout codebase (favourites, colour, etc.)</li>
             <li>
               Consistent file naming conventions (camelCase for JS, kebab-case
-              for routes)
-            </li>
-            <li>Comprehensive documentation at component and function level</li>
+                for routes)
+              </li>
+              <li>Detailed documentation at component and function level</li>
             <li>Performance monitoring integrated at multiple levels</li>
             <li>
               Security-first approach with dedicated security documentation
@@ -1106,7 +1130,7 @@ export default function Documentation() {
           <h4 className="doc-heading">External Resources</h4>
           <ul className="doc-list">
             <li>
-              <strong>Scryfall API:</strong> Comprehensive MTG card database and
+              <strong>Scryfall API:</strong> Complete MTG card database and
               high-resolution images
             </li>
             <li>
@@ -1114,7 +1138,7 @@ export default function Documentation() {
               and rules explanations
             </li>
             <li>
-              <strong>Wizards of the Coast:</strong> Official MTG comprehensive
+              <strong>Wizards of the Coast:</strong> Official MTG complete
               rules and tournament regulations (used as reference)
             </li>
           </ul>
@@ -1383,7 +1407,7 @@ export default function Documentation() {
           <div className="header-box doc-hero-container">
             <h1>Capstone Project Documentation</h1>
             <p className="doc-hero-subtitle">
-              Comprehensive documentation for the Planeswalker's Primer project
+              Complete documentation for the Planeswalker's Primer project
               development and implementation.
             </p>
           </div>
@@ -1401,7 +1425,7 @@ export default function Documentation() {
             </p>
             <p className="doc-overview-paragraph">
               The application features a dark-themed interface with
-              comprehensive coverage of MTG basics including the six colour
+              extensive coverage of MTG basics including the six colour
               system, card anatomy, turn phases, combat mechanics, deck building
               principles, and over 270 gameplay mechanics with detailed
               explanations.
@@ -1410,12 +1434,12 @@ export default function Documentation() {
               Built as a full-stack web application with Next.js frontend and
               Express.js backend, the project includes user management, a
               favourites system for MTG cards via Scryfall API integration, and
-              comprehensive API documentation.
+              detailed API documentation.
             </p>
             <p>
               The project demonstrates modern web development practices
               including responsive design, API integration, database management,
-              security implementation, and comprehensive testing strategies.
+              security implementation, and thorough testing strategies.
             </p>
           </div>
         </div>
