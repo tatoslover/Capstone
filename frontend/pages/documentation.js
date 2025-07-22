@@ -151,7 +151,7 @@ export default function Documentation() {
             </li>
             <li>
               Existing learning resources are fragmented across wikis,
-              rulebooks, and community sites, making systematic learning
+              rulebooks, and community sites, making quick reference
               difficult
             </li>
             <li>
@@ -159,8 +159,8 @@ export default function Documentation() {
               feeling lost or intimidated by the complexity
             </li>
             <li>
-              Desired state: A centralised, beginner-friendly platform that
-              guides new players through MTG fundamentals systematically
+              Desired state: A centralised, beginner-friendly reference platform that
+              organises MTG fundamentals for easy access
             </li>
             <li>
               Similar projects exist (MTG Wiki, EDHRec) but focus on advanced
@@ -188,7 +188,7 @@ export default function Documentation() {
             </li>
             <li>
               Principles are applicable to other complex games requiring
-              structured learning approaches
+              organised reference systems
             </li>
           </ul>
 
@@ -204,10 +204,10 @@ export default function Documentation() {
             </li>
             <li>
               Tertiary: Experienced players mentoring newcomers who need
-              structured teaching resources
+              organised reference materials
             </li>
             <li>
-              Expectations: Clear, accurate information; progressive difficulty;
+              Expectations: Clear, accurate information; easy navigation;
               mobile-friendly interface; up-to-date content
             </li>
           </ul>
@@ -252,8 +252,8 @@ export default function Documentation() {
                   <td>1</td>
                   <td>Learn MTG Basics</td>
                   <td>
-                    As a new player, I want to learn MTG fundamentals through
-                    structured guides
+                    As a new player, I want to access MTG fundamentals through
+                    organised reference content
                   </td>
                   <td>✅ Complete</td>
                 </tr>
@@ -335,6 +335,10 @@ export default function Documentation() {
             <li>Automated testing workflows</li>
             <li>GitHub Actions integration</li>
             <li>Continuous deployment processes</li>
+            <li>Structured learning paths with progression</li>
+            <li>Curriculum-based lesson sequences</li>
+            <li>Prerequisite systems for content</li>
+            <li>Learning progress tracking</li>
           </ul>
         </div>
       ),
@@ -630,8 +634,8 @@ export default function Documentation() {
           <h4 className="doc-heading">Project Outcomes</h4>
           <p className="doc-paragraph">
             The software successfully meets its objective of providing a
-            complete, beginner-friendly MTG learning platform. Key
-            achievements include complete coverage of fundamental concepts,
+            complete, beginner-friendly MTG reference platform. Key
+            achievements include comprehensive coverage of fundamental concepts,
             intuitive user interface, robust card search functionality, and
             scalable architecture ready for future enhancements. The application
             was extensively tested among family and friends to ensure usability
@@ -1419,9 +1423,9 @@ export default function Documentation() {
           <div className="doc-overview-text">
             <p className="doc-overview-paragraph">
               Planeswalker's Primer is a comprehensive Magic: The Gathering
-              learning platform designed to help new players understand the
-              game's fundamentals through interactive guides and structured
-              learning paths.
+              reference platform designed to help new players understand the
+              game's fundamentals through organised content and interactive
+              reference tools.
             </p>
             <p className="doc-overview-paragraph">
               The application features a dark-themed interface with
