@@ -12,7 +12,7 @@ A professional-grade MTG beginner's guide featuring interactive learning, card s
 ## 🌟 Key Features
 
 ### 📚 **Comprehensive Learning System**
-- ✅ **Interactive Learning Path** - Track progress through MTG fundamentals
+- ✅ **Comprehensive Reference** - Access all MTG fundamentals in one place
 - ✅ **Six Colours Guide** - Complete colour identity system including colourless
 - ✅ **Card Types & Anatomy** - Detailed breakdowns of card components
 - ✅ **Turn Phases** - Interactive phase-by-phase gameplay guide
